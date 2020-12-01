@@ -160,6 +160,8 @@ namespace ArtOfHassan
         int AppLocationX    = 60;
         int AppLocationY    = 500;
 
+        int CoinBoxX        = 150;
+        int CoinBoxY        = 410;
         int BattleLevelButtonX = 180;
         int BattleLevelButtonY = 855;
 
@@ -212,6 +214,36 @@ namespace ArtOfHassan
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                }
+
+
+                // Middle Button
+                color = CurrentBitmap.GetPixel(MiddleButtonX, MiddleButtonY);
+                TimerLog("Middle Button Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 253) && (color.G == 187) && (color.B == 0))
+                {
+                    ClickLog("Middle Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + MiddleButtonX, (int)NoxPointY + MiddleButtonY);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                }
+
+
+                // Coin Box Button
+                color = CurrentBitmap.GetPixel(CoinBoxX, CoinBoxY);
+                TimerLog("Coin Box Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 255) && (color.G == 241) && (color.B == 2))
+                {
+                    ClickLog("Coin Box");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CoinBoxX, (int)NoxPointY + CoinBoxY);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                    System.Threading.Thread.Sleep(500);
+
+                    return;
                 }
 
 
@@ -329,6 +361,8 @@ namespace ArtOfHassan
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                    return;
                 }
 
 
@@ -342,6 +376,8 @@ namespace ArtOfHassan
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                    return;
                 }
 
 
@@ -402,19 +438,6 @@ namespace ArtOfHassan
 
                         return;
                     }
-                }
-
-
-                // Middle Button
-                color = CurrentBitmap.GetPixel(MiddleButtonX, MiddleButtonY);
-                TimerLog("Middle Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 253) && (color.G == 187) && (color.B == 0))
-                {
-                    ClickLog("Middle Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + MiddleButtonX, (int)NoxPointY + MiddleButtonY);
-                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                    System.Threading.Thread.Sleep(50);
-                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
                 }
 
 
