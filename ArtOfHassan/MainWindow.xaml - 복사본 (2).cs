@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 
-namespace ArtOfWarFarming
+namespace ArtOfHassan
 {
     internal enum SHOW_WINDOW_COMMANDS : int
     {

@@ -1,11 +1,11 @@
-﻿<Window x:Class="ArtOfWarFarming.MainWindow"
+﻿<Window x:Class="ArtOfHassan.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ArtOfWarFarming"
+        xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d"
-        Title="ArtOfWarFarmingFarming" Height="150" Width="350" Closing="Window_Closing">
+        Title="ArtOfHassan" Height="150" Width="350" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />

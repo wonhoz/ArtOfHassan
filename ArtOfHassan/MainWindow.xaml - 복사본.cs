@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace ArtOfWarFarming
+namespace ArtOfHassan
 {
     internal enum SHOW_WINDOW_COMMANDS : int
     {

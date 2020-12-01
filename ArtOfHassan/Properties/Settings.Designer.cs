@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArtOfWarFarming.Properties
+namespace ArtOfHassan.Properties
 {
 
 
