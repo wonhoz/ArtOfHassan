@@ -160,7 +160,8 @@ namespace ArtOfHassan
         int DefeatButtonY   = 710;
 
         int AdsButtonX      = 496;
-        int AdsButtonY      = 190;
+        int AdsButton1Y     = 180;
+        int AdsButton2Y     = 190;
         int GoogleButton1X  = 39;
         int GoogleButton2X  = 519;
         int GoogleButtonY   = 68;
@@ -289,13 +290,26 @@ namespace ArtOfHassan
                 }
 
 
-                // Ads Button
-                color = CurrentBitmap.GetPixel(AdsButtonX, AdsButtonY);
+                // Ads Button1
+                color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton1Y);
                 //Log("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 233) && (color.G == 233) && (color.B == 216))
                 {
-                    Log("Ads Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButtonY);
+                    Log("Ads Button 1");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton1Y);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                }
+
+
+                // Ads Button2
+                color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton2Y);
+                //Log("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 233) && (color.G == 233) && (color.B == 216))
+                {
+                    Log("Ads Button 2");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton2Y);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
