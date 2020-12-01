@@ -352,10 +352,12 @@ namespace ArtOfHassan
                         }
                     }
 
-                    Log("Screen is changed: " + isDifferent);
+                    //Log("Screen is changed: " + isDifferent);
 
                     if (!isDifferent)
                     {
+                        Log("Google Button");
+
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoogleButton1X, (int)NoxPointY + GoogleButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                         System.Threading.Thread.Sleep(50);
