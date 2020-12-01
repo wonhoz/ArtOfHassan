@@ -147,8 +147,6 @@ namespace ArtOfHassan
 
         int BattleButtonX   = 180;
         int BattleButtonY   = 855;
-        int LevelButtonX    = 180;
-        int LevelButtonY    = 870;
 
         int VipButtonX      = 475;
         int VipButton1Y     = 920;
@@ -217,19 +215,6 @@ namespace ArtOfHassan
                 {
                     Log("Battle Button is disappered");
                     return;
-                }
-
-
-                // Level Button
-                color = CurrentBitmap.GetPixel(LevelButtonX, LevelButtonY);
-                //Log("Level Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 253) && (color.G == 187) && (color.B == 0))
-                {
-                    Log("Level Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LevelButtonX, (int)NoxPointY + LevelButtonY);
-                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                    System.Threading.Thread.Sleep(50);
-                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
                 }
 
 
