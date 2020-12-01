@@ -524,7 +524,6 @@ namespace ArtOfHassan
                     if (!isDifferent)
                     {
                         ClickLog("Ads Close Button");
-                        AdsFlag = true;
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton1X, (int)NoxPointY + AdsCloseButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
