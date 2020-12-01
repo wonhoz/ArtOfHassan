@@ -160,6 +160,9 @@ namespace ArtOfHassan
         int AppLocationX    = 60;
         int AppLocationY    = 500;
 
+        int MiddleButtonX = 195;
+        int MiddleButtonY = 680;
+
         int CoinBoxX        = 150;
         int CoinBoxY        = 410;
         int BattleLevelButtonX = 180;
@@ -177,15 +180,16 @@ namespace ArtOfHassan
         int DefeatButtonX   = 450;
         int DefeatButtonY   = 710;
 
-        int AdsButtonX      = 496;
-        int AdsButton1Y     = 180;
-        int AdsButton2Y     = 190;
-        int GoogleButton1X  = 39;
-        int GoogleButton2X  = 519;
-        int GoogleButtonY   = 68;
+        int AdsButtonX        = 496;
+        int AdsButton1Y       = 180;
+        int AdsButton2Y       = 190;
 
-        int MiddleButtonX   = 195;
-        int MiddleButtonY   = 680;
+        int AdsCloseButton1X  = 39;
+        int AdsCloseButton2X  = 519;
+        int AdsCloseButtonY   = 68;
+
+        int NotRespondingX = 79;
+        int NotRespondingY = 540;
 
 
         private void ButtonTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
@@ -424,20 +428,34 @@ namespace ArtOfHassan
                         ClickLog("Ads Close Button");
                         NumOfAdsClose++;
 
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoogleButton1X, (int)NoxPointY + GoogleButtonY);
+                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton1X, (int)NoxPointY + AdsCloseButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
                         System.Threading.Thread.Sleep(500);
 
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoogleButton2X, (int)NoxPointY + GoogleButtonY);
+                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton2X, (int)NoxPointY + AdsCloseButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
                         return;
                     }
+                }
+
+
+                // Not Responding Button
+                color = CurrentBitmap.GetPixel(NotRespondingX, NotRespondingY);
+                TimerLog("Not Responding Button Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 0) && (color.G == 150) && (color.B == 136))
+                {
+                    ClickLog("Not Responding Button");
+                    NumOfDefeat++;
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingX, (int)NoxPointY + NotRespondingY);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
                 }
 
 
