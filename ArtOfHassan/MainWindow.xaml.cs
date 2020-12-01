@@ -150,6 +150,8 @@ namespace ArtOfHassan
         {
             ClickLog("Working for the latest version");
             IsLatest = true;
+            CoinChestBoxX = 150;
+            CoinChestBoxY = 410;
             CoinButtonBackgroundY = 780;
         }
 
@@ -157,6 +159,8 @@ namespace ArtOfHassan
         {
             ClickLog("Working for the version 3.0.8");
             IsLatest = false;
+            CoinChestBoxX = 165;
+            CoinChestBoxY = 420;
             CoinButtonBackgroundY = 710;
         }
 
@@ -281,7 +285,8 @@ namespace ArtOfHassan
                 // Coin Chest Box Button
                 color = CurrentBitmap.GetPixel(CoinChestBoxX, CoinChestBoxY);
                 TimerLog("Coin Chest Box Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 255) && (color.G == 241) && (color.B == 2))
+                if (((color.R == 255) && (color.G == 241) && (color.B == 2)) || // Latest
+                    ((color.R == 234) && (color.G == 191) && (color.B == 47)))  // 3.0.8
                 {
                     ClickLog("Coin Chest Box");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CoinChestBoxX, (int)NoxPointY + CoinChestBoxY);
