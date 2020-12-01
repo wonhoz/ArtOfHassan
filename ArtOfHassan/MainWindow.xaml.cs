@@ -182,8 +182,8 @@ namespace ArtOfHassan
         int GoogleButton2X  = 519;
         int GoogleButtonY   = 68;
 
-        int ProblemButtonX  = 195;
-        int ProblemButtonY  = 680;
+        int MiddleButtonX   = 195;
+        int MiddleButtonY   = 680;
 
 
         private void ButtonTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
@@ -405,13 +405,13 @@ namespace ArtOfHassan
                 }
 
 
-                // Problem Button
-                color = CurrentBitmap.GetPixel(ProblemButtonX, ProblemButtonY);
-                TimerLog("Problem Button Color: " + color.R + "," + color.G + "," + color.B);
+                // Middle Button
+                color = CurrentBitmap.GetPixel(MiddleButtonX, MiddleButtonY);
+                TimerLog("Middle Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 253) && (color.G == 187) && (color.B == 0))
                 {
-                    ClickLog("Problem Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + ProblemButtonX, (int)NoxPointY + ProblemButtonY);
+                    ClickLog("Middle Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + MiddleButtonX, (int)NoxPointY + MiddleButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
