@@ -155,12 +155,13 @@ namespace ArtOfHassan
         int AppLocationX    = 60;
         int AppLocationY    = 500;
 
-        int BattleButtonX   = 180;
-        int BattleButtonY   = 855;
+        int BattleLevelButtonX = 180;
+        int BattleLevelButtonY = 855;
 
-        int VipButtonX      = 475;
-        int VipButton1Y     = 920;
-        int VipButton2Y     = 980;
+        int SkillButtonX    = 475;
+        int SkillButtonY    = 920;
+        int SpeedButtonX    = 514;
+        int SpeedButtonY    = 989;
 
         int VictoryButton1X = 115;
         int VictoryButton1Y = 780;
@@ -209,44 +210,49 @@ namespace ArtOfHassan
                 }
 
 
-                // Battle Button
-                color = CurrentBitmap.GetPixel(BattleButtonX, BattleButtonY);
-                TimerLog("Battle Button Color: " + color.R + "," + color.G + "," + color.B);
+                // Battle and Level Button
+                color = CurrentBitmap.GetPixel(BattleLevelButtonX, BattleLevelButtonY);
+                TimerLog("Battle Level Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 253) && (color.G == 187) && (color.B == 0)) // 황금색
                 {
-                    ClickLog("Battle Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleButtonX, (int)NoxPointY + BattleButtonY);
+                    ClickLog("Battle Level Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleLevelButtonX, (int)NoxPointY + BattleLevelButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
                 }
                 else if ((color.R == 189) && (color.G == 24) && (color.B == 8)) // 빨간색
                 {
-                    ClickLog("Battle Button is Red");
+                    ClickLog("Battle Level Button is Red");
                     return;
                 }
                 else if ((color.R == 13) && (color.G == 103) && (color.B == 122)) // 바탕색
                 {
-                    ClickLog("Battle Button is disappered");
+                    ClickLog("Battle Level Button is disappered");
                     return;
                 }
 
 
-                // Vip Button
-                color = CurrentBitmap.GetPixel(VipButtonX, VipButton1Y);
-                TimerLog("Vip Button Color: " + color.R + "," + color.G + "," + color.B);
+                // Skill Button
+                color = CurrentBitmap.GetPixel(SkillButtonX, SkillButtonY);
+                TimerLog("Skill Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 253) && (color.G == 187) && (color.B == 0))
                 {
-                    ClickLog("Vip Button");
-
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + VipButtonX, (int)NoxPointY + VipButton1Y);
+                    ClickLog("Skill Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + SkillButtonX, (int)NoxPointY + SkillButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                }
 
-                    System.Threading.Thread.Sleep(500);
 
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + VipButtonX, (int)NoxPointY + VipButton2Y);
+                // Speed Button
+                color = CurrentBitmap.GetPixel(SpeedButtonX, SpeedButtonY);
+                TimerLog("Speed Button Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 237) && (color.G == 165) && (color.B == 0))
+                {
+                    ClickLog("Speed Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + SpeedButtonX, (int)NoxPointY + SpeedButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
