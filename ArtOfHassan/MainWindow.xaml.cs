@@ -76,9 +76,17 @@ namespace ArtOfHassan
             ButtonTimer.Enabled = false;
         }
 
-        private void Log(string log)
+        private void ClickLog(string log)
         {
-            using (StreamWriter streamWriter = new StreamWriter($@"log\{DateTime.Today.ToString("yyyyMMdd")}.log", true))
+            using (StreamWriter streamWriter = new StreamWriter($@"log\Click_{DateTime.Today.ToString("yyyyMMdd")}.log", true))
+            {
+                streamWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ") + log);
+            }
+        }
+
+        private void TimerLog(string log)
+        {
+            using (StreamWriter streamWriter = new StreamWriter($@"log\Timer_{DateTime.Today.ToString("yyyyMMdd")}.log", true))
             {
                 streamWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ") + log);
             }
@@ -117,14 +125,16 @@ namespace ArtOfHassan
                 StartButton.IsEnabled = true;
             }
 
-            Log("NoxPointX: " + NoxPointX);
-            Log("NoxPointY: " + NoxPointY);
-            Log("NoxWidth: "  + NoxWidth);
-            Log("NoxHeight: " + NoxHeight);
+            ClickLog("NoxPointX: " + NoxPointX);
+            ClickLog("NoxPointY: " + NoxPointY);
+            ClickLog("NoxWidth: "  + NoxWidth);
+            ClickLog("NoxHeight: " + NoxHeight);
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
+            ClickLog("StartButton: " + StartButton.Content.ToString());
+
             if (StartButton.Content.ToString() == "Start")
             {
                 StartButton.Content = "Stop";
@@ -172,11 +182,14 @@ namespace ArtOfHassan
 
         private void ButtonTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
+            TimerLog("Allocate CurrentBitmap");
             // 화면 크기만큼의 Bitmap 생성
             CurrentBitmap = new System.Drawing.Bitmap((int)NoxWidth, (int)NoxHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             // Bitmap 이미지 변경을 위해 Graphics 객체 생성
+            TimerLog("Allocate Graphics from CurrentBitmap");
             using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(CurrentBitmap))
             {
+                TimerLog("CopyFromScreen");
                 // 화면을 그대로 카피해서 Bitmap 메모리에 저장
                 graphics.CopyFromScreen((int)NoxPointX, (int)NoxPointY, 0, 0, CurrentBitmap.Size);
                 // Bitmap 데이타를 파일로 저장
@@ -185,10 +198,10 @@ namespace ArtOfHassan
 
                 // Off Check
                 System.Drawing.Color color = CurrentBitmap.GetPixel(NoxWallpaperX, NoxWallpaperY);
-                //Log("Off Check Color: " + color.R + "," + color.G + "," + color.B);
+                TimerLog("Off Check Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 47) && (color.G == 46) && (color.B == 72))
                 {
-                    Log("Off Check");
+                    ClickLog("Off Check");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AppLocationX, (int)NoxPointY + AppLocationY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
@@ -198,10 +211,10 @@ namespace ArtOfHassan
 
                 // Battle Button
                 color = CurrentBitmap.GetPixel(BattleButtonX, BattleButtonY);
-                //Log("Battle Button Color: " + color.R + "," + color.G + "," + color.B);
+                TimerLog("Battle Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 253) && (color.G == 187) && (color.B == 0)) // 황금색
                 {
-                    Log("Battle Button");
+                    ClickLog("Battle Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleButtonX, (int)NoxPointY + BattleButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
@@ -209,22 +222,22 @@ namespace ArtOfHassan
                 }
                 else if ((color.R == 189) && (color.G == 24) && (color.B == 8)) // 빨간색
                 {
-                    Log("Battle Button is Red");
+                    ClickLog("Battle Button is Red");
                     return;
                 }
                 else if ((color.R == 13) && (color.G == 103) && (color.B == 122)) // 바탕색
                 {
-                    Log("Battle Button is disappered");
+                    ClickLog("Battle Button is disappered");
                     return;
                 }
 
 
                 // Vip Button
                 color = CurrentBitmap.GetPixel(VipButtonX, VipButton1Y);
-                //Log("Vip Button Color: " + color.R + "," + color.G + "," + color.B);
+                TimerLog("Vip Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 253) && (color.G == 187) && (color.B == 0))
                 {
-                    Log("Vip Button");
+                    ClickLog("Vip Button");
 
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + VipButtonX, (int)NoxPointY + VipButton1Y);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -242,14 +255,14 @@ namespace ArtOfHassan
 
                 // Victory Coin Button
                 color = CurrentBitmap.GetPixel(VictoryButton1X, VictoryButton1Y);
-                //Log("Victory Coin Button1 Color: " + color.R + "," + color.G + "," + color.B);
+                TimerLog("Victory Coin Button1 Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 125) && (color.G == 167) && (color.B == 10)) // Green
                 {
                     color = CurrentBitmap.GetPixel(VictoryButton2X, VictoryButton2Y);
-                    //Log("Victory Coin Button2 Color: " + color.R + "," + color.G + "," + color.B);
+                    TimerLog("Victory Coin Button2 Color: " + color.R + "," + color.G + "," + color.B);
                     if ((color.R == 255) && (color.G == 234) && (color.B == 144)) // Yellow
                     {
-                        Log("Victory Coin Button");
+                        ClickLog("Victory Coin Button");
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + VictoryButton1X, (int)NoxPointY + VictoryButton1Y);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -258,7 +271,7 @@ namespace ArtOfHassan
                     }
                     else // Green such as Retry
                     {
-                        Log("Victory Retry Button");
+                        ClickLog("Victory Retry Button");
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + DefeatButtonX, (int)NoxPointY + VictoryButton1Y);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -268,7 +281,7 @@ namespace ArtOfHassan
                 }
                 else if ((color.R == 142) && (color.G == 142) && (color.B == 142)) // Gray
                 {
-                    Log("Victory Coin Button is Gray");
+                    ClickLog("Victory Coin Button is Gray");
 
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + DefeatButtonX, (int)NoxPointY + VictoryButton1Y);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -279,10 +292,10 @@ namespace ArtOfHassan
 
                 // Defeat Retry Button
                 color = CurrentBitmap.GetPixel(DefeatButtonX, DefeatButtonY);
-                //Log("Defeat Retry Button Color: " + color.R + "," + color.G + "," + color.B);
+                TimerLog("Defeat Retry Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 253) && (color.G == 187) && (color.B == 0))
                 {
-                    Log("Defeat Retry Button");
+                    ClickLog("Defeat Retry Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + DefeatButtonX, (int)NoxPointY + DefeatButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
@@ -292,10 +305,10 @@ namespace ArtOfHassan
 
                 // Ads Button1
                 color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton1Y);
-                //Log("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
+                TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 233) && (color.G == 233) && (color.B == 216))
                 {
-                    Log("Ads Button 1");
+                    ClickLog("Ads Button 1");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton1Y);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
@@ -305,10 +318,10 @@ namespace ArtOfHassan
 
                 // Ads Button2
                 color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton2Y);
-                //Log("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
+                TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 233) && (color.G == 233) && (color.B == 216))
                 {
-                    Log("Ads Button 2");
+                    ClickLog("Ads Button 2");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton2Y);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
@@ -325,7 +338,7 @@ namespace ArtOfHassan
                         googleTime = 3;
                     }
                 }));
-                //Log("GoogleTime: " + googleTime);
+                TimerLog("GoogleTime: " + googleTime);
                 if ((TimerCount % googleTime) == 0)
                 {
                     TimerCount = 1;
@@ -352,11 +365,11 @@ namespace ArtOfHassan
                         }
                     }
 
-                    //Log("Screen is changed: " + isDifferent);
+                    TimerLog("Screen is changed: " + isDifferent);
 
                     if (!isDifferent)
                     {
-                        Log("Google Button");
+                        ClickLog("Google Button");
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoogleButton1X, (int)NoxPointY + GoogleButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -377,10 +390,10 @@ namespace ArtOfHassan
 
                 // Problem Button
                 color = CurrentBitmap.GetPixel(ProblemButtonX, ProblemButtonY);
-                //Log("Problem Button Color: " + color.R + "," + color.G + "," + color.B);
+                TimerLog("Problem Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 253) && (color.G == 187) && (color.B == 0))
                 {
-                    Log("Problem Button");
+                    ClickLog("Problem Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + ProblemButtonX, (int)NoxPointY + ProblemButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
