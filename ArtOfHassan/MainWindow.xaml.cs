@@ -58,6 +58,7 @@ namespace ArtOfHassan
         int NumOfAdsClose   = 0;
 
         int TimerCountForScreenCompare = 1;
+
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
 
@@ -120,7 +121,11 @@ namespace ArtOfHassan
 
             GetWindowPos(GetWinAscHandle(), ref point, ref size);
 
-            if ((size.Width != 0) && (size.Height != 0))
+            if ((size.Width == 0) || (size.Height == 0))
+            {
+                StartButton.IsEnabled = false;
+            }
+            else
             {
                 NoxPointX = point.X;
                 NoxPointY = point.Y;
@@ -160,36 +165,36 @@ namespace ArtOfHassan
         int AppLocationX    = 60;
         int AppLocationY    = 500;
 
-        int MiddleButtonX = 195;
-        int MiddleButtonY = 680;
+        int MiddleButtonX   = 195;
+        int MiddleButtonY   = 680;
 
-        int CoinBoxX        = 150;
-        int CoinBoxY        = 410;
+        int CoinBoxX           = 150;
+        int CoinBoxY           = 410;
         int BattleLevelButtonX = 180;
         int BattleLevelButtonY = 855;
 
-        int SkillButtonX    = 475;
-        int SkillButtonY    = 920;
-        int SpeedButtonX    = 514;
-        int SpeedButtonY    = 989;
+        int SkillButtonX     = 475;
+        int SkillButtonY     = 920;
+        int SpeedButtonX     = 514;
+        int SpeedButtonY     = 989;
 
-        int VictoryButton1X = 115;
-        int VictoryButton1Y = 780;
-        int VictoryButton2X = 133;
-        int VictoryButton2Y = 755;
-        int DefeatButtonX   = 450;
-        int DefeatButtonY   = 710;
+        int VictoryButton1X  = 115;
+        int VictoryButton1Y  = 780;
+        int VictoryButton2X  = 133;
+        int VictoryButton2Y  = 755;
+        int DefeatButtonX    = 450;
+        int DefeatButtonY    = 710;
 
-        int AdsButtonX        = 496;
-        int AdsButton1Y       = 180;
-        int AdsButton2Y       = 190;
+        int AdsButtonX       = 496;
+        int AdsButton1Y      = 180;
+        int AdsButton2Y      = 190;
 
-        int AdsCloseButton1X  = 39;
-        int AdsCloseButton2X  = 519;
-        int AdsCloseButtonY   = 68;
+        int AdsCloseButton1X = 39;
+        int AdsCloseButton2X = 519;
+        int AdsCloseButtonY  = 68;
 
-        int NotRespondingX = 79;
-        int NotRespondingY = 540;
+        int NotRespondingX   = 79;
+        int NotRespondingY   = 540;
 
 
         private void ButtonTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
@@ -355,6 +360,12 @@ namespace ArtOfHassan
                 }
 
 
+                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                {
+                    MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads1: {NumOfAdsVictory} | Ads2: {NumOfAdsClose}";
+                }));
+
+
                 // Ads Button1
                 color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton1Y);
                 TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
@@ -440,6 +451,11 @@ namespace ArtOfHassan
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
+                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                        {
+                            MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads1: {NumOfAdsVictory} | Ads2: {NumOfAdsClose}";
+                        }));
+
                         return;
                     }
                 }
@@ -457,12 +473,6 @@ namespace ArtOfHassan
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
                 }
-
-
-                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                {
-                    MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat}, Victory: {NumOfVictory}, Defeat: {NumOfDefeat}, Ads1: {NumOfAdsVictory}, Ads2: {NumOfAdsClose}";
-                }));
 
 
                 //CurrentBitmap.Save(Stage + ".png", System.Drawing.Imaging.ImageFormat.Png);
