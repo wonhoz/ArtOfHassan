@@ -57,7 +57,7 @@ namespace ArtOfHassan
         int NumOfAdsVictory = 0;
         int NumOfAdsClose   = 0;
 
-        int TimerCount = 1;
+        int TimerCountForScreenCompare = 1;
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
 
@@ -346,18 +346,18 @@ namespace ArtOfHassan
 
 
                 // Ads Close Button
-                int googleTime = 3;
+                int screenCompareInterval = 3;
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
-                    if (!int.TryParse(GoogleTime.Text, out googleTime))
+                    if (!int.TryParse(GoogleTime.Text, out screenCompareInterval))
                     {
-                        googleTime = 3;
+                        screenCompareInterval = 3;
                     }
                 }));
-                TimerLog("GoogleTime: " + googleTime);
-                if ((TimerCount % googleTime) == 0)
+                TimerLog("Screen Compare Interval: " + screenCompareInterval);
+                if ((TimerCountForScreenCompare % screenCompareInterval) == 0)
                 {
-                    TimerCount = 1;
+                    TimerCountForScreenCompare = 1;
 
                     bool isDifferent = false;
 
@@ -426,7 +426,7 @@ namespace ArtOfHassan
 
                 //CurrentBitmap.Save(Stage + ".png", System.Drawing.Imaging.ImageFormat.Png);
                 LastBitmap = CurrentBitmap;
-                TimerCount++;
+                TimerCountForScreenCompare++;
             }
         }
     }
