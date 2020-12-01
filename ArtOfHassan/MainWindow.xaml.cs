@@ -149,12 +149,18 @@ namespace ArtOfHassan
         int BattleButtonY   = 855;
         int LevelButtonX    = 180;
         int LevelButtonY    = 870;
+
+        int VipButtonX      = 475;
+        int VipButton1Y     = 920;
+        int VipButton2Y     = 980;
+
         int VictoryButton1X = 115;
         int VictoryButton1Y = 780;
         int VictoryButton2X = 133;
         int VictoryButton2Y = 755;
         int DefeatButtonX   = 450;
         int DefeatButtonY   = 710;
+
         int AdsButtonX      = 496;
         int AdsButtonY      = 190;
         int GoogleButton1X  = 39;
@@ -205,6 +211,25 @@ namespace ArtOfHassan
                 if ((color.R == 253) && (color.G == 187) && (color.B == 0))
                 {
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LevelButtonX, (int)NoxPointY + LevelButtonY);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                }
+
+
+                // Vip Button
+                color = CurrentBitmap.GetPixel(VipButtonX, VipButton1Y);
+                Log("Vip Button Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 253) && (color.G == 187) && (color.B == 0))
+                {
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + VipButtonX, (int)NoxPointY + VipButton1Y);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                    System.Threading.Thread.Sleep(500);
+
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + VipButtonX, (int)NoxPointY + VipButton2Y);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -310,6 +335,8 @@ namespace ArtOfHassan
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                        System.Threading.Thread.Sleep(500);
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoogleButton2X, (int)NoxPointY + GoogleButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
