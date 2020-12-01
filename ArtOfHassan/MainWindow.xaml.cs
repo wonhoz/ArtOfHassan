@@ -140,6 +140,11 @@ namespace ArtOfHassan
         }
 
 
+        int NoxWallpaperX   = 100;
+        int NoxWallpaperY   = 865;
+        int AppLocationX    = 60;
+        int AppLocationY    = 500;
+
         int BattleButtonX   = 180;
         int BattleButtonY   = 855;
         int LevelButtonX    = 180;
@@ -170,8 +175,20 @@ namespace ArtOfHassan
                 //bitmap.Save(imageName + ".png", System.Drawing.Imaging.ImageFormat.Png);
 
 
+                // Off Check
+                System.Drawing.Color color = CurrentBitmap.GetPixel(NoxWallpaperX, NoxWallpaperY);
+                Log("Off Check Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 47) && (color.G == 46) && (color.B == 72))
+                {
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AppLocationX, (int)NoxPointY + AppLocationY);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                }
+
+
                 // Battle Button
-                System.Drawing.Color color = CurrentBitmap.GetPixel(BattleButtonX, BattleButtonY);
+                color = CurrentBitmap.GetPixel(BattleButtonX, BattleButtonY);
                 Log("Battle Button Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 253) && (color.G == 187) && (color.B == 0))
                 {
