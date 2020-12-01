@@ -52,10 +52,13 @@ namespace ArtOfHassan
         double NoxWidth  = 0;
         double NoxHeight = 0;
 
-        int NumOfVictory    = 0;
-        int NumOfDefeat     = 0;
-        int NumOfAdsVictory = 0;
-        int NumOfAdsClose   = 0;
+        bool VictoryFlag = false;
+        bool DefeatFlag  = false;
+        bool AdsFlag     = false;
+
+        int NumOfVictory = 0;
+        int NumOfDefeat  = 0;
+        int NumOfAds     = 0;
 
         int TimerCountForScreenCompare = 1;
 
@@ -194,6 +197,9 @@ namespace ArtOfHassan
         int SpeedButtonX     = 514;
         int SpeedButtonY     = 989;
 
+        int VictoryDefeatX   = 120;
+        int VictoryDefeatY   = 355;
+
         int CoinButtonBackgroundX = 115;
         int CoinButtonBackgroundY = 780;
         int CoinButtonImageX      = 133;
@@ -282,6 +288,24 @@ namespace ArtOfHassan
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                    if (VictoryFlag)
+                    {
+                        VictoryFlag = false;
+                        NumOfVictory++;
+                    }
+
+                    if (DefeatFlag)
+                    {
+                        DefeatFlag = false;
+                        NumOfDefeat++;
+                    }
+
+                    if (AdsFlag)
+                    {
+                        AdsFlag = false;
+                        NumOfAds++;
+                    }
                 }
                 else if ((color.R == 189) && (color.G == 24) && (color.B == 8)) // 빨간색
                 {
@@ -321,6 +345,21 @@ namespace ArtOfHassan
                 }
 
 
+                // Check Victory or Defeat
+                color = CurrentBitmap.GetPixel(VictoryDefeatX, VictoryDefeatY);
+                TimerLog("Victory or Defeat Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 217) && (color.G == 28) && (color.B == 19))
+                {
+                    ClickLog("Victory Checked");
+                    VictoryFlag = true;
+                }
+                else if ((color.R == 18) && (color.G == 167) && (color.B == 216))
+                {
+                    ClickLog("Defeat Checked");
+                    DefeatFlag = true;
+                }
+
+
                 // Coin Button
                 color = CurrentBitmap.GetPixel(CoinButtonBackgroundX, CoinButtonBackgroundY);
                 TimerLog("Coin Button Background Color: " + color.R + "," + color.G + "," + color.B);
@@ -331,8 +370,7 @@ namespace ArtOfHassan
                     if (!IsLatest || ((color.R == 255) && (color.G == 234) && (color.B == 144))) // Yellow
                     {
                         ClickLog("Coin Button");
-                        NumOfVictory++;
-                        NumOfAdsVictory++;
+                        AdsFlag = true;
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CoinButtonBackgroundX, (int)NoxPointY + CoinButtonBackgroundY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -342,7 +380,6 @@ namespace ArtOfHassan
                     else // Green such as Retry
                     {
                         ClickLog("Retry Button");
-                        NumOfVictory++;
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + CoinButtonBackgroundY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -353,7 +390,6 @@ namespace ArtOfHassan
                 else if ((color.R == 142) && (color.G == 142) && (color.B == 142)) // Gray
                 {
                     ClickLog("Coin Button is Gray");
-                    NumOfVictory++;
 
                     if (IsLatest)
                     {
@@ -375,7 +411,6 @@ namespace ArtOfHassan
                 if (IsLatest && ((color.R == 253) && (color.G == 187) && (color.B == 0)))
                 {
                     ClickLog("Next Button");
-                    NumOfDefeat++;
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + NextButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
@@ -385,7 +420,7 @@ namespace ArtOfHassan
 
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
-                    MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads1: {NumOfAdsVictory} | Ads2: {NumOfAdsClose}";
+                    MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads: {NumOfAds}";
                 }));
 
 
@@ -460,7 +495,7 @@ namespace ArtOfHassan
                     if (!isDifferent)
                     {
                         ClickLog("Ads Close Button");
-                        NumOfAdsClose++;
+                        AdsFlag = true;
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton1X, (int)NoxPointY + AdsCloseButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -476,7 +511,7 @@ namespace ArtOfHassan
 
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
-                            MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads1: {NumOfAdsVictory} | Ads2: {NumOfAdsClose}";
+                            MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads: {NumOfAds}";
                         }));
 
                         return;
@@ -490,7 +525,6 @@ namespace ArtOfHassan
                 if ((color.R == 0) && (color.G == 150) && (color.B == 136))
                 {
                     ClickLog("Not Responding Button");
-                    NumOfDefeat++;
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingX, (int)NoxPointY + NotRespondingY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
