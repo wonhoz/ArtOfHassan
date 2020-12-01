@@ -328,7 +328,7 @@ namespace ArtOfHassan
                 //Log("GoogleTime: " + googleTime);
                 if ((TimerCount % googleTime) == 0)
                 {
-                    TimerCount = 0;
+                    TimerCount = 1;
 
                     bool isDifferent = false;
 
@@ -369,6 +369,8 @@ namespace ArtOfHassan
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                        return;
                     }
                 }
 
