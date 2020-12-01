@@ -184,6 +184,10 @@ namespace ArtOfHassan
         int AppLocationX    = 60;
         int AppLocationY    = 500;
 
+        int HomeButtonX = 290;
+        int ShopButtonX = 65;
+        int ShopButtonY = 980;
+
         int MiddleButtonX   = 195;
         int MiddleButtonY   = 680;
 
@@ -248,6 +252,19 @@ namespace ArtOfHassan
                 }
 
 
+                // Shop Check
+                color = CurrentBitmap.GetPixel(ShopButtonX, ShopButtonY);
+                TimerLog("Shop Check Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 234) && (color.G == 61) && (color.B == 52))
+                {
+                    ClickLog("Shop Check");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + HomeButtonX, (int)NoxPointY + ShopButtonY);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                }
+
+
                 // Middle Button
                 color = CurrentBitmap.GetPixel(MiddleButtonX, MiddleButtonY);
                 TimerLog("Middle Button Color: " + color.R + "," + color.G + "," + color.B);
@@ -306,6 +323,11 @@ namespace ArtOfHassan
                         AdsFlag = false;
                         NumOfAds++;
                     }
+
+                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    {
+                        MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads: {NumOfAds}";
+                    }));
                 }
                 else if ((color.R == 189) && (color.G == 24) && (color.B == 8)) // 빨간색
                 {
@@ -418,10 +440,17 @@ namespace ArtOfHassan
                 }
 
 
-                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                // Not Responding Button
+                color = CurrentBitmap.GetPixel(NotRespondingX, NotRespondingY);
+                TimerLog("Not Responding Button Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 0) && (color.G == 150) && (color.B == 136))
                 {
-                    MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads: {NumOfAds}";
-                }));
+                    ClickLog("Not Responding Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingX, (int)NoxPointY + NotRespondingY);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                }
 
 
                 // Ads Button1
@@ -509,26 +538,8 @@ namespace ArtOfHassan
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                        {
-                            MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads: {NumOfAds}";
-                        }));
-
                         return;
                     }
-                }
-
-
-                // Not Responding Button
-                color = CurrentBitmap.GetPixel(NotRespondingX, NotRespondingY);
-                TimerLog("Not Responding Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 0) && (color.G == 150) && (color.B == 136))
-                {
-                    ClickLog("Not Responding Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingX, (int)NoxPointY + NotRespondingY);
-                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                    System.Threading.Thread.Sleep(50);
-                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
                 }
 
 
