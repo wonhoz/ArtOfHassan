@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -47,6 +48,8 @@ namespace ArtOfHassan
 
         private static System.Timers.Timer NoxTimer    = new System.Timers.Timer();
         private static System.Timers.Timer ButtonTimer = new System.Timers.Timer();
+
+        Stopwatch AdsStopwatch = new Stopwatch();
 
         double NoxPointX = 0;
         double NoxPointY = 0;
@@ -339,6 +342,9 @@ namespace ArtOfHassan
                     ((color.R == 202) && (color.G == 150) && (color.B == 0)))   // + 메뉴 음영
                 {
                     ClickLog("Battle Level Button");
+                    AdsStopwatch.Reset();
+                    AdsStopwatch.Stop();
+
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleLevelButtonX, (int)NoxPointY + BattleLevelButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
@@ -454,6 +460,7 @@ namespace ArtOfHassan
                     {
                         ClickLog("Gold Button");
                         AdsFlag = true;
+                        AdsStopwatch.Restart();
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldButtonBackgroundX, (int)NoxPointY + GoldButtonBackgroundY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -582,11 +589,13 @@ namespace ArtOfHassan
                         }
                     }
 
-                    TimerLog("Screen is changed: " + isDifferent);
+                    TimerLog("Screen is changed: " + isDifferent + ", AdsStopwatchElapsed: " + AdsStopwatch.ElapsedMilliseconds);
 
-                    if (!isDifferent)
+                    if (!isDifferent || (AdsStopwatch.ElapsedMilliseconds > 32000))
                     {
                         ClickLog("Ads Close Button");
+                        AdsStopwatch.Reset();
+                        AdsStopwatch.Stop();
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton1X, (int)NoxPointY + AdsCloseButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
