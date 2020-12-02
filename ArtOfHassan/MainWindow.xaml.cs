@@ -608,5 +608,10 @@ namespace ArtOfHassan
                 TimerCountForScreenCompare++;
             }
         }
+
+        private void SettingButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
