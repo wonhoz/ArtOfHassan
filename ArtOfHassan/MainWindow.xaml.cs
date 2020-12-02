@@ -303,7 +303,8 @@ namespace ArtOfHassan
                 // Battle and Level Button
                 color = CurrentBitmap.GetPixel(BattleLevelButtonX, BattleLevelButtonY);
                 TimerLog("Battle Level Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 253) && (color.G == 187) && (color.B == 0)) // 황금색
+                if (((color.R == 253) && (color.G == 187) && (color.B == 0)) || // 황금색
+                    ((color.R == 202) && (color.G == 150) && (color.B == 0)))   // + 메뉴 음영
                 {
                     ClickLog("Battle Level Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleLevelButtonX, (int)NoxPointY + BattleLevelButtonY);
