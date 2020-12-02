@@ -134,18 +134,18 @@ namespace ArtOfHassan
         {
             ClickLog("Working for the latest version");
             IsLatest = true;
-            CoinChestBoxX = 150;
-            CoinChestBoxY = 410;
-            CoinButtonBackgroundY = 780;
+            GoldChestBoxX = 150;
+            GoldChestBoxY = 410;
+            GoldButtonBackgroundY = 780;
         }
 
         private void OldRadioButton_Click(object sender, RoutedEventArgs e)
         {
             ClickLog("Working for the version 3.0.8");
             IsLatest = false;
-            CoinChestBoxX = 165;
-            CoinChestBoxY = 420;
-            CoinButtonBackgroundY = 710;
+            GoldChestBoxX = 165;
+            GoldChestBoxY = 420;
+            GoldButtonBackgroundY = 710;
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -179,8 +179,8 @@ namespace ArtOfHassan
         int MiddleButtonX   = 195;
         int MiddleButtonY   = 680;
 
-        int CoinChestBoxX      = 150;
-        int CoinChestBoxY      = 410;
+        int GoldChestBoxX      = 150;
+        int GoldChestBoxY      = 410;
         int BattleLevelButtonX = 180;
         int BattleLevelButtonY = 855;
 
@@ -194,10 +194,10 @@ namespace ArtOfHassan
         int VictoryDefeatX   = 120;
         int VictoryDefeatY   = 355;
 
-        int CoinButtonBackgroundX = 115;
-        int CoinButtonBackgroundY = 780;
-        int CoinButtonImageX      = 133;
-        int CoinButtonImageY      = 755;
+        int GoldButtonBackgroundX = 115;
+        int GoldButtonBackgroundY = 780;
+        int GoldButtonImageX      = 133;
+        int GoldButtonImageY      = 755;
         int NextButtonX           = 450;
         int NextButtonY           = 710;
 
@@ -307,21 +307,29 @@ namespace ArtOfHassan
                 }
 
 
-                // Coin Chest Box Button
-                color = CurrentBitmap.GetPixel(CoinChestBoxX, CoinChestBoxY);
-                TimerLog("Coin Chest Box Color: " + color.R + "," + color.G + "," + color.B);
-                if (((color.R == 255) && (color.G == 241) && (color.B == 2)) || // Latest
-                    ((color.R == 234) && (color.G == 191) && (color.B == 47)))  // 3.0.8
+                // Gold Chest Box Button
+                bool IsOpenGoldChestBox = false;
+                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
-                    ClickLog("Coin Chest Box");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CoinChestBoxX, (int)NoxPointY + CoinChestBoxY);
-                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                    System.Threading.Thread.Sleep(50);
-                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                    IsOpenGoldChestBox = GoldChestCheckBox.IsChecked.Value;
+                }));
+                if (IsOpenGoldChestBox)
+                {
+                    color = CurrentBitmap.GetPixel(GoldChestBoxX, GoldChestBoxY);
+                    TimerLog("Gold Chest Box Color: " + color.R + "," + color.G + "," + color.B);
+                    if (((color.R == 255) && (color.G == 241) && (color.B == 2)) || // Latest
+                        ((color.R == 234) && (color.G == 191) && (color.B == 47)))  // 3.0.8
+                    {
+                        ClickLog("Gold Chest Box");
+                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldChestBoxX, (int)NoxPointY + GoldChestBoxY);
+                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                        System.Threading.Thread.Sleep(50);
+                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                    System.Threading.Thread.Sleep(500);
+                        System.Threading.Thread.Sleep(500);
 
-                    return;
+                        return;
+                    }
                 }
 
 
@@ -382,6 +390,8 @@ namespace ArtOfHassan
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                    System.Threading.Thread.Sleep(500);
                 }
 
 
@@ -399,15 +409,23 @@ namespace ArtOfHassan
 
 
                 // Pause
-                color = CurrentBitmap.GetPixel(PauseButtonX, PauseButtonY);
-                TimerLog("Pause Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 253) && (color.G == 187) && (color.B == 0))
+                bool IsPausable = false;
+                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
-                    ClickLog("Pause Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + PauseButtonX, (int)NoxPointY + PauseButtonY);
-                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                    System.Threading.Thread.Sleep(50);
-                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                    IsPausable = PausabilityCheckBox.IsChecked.Value;
+                }));
+                if (!IsPausable)
+                {
+                    color = CurrentBitmap.GetPixel(PauseButtonX, PauseButtonY);
+                    TimerLog("Pause Button Color: " + color.R + "," + color.G + "," + color.B);
+                    if ((color.R == 253) && (color.G == 187) && (color.B == 0))
+                    {
+                        ClickLog("Pause Button");
+                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + PauseButtonX, (int)NoxPointY + PauseButtonY);
+                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                        System.Threading.Thread.Sleep(50);
+                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                    }
                 }
 
 
@@ -426,28 +444,28 @@ namespace ArtOfHassan
                 }
 
 
-                // Coin Button
-                color = CurrentBitmap.GetPixel(CoinButtonBackgroundX, CoinButtonBackgroundY);
-                TimerLog("Coin Button Background Color: " + color.R + "," + color.G + "," + color.B);
+                // Gold Button
+                color = CurrentBitmap.GetPixel(GoldButtonBackgroundX, GoldButtonBackgroundY);
+                TimerLog("Gold Button Background Color: " + color.R + "," + color.G + "," + color.B);
                 if ((color.R == 125) && (color.G == 167) && (color.B == 10)) // Green
                 {
-                    color = CurrentBitmap.GetPixel(CoinButtonImageX, CoinButtonImageY);
-                    TimerLog("Coin Button Image Color: " + color.R + "," + color.G + "," + color.B);
+                    color = CurrentBitmap.GetPixel(GoldButtonImageX, GoldButtonImageY);
+                    TimerLog("Gold Button Image Color: " + color.R + "," + color.G + "," + color.B);
                     if (!IsLatest || ((color.R == 255) && (color.G == 234) && (color.B == 144))) // Yellow
                     {
-                        ClickLog("Coin Button");
+                        ClickLog("Gold Button");
                         AdsFlag = true;
 
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CoinButtonBackgroundX, (int)NoxPointY + CoinButtonBackgroundY);
+                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldButtonBackgroundX, (int)NoxPointY + GoldButtonBackgroundY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
                     }
                     else // Green such as Retry
                     {
-                        ClickLog("Retry Button");
+                        ClickLog("Next Button");
 
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + CoinButtonBackgroundY);
+                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + GoldButtonBackgroundY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -455,11 +473,11 @@ namespace ArtOfHassan
                 }
                 else if ((color.R == 142) && (color.G == 142) && (color.B == 142)) // Gray
                 {
-                    ClickLog("Coin Button is Gray");
+                    ClickLog("Gold Button is Gray");
 
                     if (IsLatest)
                     {
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + CoinButtonBackgroundY);
+                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + GoldButtonBackgroundY);
                     }
                     else
                     {
