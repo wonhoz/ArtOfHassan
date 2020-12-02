@@ -45,6 +45,7 @@ namespace ArtOfHassan
         private const uint RBUTTONDOWN  = 0x0008;  // 오른쪽 마우스 버튼 눌림
         private const uint RBUTTONUP    = 0x00010; // 오른쪽 마우스 버튼 떼어짐
 
+        private static System.Timers.Timer NoxTimer    = new System.Timers.Timer();
         private static System.Timers.Timer ButtonTimer = new System.Timers.Timer();
 
         double NoxPointX = 0;
@@ -78,11 +79,16 @@ namespace ArtOfHassan
 
             ButtonTimer.Interval = 1000; // 1초
             ButtonTimer.Elapsed += ButtonTimerFunction;
+
+            NoxTimer.Interval += 200;
+            NoxTimer.Elapsed += NoxTimerFunction;
+            NoxTimer.Enabled = true;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ButtonTimer.Enabled = false;
+            NoxTimer.Enabled    = false;
         }
 
         private void ClickLog(string log)
@@ -103,7 +109,12 @@ namespace ArtOfHassan
 
         private IntPtr GetWinAscHandle()
         {
-            return FindWindow(null, WindowTitleTextBox.Text);
+            string windowTitle = "NoxPlayer";
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                windowTitle = WindowTitleTextBox.Text;
+            }));
+            return FindWindow(null, windowTitle);
         }
 
         private void GetWindowPos(IntPtr hwnd, ref System.Windows.Point point, ref System.Windows.Size size)
@@ -115,33 +126,6 @@ namespace ArtOfHassan
 
             size = new System.Windows.Size(placement.normal_position.Right - (placement.normal_position.Left * 2), placement.normal_position.Bottom - (placement.normal_position.Top * 2));
             point = new System.Windows.Point(placement.normal_position.Left, placement.normal_position.Top);
-        }
-
-        private void FindButton_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Point point = new System.Windows.Point();
-            System.Windows.Size size = new System.Windows.Size();
-
-            GetWindowPos(GetWinAscHandle(), ref point, ref size);
-
-            if ((size.Width == 0) || (size.Height == 0))
-            {
-                StartButton.IsEnabled = false;
-            }
-            else
-            {
-                NoxPointX = point.X;
-                NoxPointY = point.Y;
-                NoxWidth  = size.Width;
-                NoxHeight = size.Height;
-
-                StartButton.IsEnabled = true;
-            }
-
-            ClickLog("NoxPointX: " + NoxPointX);
-            ClickLog("NoxPointY: " + NoxPointY);
-            ClickLog("NoxWidth: "  + NoxWidth);
-            ClickLog("NoxHeight: " + NoxHeight);
         }
 
         bool IsLatest = true;
@@ -226,6 +210,45 @@ namespace ArtOfHassan
         int NotRespondingX   = 79;
         int NotRespondingY   = 540;
 
+
+        private void NoxTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            System.Windows.Point point = new System.Windows.Point();
+            System.Windows.Size size = new System.Windows.Size();
+
+            GetWindowPos(GetWinAscHandle(), ref point, ref size);
+            //TimerLog("point.X: "     + point.X);
+            //TimerLog("point.Y: "     + point.Y);
+            //TimerLog("size.Width: "  + size.Width);
+            //TimerLog("size.Height: " + size.Height);
+
+            if ((size.Width == 0) || (size.Height == 0))
+            {
+                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                {
+                    ButtonTimer.Enabled   = false;
+                    StartButton.IsEnabled = false;
+                    StartButton.Content   = "Start";
+                }));
+            }
+            else
+            {
+                NoxPointX = point.X;
+                NoxPointY = point.Y;
+                NoxWidth  = size.Width;
+                NoxHeight = size.Height;
+
+                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                {
+                    StartButton.IsEnabled = true;
+                }));
+            }
+
+            //TimerLog("NoxPointX: " + NoxPointX);
+            //TimerLog("NoxPointY: " + NoxPointY);
+            //TimerLog("NoxWidth: "  + NoxWidth);
+            //TimerLog("NoxHeight: " + NoxHeight);
+        }
 
         private void ButtonTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
