@@ -189,6 +189,8 @@ namespace ArtOfHassan
         int SpeedButtonX     = 514;
         int SpeedButtonY     = 989;
 
+        int PauseButtonX     = 215;
+        int PauseButtonY     = 455;
         int VictoryDefeatX   = 120;
         int VictoryDefeatY   = 355;
 
@@ -390,6 +392,19 @@ namespace ArtOfHassan
                 {
                     ClickLog("Speed Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + SpeedButtonX, (int)NoxPointY + SpeedButtonY);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                }
+
+
+                // Pause
+                color = CurrentBitmap.GetPixel(PauseButtonX, PauseButtonY);
+                TimerLog("Pause Button Color: " + color.R + "," + color.G + "," + color.B);
+                if ((color.R == 253) && (color.G == 187) && (color.B == 0))
+                {
+                    ClickLog("Pause Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + PauseButtonX, (int)NoxPointY + PauseButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
