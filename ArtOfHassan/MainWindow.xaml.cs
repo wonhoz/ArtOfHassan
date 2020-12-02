@@ -517,7 +517,8 @@ namespace ArtOfHassan
                 // Ads Button1
                 color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton1Y);
                 TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 233) && (color.G == 233) && (color.B == 216))
+                if (((color.R == 233) && (color.G == 233) && (color.B == 216)) ||
+                    ((color.R == 239) && (color.G == 231) && (color.B == 214)))
                 {
                     ClickLog("Ads Button 1");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton1Y);
@@ -532,7 +533,8 @@ namespace ArtOfHassan
                 // Ads Button2
                 color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton2Y);
                 TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 233) && (color.G == 233) && (color.B == 216))
+                if (((color.R == 233) && (color.G == 233) && (color.B == 216)) ||
+                    ((color.R == 239) && (color.G == 231) && (color.B == 214)))
                 {
                     ClickLog("Ads Button 2");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton2Y);
