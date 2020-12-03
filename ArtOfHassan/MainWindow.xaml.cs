@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace ArtOfHassan
@@ -170,41 +172,59 @@ namespace ArtOfHassan
         }
 
 
-        public int AppLocationX    = 60;
-        public int AppLocationY    = 500;
+        public int AppLocationX        = 60;
+        public int AppLocationY        = 500;
+        public string AppLocationColor = "#a9d8ff;#97c601";
 
-        public int HomeButtonX     = 290;
-        public int ShopButtonX     = 65;
-        public int ShopButtonY     = 980;
+        public int HomeButtonX        = 290;
+        public int ShopButtonX        = 65;
+        public int ShopButtonY        = 980;
+        public string ShopButtonColor = "#ea3d34";
 
-        public int MiddleButtonX   = 195;
-        public int MiddleButtonY   = 680;
+        public int MiddleButtonX        = 195;
+        public int MiddleButtonY        = 680;
+        public string MiddleButtonColor = "#fdbb00";
 
         public int GoldChestBoxX      = 150;
         public int GoldChestBoxY      = 410;
+        public string GoldChestBoxColor = "#fff102;#eabf2f";
+
         public int BattleLevelButtonX = 180;
         public int BattleLevelButtonY = 855;
+        public string BattleLevelButtonColor = "#fdbb00;#ca9600";
 
         public int SkillButtonX     = 475;
         public int SkillButtonY     = 920;
+        public string SkillButtonColor = "#fdbb00";
+
         public int SpeedButtonX     = 514;
         public int SpeedButtonY     = 989;
+        public string SpeedButtonColor = "#eda500";
 
         public int PauseButtonX     = 215;
         public int PauseButtonY     = 455;
+        public string PauseButtonColor = "#fdbb00";
+
         public int VictoryDefeatX   = 120;
         public int VictoryDefeatY   = 355;
+        public string VictoryDefeatColor = "#d91c13;#12a7d8";
 
         public int GoldButtonBackgroundX = 115;
         public int GoldButtonBackgroundY = 780;
+        public string GoldButtonBackgroundColor = "#7da70a;#8e8e8e";
+
         public int GoldButtonImageX      = 133;
         public int GoldButtonImageY      = 755;
+        public string GoldButtonImageColor = "#ffea90";
+
         public int NextButtonX           = 450;
         public int NextButtonY           = 710;
+        public string NextButtonColor = "#fdbb00";
 
         public int AdsButtonX       = 496;
         public int AdsButton1Y      = 180;
         public int AdsButton2Y      = 190;
+        public string AdsButtonColor = "#e9e9d8;#efe7d6";
 
         public int AdsCloseButton1X = 39;
         public int AdsCloseButton2X = 519;
@@ -212,6 +232,7 @@ namespace ArtOfHassan
 
         public int NotRespondingX   = 79;
         public int NotRespondingY   = 540;
+        public string NotRespondingColor = "#009688";
 
 
         private void NoxTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
@@ -272,8 +293,8 @@ namespace ArtOfHassan
                 // Off Check
                 System.Drawing.Color color = CurrentBitmap.GetPixel(AppLocationX, AppLocationY);
                 TimerLog("Off Check Color: " + color.R + "," + color.G + "," + color.B);
-                if (((color.R == 169) && (color.G == 216) && (color.B == 255)) ||
-                    ((color.R == 151) && (color.G == 198) && (color.B == 1)))
+                if (((color.R == 169) && (color.G == 216) && (color.B == 255)) || // Latest
+                    ((color.R == 151) && (color.G == 198) && (color.B == 1)))     // 3.08
                 {
                     ClickLog("Off Check");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AppLocationX, (int)NoxPointY + AppLocationY);
@@ -648,48 +669,81 @@ namespace ArtOfHassan
             SettingWindow settingWindow = new SettingWindow();
             settingWindow.AppLocationX.Text = AppLocationX.ToString();
             settingWindow.AppLocationY.Text = AppLocationY.ToString();
+            settingWindow.AppLocationColor.Text = AppLocationColor;
+            settingWindow.AppLocationButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[0]));
+            settingWindow.AppLocationButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[1]));
 
             settingWindow.HomeButtonX.Text = HomeButtonX.ToString();
             settingWindow.HomeButtonY.Text = ShopButtonY.ToString();
 
             settingWindow.ShopButtonX.Text = ShopButtonX.ToString();
             settingWindow.ShopButtonY.Text = ShopButtonY.ToString();
+            settingWindow.ShopButtonColor.Text = ShopButtonColor;
+            settingWindow.ShopButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor));
 
             settingWindow.MiddleButtonX.Text = MiddleButtonX.ToString();
             settingWindow.MiddleButtonY.Text = MiddleButtonY.ToString();
+            settingWindow.MiddleButtonColor.Text = MiddleButtonColor;
+            settingWindow.MiddleButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(MiddleButtonColor));
 
             settingWindow.GoldChestBoxX.Text = GoldChestBoxX.ToString();
             settingWindow.GoldChestBoxY.Text = GoldChestBoxY.ToString();
+            settingWindow.GoldChestBoxColor.Text = GoldChestBoxColor;
+            settingWindow.GoldChestBox1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Split(';')[0]));
+            settingWindow.GoldChestBox2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Split(';')[1]));
 
             settingWindow.BattleLevelButtonX.Text = BattleLevelButtonX.ToString();
             settingWindow.BattleLevelButtonY.Text = BattleLevelButtonY.ToString();
+            settingWindow.BattleLevelButtonColor.Text = BattleLevelButtonColor;
+            settingWindow.BattleLevelButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Split(';')[0]));
+            settingWindow.BattleLevelButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Split(';')[1]));
 
             settingWindow.SkillButtonX.Text = SkillButtonX.ToString();
             settingWindow.SkillButtonY.Text = SkillButtonY.ToString();
+            settingWindow.SkillButtonColor.Text = SkillButtonColor;
+            settingWindow.SkillButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SkillButtonColor));
 
             settingWindow.SpeedButtonX.Text = SpeedButtonX.ToString();
             settingWindow.SpeedButtonY.Text = SpeedButtonY.ToString();
+            settingWindow.SpeedButtonColor.Text = SpeedButtonColor;
+            settingWindow.SpeedButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SpeedButtonColor));
 
             settingWindow.PauseButtonX.Text = PauseButtonX.ToString();
             settingWindow.PauseButtonY.Text = PauseButtonY.ToString();
+            settingWindow.PauseButtonColor.Text = PauseButtonColor;
+            settingWindow.PauseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(PauseButtonColor));
 
             settingWindow.VictoryDefeatX.Text = VictoryDefeatX.ToString();
             settingWindow.VictoryDefeatY.Text = VictoryDefeatY.ToString();
+            settingWindow.VictoryDefeatColor.Text = VictoryDefeatColor;
+            settingWindow.VictoryDefeat1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Split(';')[0]));
+            settingWindow.VictoryDefeat2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Split(';')[1]));
 
             settingWindow.GoldButtonBackgroundX.Text = GoldButtonBackgroundX.ToString();
             settingWindow.GoldButtonBackgroundY.Text = GoldButtonBackgroundY.ToString();
+            settingWindow.GoldButtonBackgroundColor.Text = GoldButtonBackgroundColor;
+            settingWindow.GoldButtonBackground1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Split(';')[0]));
+            settingWindow.GoldButtonBackground2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Split(';')[1]));
 
             settingWindow.GoldButtonImageX.Text = GoldButtonImageX.ToString();
             settingWindow.GoldButtonImageY.Text = GoldButtonImageY.ToString();
+            settingWindow.GoldButtonImageColor.Text = GoldButtonImageColor;
+            settingWindow.GoldButtonImage1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonImageColor));
 
             settingWindow.NextButtonX.Text = NextButtonX.ToString();
             settingWindow.NextButtonY.Text = NextButtonY.ToString();
+            settingWindow.NextButtonColor.Text = NextButtonColor;
+            settingWindow.NextButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NextButtonColor));
 
             settingWindow.AdsButton1X.Text = AdsButtonX.ToString();
             settingWindow.AdsButton1Y.Text = AdsButton1Y.ToString();
+            settingWindow.AdsButton1Color.Text = AdsButtonColor;
+            settingWindow.AdsButton1_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsButtonColor.Split(';')[0]));
 
             settingWindow.AdsButton2X.Text = AdsButtonX.ToString();
             settingWindow.AdsButton2Y.Text = AdsButton2Y.ToString();
+            settingWindow.AdsButton2Color.Text = AdsButtonColor;
+            settingWindow.AdsButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsButtonColor.Split(';')[1]));
 
             settingWindow.AdsCloseButton1X.Text = AdsCloseButton1X.ToString();
             settingWindow.AdsCloseButton1Y.Text = AdsCloseButtonY.ToString();
@@ -699,6 +753,8 @@ namespace ArtOfHassan
 
             settingWindow.NotRespondingX.Text = NotRespondingX.ToString();
             settingWindow.NotRespondingY.Text = NotRespondingY.ToString();
+            settingWindow.NotRespondingColor.Text = NotRespondingColor.ToString();
+            settingWindow.NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor));
 
             settingWindow.ShowDialog();
         }
