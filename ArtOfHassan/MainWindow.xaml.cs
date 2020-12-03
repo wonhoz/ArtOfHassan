@@ -262,7 +262,7 @@ namespace ArtOfHassan
 
         public int BattleLevelButtonX = 180;
         public int BattleLevelButtonY = 855;
-        public string BattleLevelButtonColor = "#fdbb00;#ca9600";
+        public string BattleLevelButtonColor = "#fdbb00;#ca9600;#bd1808;#0d677a";
 
         public int SkillButtonX     = 475;
         public int SkillButtonY     = 920;
@@ -364,8 +364,10 @@ namespace ArtOfHassan
                 // Off Check
                 System.Drawing.Color color = CurrentBitmap.GetPixel(AppLocationX, AppLocationY);
                 TimerLog("Off Check Color: " + color.R + "," + color.G + "," + color.B);
-                if (((color.R == 169) && (color.G == 216) && (color.B == 255)) || // Latest
-                    ((color.R == 151) && (color.G == 198) && (color.B == 1)))     // 3.08
+                System.Drawing.Color color1 = ColorTranslator.FromHtml(AppLocationColor.Split(';')[0]);
+                System.Drawing.Color color2 = ColorTranslator.FromHtml(AppLocationColor.Split(';')[1]);
+                if (((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) ||
+                    ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)))
                 {
                     ClickLog("Off Check");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AppLocationX, (int)NoxPointY + AppLocationY);
@@ -378,7 +380,8 @@ namespace ArtOfHassan
                 // Shop Check
                 color = CurrentBitmap.GetPixel(ShopButtonX, ShopButtonY);
                 TimerLog("Shop Check Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 234) && (color.G == 61) && (color.B == 52))
+                color1 = ColorTranslator.FromHtml(ShopButtonColor);
+                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
                 {
                     ClickLog("Shop Check");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + HomeButtonX, (int)NoxPointY + ShopButtonY);
@@ -391,7 +394,8 @@ namespace ArtOfHassan
                 // Middle Button
                 color = CurrentBitmap.GetPixel(MiddleButtonX, MiddleButtonY);
                 TimerLog("Middle Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 253) && (color.G == 187) && (color.B == 0))
+                color1 = ColorTranslator.FromHtml(MiddleButtonColor);
+                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
                 {
                     ClickLog("Middle Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + MiddleButtonX, (int)NoxPointY + MiddleButtonY);
@@ -411,8 +415,10 @@ namespace ArtOfHassan
                 {
                     color = CurrentBitmap.GetPixel(GoldChestBoxX, GoldChestBoxY);
                     TimerLog("Gold Chest Box Color: " + color.R + "," + color.G + "," + color.B);
-                    if (((color.R == 255) && (color.G == 241) && (color.B == 2)) || // Latest
-                        ((color.R == 234) && (color.G == 191) && (color.B == 47)))  // 3.0.8
+                    color1 = ColorTranslator.FromHtml(GoldChestBoxColor.Split(';')[0]);
+                    color2 = ColorTranslator.FromHtml(GoldChestBoxColor.Split(';')[1]);
+                    if (((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) || // Latest
+                        ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)))  // 3.0.8
                     {
                         ClickLog("Gold Chest Box");
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldChestBoxX, (int)NoxPointY + GoldChestBoxY);
@@ -430,8 +436,12 @@ namespace ArtOfHassan
                 // Battle and Level Button
                 color = CurrentBitmap.GetPixel(BattleLevelButtonX, BattleLevelButtonY);
                 TimerLog("Battle Level Button Color: " + color.R + "," + color.G + "," + color.B);
-                if (((color.R == 253) && (color.G == 187) && (color.B == 0)) || // 황금색
-                    ((color.R == 202) && (color.G == 150) && (color.B == 0)))   // + 메뉴 음영
+                color1 = ColorTranslator.FromHtml(BattleLevelButtonColor.Split(';')[0]);
+                color2 = ColorTranslator.FromHtml(BattleLevelButtonColor.Split(';')[1]);
+                System.Drawing.Color color3 = ColorTranslator.FromHtml(BattleLevelButtonColor.Split(';')[2]);
+                System.Drawing.Color color4 = ColorTranslator.FromHtml(BattleLevelButtonColor.Split(';')[3]);
+                if (((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) || // 황금색
+                    ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)))   // + 메뉴 음영
                 {
                     ClickLog("Battle Level Button");
                     AdsStopwatch.Reset();
@@ -465,12 +475,12 @@ namespace ArtOfHassan
                         MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads: {NumOfAds}";
                     }));
                 }
-                else if ((color.R == 189) && (color.G == 24) && (color.B == 8)) // 빨간색
+                else if ((color.R == color3.R) && (color.G == color3.G) && (color.B == color3.B)) // 빨간색
                 {
                     ClickLog("Battle Level Button is Red");
                     return;
                 }
-                else if ((color.R == 13) && (color.G == 103) && (color.B == 122)) // 바탕색
+                else if ((color.R == color4.R) && (color.G == color4.G) && (color.B == color4.B)) // 바탕색
                 {
                     ClickLog("Battle Level Button is disappered");
                     return;
@@ -480,7 +490,8 @@ namespace ArtOfHassan
                 // Skill Button
                 color = CurrentBitmap.GetPixel(SkillButtonX, SkillButtonY);
                 TimerLog("Skill Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 253) && (color.G == 187) && (color.B == 0))
+                color1 = ColorTranslator.FromHtml(SkillButtonColor);
+                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
                 {
                     ClickLog("Skill Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + SkillButtonX, (int)NoxPointY + SkillButtonY);
@@ -495,7 +506,8 @@ namespace ArtOfHassan
                 // Speed Button
                 color = CurrentBitmap.GetPixel(SpeedButtonX, SpeedButtonY);
                 TimerLog("Speed Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 237) && (color.G == 165) && (color.B == 0))
+                color1 = ColorTranslator.FromHtml(SpeedButtonColor);
+                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
                 {
                     ClickLog("Speed Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + SpeedButtonX, (int)NoxPointY + SpeedButtonY);
@@ -515,7 +527,8 @@ namespace ArtOfHassan
                 {
                     color = CurrentBitmap.GetPixel(PauseButtonX, PauseButtonY);
                     TimerLog("Pause Button Color: " + color.R + "," + color.G + "," + color.B);
-                    if ((color.R == 253) && (color.G == 187) && (color.B == 0))
+                    color1 = ColorTranslator.FromHtml(PauseButtonColor);
+                    if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
                     {
                         ClickLog("Pause Button");
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + PauseButtonX, (int)NoxPointY + PauseButtonY);
@@ -529,12 +542,14 @@ namespace ArtOfHassan
                 // Check Victory or Defeat
                 color = CurrentBitmap.GetPixel(VictoryDefeatX, VictoryDefeatY);
                 TimerLog("Victory or Defeat Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 217) && (color.G == 28) && (color.B == 19))
+                color1 = ColorTranslator.FromHtml(VictoryDefeatColor.Split(';')[0]);
+                color2 = ColorTranslator.FromHtml(VictoryDefeatColor.Split(';')[1]);
+                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
                 {
                     ClickLog("Victory Checked");
                     VictoryFlag = true;
                 }
-                else if ((color.R == 18) && (color.G == 167) && (color.B == 216))
+                else if ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B))
                 {
                     ClickLog("Defeat Checked");
                     DefeatFlag = true;
@@ -544,11 +559,14 @@ namespace ArtOfHassan
                 // Gold Button
                 color = CurrentBitmap.GetPixel(GoldButtonBackgroundX, GoldButtonBackgroundY);
                 TimerLog("Gold Button Background Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 125) && (color.G == 167) && (color.B == 10)) // Green
+                color1 = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Split(';')[0]);
+                color2 = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Split(';')[1]);
+                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) // Green
                 {
                     color = CurrentBitmap.GetPixel(GoldButtonImageX, GoldButtonImageY);
                     TimerLog("Gold Button Image Color: " + color.R + "," + color.G + "," + color.B);
-                    if (!IsLatest || ((color.R == 255) && (color.G == 234) && (color.B == 144))) // Yellow
+                    color1 = ColorTranslator.FromHtml(GoldButtonImageColor);
+                    if (!IsLatest || ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))) // Yellow
                     {
                         ClickLog("Gold Button");
                         AdsFlag = true;
@@ -569,7 +587,7 @@ namespace ArtOfHassan
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
                     }
                 }
-                else if ((color.R == 142) && (color.G == 142) && (color.B == 142)) // Gray
+                else if ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)) // Gray
                 {
                     ClickLog("Gold Button is Gray");
 
@@ -590,7 +608,8 @@ namespace ArtOfHassan
                 // Next Button
                 color = CurrentBitmap.GetPixel(NextButtonX, NextButtonY);
                 TimerLog("Next Button Color: " + color.R + "," + color.G + "," + color.B);
-                if (IsLatest && ((color.R == 253) && (color.G == 187) && (color.B == 0)))
+                color1 = ColorTranslator.FromHtml(NextButtonColor);
+                if (IsLatest && ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)))
                 {
                     ClickLog("Next Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + NextButtonY);
@@ -603,7 +622,8 @@ namespace ArtOfHassan
                 // Not Responding Button
                 color = CurrentBitmap.GetPixel(NotRespondingX, NotRespondingY);
                 TimerLog("Not Responding Button Color: " + color.R + "," + color.G + "," + color.B);
-                if ((color.R == 0) && (color.G == 150) && (color.B == 136))
+                color1 = ColorTranslator.FromHtml(NotRespondingColor);
+                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
                 {
                     ClickLog("Not Responding Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingX, (int)NoxPointY + NotRespondingY);
@@ -616,8 +636,10 @@ namespace ArtOfHassan
                 // Ads Button1
                 color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton1Y);
                 TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
-                if (((color.R == 233) && (color.G == 233) && (color.B == 216)) ||
-                    ((color.R == 239) && (color.G == 231) && (color.B == 214)))
+                color1 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[0]);
+                color2 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[1]);
+                if (((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) ||
+                    ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)))
                 {
                     ClickLog("Ads Button 1");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton1Y);
@@ -632,8 +654,10 @@ namespace ArtOfHassan
                 // Ads Button2
                 color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton2Y);
                 TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
-                if (((color.R == 233) && (color.G == 233) && (color.B == 216)) ||
-                    ((color.R == 239) && (color.G == 231) && (color.B == 214)))
+                color1 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[0]);
+                color2 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[1]);
+                if (((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) ||
+                    ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)))
                 {
                     ClickLog("Ads Button 2");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton2Y);
@@ -768,6 +792,8 @@ namespace ArtOfHassan
             settingWindow.BattleLevelButtonColor.Text = BattleLevelButtonColor;
             settingWindow.BattleLevelButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Split(';')[0]));
             settingWindow.BattleLevelButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Split(';')[1]));
+            settingWindow.BattleLevelButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Split(';')[2]));
+            settingWindow.BattleLevelButton4.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Split(';')[3]));
 
             settingWindow.SkillButtonX.Text = SkillButtonX.ToString();
             settingWindow.SkillButtonY.Text = SkillButtonY.ToString();

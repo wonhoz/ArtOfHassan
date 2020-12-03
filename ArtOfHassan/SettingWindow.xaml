@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d" Icon="icon.ico"
-        Title="Setting" Height="700" Width="550" WindowStartupLocation="CenterScreen">
+        Title="Setting" Height="700" Width="750" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -34,9 +34,11 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition />
             <ColumnDefinition />
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="0.45*"/>
-            <ColumnDefinition Width="0.45*"/>
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.4*"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="Item" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -62,7 +64,7 @@
         <TextBlock Grid.Column="1" Text="X Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="2" Text="Y Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="3" Text="Color Code" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="4" Grid.ColumnSpan="3" Text="Color Pick" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="4" Grid.ColumnSpan="4" Text="Color Pick" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <TextBox Grid.Row="1" Grid.Column="1" Name="AppLocationX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
         <TextBox Grid.Row="2" Grid.Column="1" Name="HomeButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
@@ -158,6 +160,9 @@
         <!--Button Grid.Row="16" Grid.Column="5" Name="AdsCloseButton1_2" Click="AppLocationButton_Click" Margin="5"/>
         <Button Grid.Row="17" Grid.Column="5" Name="AdsCloseButton2_2" Click="AppLocationButton_Click" Margin="5"/-->
         <!--<Button Grid.Row="18" Grid.Column="5" Name="NotResponding2" Click="AppLocationButton_Click" Margin="5"/>-->
+
+        <Button Grid.Row="6" Grid.Column="6" Name="BattleLevelButton3" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="6" Grid.Column="7" Name="BattleLevelButton4" Click="AppLocationButton_Click" Margin="5"/>
 
         <Grid Grid.Row="19" Grid.ColumnSpan="6">
             <Grid.ColumnDefinitions>
