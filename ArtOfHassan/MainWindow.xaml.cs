@@ -597,6 +597,26 @@ namespace ArtOfHassan
                         AdsStopwatch.Reset();
                         AdsStopwatch.Stop();
 
+                        bool isLeftFirst  = true;
+
+                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                        {
+                            if (RightAdsRadioButton.IsChecked.Value)
+                            {
+                                isLeftFirst  = false;
+                            }
+                        }));
+
+                        if (!isLeftFirst)
+                        {
+                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton2X, (int)NoxPointY + AdsCloseButtonY);
+                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                            System.Threading.Thread.Sleep(50);
+                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                            System.Threading.Thread.Sleep(500);
+                        }
+
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton1X, (int)NoxPointY + AdsCloseButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                         System.Threading.Thread.Sleep(50);
@@ -604,10 +624,13 @@ namespace ArtOfHassan
 
                         System.Threading.Thread.Sleep(500);
 
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton2X, (int)NoxPointY + AdsCloseButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        if (isLeftFirst)
+                        {
+                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton2X, (int)NoxPointY + AdsCloseButtonY);
+                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                            System.Threading.Thread.Sleep(50);
+                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        }
 
                         return;
                     }
