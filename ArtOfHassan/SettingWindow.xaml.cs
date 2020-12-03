@@ -629,8 +629,8 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsButtonX = (int.Parse(AdsButton1X.Text) + int.Parse(AdsButton2X.Text)) / 2;
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsButton1Y = int.Parse(AdsButton1Y.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsButton2Y = int.Parse(AdsButton2Y.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).AdsButtonColor = AdsButton1Color.Text + ";" + AdsButton2Color.Text;
-                    streamWriter.WriteLine((int)((int.Parse(AdsButton1X.Text) + int.Parse(AdsButton2X.Text)) / 2) + "," + AdsButton1Y.Text + "," + AdsButton2Y.Text + "," + AdsButton1Color.Text + ";" + AdsButton2Color.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).AdsButtonColor = AdsButton1Color.Text;
+                    streamWriter.WriteLine((int)((int.Parse(AdsButton1X.Text) + int.Parse(AdsButton2X.Text)) / 2) + "," + AdsButton1Y.Text + "," + AdsButton2Y.Text + "," + AdsButton1Color.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButton1X = int.Parse(AdsCloseButton1X.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButton2X = int.Parse(AdsCloseButton2X.Text);
