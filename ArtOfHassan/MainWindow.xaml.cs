@@ -251,57 +251,57 @@ namespace ArtOfHassan
 
         public int AppLocationX        = 60;
         public int AppLocationY        = 500;
-        public string AppLocationColor = "#a9d8ff;#97c601";
+        public string AppLocationColor = "#a9d8ff;#97c601".ToUpper();
 
         public int HomeButtonX        = 290;
         public int ShopButtonX        = 65;
         public int ShopButtonY        = 980;
-        public string ShopButtonColor = "#ea3d34";
+        public string ShopButtonColor = "#ea3d34".ToUpper();
 
         public int MiddleButtonX        = 195;
         public int MiddleButtonY        = 680;
-        public string MiddleButtonColor = "#fdbb00";
+        public string MiddleButtonColor = "#fdbb00".ToUpper();
 
         public int GoldChestBoxX      = 150;
         public int GoldChestBoxY      = 410;
-        public string GoldChestBoxColor = "#fff102;#eabf2f";
+        public string GoldChestBoxColor = "#fff102;#eabf2f".ToUpper();
 
         public int BattleLevelButtonX = 180;
         public int BattleLevelButtonY = 855;
-        public string BattleLevelButtonColor = "#fdbb00;#ca9600;#bd1808;#0d677a";
+        public string BattleLevelButtonColor = "#fdbb00;#ca9600;#bd1808;#0d677a".ToUpper();
 
         public int SkillButtonX     = 475;
         public int SkillButtonY     = 920;
-        public string SkillButtonColor = "#fdbb00";
+        public string SkillButtonColor = "#fdbb00".ToUpper();
 
         public int SpeedButtonX     = 514;
         public int SpeedButtonY     = 989;
-        public string SpeedButtonColor = "#eda500";
+        public string SpeedButtonColor = "#eda500".ToUpper();
 
         public int PauseButtonX     = 215;
         public int PauseButtonY     = 455;
-        public string PauseButtonColor = "#fdbb00";
+        public string PauseButtonColor = "#fdbb00".ToUpper();
 
         public int VictoryDefeatX   = 120;
         public int VictoryDefeatY   = 355;
-        public string VictoryDefeatColor = "#d91c13;#12a7d8";
+        public string VictoryDefeatColor = "#d91c13;#12a7d8".ToUpper();
 
         public int GoldButtonBackgroundX = 115;
         public int GoldButtonBackgroundY = 780;
-        public string GoldButtonBackgroundColor = "#7da70a;#8e8e8e";
+        public string GoldButtonBackgroundColor = "#7da70a;#8e8e8e".ToUpper();
 
         public int GoldButtonImageX      = 133;
         public int GoldButtonImageY      = 755;
-        public string GoldButtonImageColor = "#ffea90";
+        public string GoldButtonImageColor = "#ffea90".ToUpper();
 
         public int NextButtonX           = 450;
         public int NextButtonY           = 710;
-        public string NextButtonColor = "#fdbb00";
+        public string NextButtonColor = "#fdbb00".ToUpper();
 
         public int AdsButtonX       = 496;
         public int AdsButton1Y      = 180;
         public int AdsButton2Y      = 190;
-        public string AdsButtonColor = "#e9e9d8;#efe7d6";
+        public string AdsButtonColor = "#e9e9d8;#efe7d6".ToUpper();
 
         public int AdsCloseButton1X = 39;
         public int AdsCloseButton2X = 519;
@@ -309,7 +309,7 @@ namespace ArtOfHassan
 
         public int NotRespondingX   = 79;
         public int NotRespondingY   = 540;
-        public string NotRespondingColor = "#009688";
+        public string NotRespondingColor = "#009688".ToUpper();
 
 
         private void NoxTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
