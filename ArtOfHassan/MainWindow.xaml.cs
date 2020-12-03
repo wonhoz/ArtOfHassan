@@ -71,6 +71,10 @@ namespace ArtOfHassan
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
 
+        public System.Drawing.Color PixelColor;
+        public int PixelPositionX;
+        public int PixelPositionY;
+
 
         public MainWindow()
         {
@@ -231,12 +235,14 @@ namespace ArtOfHassan
             if (StartButton.Content.ToString() == "Start")
             {
                 StartButton.Content = "Stop";
+                SettingButton.IsEnabled = false;
 
                 ButtonTimer.Enabled = true;
             }
             else
             {
                 StartButton.Content = "Start";
+                SettingButton.IsEnabled = true;
 
                 ButtonTimer.Enabled = false;
             }

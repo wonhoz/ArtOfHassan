@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -44,6 +45,7 @@ namespace ArtOfHassan
         double NoxWidth  = 0;
         double NoxHeight = 0;
 
+
         public SettingWindow()
         {
             InitializeComponent();
@@ -70,7 +72,7 @@ namespace ArtOfHassan
             point = new System.Windows.Point(placement.normal_position.Left, placement.normal_position.Top);
         }
 
-        private void AppLocationButton_Click(object sender, RoutedEventArgs e)
+        private void GetPixelPositionAndColor()
         {
             System.Windows.Point point = new System.Windows.Point();
             System.Windows.Size size = new System.Windows.Size();
@@ -81,7 +83,7 @@ namespace ArtOfHassan
             {
                 NoxPointX = point.X;
                 NoxPointY = point.Y;
-                NoxWidth  = size.Width;
+                NoxWidth = size.Width;
                 NoxHeight = size.Height;
 
                 // 화면 크기만큼의 Bitmap 생성
@@ -109,9 +111,452 @@ namespace ArtOfHassan
                     screenshot.Width = NoxWidth;
                     screenshot.Height = NoxHeight;
                     screenshot.MainImage.Source = bitmapImage;
+                    screenshot.CurrentBitmap = CurrentBitmap;
                     screenshot.ShowDialog();
                 }
             }
+        }
+
+        private void AppLocationButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AppLocationX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AppLocationY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(AppLocationColor.Text.Split(';')[0]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                AppLocationX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                AppLocationY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                AppLocationColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + AppLocationColor.Text.Split(';')[1];
+                AppLocationButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void ShopButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(ShopButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(ShopButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(ShopButtonColor.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ShopButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                ShopButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                ShopButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                ShopButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void MiddleButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(MiddleButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(MiddleButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(MiddleButtonColor.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                MiddleButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                MiddleButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                MiddleButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                MiddleButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void GoldChestBox1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldChestBoxX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldChestBoxY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldChestBoxColor.Text.Split(';')[0]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                GoldChestBoxX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                GoldChestBoxY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                GoldChestBoxColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + GoldChestBoxColor.Text.Split(';')[1];
+                GoldChestBox1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void BattleLevelButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(BattleLevelButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(BattleLevelButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(BattleLevelButtonColor.Text.Split(';')[0]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                BattleLevelButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                BattleLevelButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                BattleLevelButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + BattleLevelButtonColor.Text.Split(';')[1] + ";" + BattleLevelButtonColor.Text.Split(';')[2] + ";" + BattleLevelButtonColor.Text.Split(';')[3];
+                BattleLevelButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void SkillButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(SkillButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(SkillButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(SkillButtonColor.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                SkillButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                SkillButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                SkillButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                SkillButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void SpeedButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(SpeedButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(SpeedButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(SpeedButtonColor.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                SpeedButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                SpeedButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                SpeedButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                SpeedButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void PauseButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(PauseButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(PauseButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(PauseButtonColor.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                PauseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                PauseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                PauseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                PauseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void VictoryDefeat1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(VictoryDefeatX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(VictoryDefeatY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(VictoryDefeatColor.Text.Split(';')[0]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                VictoryDefeatX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                VictoryDefeatY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                VictoryDefeatColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + VictoryDefeatColor.Text.Split(';')[1];
+                VictoryDefeat1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void GoldButtonBackground1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldButtonBackgroundX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldButtonBackgroundY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Text.Split(';')[0]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                GoldButtonBackgroundX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                GoldButtonBackgroundY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                GoldButtonBackgroundColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + GoldButtonBackgroundColor.Text.Split(';')[1];
+                GoldButtonBackground1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void GoldButtonImage1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldButtonImageX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldButtonImageY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldButtonImageColor.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                GoldButtonImageX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                GoldButtonImageY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                GoldButtonImageColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                GoldButtonImage1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void NextButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(NextButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(NextButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(NextButtonColor.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                NextButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                NextButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                NextButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                NextButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void AdsButton1_1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AdsButton1X.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AdsButton1Y.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(AdsButton1Color.Text.Split(';')[0]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                AdsButton1X.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                AdsButton1Y.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                AdsButton1Color.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + AdsButton1Color.Text.Split(';')[1];
+                AdsButton2Color.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + AdsButton2Color.Text.Split(';')[1];
+                AdsButton1_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void AdsButton2_1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AdsButton2X.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AdsButton2Y.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(AdsButton2Color.Text.Split(';')[1]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                AdsButton2X.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                AdsButton2Y.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                AdsButton1Color.Text = AdsButton1Color.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                AdsButton2Color.Text = AdsButton2Color.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                AdsButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void NotResponding1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(NotRespondingX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(NotRespondingY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(NotRespondingColor.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                NotRespondingX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                NotRespondingY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                NotRespondingColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void AppLocationButton2_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AppLocationX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AppLocationY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(AppLocationColor.Text.Split(';')[1]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                AppLocationX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                AppLocationY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                AppLocationColor.Text = AppLocationColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                AppLocationButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void GoldChestBox2_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldChestBoxX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldChestBoxY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldChestBoxColor.Text.Split(';')[1]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                GoldChestBoxX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                GoldChestBoxY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                GoldChestBoxColor.Text = GoldChestBoxColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                GoldChestBox2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void BattleLevelButton2_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(BattleLevelButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(BattleLevelButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(BattleLevelButtonColor.Text.Split(';')[1]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                BattleLevelButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                BattleLevelButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                BattleLevelButtonColor.Text = BattleLevelButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + BattleLevelButtonColor.Text.Split(';')[2] + ";" + BattleLevelButtonColor.Text.Split(';')[3];
+                BattleLevelButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void VictoryDefeat2_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(VictoryDefeatX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(VictoryDefeatY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(VictoryDefeatColor.Text.Split(';')[1]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                VictoryDefeatX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                VictoryDefeatY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                VictoryDefeatColor.Text = VictoryDefeatColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                VictoryDefeat2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void GoldButtonBackground2_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldButtonBackgroundX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldButtonBackgroundY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Text.Split(';')[1]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                GoldButtonBackgroundX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                GoldButtonBackgroundY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                GoldButtonBackgroundColor.Text = GoldButtonBackgroundColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                GoldButtonBackground2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void BattleLevelButton3_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(BattleLevelButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(BattleLevelButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(BattleLevelButtonColor.Text.Split(';')[2]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                BattleLevelButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                BattleLevelButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                BattleLevelButtonColor.Text = BattleLevelButtonColor.Text.Split(';')[0] + ";" + BattleLevelButtonColor.Text.Split(';')[1] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + BattleLevelButtonColor.Text.Split(';')[3];
+                BattleLevelButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void BattleLevelButton4_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(BattleLevelButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(BattleLevelButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(BattleLevelButtonColor.Text.Split(';')[3]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                BattleLevelButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                BattleLevelButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                BattleLevelButtonColor.Text = BattleLevelButtonColor.Text.Split(';')[0] + ";" + BattleLevelButtonColor.Text.Split(';')[1] + ";" + BattleLevelButtonColor.Text.Split(';')[2] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                BattleLevelButton4.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
