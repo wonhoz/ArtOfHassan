@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,14 +23,95 @@ namespace ArtOfHassan
     /// </summary>
     public partial class SettingWindow : Window
     {
+        [DllImport("user32.dll")]
+        static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        static extern IntPtr FindWindow(string strClassName, string strWindowName);
+
+        [DllImport("user32.dll")]
+        internal static extern bool GetWindowPlacement(IntPtr handle, ref WINDOWPLACEMENT placement);
+
+        private const uint MOUSEMOVE = 0x0001;  // 마우스 이동
+        private const uint ABSOLUTEMOVE = 0x8000;  // 전역 위치
+        private const uint LBUTTONDOWN = 0x0002;  // 왼쪽 마우스 버튼 눌림
+        private const uint LBUTTONUP = 0x0004;  // 왼쪽 마우스 버튼 떼어짐
+        private const uint RBUTTONDOWN = 0x0008;  // 오른쪽 마우스 버튼 눌림
+        private const uint RBUTTONUP = 0x00010; // 오른쪽 마우스 버튼 떼어짐
+
+        double NoxPointX = 0;
+        double NoxPointY = 0;
+        double NoxWidth  = 0;
+        double NoxHeight = 0;
+
         public SettingWindow()
         {
             InitializeComponent();
         }
 
+        private IntPtr GetWinAscHandle()
+        {
+            string windowTitle = "NoxPlayer";
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                windowTitle = ((MainWindow)System.Windows.Application.Current.MainWindow).WindowTitleTextBox.Text;
+            }));
+            return FindWindow(null, windowTitle);
+        }
+
+        private void GetWindowPos(IntPtr hwnd, ref System.Windows.Point point, ref System.Windows.Size size)
+        {
+            WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
+            placement.length = System.Runtime.InteropServices.Marshal.SizeOf(placement);
+
+            GetWindowPlacement(hwnd, ref placement);
+
+            size = new System.Windows.Size(placement.normal_position.Right - (placement.normal_position.Left * 2), placement.normal_position.Bottom - (placement.normal_position.Top * 2));
+            point = new System.Windows.Point(placement.normal_position.Left, placement.normal_position.Top);
+        }
+
         private void AppLocationButton_Click(object sender, RoutedEventArgs e)
         {
+            System.Windows.Point point = new System.Windows.Point();
+            System.Windows.Size size = new System.Windows.Size();
 
+            GetWindowPos(GetWinAscHandle(), ref point, ref size);
+
+            if ((size.Width != 0) && (size.Height != 0))
+            {
+                NoxPointX = point.X;
+                NoxPointY = point.Y;
+                NoxWidth  = size.Width;
+                NoxHeight = size.Height;
+
+                // 화면 크기만큼의 Bitmap 생성
+                System.Drawing.Bitmap CurrentBitmap = new System.Drawing.Bitmap((int)NoxWidth, (int)NoxHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                // Bitmap 이미지 변경을 위해 Graphics 객체 생성
+                using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(CurrentBitmap))
+                {
+                    // 화면을 그대로 카피해서 Bitmap 메모리에 저장
+                    graphics.CopyFromScreen((int)NoxPointX, (int)NoxPointY, 0, 0, CurrentBitmap.Size);
+                    // Bitmap 데이타를 파일로 저장
+                    //CurrentBitmap.Save("screenshot.png", System.Drawing.Imaging.ImageFormat.Png);
+                }
+
+                using (MemoryStream memory = new MemoryStream())
+                {
+                    CurrentBitmap.Save(memory, ImageFormat.Png);
+                    memory.Position = 0;
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = memory;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+
+                    Screenshot screenshot = new Screenshot();
+                    screenshot.Width = NoxWidth;
+                    screenshot.Height = NoxHeight;
+                    screenshot.MainImage.Source = bitmapImage;
+                    screenshot.ShowDialog();
+                }
+            }
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
