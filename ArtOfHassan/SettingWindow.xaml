@@ -158,5 +158,19 @@
         <!--Button Grid.Row="16" Grid.Column="5" Name="AdsCloseButton1_2" Click="AppLocationButton_Click" Margin="5"/>
         <Button Grid.Row="17" Grid.Column="5" Name="AdsCloseButton2_2" Click="AppLocationButton_Click" Margin="5"/-->
         <!--<Button Grid.Row="18" Grid.Column="5" Name="NotResponding2" Click="AppLocationButton_Click" Margin="5"/>-->
+
+        <Grid Grid.Row="19" Grid.ColumnSpan="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="4" Name="ApplyButton" Content="Apply" Click="ApplyButton_Click" Margin="5,5,2.5,5"/>
+            <Button Grid.Column="5" Name="CancelButton" Content="Cancel" Click="CancelButton_Click" Margin="2.5,5,5,5"/>
+        </Grid>
     </Grid>
 </Window>
