@@ -170,48 +170,48 @@ namespace ArtOfHassan
         }
 
 
-        int AppLocationX    = 60;
-        int AppLocationY    = 500;
+        public int AppLocationX    = 60;
+        public int AppLocationY    = 500;
 
-        int HomeButtonX     = 290;
-        int ShopButtonX     = 65;
-        int ShopButtonY     = 980;
+        public int HomeButtonX     = 290;
+        public int ShopButtonX     = 65;
+        public int ShopButtonY     = 980;
 
-        int MiddleButtonX   = 195;
-        int MiddleButtonY   = 680;
+        public int MiddleButtonX   = 195;
+        public int MiddleButtonY   = 680;
 
-        int GoldChestBoxX      = 150;
-        int GoldChestBoxY      = 410;
-        int BattleLevelButtonX = 180;
-        int BattleLevelButtonY = 855;
+        public int GoldChestBoxX      = 150;
+        public int GoldChestBoxY      = 410;
+        public int BattleLevelButtonX = 180;
+        public int BattleLevelButtonY = 855;
 
-        int SkillButtonX     = 475;
-        int SkillButtonY     = 920;
-        int SpeedButtonX     = 514;
-        int SpeedButtonY     = 989;
+        public int SkillButtonX     = 475;
+        public int SkillButtonY     = 920;
+        public int SpeedButtonX     = 514;
+        public int SpeedButtonY     = 989;
 
-        int PauseButtonX     = 215;
-        int PauseButtonY     = 455;
-        int VictoryDefeatX   = 120;
-        int VictoryDefeatY   = 355;
+        public int PauseButtonX     = 215;
+        public int PauseButtonY     = 455;
+        public int VictoryDefeatX   = 120;
+        public int VictoryDefeatY   = 355;
 
-        int GoldButtonBackgroundX = 115;
-        int GoldButtonBackgroundY = 780;
-        int GoldButtonImageX      = 133;
-        int GoldButtonImageY      = 755;
-        int NextButtonX           = 450;
-        int NextButtonY           = 710;
+        public int GoldButtonBackgroundX = 115;
+        public int GoldButtonBackgroundY = 780;
+        public int GoldButtonImageX      = 133;
+        public int GoldButtonImageY      = 755;
+        public int NextButtonX           = 450;
+        public int NextButtonY           = 710;
 
-        int AdsButtonX       = 496;
-        int AdsButton1Y      = 180;
-        int AdsButton2Y      = 190;
+        public int AdsButtonX       = 496;
+        public int AdsButton1Y      = 180;
+        public int AdsButton2Y      = 190;
 
-        int AdsCloseButton1X = 39;
-        int AdsCloseButton2X = 519;
-        int AdsCloseButtonY  = 68;
+        public int AdsCloseButton1X = 39;
+        public int AdsCloseButton2X = 519;
+        public int AdsCloseButtonY  = 68;
 
-        int NotRespondingX   = 79;
-        int NotRespondingY   = 540;
+        public int NotRespondingX   = 79;
+        public int NotRespondingY   = 540;
 
 
         private void NoxTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
@@ -645,7 +645,62 @@ namespace ArtOfHassan
 
         private void SettingButton_Click(object sender, RoutedEventArgs e)
         {
+            SettingWindow settingWindow = new SettingWindow();
+            settingWindow.AppLocationX.Text = AppLocationX.ToString();
+            settingWindow.AppLocationY.Text = AppLocationY.ToString();
 
+            settingWindow.HomeButtonX.Text = HomeButtonX.ToString();
+            settingWindow.HomeButtonY.Text = ShopButtonY.ToString();
+
+            settingWindow.ShopButtonX.Text = ShopButtonX.ToString();
+            settingWindow.ShopButtonY.Text = ShopButtonY.ToString();
+
+            settingWindow.MiddleButtonX.Text = MiddleButtonX.ToString();
+            settingWindow.MiddleButtonY.Text = MiddleButtonY.ToString();
+
+            settingWindow.GoldChestBoxX.Text = GoldChestBoxX.ToString();
+            settingWindow.GoldChestBoxY.Text = GoldChestBoxY.ToString();
+
+            settingWindow.BattleLevelButtonX.Text = BattleLevelButtonX.ToString();
+            settingWindow.BattleLevelButtonY.Text = BattleLevelButtonY.ToString();
+
+            settingWindow.SkillButtonX.Text = SkillButtonX.ToString();
+            settingWindow.SkillButtonY.Text = SkillButtonY.ToString();
+
+            settingWindow.SpeedButtonX.Text = SpeedButtonX.ToString();
+            settingWindow.SpeedButtonY.Text = SpeedButtonY.ToString();
+
+            settingWindow.PauseButtonX.Text = PauseButtonX.ToString();
+            settingWindow.PauseButtonY.Text = PauseButtonY.ToString();
+
+            settingWindow.VictoryDefeatX.Text = VictoryDefeatX.ToString();
+            settingWindow.VictoryDefeatY.Text = VictoryDefeatY.ToString();
+
+            settingWindow.GoldButtonBackgroundX.Text = GoldButtonBackgroundX.ToString();
+            settingWindow.GoldButtonBackgroundY.Text = GoldButtonBackgroundY.ToString();
+
+            settingWindow.GoldButtonImageX.Text = GoldButtonImageX.ToString();
+            settingWindow.GoldButtonImageY.Text = GoldButtonImageY.ToString();
+
+            settingWindow.NextButtonX.Text = NextButtonX.ToString();
+            settingWindow.NextButtonY.Text = NextButtonY.ToString();
+
+            settingWindow.AdsButton1X.Text = AdsButtonX.ToString();
+            settingWindow.AdsButton1Y.Text = AdsButton1Y.ToString();
+
+            settingWindow.AdsButton2X.Text = AdsButtonX.ToString();
+            settingWindow.AdsButton2Y.Text = AdsButton2Y.ToString();
+
+            settingWindow.AdsCloseButton1X.Text = AdsCloseButton1X.ToString();
+            settingWindow.AdsCloseButton1Y.Text = AdsCloseButtonY.ToString();
+
+            settingWindow.AdsCloseButton2X.Text = AdsCloseButton2X.ToString();
+            settingWindow.AdsCloseButton2Y.Text = AdsCloseButtonY.ToString();
+
+            settingWindow.NotRespondingX.Text = NotRespondingX.ToString();
+            settingWindow.NotRespondingY.Text = NotRespondingY.ToString();
+
+            settingWindow.ShowDialog();
         }
     }
 }

@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace ArtOfHassan
 {
     /// <summary>
-    /// SettingWindow.xaml에 대한 상호 작용 논리
+    /// Screenshot.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class SettingWindow : Window
+    public partial class Screenshot : Window
     {
-        public SettingWindow()
+        public Screenshot()
         {
             InitializeComponent();
-        }
-
-        private void AppLocationButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -5,8 +5,138 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d" Icon="icon.ico"
-        Title="Setting" Height="450" Width="800">
+        Title="Setting" Height="700" Width="500" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Item" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Text="App Location" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="2" Text="Home Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="3" Text="Shop Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="4" Text="Center Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="5" Text="Gold Chest Box" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="6" Text="Battle &amp; Level Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="7" Text="Auto Skill Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="8" Text="VIP X2 Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="9" Text="Pause Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="10" Text="Victory Defeat" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="11" Text="X3 Gold Button Background" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="12" Text="X3 Gold Button Image" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="13" Text="Next Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="14" Text="Game Ads1 Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="15" Text="Game Ads2 Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="16" Text="Left Ads Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="17" Text="Right Ads Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="18" Text="Not Responding" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <TextBlock Grid.Column="1" Text="X Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="Y Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="3" Text="Color Code" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="4" Text="Pick" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Name="AppLocationX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Name="HomeButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Name="ShopButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="MiddleButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Name="GoldChestBoxX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="6" Grid.Column="1" Name="BattleLevelButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="7" Grid.Column="1" Name="SkillButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="8" Grid.Column="1" Name="SpeedButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="9" Grid.Column="1" Name="PauseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="10" Grid.Column="1" Name="VictoryDefeatX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="11" Grid.Column="1" Name="GoldButtonBackgroundX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="12" Grid.Column="1" Name="GoldButtonImageX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="13" Grid.Column="1" Name="NextButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="14" Grid.Column="1" Name="AdsButton1X" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="15" Grid.Column="1" Name="AdsButton2X" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="16" Grid.Column="1" Name="AdsCloseButton1X" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="17" Grid.Column="1" Name="AdsCloseButton2X" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="18" Grid.Column="1" Name="NotRespondingX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+
+        <TextBox Grid.Row="1" Grid.Column="2" Name="AppLocationY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Name="HomeButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="3" Grid.Column="2" Name="ShopButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="4" Grid.Column="2" Name="MiddleButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="5" Grid.Column="2" Name="GoldChestBoxY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="6" Grid.Column="2" Name="BattleLevelButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="7" Grid.Column="2" Name="SkillButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="8" Grid.Column="2" Name="SpeedButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="9" Grid.Column="2" Name="PauseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="10" Grid.Column="2" Name="VictoryDefeatY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="11" Grid.Column="2" Name="GoldButtonBackgroundY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="12" Grid.Column="2" Name="GoldButtonImageY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="13" Grid.Column="2" Name="NextButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="14" Grid.Column="2" Name="AdsButton1Y" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="15" Grid.Column="2" Name="AdsButton2Y" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="16" Grid.Column="2" Name="AdsCloseButton1Y" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="17" Grid.Column="2" Name="AdsCloseButton2Y" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="18" Grid.Column="2" Name="NotRespondingY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+
+        <TextBox Grid.Row="1" Grid.Column="3" Name="AppLocationColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Name="HomeButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Name="ShopButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="4" Grid.Column="3" Name="MiddleButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="5" Grid.Column="3" Name="GoldChestBoxColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="6" Grid.Column="3" Name="BattleLevelButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="7" Grid.Column="3" Name="SkillButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="8" Grid.Column="3" Name="SpeedButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="9" Grid.Column="3" Name="PauseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="10" Grid.Column="3" Name="VictoryDefeatColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="11" Grid.Column="3" Name="GoldButtonBackgroundColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="12" Grid.Column="3" Name="GoldButtonImageColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="13" Grid.Column="3" Name="NextButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="14" Grid.Column="3" Name="AdsButton1Color" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="15" Grid.Column="3" Name="AdsButton2Color" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="16" Grid.Column="3" Name="AdsCloseButton1Color" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="17" Grid.Column="3" Name="AdsCloseButton2Color" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="18" Grid.Column="3" Name="NotRespondingColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
+
+        <Button Grid.Row="1" Grid.Column="4" Name="AppLocationButton" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="4" Name="HomeButton" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="3" Grid.Column="4" Name="ShopButton" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="4" Grid.Column="4" Name="MiddleButton" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="5" Grid.Column="4" Name="GoldChestBox" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="6" Grid.Column="4" Name="BattleLevelButton" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="7" Grid.Column="4" Name="SkillButton" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="8" Grid.Column="4" Name="SpeedButton" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="9" Grid.Column="4" Name="PauseButton" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="10" Grid.Column="4" Name="VictoryDefeat" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="11" Grid.Column="4" Name="GoldButtonBackground" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="12" Grid.Column="4" Name="GoldButtonImage" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="13" Grid.Column="4" Name="NextButton" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="14" Grid.Column="4" Name="AdsButton1" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="15" Grid.Column="4" Name="AdsButton2" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="16" Grid.Column="4" Name="AdsCloseButton1" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="17" Grid.Column="4" Name="AdsCloseButton2" Click="AppLocationButton_Click" Margin="5"/>
+        <Button Grid.Row="18" Grid.Column="4" Name="NotResponding" Click="AppLocationButton_Click" Margin="5"/>
     </Grid>
 </Window>
