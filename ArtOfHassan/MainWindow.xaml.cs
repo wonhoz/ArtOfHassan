@@ -160,7 +160,7 @@ namespace ArtOfHassan
             ButtonTimer.Interval = 1000; // 1초
             ButtonTimer.Elapsed += ButtonTimerFunction;
 
-            NoxTimer.Interval += 200;
+            NoxTimer.Interval = 200;
             NoxTimer.Elapsed += NoxTimerFunction;
             NoxTimer.Enabled = true;
         }
@@ -236,13 +236,16 @@ namespace ArtOfHassan
             {
                 StartButton.Content = "Stop";
                 SettingButton.IsEnabled = false;
+                MonitoringIntervalTextBox.IsEnabled = false;
 
+                ButtonTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
                 ButtonTimer.Enabled = true;
             }
             else
             {
                 StartButton.Content = "Start";
                 SettingButton.IsEnabled = true;
+                MonitoringIntervalTextBox.IsEnabled = true;
 
                 ButtonTimer.Enabled = false;
             }
