@@ -124,7 +124,7 @@
         <TextBox Grid.Row="18" Grid.Column="3" Name="NotRespondingColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/>
 
         <Button Grid.Row="1" Grid.Column="4" Name="AppLocationButton1" Click="AppLocationButton1_Click" Margin="5"/>
-        <!--Button Grid.Row="2" Grid.Column="4" Name="HomeButton1" Click="" Margin="5"/-->
+        <Button Grid.Row="2" Grid.Column="4" Name="HomeButton1" Click="HomeButton1_Click" Margin="5"/>
         <Button Grid.Row="3" Grid.Column="4" Name="ShopButton1" Click="ShopButton1_Click" Margin="5"/>
         <Button Grid.Row="4" Grid.Column="4" Name="MiddleButton1" Click="MiddleButton1_Click" Margin="5"/>
         <Button Grid.Row="5" Grid.Column="4" Name="GoldChestBox1" Click="GoldChestBox1_Click" Margin="5"/>
@@ -138,8 +138,8 @@
         <Button Grid.Row="13" Grid.Column="4" Name="NextButton1" Click="NextButton1_Click" Margin="5"/>
         <Button Grid.Row="14" Grid.Column="4" Name="AdsButton1_1" Click="AdsButton1_1_Click" Margin="5"/>
         <Button Grid.Row="15" Grid.Column="4" Name="AdsButton2_1" Click="AdsButton2_1_Click" Margin="5"/>
-        <!--Button Grid.Row="16" Grid.Column="4" Name="AdsCloseButton1_1" Click="" Margin="5"/>
-        <Button Grid.Row="17" Grid.Column="4" Name="AdsCloseButton2_1" Click="" Margin="5"/-->
+        <Button Grid.Row="16" Grid.Column="4" Name="AdsCloseButton1_1" Click="AdsCloseButton1_1_Click" Margin="5"/>
+        <Button Grid.Row="17" Grid.Column="4" Name="AdsCloseButton2_1" Click="AdsCloseButton2_1_Click" Margin="5"/>
         <Button Grid.Row="18" Grid.Column="4" Name="NotResponding1" Click="NotResponding1_Click" Margin="5"/>
 
         <Button Grid.Row="1" Grid.Column="5" Name="AppLocationButton2" Click="AppLocationButton2_Click" Margin="5"/>

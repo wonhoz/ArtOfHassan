@@ -70,11 +70,11 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <RadioButton Name="LeftAdsRadioButton" Content="Left" IsChecked="True"
+            <RadioButton Name="LeftAdsRadioButton" Content="Left First" IsChecked="True"
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <RadioButton Grid.Column="1" Name="RightAdsRadioButton" Content="Right"
+            <RadioButton Grid.Column="1" Name="RightAdsRadioButton" Content="Right First"
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>

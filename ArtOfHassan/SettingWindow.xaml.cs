@@ -559,6 +559,57 @@ namespace ArtOfHassan
             }));
         }
 
+        private void HomeButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(HomeButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(HomeButtonY.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                HomeButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                HomeButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+            }));
+        }
+
+        private void AdsCloseButton1_1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AdsCloseButton1X.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AdsCloseButton1Y.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                AdsCloseButton1X.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                AdsCloseButton1Y.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+            }));
+        }
+
+        private void AdsCloseButton2_1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AdsCloseButton2X.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AdsCloseButton2Y.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                AdsCloseButton2X.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                AdsCloseButton2Y.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+            }));
+        }
+
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
             using (StreamWriter streamWriter = new StreamWriter($@"setting.txt", false))
