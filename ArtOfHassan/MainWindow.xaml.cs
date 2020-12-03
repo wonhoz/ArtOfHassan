@@ -82,6 +82,77 @@ namespace ArtOfHassan
                 directoryInfo.Create();
             }
 
+            FileInfo fileInfo = new FileInfo("setting.txt");
+            if (fileInfo.Exists)
+            {
+                ClickLog("Load Setting...");
+
+                string[] lines = File.ReadAllLines("setting.txt");
+                AppLocationX = int.Parse(lines[0].Split(',')[0]);
+                AppLocationY = int.Parse(lines[0].Split(',')[1]);
+                AppLocationColor = lines[0].Split(',')[2];
+
+                HomeButtonX = int.Parse(lines[1].Split(',')[0]);
+                ShopButtonX = int.Parse(lines[1].Split(',')[1]);
+                ShopButtonY = int.Parse(lines[1].Split(',')[2]);
+                ShopButtonColor = lines[1].Split(',')[3];
+
+                MiddleButtonX = int.Parse(lines[2].Split(',')[0]);
+                MiddleButtonY = int.Parse(lines[2].Split(',')[1]);
+                MiddleButtonColor = lines[2].Split(',')[2];
+
+                GoldChestBoxX = int.Parse(lines[3].Split(',')[0]);
+                GoldChestBoxY = int.Parse(lines[3].Split(',')[1]);
+                GoldChestBoxColor = lines[3].Split(',')[2];
+
+                BattleLevelButtonX = int.Parse(lines[4].Split(',')[0]);
+                BattleLevelButtonY = int.Parse(lines[4].Split(',')[1]);
+                BattleLevelButtonColor = lines[4].Split(',')[2];
+
+                SkillButtonX = int.Parse(lines[5].Split(',')[0]);
+                SkillButtonY = int.Parse(lines[5].Split(',')[1]);
+                SkillButtonColor = lines[5].Split(',')[2];
+
+                SpeedButtonX = int.Parse(lines[6].Split(',')[0]);
+                SpeedButtonY = int.Parse(lines[6].Split(',')[1]);
+                SpeedButtonColor = lines[6].Split(',')[2];
+
+                PauseButtonX = int.Parse(lines[7].Split(',')[0]);
+                PauseButtonY = int.Parse(lines[7].Split(',')[1]);
+                PauseButtonColor = lines[7].Split(',')[2];
+
+                VictoryDefeatX = int.Parse(lines[8].Split(',')[0]);
+                VictoryDefeatY = int.Parse(lines[8].Split(',')[1]);
+                VictoryDefeatColor = lines[8].Split(',')[2];
+
+                GoldButtonBackgroundX = int.Parse(lines[9].Split(',')[0]);
+                GoldButtonBackgroundY = int.Parse(lines[9].Split(',')[1]);
+                GoldButtonBackgroundColor = lines[9].Split(',')[2];
+
+                GoldButtonImageX = int.Parse(lines[10].Split(',')[0]);
+                GoldButtonImageY = int.Parse(lines[10].Split(',')[1]);
+                GoldButtonImageColor = lines[10].Split(',')[2];
+
+                NextButtonX = int.Parse(lines[11].Split(',')[0]);
+                NextButtonY = int.Parse(lines[11].Split(',')[1]);
+                NextButtonColor = lines[11].Split(',')[2];
+
+                AdsButtonX = int.Parse(lines[12].Split(',')[0]);
+                AdsButton1Y = int.Parse(lines[12].Split(',')[1]);
+                AdsButton2Y = int.Parse(lines[12].Split(',')[2]);
+                AdsButtonColor = lines[12].Split(',')[3];
+
+                AdsCloseButton1X = int.Parse(lines[13].Split(',')[0]);
+                AdsCloseButton2X = int.Parse(lines[13].Split(',')[1]);
+                AdsCloseButtonY = int.Parse(lines[13].Split(',')[2]);
+
+                NotRespondingX = int.Parse(lines[14].Split(',')[0]);
+                NotRespondingY = int.Parse(lines[14].Split(',')[1]);
+                NotRespondingColor = lines[14].Split(',')[2];
+
+                ClickLog("Load Done");
+            }
+
             ButtonTimer.Interval = 1000; // 1초
             ButtonTimer.Elapsed += ButtonTimerFunction;
 
