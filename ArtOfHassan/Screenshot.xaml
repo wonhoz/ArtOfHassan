@@ -5,9 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d"
-        Title="Screenshot" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+        Title="Screenshot" Height="1020" Width="558" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
-        <Image Name="MainImage" PreviewMouseLeftButtonUp="MainImage_PreviewMouseLeftButtonUp"
-               PreviewMouseRightButtonUp="MainImage_PreviewMouseRightButtonUp"/>
+        <Image Name="MainImage"
+               PreviewMouseLeftButtonUp="MainImage_PreviewMouseLeftButtonUp"
+               PreviewMouseRightButtonUp="MainImage_PreviewMouseRightButtonUp"
+               PreviewMouseMove="MainImage_PreviewMouseMove"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition />
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Grid.Row="1" Grid.Column="1" Name="PosColorNWout" Width="120" Height="50" Fill="white" Visibility="Hidden"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Name="PosColorNW" FontSize="15" Foreground="Black"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Rectangle Grid.Row="1" Grid.Column="4" Name="PosColorNEout" Width="120" Height="50" Fill="white" Visibility="Hidden"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="4" Name="PosColorNE" FontSize="15" Foreground="Black"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Rectangle Grid.Row="3" Grid.Column="1" Name="PosColorSWout" Width="120" Height="50" Fill="white" Visibility="Hidden"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Name="PosColorSW" FontSize="15" Foreground="Black"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Rectangle Grid.Row="3" Grid.Column="4" Name="PosColorSEout" Width="120" Height="50" Fill="white" Visibility="Hidden"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="3" Grid.Column="4" Name="PosColorSE" FontSize="15" Foreground="Black"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
     </Grid>
 </Window>
