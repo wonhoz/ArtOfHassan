@@ -51,7 +51,8 @@ namespace ArtOfHassan
         private static System.Timers.Timer NoxTimer    = new System.Timers.Timer();
         private static System.Timers.Timer ButtonTimer = new System.Timers.Timer();
 
-        Stopwatch AdsStopwatch = new Stopwatch();
+        Stopwatch AdsStopwatch   = new Stopwatch();
+        Stopwatch DelayStopwatch = new Stopwatch();
 
         double NoxPointX = 0;
         double NoxPointY = 0;
@@ -506,6 +507,8 @@ namespace ArtOfHassan
                     ClickLog("Battle Level Button");
                     AdsStopwatch.Reset();
                     AdsStopwatch.Stop();
+                    DelayStopwatch.Reset();
+                    DelayStopwatch.Stop();
 
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleLevelButtonX, (int)NoxPointY + BattleLevelButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -635,14 +638,51 @@ namespace ArtOfHassan
                     if (!IsLatest || (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                                       ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))) // Yellow
                     {
-                        ClickLog("Gold Button");
-                        AdsFlag = true;
-                        AdsStopwatch.Restart();
+                        int delayCriteria = 0;
+                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                        {
+                            if (!int.TryParse(DelayTextBox.Text, out delayCriteria))
+                            {
+                                delayCriteria = 0;
+                            }
+                        }));
 
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldButtonBackgroundX, (int)NoxPointY + GoldButtonBackgroundY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        if (delayCriteria == 0)
+                        {
+                            ClickLog("Gold Button");
+                            AdsFlag = true;
+                            AdsStopwatch.Restart();
+                            DelayStopwatch.Reset();
+                            DelayStopwatch.Stop();
+
+                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldButtonBackgroundX, (int)NoxPointY + GoldButtonBackgroundY);
+                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                            System.Threading.Thread.Sleep(50);
+                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        }
+                        else
+                        {
+                            if (DelayStopwatch.IsRunning)
+                            {
+                                if (DelayStopwatch.ElapsedMilliseconds > delayCriteria)
+                                {
+                                    ClickLog("Gold Button");
+                                    AdsFlag = true;
+                                    AdsStopwatch.Restart();
+                                    DelayStopwatch.Reset();
+                                    DelayStopwatch.Stop();
+
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldButtonBackgroundX, (int)NoxPointY + GoldButtonBackgroundY);
+                                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                                    System.Threading.Thread.Sleep(50);
+                                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                }
+                            }
+                            else
+                            {
+                                DelayStopwatch.Restart();
+                            }
+                        }
                     }
                     else // Green such as Retry
                     {
@@ -657,19 +697,61 @@ namespace ArtOfHassan
                 else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))) // Gray
                 {
-                    ClickLog("Gold Button is Gray");
-
-                    if (IsLatest)
+                    int delayCriteria = 0;
+                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                     {
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + GoldButtonBackgroundY);
+                        if (!int.TryParse(DelayTextBox.Text, out delayCriteria))
+                        {
+                            delayCriteria = 0;
+                        }
+                    }));
+
+                    if (delayCriteria == 0)
+                    {
+                        ClickLog("Gold Button is Gray");
+                        DelayStopwatch.Reset();
+                        DelayStopwatch.Stop();
+
+                        if (IsLatest)
+                        {
+                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + GoldButtonBackgroundY);
+                        }
+                        else
+                        {
+                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + NextButtonY);
+                        }
+                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                        System.Threading.Thread.Sleep(50);
+                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
                     }
                     else
                     {
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + NextButtonY);
+                        if (DelayStopwatch.IsRunning)
+                        {
+                            if (DelayStopwatch.ElapsedMilliseconds > delayCriteria)
+                            {
+                                ClickLog("Gold Button is Gray");
+                                DelayStopwatch.Reset();
+                                DelayStopwatch.Stop();
+
+                                if (IsLatest)
+                                {
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + GoldButtonBackgroundY);
+                                }
+                                else
+                                {
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + NextButtonY);
+                                }
+                                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                                System.Threading.Thread.Sleep(50);
+                                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                            }
+                        }
+                        else
+                        {
+                            DelayStopwatch.Restart();
+                        }
                     }
-                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                    System.Threading.Thread.Sleep(50);
-                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
                 }
 
 
