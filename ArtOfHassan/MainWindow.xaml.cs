@@ -80,12 +80,6 @@ namespace ArtOfHassan
         {
             InitializeComponent();
 
-            DirectoryInfo directoryInfo = new DirectoryInfo("log");
-            if (directoryInfo.Exists == false)
-            {
-                directoryInfo.Create();
-            }
-
             FileInfo fileInfo = new FileInfo("setting.txt");
             if (fileInfo.Exists)
             {
@@ -173,17 +167,47 @@ namespace ArtOfHassan
 
         private void ClickLog(string log)
         {
-            using (StreamWriter streamWriter = new StreamWriter($@"log\Click_{DateTime.Today.ToString("yyyyMMdd")}.log", true))
+            bool isLogging = false;
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                streamWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ") + log);
+                isLogging = LogCheckBox.IsChecked.Value;
+            }));
+
+            if (isLogging)
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo("log");
+                if (!directoryInfo.Exists)
+                {
+                    directoryInfo.Create();
+                }
+
+                using (StreamWriter streamWriter = new StreamWriter($@"log\Click_{DateTime.Today.ToString("yyyyMMdd")}.log", true))
+                {
+                    streamWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ") + log);
+                }
             }
         }
 
         private void TimerLog(string log)
         {
-            using (StreamWriter streamWriter = new StreamWriter($@"log\Timer_{DateTime.Today.ToString("yyyyMMdd")}.log", true))
+            bool isLogging = false;
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                streamWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ") + log);
+                isLogging = LogCheckBox.IsChecked.Value;
+            }));
+
+            if (isLogging)
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo("log");
+                if (!directoryInfo.Exists)
+                {
+                    directoryInfo.Create();
+                }
+
+                using (StreamWriter streamWriter = new StreamWriter($@"log\Timer_{DateTime.Today.ToString("yyyyMMdd")}.log", true))
+                {
+                    streamWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ") + log);
+                }
             }
         }
 
