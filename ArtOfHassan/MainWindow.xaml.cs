@@ -143,7 +143,15 @@ namespace ArtOfHassan
                 AdsCloseButton1X = int.Parse(lines[13].Split(',')[0]);
                 AdsCloseButton2X = int.Parse(lines[13].Split(',')[1]);
                 AdsCloseButtonY = int.Parse(lines[13].Split(',')[2]);
-                AdsCloseButtonColor = lines[13].Split(',')[3];
+                // 예외발생 임시처리 나중에 삭제할것
+                if (lines[13].Split(',').Length < 4)
+                {
+                    AdsCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+                }
+                else
+                {
+                    AdsCloseButtonColor = lines[13].Split(',')[3];
+                }
 
                 NotRespondingX = int.Parse(lines[14].Split(',')[0]);
                 NotRespondingY = int.Parse(lines[14].Split(',')[1]);

@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -616,6 +617,225 @@ namespace ArtOfHassan
                 AdsCloseButton2Color.Text = AdsCloseButton2Color.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
                 AdsCloseButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
+        }
+
+        private void ChangeButtonsColors()
+        {
+            AppLocationButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[0]));
+            ShopButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor.Text));
+            MiddleButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(MiddleButtonColor.Text));
+            GoldChestBox1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Text.Split(';')[0]));
+            BattleLevelButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[0]));
+            SkillButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SkillButtonColor.Text));
+            SpeedButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SpeedButtonColor.Text));
+            PauseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(PauseButtonColor.Text));
+            VictoryDefeat1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Text.Split(';')[0]));
+            GoldButtonBackground1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Text.Split(';')[0]));
+            GoldButtonImage1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonImageColor.Text.Split(';')[0]));
+            NextButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NextButtonColor.Text));
+            AdsButton1_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsButton1Color.Text.Split(';')[0]));
+            AdsButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsButton1Color.Text.Split(';')[0]));
+            NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor.Text));
+
+            AppLocationButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[1]));
+            GoldChestBox2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Text.Split(';')[1]));
+            BattleLevelButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[1]));
+            VictoryDefeat2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Text.Split(';')[1]));
+            GoldButtonBackground2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Text.Split(';')[1]));
+
+            BattleLevelButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[2]));
+            BattleLevelButton4.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[3]));
+
+            AdsCloseButton1_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsCloseButton1Color.Text.Split(';')[0]));
+            AdsCloseButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsCloseButton1Color.Text.Split(';')[1]));
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = "txt";
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt";
+            openFileDialog.ShowDialog();
+            if (openFileDialog.FileName.Length > 0)
+            {
+                string[] lines = File.ReadAllLines(openFileDialog.FileName);
+                AppLocationX.Text = lines[0].Split(',')[0];
+                AppLocationY.Text = lines[0].Split(',')[1];
+                AppLocationColor.Text = lines[0].Split(',')[2];
+
+                HomeButtonX.Text = lines[1].Split(',')[0];
+                ShopButtonX.Text = lines[1].Split(',')[1];
+                ShopButtonY.Text = lines[1].Split(',')[2];
+                ShopButtonColor.Text = lines[1].Split(',')[3];
+
+                MiddleButtonX.Text = lines[2].Split(',')[0];
+                MiddleButtonY.Text = lines[2].Split(',')[1];
+                MiddleButtonColor.Text = lines[2].Split(',')[2];
+
+                GoldChestBoxX.Text = lines[3].Split(',')[0];
+                GoldChestBoxY.Text = lines[3].Split(',')[1];
+                GoldChestBoxColor.Text = lines[3].Split(',')[2];
+
+                BattleLevelButtonX.Text = lines[4].Split(',')[0];
+                BattleLevelButtonY.Text = lines[4].Split(',')[1];
+                BattleLevelButtonColor.Text = lines[4].Split(',')[2];
+
+                SkillButtonX.Text = lines[5].Split(',')[0];
+                SkillButtonY.Text = lines[5].Split(',')[1];
+                SkillButtonColor.Text = lines[5].Split(',')[2];
+
+                SpeedButtonX.Text = lines[6].Split(',')[0];
+                SpeedButtonY.Text = lines[6].Split(',')[1];
+                SpeedButtonColor.Text = lines[6].Split(',')[2];
+
+                PauseButtonX.Text = lines[7].Split(',')[0];
+                PauseButtonY.Text = lines[7].Split(',')[1];
+                PauseButtonColor.Text = lines[7].Split(',')[2];
+
+                VictoryDefeatX.Text = lines[8].Split(',')[0];
+                VictoryDefeatY.Text = lines[8].Split(',')[1];
+                VictoryDefeatColor.Text = lines[8].Split(',')[2];
+
+                GoldButtonBackgroundX.Text = lines[9].Split(',')[0];
+                GoldButtonBackgroundY.Text = lines[9].Split(',')[1];
+                GoldButtonBackgroundColor.Text = lines[9].Split(',')[2];
+
+                GoldButtonImageX.Text = lines[10].Split(',')[0];
+                GoldButtonImageY.Text = lines[10].Split(',')[1];
+                GoldButtonImageColor.Text = lines[10].Split(',')[2];
+
+                NextButtonX.Text = lines[11].Split(',')[0];
+                NextButtonY.Text = lines[11].Split(',')[1];
+                NextButtonColor.Text = lines[11].Split(',')[2];
+
+                AdsButton1X.Text = lines[12].Split(',')[0];
+                AdsButton2X.Text = lines[12].Split(',')[0];
+                AdsButton1Y.Text = lines[12].Split(',')[1];
+                AdsButton2Y.Text = lines[12].Split(',')[2];
+                AdsButton1Color.Text = lines[12].Split(',')[3];
+                AdsButton2Color.Text = lines[12].Split(',')[3];
+
+                AdsCloseButton1X.Text = lines[13].Split(',')[0];
+                AdsCloseButton2X.Text = lines[13].Split(',')[1];
+                AdsCloseButton1Y.Text = lines[13].Split(',')[2];
+                AdsCloseButton2Y.Text = lines[13].Split(',')[2];
+                // 예외발생 임시처리 나중에 삭제할것
+                if (lines[13].Split(',').Length < 4)
+                {
+                    AdsCloseButton1Color.Text = "#4c4c4f;#3c4043".ToUpper();
+                    AdsCloseButton2Color.Text = "#4c4c4f;#3c4043".ToUpper();
+                }
+                else
+                {
+                    AdsCloseButton1Color.Text = lines[13].Split(',')[3];
+                    AdsCloseButton2Color.Text = lines[13].Split(',')[3];
+                }
+
+                NotRespondingX.Text = lines[14].Split(',')[0];
+                NotRespondingY.Text = lines[14].Split(',')[1];
+                NotRespondingColor.Text = lines[14].Split(',')[2];
+
+                ChangeButtonsColors();
+            }
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text File (*.txt)|*.txt";
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                using (StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName, false))
+                {
+                    streamWriter.WriteLine(AppLocationX.Text + "," + AppLocationY.Text + "," + AppLocationColor.Text);
+                    streamWriter.WriteLine(HomeButtonX.Text + "," + ShopButtonX.Text + "," + ShopButtonY.Text + "," + ShopButtonColor.Text);
+                    streamWriter.WriteLine(MiddleButtonX.Text + "," + MiddleButtonY.Text + "," + MiddleButtonColor.Text);
+                    streamWriter.WriteLine(GoldChestBoxX.Text + "," + GoldChestBoxY.Text + "," + GoldChestBoxColor.Text);
+                    streamWriter.WriteLine(BattleLevelButtonX.Text + "," + BattleLevelButtonY.Text + "," + BattleLevelButtonColor.Text);
+                    streamWriter.WriteLine(SkillButtonX.Text + "," + SkillButtonY.Text + "," + SkillButtonColor.Text);
+                    streamWriter.WriteLine(SpeedButtonX.Text + "," + SpeedButtonY.Text + "," + SpeedButtonColor.Text);
+                    streamWriter.WriteLine(PauseButtonX.Text + "," + PauseButtonY.Text + "," + PauseButtonColor.Text);
+                    streamWriter.WriteLine(VictoryDefeatX.Text + "," + VictoryDefeatY.Text + "," + VictoryDefeatColor.Text);
+                    streamWriter.WriteLine(GoldButtonBackgroundX.Text + "," + GoldButtonBackgroundY.Text + "," + GoldButtonBackgroundColor.Text);
+                    streamWriter.WriteLine(GoldButtonImageX.Text + "," + GoldButtonImageY.Text + "," + GoldButtonImageColor.Text);
+                    streamWriter.WriteLine(NextButtonX.Text + "," + NextButtonY.Text + "," + NextButtonColor.Text);
+                    streamWriter.WriteLine((int)((int.Parse(AdsButton1X.Text) + int.Parse(AdsButton2X.Text)) / 2) + "," + AdsButton1Y.Text + "," + AdsButton2Y.Text + "," + AdsButton1Color.Text);
+                    streamWriter.WriteLine(AdsCloseButton1X.Text + "," + AdsCloseButton2X.Text + "," + (int)((int.Parse(AdsCloseButton1Y.Text) + int.Parse(AdsCloseButton2Y.Text)) / 2) + "," + AdsCloseButton1Color.Text);
+                    streamWriter.WriteLine(NotRespondingX.Text + "," + NotRespondingY.Text + "," + NotRespondingColor.Text);
+                }
+            }
+        }
+
+        private void DefaultButton_Click(object sender, RoutedEventArgs e)
+        {
+            AppLocationX.Text = 60.ToString();
+            AppLocationY.Text = 500.ToString();
+            AppLocationColor.Text = "#a9d8ff;#97c601".ToUpper();
+
+            HomeButtonX.Text = 290.ToString();
+            ShopButtonX.Text = 65.ToString();
+            ShopButtonY.Text = 980.ToString();
+            ShopButtonColor.Text = "#ea3d34".ToUpper();
+
+            MiddleButtonX.Text = 195.ToString();
+            MiddleButtonY.Text = 680.ToString();
+            MiddleButtonColor.Text = "#fdbb00".ToUpper();
+
+            GoldChestBoxX.Text = 150.ToString();
+            GoldChestBoxY.Text = 410.ToString();
+            GoldChestBoxColor.Text = "#fff102;#eabf2f".ToUpper();
+
+            BattleLevelButtonX.Text = 180.ToString();
+            BattleLevelButtonY.Text = 855.ToString();
+            BattleLevelButtonColor.Text = "#fdbb00;#ca9600;#bd1808;#0d677a".ToUpper();
+
+            SkillButtonX.Text = 475.ToString();
+            SkillButtonY.Text = 920.ToString();
+            SkillButtonColor.Text = "#fdbb00".ToUpper();
+
+            SpeedButtonX.Text = 514.ToString();
+            SpeedButtonY.Text = 989.ToString();
+            SpeedButtonColor.Text = "#eda500".ToUpper();
+
+            PauseButtonX.Text = 215.ToString();
+            PauseButtonY.Text = 455.ToString();
+            PauseButtonColor.Text = "#fdbb00".ToUpper();
+
+            VictoryDefeatX.Text = 120.ToString();
+            VictoryDefeatY.Text = 355.ToString();
+            VictoryDefeatColor.Text = "#d91c13;#12a7d8".ToUpper();
+
+            GoldButtonBackgroundX.Text = 115.ToString();
+            GoldButtonBackgroundY.Text = 780.ToString();
+            GoldButtonBackgroundColor.Text = "#7da70a;#8e8e8e".ToUpper();
+
+            GoldButtonImageX.Text = 133.ToString();
+            GoldButtonImageY.Text = 755.ToString();
+            GoldButtonImageColor.Text = "#ffea90".ToUpper();
+
+            NextButtonX.Text = 450.ToString();
+            NextButtonY.Text = 710.ToString();
+            NextButtonColor.Text = "#fdbb00".ToUpper();
+
+            AdsButton1X.Text = 496.ToString();
+            AdsButton2X.Text = 496.ToString();
+            AdsButton1Y.Text = 180.ToString();
+            AdsButton2Y.Text = 190.ToString();
+            AdsButton1Color.Text = "#e9e9d8;#efe7d6".ToUpper();
+            AdsButton2Color.Text = "#e9e9d8;#efe7d6".ToUpper();
+
+            AdsCloseButton1X.Text = 45.ToString();
+            AdsCloseButton2X.Text = 513.ToString();
+            AdsCloseButton1Y.Text = 63.ToString();
+            AdsCloseButton2Y.Text = 63.ToString();
+            AdsCloseButton1Color.Text = "#4c4c4f;#3c4043".ToUpper();
+            AdsCloseButton2Color.Text = "#4c4c4f;#3c4043".ToUpper();
+
+            NotRespondingX.Text = 79.ToString();
+            NotRespondingY.Text = 540.ToString();
+            NotRespondingColor.Text = "#009688".ToUpper();
+
+            ChangeButtonsColors();
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)

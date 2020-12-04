@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d" Icon="icon.ico"
-        Title="Setting" Height="700" Width="750" WindowStartupLocation="CenterScreen">
+        Title="Setting" Height="750" Width="750" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -27,7 +27,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="1.4*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -172,10 +172,15 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="4" Name="ApplyButton" Content="Apply" Click="ApplyButton_Click" Margin="5,5,2.5,5"/>
-            <Button Grid.Column="5" Name="CancelButton" Content="Cancel" Click="CancelButton_Click" Margin="2.5,5,5,5"/>
+            <Button Grid.Column="3" Name="LoadButton" Content="Load" Click="LoadButton_Click" Margin="5,5,2.5,5"/>
+            <Button Grid.Column="4" Name="SaveButton" Content="Save As" Click="SaveButton_Click" Margin="5,5,2.5,5"/>
+            <Button Grid.Column="5" Name="DefaultButton" Content="Default" Click="DefaultButton_Click" Margin="5,5,2.5,5"/>
+            <Button Grid.Column="6" Name="ApplyButton" Content="Apply" Click="ApplyButton_Click" Margin="5,5,2.5,5"/>
+            <Button Grid.Column="7" Name="CancelButton" Content="Cancel" Click="CancelButton_Click" Margin="2.5,5,5,5"/>
         </Grid>
     </Grid>
 </Window>
