@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Net;
+using System.Net.Mail;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
@@ -48,8 +50,9 @@ namespace ArtOfHassan
         private const uint RBUTTONDOWN  = 0x0008;  // 오른쪽 마우스 버튼 눌림
         private const uint RBUTTONUP    = 0x00010; // 오른쪽 마우스 버튼 떼어짐
 
-        private static System.Timers.Timer NoxTimer    = new System.Timers.Timer();
-        private static System.Timers.Timer ButtonTimer = new System.Timers.Timer();
+        private static System.Timers.Timer NoxTimer     = new System.Timers.Timer();
+        private static System.Timers.Timer ButtonTimer  = new System.Timers.Timer();
+        private static System.Timers.Timer ProblemTimer = new System.Timers.Timer();
 
         Stopwatch AdsStopwatch   = new Stopwatch();
         Stopwatch DelayStopwatch = new Stopwatch();
@@ -63,6 +66,7 @@ namespace ArtOfHassan
         bool DefeatFlag  = false;
         bool AdsFlag     = false;
 
+        int NumOfWar     = 0;
         int NumOfVictory = 0;
         int NumOfDefeat  = 0;
         int NumOfAds     = 0;
@@ -161,6 +165,9 @@ namespace ArtOfHassan
                 ClickLog("Load Done");
             }
 
+            ProblemTimer.Interval = 5 * 60 * 1000; // 5분
+            ProblemTimer.Elapsed += ProblemTimerFunction;
+
             ButtonTimer.Interval = 1000; // 1초
             ButtonTimer.Elapsed += ButtonTimerFunction;
 
@@ -171,6 +178,7 @@ namespace ArtOfHassan
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            ProblemTimer.Enabled = false;
             ButtonTimer.Enabled = false;
             NoxTimer.Enabled    = false;
         }
@@ -274,6 +282,7 @@ namespace ArtOfHassan
 
                 ButtonTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
                 ButtonTimer.Enabled = true;
+                ProblemTimer.Enabled = true;
             }
             else
             {
@@ -282,6 +291,42 @@ namespace ArtOfHassan
                 MonitoringIntervalTextBox.IsEnabled = true;
 
                 ButtonTimer.Enabled = false;
+                ProblemTimer.Enabled = false;
+            }
+        }
+
+        private void EmailTestButton_Click(object sender, RoutedEventArgs e)
+        {
+            MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
+                                                          EmailIDTextBox.Text,
+                                                          "Art of Hassan",
+                                                          "Problem occured.\nPlease check.");
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.EnableSsl = true;
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
+                                                           EmailPasswordBox.Password);
+            smtpClient.Send(mailMessage);
+        }
+
+        private void ProblemTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if ((NumOfVictory + NumOfDefeat) == NumOfWar)
+            {
+                MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
+                                                          EmailIDTextBox.Text,
+                                                          "Art of Hassan",
+                                                          "Problem occured.\nPlease check.");
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                smtpClient.EnableSsl = true;
+                smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
+                                                               EmailPasswordBox.Password);
+                smtpClient.Send(mailMessage);
+            }
+            else
+            {
+                NumOfWar = NumOfVictory + NumOfDefeat;
             }
         }
 
@@ -365,6 +410,7 @@ namespace ArtOfHassan
             {
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
+                    ProblemTimer.Enabled  = false;
                     ButtonTimer.Enabled   = false;
                     StartButton.IsEnabled = false;
                     StartButton.Content   = "Start";

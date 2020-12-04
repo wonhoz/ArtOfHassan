@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d" Icon="icon.ico"
-        Title="Art of Hassan" Height="480" Width="350" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        Title="Art of Hassan" Height="530" Width="350" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -129,7 +130,27 @@
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <Grid Grid.Row="6" Grid.ColumnSpan="2">
+        <TextBlock Grid.Row="6" Text="Email Alarm" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+
+        <Grid Grid.Row="6" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Row="1" Grid.Column="0" Name="EmailIDTextBox" Margin="5,5,2.5,5"
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <PasswordBox Grid.Row="1" Grid.Column="1" Name="EmailPasswordBox" Margin="2.5,5,2.5,5"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <Button Grid.Column="2" Name="EmailTestButton" Content="Test" Click="EmailTestButton_Click" Margin="2.5,5,5,5"/>
+        </Grid>
+
+        <Grid Grid.Row="7" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -139,7 +160,7 @@
             <Button Grid.Row="1" Grid.Column="2" Name="StartButton" Content="Start" Click="StartButton_Click" Margin="5" IsEnabled="False"/>
         </Grid>
 
-        <TextBlock Grid.Row="7" Grid.ColumnSpan="3" Name="MessageBar" Text="War: 0 | Victory: 0 | Defeat: 0 | Ads: 0"
+        <TextBlock Grid.Row="8" Grid.ColumnSpan="3" Name="MessageBar" Text="War: 0 | Victory: 0 | Defeat: 0 | Ads: 0"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
     </Grid>
 </Window>
