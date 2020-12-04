@@ -297,32 +297,56 @@ namespace ArtOfHassan
 
         private void EmailTestButton_Click(object sender, RoutedEventArgs e)
         {
-            MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(EmailIDTextBox.Text) &&
+                    !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
+                {
+                    MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
                                                           EmailIDTextBox.Text,
                                                           "Art of Hassan",
                                                           "Problem occured.\nPlease check.");
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-            smtpClient.UseDefaultCredentials = false;
-            smtpClient.EnableSsl = true;
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
-                                                           EmailPasswordBox.Password);
-            smtpClient.Send(mailMessage);
+                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
+                                                                   EmailPasswordBox.Password);
+                    smtpClient.Send(mailMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Email Delivery Failed");
+            }
         }
 
         private void ProblemTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
             if ((NumOfVictory + NumOfDefeat) == NumOfWar)
             {
-                MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
-                                                          EmailIDTextBox.Text,
-                                                          "Art of Hassan",
-                                                          "Problem occured.\nPlease check.");
-                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                smtpClient.EnableSsl = true;
-                smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
-                                                               EmailPasswordBox.Password);
-                smtpClient.Send(mailMessage);
+                try
+                {
+                    if (!string.IsNullOrWhiteSpace(EmailIDTextBox.Text) &&
+                        !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
+                    {
+                        MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
+                                                              EmailIDTextBox.Text,
+                                                              "Art of Hassan",
+                                                              "Problem occured.\nPlease check.");
+                        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                        smtpClient.UseDefaultCredentials = false;
+                        smtpClient.EnableSsl = true;
+                        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
+                                                                       EmailPasswordBox.Password);
+                        smtpClient.Send(mailMessage);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("Email Delivery Failed");
+                }
             }
             else
             {
