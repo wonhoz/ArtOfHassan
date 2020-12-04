@@ -582,6 +582,7 @@ namespace ArtOfHassan
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AdsCloseButton1X.Text);
                 ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AdsCloseButton1Y.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(AdsCloseButton1Color.Text.Split(';')[0]);
             }));
 
             GetPixelPositionAndColor();
@@ -590,6 +591,9 @@ namespace ArtOfHassan
             {
                 AdsCloseButton1X.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
                 AdsCloseButton1Y.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                AdsCloseButton1Color.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + AdsCloseButton1Color.Text.Split(';')[1];
+                AdsCloseButton2Color.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + AdsCloseButton2Color.Text.Split(';')[1];
+                AdsCloseButton1_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
         }
 
@@ -599,6 +603,7 @@ namespace ArtOfHassan
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AdsCloseButton2X.Text);
                 ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AdsCloseButton2Y.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(AdsCloseButton2Color.Text.Split(';')[1]);
             }));
 
             GetPixelPositionAndColor();
@@ -607,6 +612,9 @@ namespace ArtOfHassan
             {
                 AdsCloseButton2X.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
                 AdsCloseButton2Y.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                AdsCloseButton1Color.Text = AdsCloseButton1Color.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                AdsCloseButton2Color.Text = AdsCloseButton2Color.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                AdsCloseButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
         }
 
@@ -686,7 +694,8 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButton1X = int.Parse(AdsCloseButton1X.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButton2X = int.Parse(AdsCloseButton2X.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButtonY = (int.Parse(AdsCloseButton1Y.Text) + int.Parse(AdsCloseButton2Y.Text)) / 2;
-                    streamWriter.WriteLine(AdsCloseButton1X.Text + "," + AdsCloseButton2X.Text + "," + (int)((int.Parse(AdsCloseButton1Y.Text) + int.Parse(AdsCloseButton2Y.Text)) / 2));
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButtonColor = AdsButton1Color.Text;
+                    streamWriter.WriteLine(AdsCloseButton1X.Text + "," + AdsCloseButton2X.Text + "," + (int)((int.Parse(AdsCloseButton1Y.Text) + int.Parse(AdsCloseButton2Y.Text)) / 2) + "," + AdsCloseButton1Color.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingX = int.Parse(NotRespondingX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingY = int.Parse(NotRespondingY.Text);

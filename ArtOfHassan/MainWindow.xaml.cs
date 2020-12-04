@@ -143,6 +143,7 @@ namespace ArtOfHassan
                 AdsCloseButton1X = int.Parse(lines[13].Split(',')[0]);
                 AdsCloseButton2X = int.Parse(lines[13].Split(',')[1]);
                 AdsCloseButtonY = int.Parse(lines[13].Split(',')[2]);
+                AdsCloseButtonColor = lines[13].Split(',')[3];
 
                 NotRespondingX = int.Parse(lines[14].Split(',')[0]);
                 NotRespondingY = int.Parse(lines[14].Split(',')[1]);
@@ -330,9 +331,10 @@ namespace ArtOfHassan
         public int AdsButton2Y      = 190;
         public string AdsButtonColor = "#e9e9d8;#efe7d6".ToUpper();
 
-        public int AdsCloseButton1X = 39;
-        public int AdsCloseButton2X = 519;
-        public int AdsCloseButtonY  = 68;
+        public int AdsCloseButton1X = 45;
+        public int AdsCloseButton2X = 513;
+        public int AdsCloseButtonY  = 63;
+        public string AdsCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
 
         public int NotRespondingX   = 79;
         public int NotRespondingY   = 540;
@@ -380,6 +382,15 @@ namespace ArtOfHassan
 
         private void ButtonTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
+            int pixelDifference = 0;
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                if (!int.TryParse(PixelDifferenceTextBox.Text, out pixelDifference))
+                {
+                    pixelDifference = 0;
+                }
+            }));
+
             TimerLog("Allocate CurrentBitmap");
             // 화면 크기만큼의 Bitmap 생성
             CurrentBitmap = new System.Drawing.Bitmap((int)NoxWidth, (int)NoxHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
@@ -399,8 +410,10 @@ namespace ArtOfHassan
                 TimerLog("Off Check Color: " + color.R + "," + color.G + "," + color.B);
                 System.Drawing.Color color1 = ColorTranslator.FromHtml(AppLocationColor.Split(';')[0]);
                 System.Drawing.Color color2 = ColorTranslator.FromHtml(AppLocationColor.Split(';')[1]);
-                if (((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) ||
-                    ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)))
+                if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
+                    (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                     ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                 {
                     ClickLog("Off Check");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AppLocationX, (int)NoxPointY + AppLocationY);
@@ -414,7 +427,8 @@ namespace ArtOfHassan
                 color = CurrentBitmap.GetPixel(ShopButtonX, ShopButtonY);
                 TimerLog("Shop Check Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(ShopButtonColor);
-                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
+                if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                    ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
                     ClickLog("Shop Check");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + HomeButtonX, (int)NoxPointY + ShopButtonY);
@@ -428,7 +442,8 @@ namespace ArtOfHassan
                 color = CurrentBitmap.GetPixel(MiddleButtonX, MiddleButtonY);
                 TimerLog("Middle Button Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(MiddleButtonColor);
-                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
+                if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                    ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
                     ClickLog("Middle Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + MiddleButtonX, (int)NoxPointY + MiddleButtonY);
@@ -450,8 +465,10 @@ namespace ArtOfHassan
                     TimerLog("Gold Chest Box Color: " + color.R + "," + color.G + "," + color.B);
                     color1 = ColorTranslator.FromHtml(GoldChestBoxColor.Split(';')[0]);
                     color2 = ColorTranslator.FromHtml(GoldChestBoxColor.Split(';')[1]);
-                    if (((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) || // Latest
-                        ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)))  // 3.0.8
+                    if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                         ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) || // Latest
+                        (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                         ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))   // 3.0.8
                     {
                         ClickLog("Gold Chest Box");
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldChestBoxX, (int)NoxPointY + GoldChestBoxY);
@@ -473,8 +490,10 @@ namespace ArtOfHassan
                 color2 = ColorTranslator.FromHtml(BattleLevelButtonColor.Split(';')[1]);
                 System.Drawing.Color color3 = ColorTranslator.FromHtml(BattleLevelButtonColor.Split(';')[2]);
                 System.Drawing.Color color4 = ColorTranslator.FromHtml(BattleLevelButtonColor.Split(';')[3]);
-                if (((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) || // 황금색
-                    ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)))   // + 메뉴 음영
+                if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) || // 황금색
+                    (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                     ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))   // + 메뉴 음영
                 {
                     ClickLog("Battle Level Button");
                     AdsStopwatch.Reset();
@@ -524,7 +543,8 @@ namespace ArtOfHassan
                 color = CurrentBitmap.GetPixel(SkillButtonX, SkillButtonY);
                 TimerLog("Skill Button Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(SkillButtonColor);
-                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
+                if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                    ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
                     ClickLog("Skill Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + SkillButtonX, (int)NoxPointY + SkillButtonY);
@@ -540,7 +560,8 @@ namespace ArtOfHassan
                 color = CurrentBitmap.GetPixel(SpeedButtonX, SpeedButtonY);
                 TimerLog("Speed Button Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(SpeedButtonColor);
-                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
+                if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                    ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
                     ClickLog("Speed Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + SpeedButtonX, (int)NoxPointY + SpeedButtonY);
@@ -561,7 +582,8 @@ namespace ArtOfHassan
                     color = CurrentBitmap.GetPixel(PauseButtonX, PauseButtonY);
                     TimerLog("Pause Button Color: " + color.R + "," + color.G + "," + color.B);
                     color1 = ColorTranslator.FromHtml(PauseButtonColor);
-                    if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
+                    if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                        ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                     {
                         ClickLog("Pause Button");
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + PauseButtonX, (int)NoxPointY + PauseButtonY);
@@ -577,12 +599,14 @@ namespace ArtOfHassan
                 TimerLog("Victory or Defeat Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(VictoryDefeatColor.Split(';')[0]);
                 color2 = ColorTranslator.FromHtml(VictoryDefeatColor.Split(';')[1]);
-                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
+                if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                    ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
                     ClickLog("Victory Checked");
                     VictoryFlag = true;
                 }
-                else if ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B))
+                else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                         ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference)))
                 {
                     ClickLog("Defeat Checked");
                     DefeatFlag = true;
@@ -594,12 +618,14 @@ namespace ArtOfHassan
                 TimerLog("Gold Button Background Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Split(';')[0]);
                 color2 = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Split(';')[1]);
-                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) // Green
+                if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                    ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) // Green
                 {
                     color = CurrentBitmap.GetPixel(GoldButtonImageX, GoldButtonImageY);
                     TimerLog("Gold Button Image Color: " + color.R + "," + color.G + "," + color.B);
                     color1 = ColorTranslator.FromHtml(GoldButtonImageColor);
-                    if (!IsLatest || ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))) // Yellow
+                    if (!IsLatest || (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                                      ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))) // Yellow
                     {
                         ClickLog("Gold Button");
                         AdsFlag = true;
@@ -620,7 +646,8 @@ namespace ArtOfHassan
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
                     }
                 }
-                else if ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)) // Gray
+                else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                         ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))) // Gray
                 {
                     ClickLog("Gold Button is Gray");
 
@@ -642,7 +669,8 @@ namespace ArtOfHassan
                 color = CurrentBitmap.GetPixel(NextButtonX, NextButtonY);
                 TimerLog("Next Button Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(NextButtonColor);
-                if (IsLatest && ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)))
+                if (IsLatest && (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                                 ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))))
                 {
                     ClickLog("Next Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + NextButtonY);
@@ -656,7 +684,8 @@ namespace ArtOfHassan
                 color = CurrentBitmap.GetPixel(NotRespondingX, NotRespondingY);
                 TimerLog("Not Responding Button Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(NotRespondingColor);
-                if ((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B))
+                if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                    ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
                     ClickLog("Not Responding Button");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingX, (int)NoxPointY + NotRespondingY);
@@ -671,8 +700,10 @@ namespace ArtOfHassan
                 TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[0]);
                 color2 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[1]);
-                if (((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) ||
-                    ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)))
+                if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
+                    (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                     ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                 {
                     ClickLog("Ads Button 1");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton1Y);
@@ -689,8 +720,10 @@ namespace ArtOfHassan
                 TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[0]);
                 color2 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[1]);
-                if (((color.R == color1.R) && (color.G == color1.G) && (color.B == color1.B)) ||
-                    ((color.R == color2.R) && (color.G == color2.G) && (color.B == color2.B)))
+                if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
+                    (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                     ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                 {
                     ClickLog("Ads Button 2");
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton2Y);
@@ -747,38 +780,108 @@ namespace ArtOfHassan
                         AdsStopwatch.Stop();
 
                         bool isLeftFirst  = true;
+                        bool isAdsCloseButtonColorCheck = false;
 
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
                             if (RightAdsRadioButton.IsChecked.Value)
                             {
                                 isLeftFirst  = false;
+                                isAdsCloseButtonColorCheck = AdsCloseCheckBox.IsChecked.Value;
                             }
                         }));
 
-                        if (!isLeftFirst)
+                        if (isAdsCloseButtonColorCheck)
                         {
-                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton2X, (int)NoxPointY + AdsCloseButtonY);
+                            if (!isLeftFirst)
+                            {
+                                color = CurrentBitmap.GetPixel(AdsCloseButton2X, AdsCloseButtonY);
+                                TimerLog("Right Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                                color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
+                                color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                                if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
+                                    (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                                     ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
+                                {
+                                    ClickLog("Right Ads Close Button");
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton2X, (int)NoxPointY + AdsCloseButtonY);
+                                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                                    System.Threading.Thread.Sleep(50);
+                                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                                    System.Threading.Thread.Sleep(500);
+                                }
+                            }
+
+                            color = CurrentBitmap.GetPixel(AdsCloseButton1X, AdsCloseButtonY);
+                            TimerLog("Left Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                            color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
+                            color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                            if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                                 ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
+                                (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                                 ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
+                            {
+                                ClickLog("Left Ads Close Button");
+                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton1X, (int)NoxPointY + AdsCloseButtonY);
+                                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                                System.Threading.Thread.Sleep(50);
+                                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                                System.Threading.Thread.Sleep(500);
+                            }
+
+                            if (isLeftFirst)
+                            {
+                                color = CurrentBitmap.GetPixel(AdsCloseButton2X, AdsCloseButtonY);
+                                TimerLog("Right Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                                color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
+                                color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                                if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
+                                    (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                                     ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
+                                {
+                                    ClickLog("Right Ads Close Button");
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton2X, (int)NoxPointY + AdsCloseButtonY);
+                                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                                    System.Threading.Thread.Sleep(50);
+                                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                                    System.Threading.Thread.Sleep(500);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (!isLeftFirst)
+                            {
+                                ClickLog("Right Ads Close Button");
+                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton2X, (int)NoxPointY + AdsCloseButtonY);
+                                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                                System.Threading.Thread.Sleep(50);
+                                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                                System.Threading.Thread.Sleep(500);
+                            }
+
+                            ClickLog("Left Ads Close Button");
+                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton1X, (int)NoxPointY + AdsCloseButtonY);
                             mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                             System.Threading.Thread.Sleep(50);
                             mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
                             System.Threading.Thread.Sleep(500);
-                        }
 
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton1X, (int)NoxPointY + AdsCloseButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
-
-                        System.Threading.Thread.Sleep(500);
-
-                        if (isLeftFirst)
-                        {
-                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton2X, (int)NoxPointY + AdsCloseButtonY);
-                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                            System.Threading.Thread.Sleep(50);
-                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                            if (isLeftFirst)
+                            {
+                                ClickLog("Right Ads Close Button");
+                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsCloseButton2X, (int)NoxPointY + AdsCloseButtonY);
+                                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                                System.Threading.Thread.Sleep(50);
+                                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                            }
                         }
 
                         return;
@@ -877,9 +980,13 @@ namespace ArtOfHassan
 
             settingWindow.AdsCloseButton1X.Text = AdsCloseButton1X.ToString();
             settingWindow.AdsCloseButton1Y.Text = AdsCloseButtonY.ToString();
+            settingWindow.AdsCloseButton1Color.Text = AdsCloseButtonColor;
+            settingWindow.AdsCloseButton1_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsCloseButtonColor.Split(';')[0]));
 
             settingWindow.AdsCloseButton2X.Text = AdsCloseButton2X.ToString();
             settingWindow.AdsCloseButton2Y.Text = AdsCloseButtonY.ToString();
+            settingWindow.AdsCloseButton2Color.Text = AdsCloseButtonColor;
+            settingWindow.AdsCloseButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsCloseButtonColor.Split(';')[1]));
 
             settingWindow.NotRespondingX.Text = NotRespondingX.ToString();
             settingWindow.NotRespondingY.Text = NotRespondingY.ToString();
