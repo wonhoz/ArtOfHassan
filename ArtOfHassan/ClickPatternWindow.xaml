@@ -1,0 +1,99 @@
+﻿<Window x:Class="ArtOfHassan.ClickPatternWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArtOfHassan"
+        mc:Ignorable="d"
+        Title="Ads Close Click Pattern" Height="300" Width="250" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="First Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Text="Second Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <RadioButton Grid.Column="0" Name="FirstLeft" Content="Left" IsChecked="True"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <RadioButton Grid.Column="1" Name="FirstRight" Content="Right"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <RadioButton Grid.Column="0" Name="SecondLeft" Content="Left"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <RadioButton Grid.Column="1" Name="SecondRight" Content="Right" IsChecked="True"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <RadioButton Grid.Column="0" Name="ThirdLeft" Content="Left" IsChecked="True"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <RadioButton Grid.Column="1" Name="ThirdRight" Content="Right"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <RadioButton Grid.Column="0" Name="FourthLeft" Content="Left" IsChecked="True" IsEnabled="False"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <RadioButton Grid.Column="1" Name="FourthRight" Content="Right" IsEnabled="False"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </Grid>
+
+        <CheckBox Grid.Row="2" Name="ThirdClickCheckBox" Content="Third Click" IsChecked="True" Click="ThirdClickCheckBox_Click"
+                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <CheckBox Grid.Row="3" Name="FourthClickCheckBox" Content="Fourth Click" Click="FourthClickCheckBox_Click"
+                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <Grid Grid.Row="4" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Name="ApplyButton" Content="Apply" Click="ApplyButton_Click" Margin="5,5,2.5,5"/>
+            <Button Grid.Column="1" Name="CancelButton" Content="Cancel" Click="CancelButton_Click" Margin="2.5,5,5,5"/>
+        </Grid>
+    </Grid>
+</Window>

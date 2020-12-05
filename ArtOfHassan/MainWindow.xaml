@@ -92,20 +92,21 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
-                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <RadioButton Name="LeftAdsRadioButton" Content="Left First" IsChecked="True"
+            <!--<RadioButton Name="LeftAdsRadioButton" Content="Left First" IsChecked="True"
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
             <RadioButton Grid.Column="1" Name="RightAdsRadioButton" Content="Right First"
                          HorizontalAlignment="Center" VerticalAlignment="Center"
-                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>-->
 
-            <CheckBox Grid.Column="2" Name="AdsCloseCheckBox" Content="Check&#10;Color" IsChecked="False"
+            <CheckBox Grid.Column="0" Name="AdsCloseCheckBox" Content="Check Color" IsChecked="False"
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <Button Grid.Column="1" Name="AdsClosePatternButton" Content="  Ads Close&#10;Click Pattern" Click="AdsClosePatternButton_Click" Margin="5"/>
         </Grid>
 
         <TextBlock Grid.Row="5" Text="Option" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
