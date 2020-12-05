@@ -107,6 +107,8 @@ namespace ArtOfHassan
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).ClickPattern = clickPattern;
             }));
+
+            this.Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
