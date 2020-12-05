@@ -705,6 +705,9 @@ namespace ArtOfHassan
                 }
 
 
+                int DelayCriteria = 0; // X3 Gold Button Delay
+
+
                 // Check Victory or Defeat
                 color = CurrentBitmap.GetPixel(VictoryDefeatX, VictoryDefeatY);
                 TimerLog("Victory or Defeat Color: " + color.R + "," + color.G + "," + color.B);
@@ -715,6 +718,20 @@ namespace ArtOfHassan
                 {
                     ClickLog("Victory Checked");
                     VictoryFlag = true;
+
+                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    {
+                        if (!int.TryParse(DelayTextBox.Text, out DelayCriteria))
+                        {
+                            DelayCriteria = 0;
+                        }
+
+                        if (DelayCriteria < int.Parse(MonitoringIntervalTextBox.Text))
+                        {
+                            DelayCriteria = 0;
+                            System.Threading.Thread.Sleep(DelayCriteria);
+                        }
+                    }));
                 }
                 else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference)))
@@ -738,16 +755,7 @@ namespace ArtOfHassan
                     if (!IsLatest || (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                                       ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))) // Yellow
                     {
-                        int delayCriteria = 0;
-                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                        {
-                            if (!int.TryParse(DelayTextBox.Text, out delayCriteria))
-                            {
-                                delayCriteria = 0;
-                            }
-                        }));
-
-                        if (delayCriteria == 0)
+                        if (DelayCriteria == 0)
                         {
                             ClickLog("Gold Button");
                             AdsFlag = true;
@@ -764,7 +772,7 @@ namespace ArtOfHassan
                         {
                             if (DelayStopwatch.IsRunning)
                             {
-                                if (DelayStopwatch.ElapsedMilliseconds > delayCriteria)
+                                if (DelayStopwatch.ElapsedMilliseconds > DelayCriteria)
                                 {
                                     ClickLog("Gold Button");
                                     AdsFlag = true;
@@ -797,16 +805,7 @@ namespace ArtOfHassan
                 else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))) // Gray
                 {
-                    int delayCriteria = 0;
-                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                    {
-                        if (!int.TryParse(DelayTextBox.Text, out delayCriteria))
-                        {
-                            delayCriteria = 0;
-                        }
-                    }));
-
-                    if (delayCriteria == 0)
+                    if (DelayCriteria == 0)
                     {
                         ClickLog("Gold Button is Gray");
                         DelayStopwatch.Reset();
@@ -828,7 +827,7 @@ namespace ArtOfHassan
                     {
                         if (DelayStopwatch.IsRunning)
                         {
-                            if (DelayStopwatch.ElapsedMilliseconds > delayCriteria)
+                            if (DelayStopwatch.ElapsedMilliseconds > DelayCriteria)
                             {
                                 ClickLog("Gold Button is Gray");
                                 DelayStopwatch.Reset();
