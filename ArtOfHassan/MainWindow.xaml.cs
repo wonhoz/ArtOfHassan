@@ -54,8 +54,9 @@ namespace ArtOfHassan
         private static System.Timers.Timer ButtonTimer  = new System.Timers.Timer();
         private static System.Timers.Timer ProblemTimer = new System.Timers.Timer();
 
-        Stopwatch AdsStopwatch   = new Stopwatch();
-        Stopwatch DelayStopwatch = new Stopwatch();
+        Stopwatch AdsStopwatch    = new Stopwatch();
+        Stopwatch DelayStopwatch  = new Stopwatch();
+        Stopwatch BattleStopwatch = new Stopwatch();
 
         double NoxPointX = 0;
         double NoxPointY = 0;
@@ -297,15 +298,17 @@ namespace ArtOfHassan
 
         private void EmailTestButton_Click(object sender, RoutedEventArgs e)
         {
+            ClickLog("Email Testing...");
+
             try
             {
                 if (!string.IsNullOrWhiteSpace(EmailIDTextBox.Text) &&
                     !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
                 {
                     MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
-                                                          EmailIDTextBox.Text,
-                                                          "Art of Hassan",
-                                                          "Problem occured.\nPlease check.");
+                                                              EmailIDTextBox.Text,
+                                                              "Art of Hassan",
+                                                              "Problem occured.\nPlease check.");
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.EnableSsl = true;
@@ -325,23 +328,28 @@ namespace ArtOfHassan
         {
             if ((NumOfVictory + NumOfDefeat) == NumOfWar)
             {
+                ClickLog("Problem Occured...");
+
                 try
                 {
-                    if (!string.IsNullOrWhiteSpace(EmailIDTextBox.Text) &&
-                        !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
+                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                     {
-                        MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
-                                                              EmailIDTextBox.Text,
-                                                              "Art of Hassan",
-                                                              "Problem occured.\nPlease check.");
-                        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                        smtpClient.UseDefaultCredentials = false;
-                        smtpClient.EnableSsl = true;
-                        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                        smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
-                                                                       EmailPasswordBox.Password);
-                        smtpClient.Send(mailMessage);
-                    }
+                        if (!string.IsNullOrWhiteSpace(EmailIDTextBox.Text) &&
+                        !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
+                        {
+                            MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
+                                                                      EmailIDTextBox.Text,
+                                                                      "Art of Hassan",
+                                                                      "Problem occured.\nPlease check.");
+                            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                            smtpClient.UseDefaultCredentials = false;
+                            smtpClient.EnableSsl = true;
+                            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                            smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
+                                                                           EmailPasswordBox.Password);
+                            smtpClient.Send(mailMessage);
+                        }
+                    }));
                 }
                 catch (Exception ex)
                 {
@@ -579,6 +587,8 @@ namespace ArtOfHassan
                     AdsStopwatch.Stop();
                     DelayStopwatch.Reset();
                     DelayStopwatch.Stop();
+                    BattleStopwatch.Reset();
+                    BattleStopwatch.Stop();
 
                     System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleLevelButtonX, (int)NoxPointY + BattleLevelButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -611,6 +621,26 @@ namespace ArtOfHassan
                 else if ((color.R == color3.R) && (color.G == color3.G) && (color.B == color3.B)) // 빨간색
                 {
                     ClickLog("Battle Level Button is Red");
+
+                    if (BattleStopwatch.IsRunning)
+                    {
+                        if (BattleStopwatch.ElapsedMilliseconds > 30000)
+                        {
+                            ClickLog("Battle Level Cancel Button");
+                            BattleStopwatch.Reset();
+                            BattleStopwatch.Stop();
+
+                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleLevelButtonX, (int)NoxPointY + BattleLevelButtonY);
+                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                            System.Threading.Thread.Sleep(50);
+                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        }
+                    }
+                    else
+                    {
+                        BattleStopwatch.Restart();
+                    }
+
                     return;
                 }
                 else if ((color.R == color4.R) && (color.G == color4.G) && (color.B == color4.B)) // 바탕색
