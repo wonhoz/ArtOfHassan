@@ -358,6 +358,26 @@ namespace ArtOfHassan
             }));
         }
 
+        private void NoGoldButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(NoGoldX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(NoGoldY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(NoGoldColor.Text);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                NoGoldX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                NoGoldY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                NoGoldColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                NoGoldButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
         private void AdsButton1_1_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
@@ -636,6 +656,7 @@ namespace ArtOfHassan
             AdsButton1_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsButton1Color.Text.Split(';')[0]));
             AdsButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsButton1Color.Text.Split(';')[0]));
             NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor.Text));
+            NoGoldButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor.Text));
 
             AppLocationButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[1]));
             GoldChestBox2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Text.Split(';')[1]));
@@ -708,32 +729,69 @@ namespace ArtOfHassan
                 NextButtonY.Text = lines[11].Split(',')[1];
                 NextButtonColor.Text = lines[11].Split(',')[2];
 
-                AdsButton1X.Text = lines[12].Split(',')[0];
-                AdsButton2X.Text = lines[12].Split(',')[0];
-                AdsButton1Y.Text = lines[12].Split(',')[1];
-                AdsButton2Y.Text = lines[12].Split(',')[2];
-                AdsButton1Color.Text = lines[12].Split(',')[3];
-                AdsButton2Color.Text = lines[12].Split(',')[3];
-
-                AdsCloseButton1X.Text = lines[13].Split(',')[0];
-                AdsCloseButton2X.Text = lines[13].Split(',')[1];
-                AdsCloseButton1Y.Text = lines[13].Split(',')[2];
-                AdsCloseButton2Y.Text = lines[13].Split(',')[2];
                 // 예외발생 임시처리 나중에 삭제할것
-                if (lines[13].Split(',').Length < 4)
+                if (lines.Length == 16)
                 {
-                    AdsCloseButton1Color.Text = "#4c4c4f;#3c4043".ToUpper();
-                    AdsCloseButton2Color.Text = "#4c4c4f;#3c4043".ToUpper();
+                    NoGoldX.Text = lines[12].Split(',')[0];
+                    NoGoldY.Text = lines[12].Split(',')[1];
+                    NoGoldColor.Text = lines[12].Split(',')[2];
+
+                    AdsButton1X.Text = lines[13].Split(',')[0];
+                    AdsButton2X.Text = lines[13].Split(',')[0];
+                    AdsButton1Y.Text = lines[13].Split(',')[1];
+                    AdsButton2Y.Text = lines[13].Split(',')[2];
+                    AdsButton1Color.Text = lines[13].Split(',')[3];
+                    AdsButton2Color.Text = lines[13].Split(',')[3];
+
+                    AdsCloseButton1X.Text = lines[14].Split(',')[0];
+                    AdsCloseButton2X.Text = lines[14].Split(',')[1];
+                    AdsCloseButton1Y.Text = lines[14].Split(',')[2];
+                    AdsCloseButton2Y.Text = lines[14].Split(',')[2];
+                    // 예외발생 임시처리 나중에 삭제할것
+                    if (lines[14].Split(',').Length < 4)
+                    {
+                        AdsCloseButton1Color.Text = "#4c4c4f;#3c4043".ToUpper();
+                        AdsCloseButton2Color.Text = "#4c4c4f;#3c4043".ToUpper();
+                    }
+                    else
+                    {
+                        AdsCloseButton1Color.Text = lines[14].Split(',')[3];
+                        AdsCloseButton2Color.Text = lines[14].Split(',')[3];
+                    }
+
+                    NotRespondingX.Text = lines[15].Split(',')[0];
+                    NotRespondingY.Text = lines[15].Split(',')[1];
+                    NotRespondingColor.Text = lines[15].Split(',')[2];
                 }
                 else
                 {
-                    AdsCloseButton1Color.Text = lines[13].Split(',')[3];
-                    AdsCloseButton2Color.Text = lines[13].Split(',')[3];
-                }
+                    AdsButton1X.Text = lines[12].Split(',')[0];
+                    AdsButton2X.Text = lines[12].Split(',')[0];
+                    AdsButton1Y.Text = lines[12].Split(',')[1];
+                    AdsButton2Y.Text = lines[12].Split(',')[2];
+                    AdsButton1Color.Text = lines[12].Split(',')[3];
+                    AdsButton2Color.Text = lines[12].Split(',')[3];
 
-                NotRespondingX.Text = lines[14].Split(',')[0];
-                NotRespondingY.Text = lines[14].Split(',')[1];
-                NotRespondingColor.Text = lines[14].Split(',')[2];
+                    AdsCloseButton1X.Text = lines[13].Split(',')[0];
+                    AdsCloseButton2X.Text = lines[13].Split(',')[1];
+                    AdsCloseButton1Y.Text = lines[13].Split(',')[2];
+                    AdsCloseButton2Y.Text = lines[13].Split(',')[2];
+                    // 예외발생 임시처리 나중에 삭제할것
+                    if (lines[13].Split(',').Length < 4)
+                    {
+                        AdsCloseButton1Color.Text = "#4c4c4f;#3c4043".ToUpper();
+                        AdsCloseButton2Color.Text = "#4c4c4f;#3c4043".ToUpper();
+                    }
+                    else
+                    {
+                        AdsCloseButton1Color.Text = lines[13].Split(',')[3];
+                        AdsCloseButton2Color.Text = lines[13].Split(',')[3];
+                    }
+
+                    NotRespondingX.Text = lines[14].Split(',')[0];
+                    NotRespondingY.Text = lines[14].Split(',')[1];
+                    NotRespondingColor.Text = lines[14].Split(',')[2];
+                }
 
                 ChangeButtonsColors();
             }
@@ -759,6 +817,7 @@ namespace ArtOfHassan
                     streamWriter.WriteLine(GoldButtonBackgroundX.Text + "," + GoldButtonBackgroundY.Text + "," + GoldButtonBackgroundColor.Text);
                     streamWriter.WriteLine(GoldButtonImageX.Text + "," + GoldButtonImageY.Text + "," + GoldButtonImageColor.Text);
                     streamWriter.WriteLine(NextButtonX.Text + "," + NextButtonY.Text + "," + NextButtonColor.Text);
+                    streamWriter.WriteLine(NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
                     streamWriter.WriteLine((int)((int.Parse(AdsButton1X.Text) + int.Parse(AdsButton2X.Text)) / 2) + "," + AdsButton1Y.Text + "," + AdsButton2Y.Text + "," + AdsButton1Color.Text);
                     streamWriter.WriteLine(AdsCloseButton1X.Text + "," + AdsCloseButton2X.Text + "," + (int)((int.Parse(AdsCloseButton1Y.Text) + int.Parse(AdsCloseButton2Y.Text)) / 2) + "," + AdsCloseButton1Color.Text);
                     streamWriter.WriteLine(NotRespondingX.Text + "," + NotRespondingY.Text + "," + NotRespondingColor.Text);
@@ -835,6 +894,10 @@ namespace ArtOfHassan
             NotRespondingY.Text = 540.ToString();
             NotRespondingColor.Text = "#009688".ToUpper();
 
+            NoGoldX.Text = 320.ToString(); ;
+            NoGoldY.Text = 646.ToString(); ;
+            NoGoldColor.Text = "dfd6be".ToUpper();
+
             ChangeButtonsColors();
         }
 
@@ -904,6 +967,11 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NextButtonY = int.Parse(NextButtonY.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NextButtonColor = NextButtonColor.Text;
                     streamWriter.WriteLine(NextButtonX.Text + "," + NextButtonY.Text + "," + NextButtonColor.Text);
+
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).NoGoldX = int.Parse(NoGoldX.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).NoGoldY = int.Parse(NoGoldY.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).NoGoldColor = NoGoldColor.Text;
+                    streamWriter.WriteLine(NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsButtonX = (int.Parse(AdsButton1X.Text) + int.Parse(AdsButton2X.Text)) / 2;
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsButton1Y = int.Parse(AdsButton1Y.Text);

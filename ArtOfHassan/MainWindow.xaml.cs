@@ -83,6 +83,8 @@ namespace ArtOfHassan
 
         public string ClickPattern = "L;R;L";
 
+        bool IsNoGoldMailSent = false;
+
 
         public MainWindow()
         {
@@ -143,27 +145,59 @@ namespace ArtOfHassan
                 NextButtonY = int.Parse(lines[11].Split(',')[1]);
                 NextButtonColor = lines[11].Split(',')[2];
 
-                AdsButtonX = int.Parse(lines[12].Split(',')[0]);
-                AdsButton1Y = int.Parse(lines[12].Split(',')[1]);
-                AdsButton2Y = int.Parse(lines[12].Split(',')[2]);
-                AdsButtonColor = lines[12].Split(',')[3];
-
-                AdsCloseButton1X = int.Parse(lines[13].Split(',')[0]);
-                AdsCloseButton2X = int.Parse(lines[13].Split(',')[1]);
-                AdsCloseButtonY = int.Parse(lines[13].Split(',')[2]);
                 // 예외발생 임시처리 나중에 삭제할것
-                if (lines[13].Split(',').Length < 4)
+                if (lines.Length == 16)
                 {
-                    AdsCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+                    NoGoldX = int.Parse(lines[12].Split(',')[0]);
+                    NoGoldY = int.Parse(lines[12].Split(',')[1]);
+                    NoGoldColor = lines[12].Split(',')[2];
+
+                    AdsButtonX = int.Parse(lines[13].Split(',')[0]);
+                    AdsButton1Y = int.Parse(lines[13].Split(',')[1]);
+                    AdsButton2Y = int.Parse(lines[13].Split(',')[2]);
+                    AdsButtonColor = lines[13].Split(',')[3];
+
+                    AdsCloseButton1X = int.Parse(lines[14].Split(',')[0]);
+                    AdsCloseButton2X = int.Parse(lines[14].Split(',')[1]);
+                    AdsCloseButtonY = int.Parse(lines[14].Split(',')[2]);
+                    // 예외발생 임시처리 나중에 삭제할것
+                    if (lines[14].Split(',').Length < 4)
+                    {
+                        AdsCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+                    }
+                    else
+                    {
+                        AdsCloseButtonColor = lines[14].Split(',')[3];
+                    }
+
+                    NotRespondingX = int.Parse(lines[15].Split(',')[0]);
+                    NotRespondingY = int.Parse(lines[15].Split(',')[1]);
+                    NotRespondingColor = lines[15].Split(',')[2];
                 }
                 else
                 {
-                    AdsCloseButtonColor = lines[13].Split(',')[3];
-                }
+                    AdsButtonX = int.Parse(lines[12].Split(',')[0]);
+                    AdsButton1Y = int.Parse(lines[12].Split(',')[1]);
+                    AdsButton2Y = int.Parse(lines[12].Split(',')[2]);
+                    AdsButtonColor = lines[12].Split(',')[3];
 
-                NotRespondingX = int.Parse(lines[14].Split(',')[0]);
-                NotRespondingY = int.Parse(lines[14].Split(',')[1]);
-                NotRespondingColor = lines[14].Split(',')[2];
+                    AdsCloseButton1X = int.Parse(lines[13].Split(',')[0]);
+                    AdsCloseButton2X = int.Parse(lines[13].Split(',')[1]);
+                    AdsCloseButtonY = int.Parse(lines[13].Split(',')[2]);
+                    // 예외발생 임시처리 나중에 삭제할것
+                    if (lines[13].Split(',').Length < 4)
+                    {
+                        AdsCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+                    }
+                    else
+                    {
+                        AdsCloseButtonColor = lines[13].Split(',')[3];
+                    }
+
+                    NotRespondingX = int.Parse(lines[14].Split(',')[0]);
+                    NotRespondingY = int.Parse(lines[14].Split(',')[1]);
+                    NotRespondingColor = lines[14].Split(',')[2];
+                }
 
                 ClickLog("Load Done");
             }
@@ -286,6 +320,8 @@ namespace ArtOfHassan
                 ButtonTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
                 ButtonTimer.Enabled = true;
                 ProblemTimer.Enabled = true;
+
+                IsNoGoldMailSent = false;
             }
             else
             {
@@ -343,7 +379,7 @@ namespace ArtOfHassan
                     System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                     {
                         if (!string.IsNullOrWhiteSpace(EmailIDTextBox.Text) &&
-                        !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
+                            !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
                         {
                             MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
                                                                       EmailIDTextBox.Text,
@@ -433,6 +469,10 @@ namespace ArtOfHassan
         public int NotRespondingX   = 79;
         public int NotRespondingY   = 540;
         public string NotRespondingColor = "#009688".ToUpper();
+
+        public int NoGoldX = 320;
+        public int NoGoldY = 646;
+        public string NoGoldColor = "dfd6be".ToUpper();
 
 
         private void NoxTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
@@ -746,6 +786,75 @@ namespace ArtOfHassan
                 {
                     ClickLog("Defeat Checked");
                     DefeatFlag = true;
+                }
+
+
+                // No Gold
+                color = CurrentBitmap.GetPixel(NoGoldX, NoGoldY);
+                TimerLog("Not Responding Button Color: " + color.R + "," + color.G + "," + color.B);
+                color1 = ColorTranslator.FromHtml(NoGoldColor);
+                if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                    ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
+                {
+                    ClickLog("No Gold");
+
+                    bool isSendEmail = false;
+                    bool isStopHassan = false;
+                    bool isShutdownPC = false;
+                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    {
+                        isSendEmail  = SendEmailCheckBox.IsChecked.Value;
+                        isStopHassan = StopWorkingCheckBox.IsChecked.Value;
+                        isShutdownPC = ShutdownPCCheckBox.IsChecked.Value;
+                    }));
+
+                    if (isSendEmail && !IsNoGoldMailSent)
+                    {
+                        try
+                        {
+                            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                            {
+                                if (!string.IsNullOrWhiteSpace(EmailIDTextBox.Text) &&
+                                    !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
+                                {
+                                    MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
+                                                                              EmailIDTextBox.Text,
+                                                                              "Art of Hassan",
+                                                                              "No Gold.\nPlease check.");
+                                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                                    smtpClient.UseDefaultCredentials = false;
+                                    smtpClient.EnableSsl = true;
+                                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                    smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
+                                                                                   EmailPasswordBox.Password);
+                                    smtpClient.Send(mailMessage);
+                                    IsNoGoldMailSent = true;
+                                }
+                            }));
+                        }
+                        catch (Exception ex)
+                        {
+                            //MessageBox.Show("Email Delivery Failed");
+                        }
+                    }
+
+                    if (isStopHassan)
+                    {
+                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                        {
+                            StartButton.Content = "Start";
+                            SettingButton.IsEnabled = true;
+                            MonitoringIntervalTextBox.IsEnabled = true;
+
+                            ButtonTimer.Enabled  = false;
+                            ProblemTimer.Enabled = false;
+                        }));
+                    }
+
+                    if (isShutdownPC)
+                    {
+                        System.Diagnostics.Process.Start("shutdown.exe", "-s -f");
+                    }
                 }
 
 
@@ -1339,6 +1448,11 @@ namespace ArtOfHassan
             settingWindow.NotRespondingY.Text = NotRespondingY.ToString();
             settingWindow.NotRespondingColor.Text = NotRespondingColor.ToString();
             settingWindow.NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor));
+
+            settingWindow.NoGoldX.Text = NoGoldX.ToString();
+            settingWindow.NoGoldY.Text = NoGoldY.ToString();
+            settingWindow.NoGoldColor.Text = NoGoldColor.ToString();
+            settingWindow.NoGoldButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor));
 
             settingWindow.ShowDialog();
         }
