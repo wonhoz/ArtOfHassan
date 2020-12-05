@@ -896,7 +896,7 @@ namespace ArtOfHassan
 
             NoGoldX.Text = 320.ToString(); ;
             NoGoldY.Text = 646.ToString(); ;
-            NoGoldColor.Text = "dfd6be".ToUpper();
+            NoGoldColor.Text = "#dfd6be".ToUpper();
 
             ChangeButtonsColors();
         }

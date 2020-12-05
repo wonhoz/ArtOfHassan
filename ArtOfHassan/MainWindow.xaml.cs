@@ -472,7 +472,7 @@ namespace ArtOfHassan
 
         public int NoGoldX = 320;
         public int NoGoldY = 646;
-        public string NoGoldColor = "dfd6be".ToUpper();
+        public string NoGoldColor = "#dfd6be".ToUpper();
 
 
         private void NoxTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
@@ -791,7 +791,7 @@ namespace ArtOfHassan
 
                 // No Gold
                 color = CurrentBitmap.GetPixel(NoGoldX, NoGoldY);
-                TimerLog("Not Responding Button Color: " + color.R + "," + color.G + "," + color.B);
+                TimerLog("No Gold Color: " + color.R + "," + color.G + "," + color.B);
                 color1 = ColorTranslator.FromHtml(NoGoldColor);
                 if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
@@ -810,27 +810,30 @@ namespace ArtOfHassan
 
                     if (isSendEmail && !IsNoGoldMailSent)
                     {
+                        ClickLog("Sending Email...");
+                        IsNoGoldMailSent = true;
+
                         try
                         {
+                            string id = "";
+                            string pw = "";
                             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                             {
-                                if (!string.IsNullOrWhiteSpace(EmailIDTextBox.Text) &&
-                                    !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
-                                {
-                                    MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
-                                                                              EmailIDTextBox.Text,
-                                                                              "Art of Hassan",
-                                                                              "No Gold.\nPlease check.");
-                                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                                    smtpClient.UseDefaultCredentials = false;
-                                    smtpClient.EnableSsl = true;
-                                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                                    smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
-                                                                                   EmailPasswordBox.Password);
-                                    smtpClient.Send(mailMessage);
-                                    IsNoGoldMailSent = true;
-                                }
+                                id = EmailIDTextBox.Text;
+                                pw = EmailPasswordBox.Password;
                             }));
+                            if (!string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(pw))
+                            {
+                                MailMessage mailMessage = new MailMessage(id, id,
+                                                                          "Art of Hassan",
+                                                                          "No Gold.\nPlease check.");
+                                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                                smtpClient.UseDefaultCredentials = false;
+                                smtpClient.EnableSsl = true;
+                                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                smtpClient.Credentials = new NetworkCredential(id, pw);
+                                smtpClient.Send(mailMessage);
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -840,6 +843,8 @@ namespace ArtOfHassan
 
                     if (isStopHassan)
                     {
+                        ClickLog("Stop Hassan...");
+
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
                             StartButton.Content = "Start";
@@ -853,8 +858,12 @@ namespace ArtOfHassan
 
                     if (isShutdownPC)
                     {
+                        ClickLog("Shutting Down PC...");
+
                         System.Diagnostics.Process.Start("shutdown.exe", "-s -f");
                     }
+
+                    return;
                 }
 
 
