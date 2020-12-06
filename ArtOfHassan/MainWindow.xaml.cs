@@ -860,7 +860,7 @@ namespace ArtOfHassan
                     {
                         ClickLog("Shutting Down PC...");
 
-                        System.Diagnostics.Process.Start("shutdown.exe", "-s -f");
+                        System.Diagnostics.Process.Start("shutdown.exe", "-s -f -t 30");
                     }
 
                     return;
