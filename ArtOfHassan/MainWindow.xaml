@@ -5,19 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d" Icon="icon.ico"
-        Title="Art of Hassan" Height="570" Width="350" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        Title="Art of Hassan" Height="600" Width="350" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
+            <RowDefinition Height="1.1*"/>
+            <RowDefinition Height="1.1*"/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition />
+            <RowDefinition Height="0.7*"/>
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.6*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -185,7 +186,12 @@
             <Button Grid.Row="1" Grid.Column="2" Name="StartButton" Content="Start" Click="StartButton_Click" Margin="2.5,5,5,5" IsEnabled="False"/>
         </Grid>
 
-        <TextBlock Grid.Row="9" Grid.ColumnSpan="3" Name="MessageBar" Text="War: 0 | Victory: 0 | Defeat: 0 | Ads: 0"
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="3" Name="MessageBar" Text="War: 0  |  Victory: 0  |  Defeat: 0  |  Ads: 0"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+
+        <CheckBox Grid.Row="10" Grid.ColumnSpan="2" Name="ShareProblemCheckBox" IsChecked="True"
+                  Content="Share screenshot of problem to improve our Hassan :)"
+                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
     </Grid>
 </Window>

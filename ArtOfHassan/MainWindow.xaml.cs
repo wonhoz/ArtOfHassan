@@ -578,15 +578,17 @@ namespace ArtOfHassan
             {
                 ClickLog("Problem Occured...");
 
-                if (ProblemMailSent < 10)
+                if (ProblemMailSent < 3)
                 {
                     try
                     {
                         CurrentBitmap.Save("Problem.png", System.Drawing.Imaging.ImageFormat.Png);
 
+                        bool isShareEmail = true; // 무늬만 사용
                         string emailaddress = "";
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
+                            isShareEmail = ShareProblemCheckBox.IsChecked.Value;
                             emailaddress = EmailTextBox.Text;
                         }));
 
@@ -917,7 +919,7 @@ namespace ArtOfHassan
 
                     System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                     {
-                        MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat} | Victory: {NumOfVictory} | Defeat: {NumOfDefeat} | Ads: {NumOfAds}";
+                        MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
                     }));
                 }
                 else if ((color.R == color3.R) && (color.G == color3.G) && (color.B == color3.B)) // 빨간색
