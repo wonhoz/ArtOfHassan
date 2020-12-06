@@ -553,43 +553,45 @@ namespace ArtOfHassan
 
                 if (ProblemMailSent < 10)
                 {
-                    CurrentBitmap.Save("Problem.png", System.Drawing.Imaging.ImageFormat.Png);
-
-                    MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                              "artofwarhassan@gmail.com",
-                                                              "Art of Hassan",
-                                                              "Problem occured.\nPlease check.");
-                    mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
-
-                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                    smtpClient.UseDefaultCredentials = false;
-                    smtpClient.EnableSsl = true;
-                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com",
-                                                                   "Rnrmf0575!");
-                    smtpClient.Send(mailMessage);
-
                     try
                     {
+                        CurrentBitmap.Save("Problem.png", System.Drawing.Imaging.ImageFormat.Png);
+
                         string emailaddress = "";
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
                             emailaddress = EmailTextBox.Text;
                         }));
-                        if (!string.IsNullOrWhiteSpace(emailaddress))
+
+                        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                        smtpClient.UseDefaultCredentials = false;
+                        smtpClient.EnableSsl = true;
+                        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
+
+                        if (string.IsNullOrWhiteSpace(emailaddress))
                         {
-                            mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                            MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           emailaddress,
                                                           "Art of Hassan",
                                                           "Problem occured.\nPlease check.");
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
+                            smtpClient.Send(mailMessage);
 
-                            smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                            smtpClient.UseDefaultCredentials = false;
-                            smtpClient.EnableSsl = true;
-                            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                            smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com",
-                                                                           "Rnrmf0575!");
+                            mailMessage = new MailMessage(emailaddress,
+                                                          "artofwarhassan@gmail.com",
+                                                          "Art of Hassan",
+                                                          "Problem occured.\nPlease check.");
+                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
+                            smtpClient.Send(mailMessage);
+                        }
+                        else
+                        {
+                            MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                                      "artofwarhassan@gmail.com",
+                                                                      "Art of Hassan",
+                                                                      "Problem occured.\nPlease check.");
+                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
                             smtpClient.Send(mailMessage);
                         }
                     }
