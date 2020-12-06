@@ -12,9 +12,9 @@ using System.Windows.Threading;
 namespace ArtOfHassan
 {
     /// <summary>
-    /// SettingWindow.xaml에 대한 상호 작용 논리
+    /// PixelWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class SettingWindow : Window
+    public partial class PixelWindow : Window
     {
         [DllImport("user32.dll")]
         static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
@@ -38,7 +38,7 @@ namespace ArtOfHassan
         double NoxHeight = 0;
 
 
-        public SettingWindow()
+        public PixelWindow()
         {
             InitializeComponent();
         }
