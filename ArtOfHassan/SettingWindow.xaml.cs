@@ -597,45 +597,45 @@ namespace ArtOfHassan
             }));
         }
 
-        private void AdsCloseButton1_1_Click(object sender, RoutedEventArgs e)
+        private void LeftAdCloseButton1_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AdsCloseButton1X.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AdsCloseButton1Y.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(AdsCloseButton1Color.Text.Split(';')[0]);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(LeftAdCloseButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(LeftAdCloseButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(LeftAdCloseButtonColor.Text.Split(';')[0]);
             }));
 
             GetPixelPositionAndColor();
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                AdsCloseButton1X.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                AdsCloseButton1Y.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                AdsCloseButton1Color.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + AdsCloseButton1Color.Text.Split(';')[1];
-                AdsCloseButton2Color.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + AdsCloseButton2Color.Text.Split(';')[1];
-                AdsCloseButton1_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+                LeftAdCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                LeftAdCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                LeftAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + LeftAdCloseButtonColor.Text.Split(';')[1];
+                RightAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + RightAdCloseButtonColor.Text.Split(';')[1];
+                LeftAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
         }
 
-        private void AdsCloseButton2_1_Click(object sender, RoutedEventArgs e)
+        private void RightAdCloseButton1_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AdsCloseButton2X.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AdsCloseButton2Y.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(AdsCloseButton2Color.Text.Split(';')[1]);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(RightAdCloseButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(RightAdCloseButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(RightAdCloseButtonColor.Text.Split(';')[1]);
             }));
 
             GetPixelPositionAndColor();
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                AdsCloseButton2X.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                AdsCloseButton2Y.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                AdsCloseButton1Color.Text = AdsCloseButton1Color.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                AdsCloseButton2Color.Text = AdsCloseButton2Color.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                AdsCloseButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+                RightAdCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                RightAdCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                LeftAdCloseButtonColor.Text = LeftAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                RightAdCloseButtonColor.Text = RightAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                RightAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
         }
 
@@ -667,8 +667,8 @@ namespace ArtOfHassan
             BattleLevelButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[2]));
             BattleLevelButton4.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[3]));
 
-            AdsCloseButton1_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsCloseButton1Color.Text.Split(';')[0]));
-            AdsCloseButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsCloseButton1Color.Text.Split(';')[1]));
+            LeftAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LeftAdCloseButtonColor.Text.Split(';')[0]));
+            RightAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LeftAdCloseButtonColor.Text.Split(';')[1]));
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -743,20 +743,20 @@ namespace ArtOfHassan
                     AdsButton1Color.Text = lines[13].Split(',')[3];
                     AdsButton2Color.Text = lines[13].Split(',')[3];
 
-                    AdsCloseButton1X.Text = lines[14].Split(',')[0];
-                    AdsCloseButton2X.Text = lines[14].Split(',')[1];
-                    AdsCloseButton1Y.Text = lines[14].Split(',')[2];
-                    AdsCloseButton2Y.Text = lines[14].Split(',')[2];
+                    LeftAdCloseButtonX.Text = lines[14].Split(',')[0];
+                    RightAdCloseButtonX.Text = lines[14].Split(',')[1];
+                    LeftAdCloseButtonY.Text = lines[14].Split(',')[2];
+                    RightAdCloseButtonY.Text = lines[14].Split(',')[2];
                     // 예외발생 임시처리 나중에 삭제할것
                     if (lines[14].Split(',').Length < 4)
                     {
-                        AdsCloseButton1Color.Text = "#4c4c4f;#3c4043".ToUpper();
-                        AdsCloseButton2Color.Text = "#4c4c4f;#3c4043".ToUpper();
+                        LeftAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
+                        RightAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
                     }
                     else
                     {
-                        AdsCloseButton1Color.Text = lines[14].Split(',')[3];
-                        AdsCloseButton2Color.Text = lines[14].Split(',')[3];
+                        LeftAdCloseButtonColor.Text = lines[14].Split(',')[3];
+                        RightAdCloseButtonColor.Text = lines[14].Split(',')[3];
                     }
 
                     NotRespondingX.Text = lines[15].Split(',')[0];
@@ -772,20 +772,20 @@ namespace ArtOfHassan
                     AdsButton1Color.Text = lines[12].Split(',')[3];
                     AdsButton2Color.Text = lines[12].Split(',')[3];
 
-                    AdsCloseButton1X.Text = lines[13].Split(',')[0];
-                    AdsCloseButton2X.Text = lines[13].Split(',')[1];
-                    AdsCloseButton1Y.Text = lines[13].Split(',')[2];
-                    AdsCloseButton2Y.Text = lines[13].Split(',')[2];
+                    LeftAdCloseButtonX.Text = lines[13].Split(',')[0];
+                    RightAdCloseButtonX.Text = lines[13].Split(',')[1];
+                    LeftAdCloseButtonY.Text = lines[13].Split(',')[2];
+                    RightAdCloseButtonY.Text = lines[13].Split(',')[2];
                     // 예외발생 임시처리 나중에 삭제할것
                     if (lines[13].Split(',').Length < 4)
                     {
-                        AdsCloseButton1Color.Text = "#4c4c4f;#3c4043".ToUpper();
-                        AdsCloseButton2Color.Text = "#4c4c4f;#3c4043".ToUpper();
+                        LeftAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
+                        RightAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
                     }
                     else
                     {
-                        AdsCloseButton1Color.Text = lines[13].Split(',')[3];
-                        AdsCloseButton2Color.Text = lines[13].Split(',')[3];
+                        LeftAdCloseButtonColor.Text = lines[13].Split(',')[3];
+                        RightAdCloseButtonColor.Text = lines[13].Split(',')[3];
                     }
 
                     NotRespondingX.Text = lines[14].Split(',')[0];
@@ -819,7 +819,7 @@ namespace ArtOfHassan
                     streamWriter.WriteLine(NextButtonX.Text + "," + NextButtonY.Text + "," + NextButtonColor.Text);
                     streamWriter.WriteLine(NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
                     streamWriter.WriteLine((int)((int.Parse(AdsButton1X.Text) + int.Parse(AdsButton2X.Text)) / 2) + "," + AdsButton1Y.Text + "," + AdsButton2Y.Text + "," + AdsButton1Color.Text);
-                    streamWriter.WriteLine(AdsCloseButton1X.Text + "," + AdsCloseButton2X.Text + "," + (int)((int.Parse(AdsCloseButton1Y.Text) + int.Parse(AdsCloseButton2Y.Text)) / 2) + "," + AdsCloseButton1Color.Text);
+                    streamWriter.WriteLine(LeftAdCloseButtonX.Text + "," + RightAdCloseButtonX.Text + "," + (int)((int.Parse(LeftAdCloseButtonY.Text) + int.Parse(RightAdCloseButtonY.Text)) / 2) + "," + LeftAdCloseButtonColor.Text);
                     streamWriter.WriteLine(NotRespondingX.Text + "," + NotRespondingY.Text + "," + NotRespondingColor.Text);
                 }
             }
@@ -883,12 +883,12 @@ namespace ArtOfHassan
             AdsButton1Color.Text = "#e9e9d8;#efe7d6".ToUpper();
             AdsButton2Color.Text = "#e9e9d8;#efe7d6".ToUpper();
 
-            AdsCloseButton1X.Text = 45.ToString();
-            AdsCloseButton2X.Text = 513.ToString();
-            AdsCloseButton1Y.Text = 63.ToString();
-            AdsCloseButton2Y.Text = 63.ToString();
-            AdsCloseButton1Color.Text = "#4c4c4f;#3c4043".ToUpper();
-            AdsCloseButton2Color.Text = "#4c4c4f;#3c4043".ToUpper();
+            LeftAdCloseButtonX.Text = 45.ToString();
+            RightAdCloseButtonX.Text = 513.ToString();
+            LeftAdCloseButtonY.Text = 63.ToString();
+            RightAdCloseButtonY.Text = 63.ToString();
+            LeftAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
+            RightAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
 
             NotRespondingX.Text = 79.ToString();
             NotRespondingY.Text = 540.ToString();
@@ -979,11 +979,11 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsButtonColor = AdsButton1Color.Text;
                     streamWriter.WriteLine((int)((int.Parse(AdsButton1X.Text) + int.Parse(AdsButton2X.Text)) / 2) + "," + AdsButton1Y.Text + "," + AdsButton2Y.Text + "," + AdsButton1Color.Text);
 
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButton1X = int.Parse(AdsCloseButton1X.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButton2X = int.Parse(AdsCloseButton2X.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButtonY = (int.Parse(AdsCloseButton1Y.Text) + int.Parse(AdsCloseButton2Y.Text)) / 2;
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).LeftAdCloseButtonX = int.Parse(LeftAdCloseButtonX.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).RightAdCloseButtonX = int.Parse(RightAdCloseButtonX.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButtonY = (int.Parse(LeftAdCloseButtonY.Text) + int.Parse(RightAdCloseButtonY.Text)) / 2;
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AdsCloseButtonColor = AdsButton1Color.Text;
-                    streamWriter.WriteLine(AdsCloseButton1X.Text + "," + AdsCloseButton2X.Text + "," + (int)((int.Parse(AdsCloseButton1Y.Text) + int.Parse(AdsCloseButton2Y.Text)) / 2) + "," + AdsCloseButton1Color.Text);
+                    streamWriter.WriteLine(LeftAdCloseButtonX.Text + "," + RightAdCloseButtonX.Text + "," + (int)((int.Parse(LeftAdCloseButtonY.Text) + int.Parse(RightAdCloseButtonY.Text)) / 2) + "," + LeftAdCloseButtonColor.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingX = int.Parse(NotRespondingX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingY = int.Parse(NotRespondingY.Text);
