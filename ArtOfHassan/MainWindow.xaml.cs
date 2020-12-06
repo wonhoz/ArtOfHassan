@@ -174,7 +174,16 @@ namespace ArtOfHassan
                             GameAdCloseButtonX = int.Parse(listitem[1]);
                             GoldAdCloseButtonY = int.Parse(listitem[2]);
                             TroopAdCloseButtonY = int.Parse(listitem[3]);
-                            GameAdCloseButtonColor = listitem[4];
+                            // 예외발생 임시처리 나중에 삭제할것
+                            if (listitem.Length < 6)
+                            {
+                                GameAdCloseButtonColor = listitem[4] + ";#e9e9d8".ToUpper();
+                            }
+                            else
+                            {
+                                MidasAdCloseButtonY = int.Parse(listitem[4]);
+                                GameAdCloseButtonColor = listitem[5];
+                            }
                             break;
                         case ("googleadclosebutton"):
                             LeftAdCloseButtonX = int.Parse(listitem[1]);
@@ -260,7 +269,16 @@ namespace ArtOfHassan
                         GameAdCloseButtonX = int.Parse(lines[13].Split(',')[0]);
                         GoldAdCloseButtonY = int.Parse(lines[13].Split(',')[1]);
                         TroopAdCloseButtonY = int.Parse(lines[13].Split(',')[2]);
-                        GameAdCloseButtonColor = lines[13].Split(',')[3];
+						// 예외발생 임시처리 나중에 삭제할것
+                        if (lines[13].Split(',').Length < 5)
+                        {
+                            GameAdCloseButtonColor = lines[13].Split(',')[3] + ";#e9e9d8".ToUpper();
+                        }
+                        else
+                        {
+                            MidasAdCloseButtonY = int.Parse(lines[13].Split(',')[3]);
+                            GameAdCloseButtonColor = lines[13].Split(',')[4];
+                        }
 
                         LeftAdCloseButtonX = int.Parse(lines[14].Split(',')[0]);
                         RightAdCloseButtonX = int.Parse(lines[14].Split(',')[1]);
@@ -284,7 +302,16 @@ namespace ArtOfHassan
                         GameAdCloseButtonX = int.Parse(lines[12].Split(',')[0]);
                         GoldAdCloseButtonY = int.Parse(lines[12].Split(',')[1]);
                         TroopAdCloseButtonY = int.Parse(lines[12].Split(',')[2]);
-                        GameAdCloseButtonColor = lines[12].Split(',')[3];
+						// 예외발생 임시처리 나중에 삭제할것
+                        if (lines[12].Split(',').Length < 5)
+                        {
+                            GameAdCloseButtonColor = lines[12].Split(',')[3] + ";#e9e9d8".ToUpper();
+                        }
+                        else
+                        {
+                            MidasAdCloseButtonY = int.Parse(lines[12].Split(',')[3]);
+                            GameAdCloseButtonColor = lines[12].Split(',')[4];
+                        }
 
                         LeftAdCloseButtonX = int.Parse(lines[13].Split(',')[0]);
                         RightAdCloseButtonX = int.Parse(lines[13].Split(',')[1]);
@@ -319,7 +346,7 @@ namespace ArtOfHassan
                         streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY + "," + GoldButtonImageColor);
                         streamWriter.WriteLine("NextButton," + NextButtonX + "," + NextButtonY + "," + NextButtonColor);
                         streamWriter.WriteLine("NoGold," + NoGoldX + "," + NoGoldY + "," + NoGoldColor);
-                        streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + GameAdCloseButtonColor);
+                        streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY + "," + GameAdCloseButtonColor);
                         streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY + "," + GoogleAdCloseButtonColor);
                         streamWriter.WriteLine("NotResponding," + NotRespondingX + "," + NotRespondingY + "," + NotRespondingColor);
                     }
@@ -685,7 +712,8 @@ namespace ArtOfHassan
         public int GameAdCloseButtonX       = 496;
         public int GoldAdCloseButtonY      = 180;
         public int TroopAdCloseButtonY      = 190;
-        public string GameAdCloseButtonColor = "#efe7d6;#e9e9d8".ToUpper();
+        public int MidasAdCloseButtonY = 262;
+        public string GameAdCloseButtonColor = "#efe7d6;#e9e9d8;#e9e9d8".ToUpper();
 
         public int LeftAdCloseButtonX = 45;
         public int RightAdCloseButtonX = 513;
@@ -1276,6 +1304,26 @@ namespace ArtOfHassan
                 }
 
 
+                // Midas Ad Close Button
+                color = CurrentBitmap.GetPixel(GameAdCloseButtonX, MidasAdCloseButtonY);
+                TimerLog("Midas Ad Close Button: " + color.R + "," + color.G + "," + color.B);
+                color1 = ColorTranslator.FromHtml(GameAdCloseButtonColor.Split(';')[0]);
+                color2 = ColorTranslator.FromHtml(GameAdCloseButtonColor.Split(';')[1]);
+                if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
+                    (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                     ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
+                {
+                    ClickLog("Midas Ad Close Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GameAdCloseButtonX, (int)NoxPointY + MidasAdCloseButtonY);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                    return;
+                }
+
+
                 // Google Ad Close Button
                 int screenCompareInterval = 3;
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
@@ -1668,6 +1716,11 @@ namespace ArtOfHassan
             pixelWindow.TroopAdCloseButtonY.Text = TroopAdCloseButtonY.ToString();
             pixelWindow.TroopAdCloseButtonColor.Text = GameAdCloseButtonColor;
             pixelWindow.TroopAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[1]));
+
+            pixelWindow.MidasAdCloseButtonX.Text = GameAdCloseButtonX.ToString();
+            pixelWindow.MidasAdCloseButtonY.Text = MidasAdCloseButtonY.ToString();
+            pixelWindow.MidasAdCloseButtonColor.Text = GameAdCloseButtonColor;
+            pixelWindow.MidasAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[2]));
 
             pixelWindow.LeftAdCloseButtonX.Text = LeftAdCloseButtonX.ToString();
             pixelWindow.LeftAdCloseButtonY.Text = GoogleAdCloseButtonY.ToString();

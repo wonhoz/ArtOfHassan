@@ -384,8 +384,9 @@ namespace ArtOfHassan
             {
                 GoldAdCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
                 GoldAdCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                GoldAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + GoldAdCloseButtonColor.Text.Split(';')[1];
-                TroopAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + TroopAdCloseButtonColor.Text.Split(';')[1];
+                GoldAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + GoldAdCloseButtonColor.Text.Split(';')[1] + ";" + GoldAdCloseButtonColor.Text.Split(';')[2];
+                TroopAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + TroopAdCloseButtonColor.Text.Split(';')[1] + ";" + TroopAdCloseButtonColor.Text.Split(';')[2];
+                MidasAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + MidasAdCloseButtonColor.Text.Split(';')[1] + ";" + MidasAdCloseButtonColor.Text.Split(';')[2];
                 GoldAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
         }
@@ -405,9 +406,32 @@ namespace ArtOfHassan
             {
                 TroopAdCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
                 TroopAdCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                GoldAdCloseButtonColor.Text = GoldAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                TroopAdCloseButtonColor.Text = TroopAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                GoldAdCloseButtonColor.Text = GoldAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + GoldAdCloseButtonColor.Text.Split(';')[2];
+                TroopAdCloseButtonColor.Text = TroopAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + TroopAdCloseButtonColor.Text.Split(';')[2];
+                MidasAdCloseButtonColor.Text = MidasAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + MidasAdCloseButtonColor.Text.Split(';')[2];
                 TroopAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+            }));
+        }
+
+        private void MidasAdCloseButton1_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(MidasAdCloseButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(MidasAdCloseButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(MidasAdCloseButtonColor.Text.Split(';')[1]);
+            }));
+
+            GetPixelPositionAndColor();
+
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                MidasAdCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                MidasAdCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                GoldAdCloseButtonColor.Text = GoldAdCloseButtonColor.Text.Split(';')[0] + ";" + GoldAdCloseButtonColor.Text.Split(';')[1] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                TroopAdCloseButtonColor.Text = TroopAdCloseButtonColor.Text.Split(';')[0] + ";" + TroopAdCloseButtonColor.Text.Split(';')[1] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                MidasAdCloseButtonColor.Text = MidasAdCloseButtonColor.Text.Split(';')[0] + ";" + MidasAdCloseButtonColor.Text.Split(';')[1] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                MidasAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
         }
 
@@ -645,7 +669,8 @@ namespace ArtOfHassan
             GoldButtonImage1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonImageColor.Text.Split(';')[0]));
             NextButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NextButtonColor.Text));
             GoldAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldAdCloseButtonColor.Text.Split(';')[0]));
-            TroopAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldAdCloseButtonColor.Text.Split(';')[0]));
+            TroopAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(TroopAdCloseButtonColor.Text.Split(';')[1]));
+            MidasAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(MidasAdCloseButtonColor.Text.Split(';')[2]));
             NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor.Text));
             NoGoldButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor.Text));
 
@@ -735,8 +760,25 @@ namespace ArtOfHassan
                         GoldAdCloseButtonY.Text = lines[13].Split(',')[1];
                         TroopAdCloseButtonX.Text = lines[13].Split(',')[0];
                         TroopAdCloseButtonY.Text = lines[13].Split(',')[2];
-                        GoldAdCloseButtonColor.Text = lines[13].Split(',')[3];
-                        TroopAdCloseButtonColor.Text = lines[13].Split(',')[3];
+						// 예외발생 임시처리 나중에 삭제할것
+                        if (lines[13].Split(',').Length < 5)
+                        {
+                            GoldAdCloseButtonColor.Text = lines[13].Split(',')[3] + ";#e9e9d8".ToUpper();
+                            TroopAdCloseButtonColor.Text = lines[13].Split(',')[3] + ";#e9e9d8".ToUpper();
+
+                            MidasAdCloseButtonX.Text = lines[13].Split(',')[0];
+                            MidasAdCloseButtonY.Text = 262.ToString();
+                            MidasAdCloseButtonColor.Text = lines[13].Split(',')[3] + ";#e9e9d8".ToUpper();
+                        }
+                        else
+                        {
+                            MidasAdCloseButtonX.Text = lines[13].Split(',')[0];
+                            MidasAdCloseButtonY.Text = lines[13].Split(',')[3];
+
+                            GoldAdCloseButtonColor.Text = lines[13].Split(',')[4];
+                            TroopAdCloseButtonColor.Text = lines[13].Split(',')[4];
+                            MidasAdCloseButtonColor.Text = lines[13].Split(',')[4];
+                        }
 
                         LeftAdCloseButtonX.Text = lines[14].Split(',')[0];
                         LeftAdCloseButtonY.Text = lines[14].Split(',')[2];
@@ -764,8 +806,25 @@ namespace ArtOfHassan
                         GoldAdCloseButtonY.Text = lines[12].Split(',')[1];
                         TroopAdCloseButtonX.Text = lines[12].Split(',')[0];
                         TroopAdCloseButtonY.Text = lines[12].Split(',')[2];
-                        GoldAdCloseButtonColor.Text = lines[12].Split(',')[3];
-                        TroopAdCloseButtonColor.Text = lines[12].Split(',')[3];
+                        // 예외발생 임시처리 나중에 삭제할것
+                        if (lines[12].Split(',').Length < 5)
+                        {
+                            GoldAdCloseButtonColor.Text = lines[12].Split(',')[3] + ";#e9e9d8".ToUpper();
+                            TroopAdCloseButtonColor.Text = lines[12].Split(',')[3] + ";#e9e9d8".ToUpper();
+
+                            MidasAdCloseButtonX.Text = lines[12].Split(',')[0];
+                            MidasAdCloseButtonY.Text = 262.ToString();
+                            MidasAdCloseButtonColor.Text = lines[12].Split(',')[3] + ";#e9e9d8".ToUpper();
+                        }
+                        else
+                        {
+                            MidasAdCloseButtonX.Text = lines[12].Split(',')[0];
+                            MidasAdCloseButtonY.Text = lines[12].Split(',')[3];
+
+                            GoldAdCloseButtonColor.Text = lines[12].Split(',')[4];
+                            TroopAdCloseButtonColor.Text = lines[12].Split(',')[4];
+                            MidasAdCloseButtonColor.Text = lines[12].Split(',')[4];
+                        }
 
                         LeftAdCloseButtonX.Text = lines[13].Split(',')[0];
                         LeftAdCloseButtonY.Text = lines[13].Split(',')[2];
@@ -867,8 +926,25 @@ namespace ArtOfHassan
                                 TroopAdCloseButtonX.Text = listitem[1];
                                 GoldAdCloseButtonY.Text = listitem[2];
                                 TroopAdCloseButtonY.Text = listitem[3];
-                                GoldAdCloseButtonColor.Text = listitem[4];
-                                TroopAdCloseButtonColor.Text = listitem[4];
+								// 예외발생 임시처리 나중에 삭제할것
+                                if (listitem.Length == 5)
+                                {
+                                    GoldAdCloseButtonColor.Text = listitem[4] + ";#e9e9d8".ToUpper();
+                                    TroopAdCloseButtonColor.Text = listitem[4] + ";#e9e9d8".ToUpper();
+
+                                    MidasAdCloseButtonX.Text = listitem[1];
+                                    MidasAdCloseButtonY.Text = 262.ToString();
+                                    MidasAdCloseButtonColor.Text = listitem[4] + ";#e9e9d8".ToUpper();
+                                }
+                                else
+                                {
+                                    MidasAdCloseButtonX.Text = listitem[1];
+                                    MidasAdCloseButtonY.Text = listitem[4];
+
+                                    GoldAdCloseButtonColor.Text = listitem[5];
+                                    TroopAdCloseButtonColor.Text = listitem[5];
+                                    MidasAdCloseButtonColor.Text = listitem[5];
+                                }
                                 break;
                             case ("googleadclosebutton"):
                                 LeftAdCloseButtonX.Text = listitem[1];
@@ -912,7 +988,7 @@ namespace ArtOfHassan
                     streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX.Text + "," + GoldButtonImageY.Text + "," + GoldButtonImageColor.Text);
                     streamWriter.WriteLine("NextButton," + NextButtonX.Text + "," + NextButtonY.Text + "," + NextButtonColor.Text);
                     streamWriter.WriteLine("NoGold," + NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
-                    streamWriter.WriteLine("GameAdCloseButton," + (int)((int.Parse(GoldAdCloseButtonX.Text) + int.Parse(TroopAdCloseButtonX.Text)) / 2) + "," + GoldAdCloseButtonY.Text + "," + TroopAdCloseButtonY.Text + "," + GoldAdCloseButtonColor.Text);
+                    streamWriter.WriteLine("GameAdCloseButton," + (int)((int.Parse(GoldAdCloseButtonX.Text) + int.Parse(TroopAdCloseButtonX.Text) + int.Parse(MidasAdCloseButtonX.Text)) / 3) + "," + GoldAdCloseButtonY.Text + "," + TroopAdCloseButtonY.Text + "," + MidasAdCloseButtonY.Text + "," + GoldAdCloseButtonColor.Text);
                     streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX.Text + "," + RightAdCloseButtonX.Text + "," + (int)((int.Parse(LeftAdCloseButtonY.Text) + int.Parse(RightAdCloseButtonY.Text)) / 2) + "," + LeftAdCloseButtonColor.Text);
                     streamWriter.WriteLine("NotResponding," + NotRespondingX.Text + "," + NotRespondingY.Text + "," + NotRespondingColor.Text);
                 }
@@ -974,8 +1050,10 @@ namespace ArtOfHassan
             TroopAdCloseButtonX.Text = 496.ToString();
             GoldAdCloseButtonY.Text = 180.ToString();
             TroopAdCloseButtonY.Text = 190.ToString();
-            GoldAdCloseButtonColor.Text = "#efe7d6;#e9e9d8".ToUpper();
-            TroopAdCloseButtonColor.Text = "#efe7d6;#e9e9d8".ToUpper();
+            MidasAdCloseButtonY.Text = 262.ToString();
+            GoldAdCloseButtonColor.Text = "#efe7d6;#e9e9d8;#e9e9d8".ToUpper();
+            TroopAdCloseButtonColor.Text = "#efe7d6;#e9e9d8;#e9e9d8".ToUpper();
+            MidasAdCloseButtonColor.Text = "#efe7d6;#e9e9d8;#e9e9d8".ToUpper();
 
             LeftAdCloseButtonX.Text = 45.ToString();
             RightAdCloseButtonX.Text = 513.ToString();
@@ -1067,16 +1145,17 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NoGoldColor = NoGoldColor.Text;
                     streamWriter.WriteLine("NoGold," + NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
 
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).GameAdCloseButtonX = (int.Parse(GoldAdCloseButtonX.Text) + int.Parse(TroopAdCloseButtonX.Text)) / 2;
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).GameAdCloseButtonX = (int.Parse(GoldAdCloseButtonX.Text) + int.Parse(TroopAdCloseButtonX.Text) + int.Parse(MidasAdCloseButtonX.Text)) / 3;
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoldAdCloseButtonY = int.Parse(GoldAdCloseButtonY.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).TroopAdCloseButtonY = int.Parse(TroopAdCloseButtonY.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).MidasAdCloseButtonY = int.Parse(MidasAdCloseButtonY.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GameAdCloseButtonColor = GoldAdCloseButtonColor.Text;
-                    streamWriter.WriteLine("GameAdCloseButton," + (int)((int.Parse(GoldAdCloseButtonX.Text) + int.Parse(TroopAdCloseButtonX.Text)) / 2) + "," + GoldAdCloseButtonY.Text + "," + TroopAdCloseButtonY.Text + "," + GoldAdCloseButtonColor.Text);
+                    streamWriter.WriteLine("GameAdCloseButton," + (int)((int.Parse(GoldAdCloseButtonX.Text) + int.Parse(TroopAdCloseButtonX.Text) + int.Parse(MidasAdCloseButtonX.Text)) / 3) + "," + GoldAdCloseButtonY.Text + "," + TroopAdCloseButtonY.Text + "," + MidasAdCloseButtonY.Text + "," + GoldAdCloseButtonColor.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).LeftAdCloseButtonX = int.Parse(LeftAdCloseButtonX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).RightAdCloseButtonX = int.Parse(RightAdCloseButtonX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoogleAdCloseButtonY = (int.Parse(LeftAdCloseButtonY.Text) + int.Parse(RightAdCloseButtonY.Text)) / 2;
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).GoogleAdCloseButtonColor = GoldAdCloseButtonColor.Text;
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).GoogleAdCloseButtonColor = LeftAdCloseButtonColor.Text;
                     streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX.Text + "," + RightAdCloseButtonX.Text + "," + (int)((int.Parse(LeftAdCloseButtonY.Text) + int.Parse(RightAdCloseButtonY.Text)) / 2) + "," + LeftAdCloseButtonColor.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingX = int.Parse(NotRespondingX.Text);
