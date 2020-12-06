@@ -153,22 +153,22 @@ namespace ArtOfHassan
                     NoGoldY = int.Parse(lines[12].Split(',')[1]);
                     NoGoldColor = lines[12].Split(',')[2];
 
-                    AdsButtonX = int.Parse(lines[13].Split(',')[0]);
-                    AdsButton1Y = int.Parse(lines[13].Split(',')[1]);
-                    AdsButton2Y = int.Parse(lines[13].Split(',')[2]);
-                    AdsButtonColor = lines[13].Split(',')[3];
+                    GameAdCloseButtonX = int.Parse(lines[13].Split(',')[0]);
+                    GoldAdCloseButtonY = int.Parse(lines[13].Split(',')[1]);
+                    TroopAdCloseButtonY = int.Parse(lines[13].Split(',')[2]);
+                    GameAdCloseButtonColor = lines[13].Split(',')[3];
 
                     LeftAdCloseButtonX = int.Parse(lines[14].Split(',')[0]);
                     RightAdCloseButtonX = int.Parse(lines[14].Split(',')[1]);
-                    AdsCloseButtonY = int.Parse(lines[14].Split(',')[2]);
+                    GoogleAdCloseButtonY = int.Parse(lines[14].Split(',')[2]);
                     // 예외발생 임시처리 나중에 삭제할것
                     if (lines[14].Split(',').Length < 4)
                     {
-                        AdsCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+                        GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
                     }
                     else
                     {
-                        AdsCloseButtonColor = lines[14].Split(',')[3];
+                        GoogleAdCloseButtonColor = lines[14].Split(',')[3];
                     }
 
                     NotRespondingX = int.Parse(lines[15].Split(',')[0]);
@@ -177,22 +177,22 @@ namespace ArtOfHassan
                 }
                 else
                 {
-                    AdsButtonX = int.Parse(lines[12].Split(',')[0]);
-                    AdsButton1Y = int.Parse(lines[12].Split(',')[1]);
-                    AdsButton2Y = int.Parse(lines[12].Split(',')[2]);
-                    AdsButtonColor = lines[12].Split(',')[3];
+                    GameAdCloseButtonX = int.Parse(lines[12].Split(',')[0]);
+                    GoldAdCloseButtonY = int.Parse(lines[12].Split(',')[1]);
+                    TroopAdCloseButtonY = int.Parse(lines[12].Split(',')[2]);
+                    GameAdCloseButtonColor = lines[12].Split(',')[3];
 
                     LeftAdCloseButtonX = int.Parse(lines[13].Split(',')[0]);
                     RightAdCloseButtonX = int.Parse(lines[13].Split(',')[1]);
-                    AdsCloseButtonY = int.Parse(lines[13].Split(',')[2]);
+                    GoogleAdCloseButtonY = int.Parse(lines[13].Split(',')[2]);
                     // 예외발생 임시처리 나중에 삭제할것
                     if (lines[13].Split(',').Length < 4)
                     {
-                        AdsCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+                        GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
                     }
                     else
                     {
-                        AdsCloseButtonColor = lines[13].Split(',')[3];
+                        GoogleAdCloseButtonColor = lines[13].Split(',')[3];
                     }
 
                     NotRespondingX = int.Parse(lines[14].Split(',')[0]);
@@ -464,15 +464,15 @@ namespace ArtOfHassan
         public int NextButtonY           = 710;
         public string NextButtonColor = "#fdbb00".ToUpper();
 
-        public int AdsButtonX       = 496;
-        public int AdsButton1Y      = 180;
-        public int AdsButton2Y      = 190;
-        public string AdsButtonColor = "#e9e9d8;#efe7d6".ToUpper();
+        public int GameAdCloseButtonX       = 496;
+        public int GoldAdCloseButtonY      = 180;
+        public int TroopAdCloseButtonY      = 190;
+        public string GameAdCloseButtonColor = "#e9e9d8;#efe7d6".ToUpper();
 
         public int LeftAdCloseButtonX = 45;
         public int RightAdCloseButtonX = 513;
-        public int AdsCloseButtonY  = 63;
-        public string AdsCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+        public int GoogleAdCloseButtonY  = 63;
+        public string GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
 
         public int NotRespondingX   = 79;
         public int NotRespondingY   = 540;
@@ -1018,18 +1018,18 @@ namespace ArtOfHassan
                 }
 
 
-                // Ads Button1
-                color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton1Y);
-                TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
-                color1 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[0]);
-                color2 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[1]);
+                // Gold Ad Close Button
+                color = CurrentBitmap.GetPixel(GameAdCloseButtonX, GoldAdCloseButtonY);
+                TimerLog("Gold Ad Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                color1 = ColorTranslator.FromHtml(GameAdCloseButtonColor.Split(';')[0]);
+                color2 = ColorTranslator.FromHtml(GameAdCloseButtonColor.Split(';')[1]);
                 if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                      ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
                     (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                      ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                 {
-                    ClickLog("Ads Button 1");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton1Y);
+                    ClickLog("Gold Ad Close Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GameAdCloseButtonX, (int)NoxPointY + GoldAdCloseButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1038,18 +1038,18 @@ namespace ArtOfHassan
                 }
 
 
-                // Ads Button2
-                color = CurrentBitmap.GetPixel(AdsButtonX, AdsButton2Y);
-                TimerLog("Ads Button Color: " + color.R + "," + color.G + "," + color.B);
-                color1 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[0]);
-                color2 = ColorTranslator.FromHtml(AdsButtonColor.Split(';')[1]);
+                // Troop Ad Close Button
+                color = CurrentBitmap.GetPixel(GameAdCloseButtonX, TroopAdCloseButtonY);
+                TimerLog("Troop Ad Close Button: " + color.R + "," + color.G + "," + color.B);
+                color1 = ColorTranslator.FromHtml(GameAdCloseButtonColor.Split(';')[0]);
+                color2 = ColorTranslator.FromHtml(GameAdCloseButtonColor.Split(';')[1]);
                 if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                      ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
                     (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                      ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                 {
-                    ClickLog("Ads Button 2");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AdsButtonX, (int)NoxPointY + AdsButton2Y);
+                    ClickLog("Troop Ad Close Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GameAdCloseButtonX, (int)NoxPointY + TroopAdCloseButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1058,7 +1058,7 @@ namespace ArtOfHassan
                 }
 
 
-                // Ads Close Button
+                // Google Ad Close Button
                 int screenCompareInterval = 3;
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
@@ -1103,30 +1103,30 @@ namespace ArtOfHassan
                         AdsStopwatch.Stop();
 
                         int AdsClickInterval = 333;
-                        bool isAdsCloseButtonColorCheck = false;
+                        bool isGoogleAdCloseButtonColorCheck = false;
                         string[] ClickPatterns = ClickPattern.Split(';');
 
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
                             AdsClickInterval = int.Parse(MonitoringIntervalTextBox.Text) / ClickPatterns.Length;
-                            isAdsCloseButtonColorCheck = AdsCloseCheckBox.IsChecked.Value;
+                            isGoogleAdCloseButtonColorCheck = AdsCloseCheckBox.IsChecked.Value;
                         }));
 
-                        if (isAdsCloseButtonColorCheck)
+                        if (isGoogleAdCloseButtonColorCheck)
                         {
                             if (ClickPatterns[0] == "L")
                             {
-                                color = CurrentBitmap.GetPixel(LeftAdCloseButtonX, AdsCloseButtonY);
-                                TimerLog("Left Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
-                                color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
-                                color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                                color = CurrentBitmap.GetPixel(LeftAdCloseButtonX, GoogleAdCloseButtonY);
+                                TimerLog("Left Ad Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                                color1 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[0]);
+                                color2 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[1]);
                                 if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                                      ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
                                     (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                      ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                 {
-                                    ClickLog("Left Ads Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                    ClickLog("Left Ad Close Button");
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                     System.Threading.Thread.Sleep(50);
                                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1134,17 +1134,17 @@ namespace ArtOfHassan
                             }
                             else
                             {
-                                color = CurrentBitmap.GetPixel(RightAdCloseButtonX, AdsCloseButtonY);
-                                TimerLog("Right Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
-                                color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
-                                color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                                color = CurrentBitmap.GetPixel(RightAdCloseButtonX, GoogleAdCloseButtonY);
+                                TimerLog("Right Ad Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                                color1 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[0]);
+                                color2 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[1]);
                                 if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                                      ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
                                     (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                      ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                 {
-                                    ClickLog("Right Ads Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                    ClickLog("Right Ad Close Button");
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                     System.Threading.Thread.Sleep(50);
                                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1155,17 +1155,17 @@ namespace ArtOfHassan
 
                             if (ClickPatterns[1] == "L")
                             {
-                                color = CurrentBitmap.GetPixel(LeftAdCloseButtonX, AdsCloseButtonY);
-                                TimerLog("Left Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
-                                color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
-                                color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                                color = CurrentBitmap.GetPixel(LeftAdCloseButtonX, GoogleAdCloseButtonY);
+                                TimerLog("Left Ad Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                                color1 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[0]);
+                                color2 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[1]);
                                 if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                                      ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
                                     (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                      ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                 {
-                                    ClickLog("Left Ads Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                    ClickLog("Left Ad Close Button");
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                     System.Threading.Thread.Sleep(50);
                                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1173,17 +1173,17 @@ namespace ArtOfHassan
                             }
                             else
                             {
-                                color = CurrentBitmap.GetPixel(RightAdCloseButtonX, AdsCloseButtonY);
-                                TimerLog("Right Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
-                                color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
-                                color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                                color = CurrentBitmap.GetPixel(RightAdCloseButtonX, GoogleAdCloseButtonY);
+                                TimerLog("Right Ad Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                                color1 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[0]);
+                                color2 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[1]);
                                 if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                                      ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
                                     (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                      ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                 {
-                                    ClickLog("Right Ads Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                    ClickLog("Right Ad Close Button");
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                     System.Threading.Thread.Sleep(50);
                                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1196,17 +1196,17 @@ namespace ArtOfHassan
 
                                 if (ClickPatterns[2] == "L")
                                 {
-                                    color = CurrentBitmap.GetPixel(LeftAdCloseButtonX, AdsCloseButtonY);
-                                    TimerLog("Left Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
-                                    color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
-                                    color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                                    color = CurrentBitmap.GetPixel(LeftAdCloseButtonX, GoogleAdCloseButtonY);
+                                    TimerLog("Left Ad Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                                    color1 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[0]);
+                                    color2 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[1]);
                                     if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                                          ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
                                         (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                     {
-                                        ClickLog("Left Ads Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                        ClickLog("Left Ad Close Button");
+                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                         System.Threading.Thread.Sleep(50);
                                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1214,17 +1214,17 @@ namespace ArtOfHassan
                                 }
                                 else
                                 {
-                                    color = CurrentBitmap.GetPixel(RightAdCloseButtonX, AdsCloseButtonY);
-                                    TimerLog("Right Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
-                                    color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
-                                    color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                                    color = CurrentBitmap.GetPixel(RightAdCloseButtonX, GoogleAdCloseButtonY);
+                                    TimerLog("Right Ad Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                                    color1 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[0]);
+                                    color2 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[1]);
                                     if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                                          ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
                                         (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                     {
-                                        ClickLog("Right Ads Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                        ClickLog("Right Ad Close Button");
+                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                         System.Threading.Thread.Sleep(50);
                                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1238,17 +1238,17 @@ namespace ArtOfHassan
 
                                 if (ClickPatterns[3] == "L")
                                 {
-                                    color = CurrentBitmap.GetPixel(LeftAdCloseButtonX, AdsCloseButtonY);
-                                    TimerLog("Left Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
-                                    color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
-                                    color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                                    color = CurrentBitmap.GetPixel(LeftAdCloseButtonX, GoogleAdCloseButtonY);
+                                    TimerLog("Left Ad Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                                    color1 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[0]);
+                                    color2 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[1]);
                                     if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                                          ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
                                         (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                     {
-                                        ClickLog("Left Ads Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                        ClickLog("Left Ad Close Button");
+                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                         System.Threading.Thread.Sleep(50);
                                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1256,17 +1256,17 @@ namespace ArtOfHassan
                                 }
                                 else
                                 {
-                                    color = CurrentBitmap.GetPixel(RightAdCloseButtonX, AdsCloseButtonY);
-                                    TimerLog("Right Ads Close Button Color: " + color.R + "," + color.G + "," + color.B);
-                                    color1 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[0]);
-                                    color2 = ColorTranslator.FromHtml(AdsCloseButtonColor.Split(';')[1]);
+                                    color = CurrentBitmap.GetPixel(RightAdCloseButtonX, GoogleAdCloseButtonY);
+                                    TimerLog("Right Ad Close Button Color: " + color.R + "," + color.G + "," + color.B);
+                                    color1 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[0]);
+                                    color2 = ColorTranslator.FromHtml(GoogleAdCloseButtonColor.Split(';')[1]);
                                     if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                                          ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) ||
                                         (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                     {
-                                        ClickLog("Right Ads Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                        ClickLog("Right Ad Close Button");
+                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                         System.Threading.Thread.Sleep(50);
                                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1278,16 +1278,16 @@ namespace ArtOfHassan
                         {
                             if (ClickPatterns[0] == "L")
                             {
-                                ClickLog("Left Ads Close Button");
-                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                ClickLog("Left Ad Close Button");
+                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                 System.Threading.Thread.Sleep(50);
                                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
                             }
                             else
                             {
-                                ClickLog("Right Ads Close Button");
-                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                ClickLog("Right Ad Close Button");
+                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                 System.Threading.Thread.Sleep(50);
                                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1297,16 +1297,16 @@ namespace ArtOfHassan
 
                             if (ClickPatterns[1] == "L")
                             {
-                                ClickLog("Left Ads Close Button");
-                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                ClickLog("Left Ad Close Button");
+                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                 System.Threading.Thread.Sleep(50);
                                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
                             }
                             else
                             {
-                                ClickLog("Right Ads Close Button");
-                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                ClickLog("Right Ad Close Button");
+                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                 System.Threading.Thread.Sleep(50);
                                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1318,16 +1318,16 @@ namespace ArtOfHassan
 
                                 if (ClickPatterns[2] == "L")
                                 {
-                                    ClickLog("Left Ads Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                    ClickLog("Left Ad Close Button");
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                     System.Threading.Thread.Sleep(50);
                                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
                                 }
                                 else
                                 {
-                                    ClickLog("Right Ads Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                    ClickLog("Right Ad Close Button");
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                     System.Threading.Thread.Sleep(50);
                                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1340,16 +1340,16 @@ namespace ArtOfHassan
 
                                 if (ClickPatterns[3] == "L")
                                 {
-                                    ClickLog("Left Ads Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                    ClickLog("Left Ad Close Button");
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                     System.Threading.Thread.Sleep(50);
                                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
                                 }
                                 else
                                 {
-                                    ClickLog("Right Ads Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + AdsCloseButtonY);
+                                    ClickLog("Right Ad Close Button");
+                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
                                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                     System.Threading.Thread.Sleep(50);
                                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1441,25 +1441,25 @@ namespace ArtOfHassan
             settingWindow.NextButtonColor.Text = NextButtonColor;
             settingWindow.NextButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NextButtonColor));
 
-            settingWindow.AdsButton1X.Text = AdsButtonX.ToString();
-            settingWindow.AdsButton1Y.Text = AdsButton1Y.ToString();
-            settingWindow.AdsButton1Color.Text = AdsButtonColor;
-            settingWindow.AdsButton1_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsButtonColor.Split(';')[0]));
+            settingWindow.GoldAdCloseButtonX.Text = GameAdCloseButtonX.ToString();
+            settingWindow.GoldAdCloseButtonY.Text = GoldAdCloseButtonY.ToString();
+            settingWindow.GoldAdCloseButtonColor.Text = GameAdCloseButtonColor;
+            settingWindow.GoldAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[0]));
 
-            settingWindow.AdsButton2X.Text = AdsButtonX.ToString();
-            settingWindow.AdsButton2Y.Text = AdsButton2Y.ToString();
-            settingWindow.AdsButton2Color.Text = AdsButtonColor;
-            settingWindow.AdsButton2_1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsButtonColor.Split(';')[1]));
+            settingWindow.TroopAdCloseButtonX.Text = GameAdCloseButtonX.ToString();
+            settingWindow.TroopAdCloseButtonY.Text = TroopAdCloseButtonY.ToString();
+            settingWindow.TroopAdCloseButtonColor.Text = GameAdCloseButtonColor;
+            settingWindow.TroopAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[1]));
 
             settingWindow.LeftAdCloseButtonX.Text = LeftAdCloseButtonX.ToString();
-            settingWindow.LeftAdCloseButtonY.Text = AdsCloseButtonY.ToString();
-            settingWindow.LeftAdCloseButtonColor.Text = AdsCloseButtonColor;
-            settingWindow.LeftAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsCloseButtonColor.Split(';')[0]));
+            settingWindow.LeftAdCloseButtonY.Text = GoogleAdCloseButtonY.ToString();
+            settingWindow.LeftAdCloseButtonColor.Text = GoogleAdCloseButtonColor;
+            settingWindow.LeftAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[0]));
 
             settingWindow.RightAdCloseButtonX.Text = RightAdCloseButtonX.ToString();
-            settingWindow.RightAdCloseButtonY.Text = AdsCloseButtonY.ToString();
-            settingWindow.RightAdCloseButtonColor.Text = AdsCloseButtonColor;
-            settingWindow.RightAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AdsCloseButtonColor.Split(';')[1]));
+            settingWindow.RightAdCloseButtonY.Text = GoogleAdCloseButtonY.ToString();
+            settingWindow.RightAdCloseButtonColor.Text = GoogleAdCloseButtonColor;
+            settingWindow.RightAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[1]));
 
             settingWindow.NotRespondingX.Text = NotRespondingX.ToString();
             settingWindow.NotRespondingY.Text = NotRespondingY.ToString();
