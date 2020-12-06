@@ -59,8 +59,8 @@
         <TextBlock Grid.Row="14" Text="No Gold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="15" Text="Gold Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="16" Text="Troop Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="17" Text="Left Ads Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="18" Text="Right Ads Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="17" Text="Left Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="18" Text="Right Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="19" Text="Not Responding" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <TextBlock Grid.Column="1" Text="X Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>

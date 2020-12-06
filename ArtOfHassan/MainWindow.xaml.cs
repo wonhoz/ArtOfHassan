@@ -348,19 +348,19 @@ namespace ArtOfHassan
 
             try
             {
-                if (!string.IsNullOrWhiteSpace(EmailIDTextBox.Text) &&
-                    !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
+                if (!string.IsNullOrWhiteSpace(EmailTextBox.Text))
                 {
-                    MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
-                                                              EmailIDTextBox.Text,
+                    MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                              EmailTextBox.Text,
                                                               "Art of Hassan",
                                                               "Email Testing...\nPlease check.");
+
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.EnableSsl = true;
                     smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
-                                                                   EmailPasswordBox.Password);
+                    smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com",
+                                                                   "Rnrmf0575!");
                     smtpClient.Send(mailMessage);
                 }
             }
@@ -378,25 +378,43 @@ namespace ArtOfHassan
 
                 if (ProblemMailSent < 10)
                 {
+                    CurrentBitmap.Save("Problem.png", System.Drawing.Imaging.ImageFormat.Png);
+
+                    MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                              "artofwarhassan@gmail.com",
+                                                              "Art of Hassan",
+                                                              "Problem occured.\nPlease check.");
+                    mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
+
+                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com",
+                                                                   "Rnrmf0575!");
+                    smtpClient.Send(mailMessage);
+
                     try
                     {
-                        string id = "";
-                        string pw = "";
+                        string emailaddress = "";
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
-                            id = EmailIDTextBox.Text;
-                            pw = EmailPasswordBox.Password;
+                            emailaddress = EmailTextBox.Text;
                         }));
-                        if (!string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(pw))
+                        if (!string.IsNullOrWhiteSpace(emailaddress))
                         {
-                            MailMessage mailMessage = new MailMessage(id, id,
-                                                                      "Art of Hassan",
-                                                                      "Problem occured.\nPlease check.");
-                            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                            mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                          emailaddress,
+                                                          "Art of Hassan",
+                                                          "Problem occured.\nPlease check.");
+                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
+
+                            smtpClient = new SmtpClient("smtp.gmail.com", 587);
                             smtpClient.UseDefaultCredentials = false;
                             smtpClient.EnableSsl = true;
                             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                            smtpClient.Credentials = new NetworkCredential(id, pw);
+                            smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com",
+                                                                           "Rnrmf0575!");
                             smtpClient.Send(mailMessage);
                         }
                     }
@@ -823,23 +841,23 @@ namespace ArtOfHassan
 
                         try
                         {
-                            string id = "";
-                            string pw = "";
+                            string emailaddress = "";
                             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                             {
-                                id = EmailIDTextBox.Text;
-                                pw = EmailPasswordBox.Password;
+                                emailaddress = EmailTextBox.Text;
                             }));
-                            if (!string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(pw))
+                            if (!string.IsNullOrWhiteSpace(emailaddress))
                             {
-                                MailMessage mailMessage = new MailMessage(id, id,
+                                MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                                          emailaddress,
                                                                           "Art of Hassan",
                                                                           "No Gold.\nPlease check.");
                                 SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                                 smtpClient.UseDefaultCredentials = false;
                                 smtpClient.EnableSsl = true;
                                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                                smtpClient.Credentials = new NetworkCredential(id, pw);
+                                smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com",
+                                                                               "Rnrmf0575!");
                                 smtpClient.Send(mailMessage);
                             }
                         }

@@ -137,17 +137,16 @@
         <Grid Grid.Row="6" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.35*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Row="1" Grid.Column="0" Name="EmailIDTextBox" Margin="5,5,2.5,5"
+            <TextBox Grid.Row="1" Grid.Column="0" Name="EmailTextBox" Margin="5,5,2.5,5"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <PasswordBox Grid.Row="1" Grid.Column="1" Name="EmailPasswordBox" Margin="2.5,5,2.5,5"
+            <!--<PasswordBox Grid.Row="1" Grid.Column="1" Name="EmailPasswordBox" Margin="2.5,5,2.5,5"
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>-->
 
             <Button Grid.Column="2" Name="EmailTestButton" Content="Test" Click="EmailTestButton_Click" Margin="2.5,5,5,5"/>
         </Grid>
