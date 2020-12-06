@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace ArtOfHassan
@@ -23,6 +12,68 @@ namespace ArtOfHassan
         public ClickPatternWindow()
         {
             InitializeComponent();
+
+            string[] ClickPatterns = ((MainWindow)System.Windows.Application.Current.MainWindow).ClickPattern.Split(';');
+
+            if (ClickPatterns[0] == "L")
+            {
+                FirstLeft.IsChecked = true;
+                FirstRight.IsChecked = false;
+            }
+            else
+            {
+                FirstLeft.IsChecked = false;
+                FirstRight.IsChecked = true;
+            }
+
+            if (ClickPatterns[1] == "L")
+            {
+                SecondLeft.IsChecked = true;
+                SecondRight.IsChecked = false;
+            }
+            else
+            {
+                SecondLeft.IsChecked = false;
+                SecondRight.IsChecked = true;
+            }
+
+            if (ClickPatterns.Length >= 3)
+            {
+                ThirdClickCheckBox.IsChecked = true;
+                if (ClickPatterns[2] == "L")
+                {
+                    ThirdLeft.IsChecked = true;
+                    ThirdRight.IsChecked = false;
+                }
+                else
+                {
+                    ThirdLeft.IsChecked = false;
+                    ThirdRight.IsChecked = true;
+                }
+            }
+            else
+            {
+                ThirdClickCheckBox.IsChecked = false;
+            }
+
+            if (ClickPatterns.Length == 4)
+            {
+                FourthClickCheckBox.IsChecked = true;
+                if (ClickPatterns[3] == "L")
+                {
+                    FourthLeft.IsChecked = true;
+                    FourthRight.IsChecked = false;
+                }
+                else
+                {
+                    FourthLeft.IsChecked = false;
+                    FourthRight.IsChecked = true;
+                }
+            }
+            else
+            {
+                FourthClickCheckBox.IsChecked = false;
+            }
         }
 
         private void ThirdClickCheckBox_Click(object sender, RoutedEventArgs e)

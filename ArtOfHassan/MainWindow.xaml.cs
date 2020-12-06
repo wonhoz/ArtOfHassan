@@ -91,113 +91,288 @@ namespace ArtOfHassan
         {
             InitializeComponent();
 
-            FileInfo fileInfo = new FileInfo("setting.txt");
+            FileInfo fileInfo = new FileInfo("pixel.txt");
+            if (fileInfo.Exists)
+            {
+                ClickLog("Load Pixel...");
+
+                string[] lines = File.ReadAllLines("pixel.txt");
+
+                foreach (string line in lines)
+                {
+                    string[] listitem = line.Split(',');
+
+                    switch (listitem[0].ToLower())
+                    {
+                        case ("applocation"):
+                            AppLocationX = int.Parse(listitem[1]);
+                            AppLocationY = int.Parse(listitem[2]);
+                            AppLocationColor = listitem[3];
+                            break;
+                        case ("shopbutton"):
+                            HomeButtonX = int.Parse(listitem[1]);
+                            ShopButtonX = int.Parse(listitem[2]);
+                            ShopButtonY = int.Parse(listitem[3]);
+                            ShopButtonColor = listitem[4];
+                            break;
+                        case ("middlebutton"):
+                            MiddleButtonX = int.Parse(listitem[1]);
+                            MiddleButtonY = int.Parse(listitem[2]);
+                            MiddleButtonColor = listitem[3];
+                            break;
+                        case ("goldchestbox"):
+                            GoldChestBoxX = int.Parse(listitem[1]);
+                            GoldChestBoxY = int.Parse(listitem[2]);
+                            GoldChestBoxColor = listitem[3];
+                            break;
+                        case ("battlelevelbutton"):
+                            BattleLevelButtonX = int.Parse(listitem[1]);
+                            BattleLevelButtonY = int.Parse(listitem[2]);
+                            BattleLevelButtonColor = listitem[3];
+                            break;
+                        case ("skillbutton"):
+                            SkillButtonX = int.Parse(listitem[1]);
+                            SkillButtonY = int.Parse(listitem[2]);
+                            SkillButtonColor = listitem[3];
+                            break;
+                        case ("speedbutton"):
+                            SpeedButtonX = int.Parse(listitem[1]);
+                            SpeedButtonY = int.Parse(listitem[2]);
+                            SpeedButtonColor = listitem[3];
+                            break;
+                        case ("pausebutton"):
+                            PauseButtonX = int.Parse(listitem[1]);
+                            PauseButtonY = int.Parse(listitem[2]);
+                            PauseButtonColor = listitem[3];
+                            break;
+                        case ("victorydefeat"):
+                            VictoryDefeatX = int.Parse(listitem[1]);
+                            VictoryDefeatY = int.Parse(listitem[2]);
+                            VictoryDefeatColor = listitem[3];
+                            break;
+                        case ("goldbuttonbackground"):
+                            GoldButtonBackgroundX = int.Parse(listitem[1]);
+                            GoldButtonBackgroundY = int.Parse(listitem[2]);
+                            GoldButtonBackgroundColor = listitem[3];
+                            break;
+                        case ("goldbuttonimage"):
+                            GoldButtonImageX = int.Parse(listitem[1]);
+                            GoldButtonImageY = int.Parse(listitem[2]);
+                            GoldButtonImageColor = listitem[3];
+                            break;
+                        case ("nextbutton"):
+                            NextButtonX = int.Parse(listitem[1]);
+                            NextButtonY = int.Parse(listitem[2]);
+                            NextButtonColor = listitem[3];
+                            break;
+                        case ("nogold"):
+                            NoGoldX = int.Parse(listitem[1]);
+                            NoGoldY = int.Parse(listitem[2]);
+                            NoGoldColor = listitem[3];
+                            break;
+                        case ("gameadclosebutton"):
+                            GameAdCloseButtonX = int.Parse(listitem[1]);
+                            GoldAdCloseButtonY = int.Parse(listitem[2]);
+                            TroopAdCloseButtonY = int.Parse(listitem[3]);
+                            GameAdCloseButtonColor = listitem[4];
+                            break;
+                        case ("googleadclosebutton"):
+                            LeftAdCloseButtonX = int.Parse(listitem[1]);
+                            RightAdCloseButtonX = int.Parse(listitem[2]);
+                            GoogleAdCloseButtonY = int.Parse(listitem[3]);
+                            GoogleAdCloseButtonColor = listitem[4];
+                            break;
+                        case ("notresponding"):
+                            NotRespondingX = int.Parse(listitem[1]);
+                            NotRespondingY = int.Parse(listitem[2]);
+                            NotRespondingColor = listitem[3];
+                            break;
+                    }
+                }
+            }
+
+            fileInfo = new FileInfo("setting.txt");
             if (fileInfo.Exists)
             {
                 ClickLog("Load Setting...");
 
                 string[] lines = File.ReadAllLines("setting.txt");
-                AppLocationX = int.Parse(lines[0].Split(',')[0]);
-                AppLocationY = int.Parse(lines[0].Split(',')[1]);
-                AppLocationColor = lines[0].Split(',')[2];
 
-                HomeButtonX = int.Parse(lines[1].Split(',')[0]);
-                ShopButtonX = int.Parse(lines[1].Split(',')[1]);
-                ShopButtonY = int.Parse(lines[1].Split(',')[2]);
-                ShopButtonColor = lines[1].Split(',')[3];
-
-                MiddleButtonX = int.Parse(lines[2].Split(',')[0]);
-                MiddleButtonY = int.Parse(lines[2].Split(',')[1]);
-                MiddleButtonColor = lines[2].Split(',')[2];
-
-                GoldChestBoxX = int.Parse(lines[3].Split(',')[0]);
-                GoldChestBoxY = int.Parse(lines[3].Split(',')[1]);
-                GoldChestBoxColor = lines[3].Split(',')[2];
-
-                BattleLevelButtonX = int.Parse(lines[4].Split(',')[0]);
-                BattleLevelButtonY = int.Parse(lines[4].Split(',')[1]);
-                BattleLevelButtonColor = lines[4].Split(',')[2];
-
-                SkillButtonX = int.Parse(lines[5].Split(',')[0]);
-                SkillButtonY = int.Parse(lines[5].Split(',')[1]);
-                SkillButtonColor = lines[5].Split(',')[2];
-
-                SpeedButtonX = int.Parse(lines[6].Split(',')[0]);
-                SpeedButtonY = int.Parse(lines[6].Split(',')[1]);
-                SpeedButtonColor = lines[6].Split(',')[2];
-
-                PauseButtonX = int.Parse(lines[7].Split(',')[0]);
-                PauseButtonY = int.Parse(lines[7].Split(',')[1]);
-                PauseButtonColor = lines[7].Split(',')[2];
-
-                VictoryDefeatX = int.Parse(lines[8].Split(',')[0]);
-                VictoryDefeatY = int.Parse(lines[8].Split(',')[1]);
-                VictoryDefeatColor = lines[8].Split(',')[2];
-
-                GoldButtonBackgroundX = int.Parse(lines[9].Split(',')[0]);
-                GoldButtonBackgroundY = int.Parse(lines[9].Split(',')[1]);
-                GoldButtonBackgroundColor = lines[9].Split(',')[2];
-
-                GoldButtonImageX = int.Parse(lines[10].Split(',')[0]);
-                GoldButtonImageY = int.Parse(lines[10].Split(',')[1]);
-                GoldButtonImageColor = lines[10].Split(',')[2];
-
-                NextButtonX = int.Parse(lines[11].Split(',')[0]);
-                NextButtonY = int.Parse(lines[11].Split(',')[1]);
-                NextButtonColor = lines[11].Split(',')[2];
-
-                // 예외발생 임시처리 나중에 삭제할것
-                if (lines.Length == 16)
+                int tempnum;
+                if (int.TryParse(lines[0].Split(',')[0], out tempnum)) // 구버전 - 추후 제거
                 {
-                    NoGoldX = int.Parse(lines[12].Split(',')[0]);
-                    NoGoldY = int.Parse(lines[12].Split(',')[1]);
-                    NoGoldColor = lines[12].Split(',')[2];
+                    AppLocationX = int.Parse(lines[0].Split(',')[0]);
+                    AppLocationY = int.Parse(lines[0].Split(',')[1]);
+                    AppLocationColor = lines[0].Split(',')[2];
 
-                    GameAdCloseButtonX = int.Parse(lines[13].Split(',')[0]);
-                    GoldAdCloseButtonY = int.Parse(lines[13].Split(',')[1]);
-                    TroopAdCloseButtonY = int.Parse(lines[13].Split(',')[2]);
-                    GameAdCloseButtonColor = lines[13].Split(',')[3];
+                    HomeButtonX = int.Parse(lines[1].Split(',')[0]);
+                    ShopButtonX = int.Parse(lines[1].Split(',')[1]);
+                    ShopButtonY = int.Parse(lines[1].Split(',')[2]);
+                    ShopButtonColor = lines[1].Split(',')[3];
 
-                    LeftAdCloseButtonX = int.Parse(lines[14].Split(',')[0]);
-                    RightAdCloseButtonX = int.Parse(lines[14].Split(',')[1]);
-                    GoogleAdCloseButtonY = int.Parse(lines[14].Split(',')[2]);
+                    MiddleButtonX = int.Parse(lines[2].Split(',')[0]);
+                    MiddleButtonY = int.Parse(lines[2].Split(',')[1]);
+                    MiddleButtonColor = lines[2].Split(',')[2];
+
+                    GoldChestBoxX = int.Parse(lines[3].Split(',')[0]);
+                    GoldChestBoxY = int.Parse(lines[3].Split(',')[1]);
+                    GoldChestBoxColor = lines[3].Split(',')[2];
+
+                    BattleLevelButtonX = int.Parse(lines[4].Split(',')[0]);
+                    BattleLevelButtonY = int.Parse(lines[4].Split(',')[1]);
+                    BattleLevelButtonColor = lines[4].Split(',')[2];
+
+                    SkillButtonX = int.Parse(lines[5].Split(',')[0]);
+                    SkillButtonY = int.Parse(lines[5].Split(',')[1]);
+                    SkillButtonColor = lines[5].Split(',')[2];
+
+                    SpeedButtonX = int.Parse(lines[6].Split(',')[0]);
+                    SpeedButtonY = int.Parse(lines[6].Split(',')[1]);
+                    SpeedButtonColor = lines[6].Split(',')[2];
+
+                    PauseButtonX = int.Parse(lines[7].Split(',')[0]);
+                    PauseButtonY = int.Parse(lines[7].Split(',')[1]);
+                    PauseButtonColor = lines[7].Split(',')[2];
+
+                    VictoryDefeatX = int.Parse(lines[8].Split(',')[0]);
+                    VictoryDefeatY = int.Parse(lines[8].Split(',')[1]);
+                    VictoryDefeatColor = lines[8].Split(',')[2];
+
+                    GoldButtonBackgroundX = int.Parse(lines[9].Split(',')[0]);
+                    GoldButtonBackgroundY = int.Parse(lines[9].Split(',')[1]);
+                    GoldButtonBackgroundColor = lines[9].Split(',')[2];
+
+                    GoldButtonImageX = int.Parse(lines[10].Split(',')[0]);
+                    GoldButtonImageY = int.Parse(lines[10].Split(',')[1]);
+                    GoldButtonImageColor = lines[10].Split(',')[2];
+
+                    NextButtonX = int.Parse(lines[11].Split(',')[0]);
+                    NextButtonY = int.Parse(lines[11].Split(',')[1]);
+                    NextButtonColor = lines[11].Split(',')[2];
+
                     // 예외발생 임시처리 나중에 삭제할것
-                    if (lines[14].Split(',').Length < 4)
+                    if (lines.Length == 16)
                     {
-                        GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+                        NoGoldX = int.Parse(lines[12].Split(',')[0]);
+                        NoGoldY = int.Parse(lines[12].Split(',')[1]);
+                        NoGoldColor = lines[12].Split(',')[2];
+
+                        GameAdCloseButtonX = int.Parse(lines[13].Split(',')[0]);
+                        GoldAdCloseButtonY = int.Parse(lines[13].Split(',')[1]);
+                        TroopAdCloseButtonY = int.Parse(lines[13].Split(',')[2]);
+                        GameAdCloseButtonColor = lines[13].Split(',')[3];
+
+                        LeftAdCloseButtonX = int.Parse(lines[14].Split(',')[0]);
+                        RightAdCloseButtonX = int.Parse(lines[14].Split(',')[1]);
+                        GoogleAdCloseButtonY = int.Parse(lines[14].Split(',')[2]);
+                        // 예외발생 임시처리 나중에 삭제할것
+                        if (lines[14].Split(',').Length < 4)
+                        {
+                            GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+                        }
+                        else
+                        {
+                            GoogleAdCloseButtonColor = lines[14].Split(',')[3];
+                        }
+
+                        NotRespondingX = int.Parse(lines[15].Split(',')[0]);
+                        NotRespondingY = int.Parse(lines[15].Split(',')[1]);
+                        NotRespondingColor = lines[15].Split(',')[2];
                     }
                     else
                     {
-                        GoogleAdCloseButtonColor = lines[14].Split(',')[3];
+                        GameAdCloseButtonX = int.Parse(lines[12].Split(',')[0]);
+                        GoldAdCloseButtonY = int.Parse(lines[12].Split(',')[1]);
+                        TroopAdCloseButtonY = int.Parse(lines[12].Split(',')[2]);
+                        GameAdCloseButtonColor = lines[12].Split(',')[3];
+
+                        LeftAdCloseButtonX = int.Parse(lines[13].Split(',')[0]);
+                        RightAdCloseButtonX = int.Parse(lines[13].Split(',')[1]);
+                        GoogleAdCloseButtonY = int.Parse(lines[13].Split(',')[2]);
+                        // 예외발생 임시처리 나중에 삭제할것
+                        if (lines[13].Split(',').Length < 4)
+                        {
+                            GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+                        }
+                        else
+                        {
+                            GoogleAdCloseButtonColor = lines[13].Split(',')[3];
+                        }
+
+                        NotRespondingX = int.Parse(lines[14].Split(',')[0]);
+                        NotRespondingY = int.Parse(lines[14].Split(',')[1]);
+                        NotRespondingColor = lines[14].Split(',')[2];
                     }
 
-                    NotRespondingX = int.Parse(lines[15].Split(',')[0]);
-                    NotRespondingY = int.Parse(lines[15].Split(',')[1]);
-                    NotRespondingColor = lines[15].Split(',')[2];
+                    using (StreamWriter streamWriter = new StreamWriter("pixel.txt", false))
+                    {
+                        streamWriter.WriteLine("AppLocation," + AppLocationX + "," + AppLocationY + "," + AppLocationColor);
+                        streamWriter.WriteLine("ShopButton," + HomeButtonX + "," + ShopButtonX + "," + ShopButtonY + "," + ShopButtonColor);
+                        streamWriter.WriteLine("MiddleButton," + MiddleButtonX + "," + MiddleButtonY + "," + MiddleButtonColor);
+                        streamWriter.WriteLine("GoldChestBox," + GoldChestBoxX + "," + GoldChestBoxY + "," + GoldChestBoxColor);
+                        streamWriter.WriteLine("BattleLevelButton," + BattleLevelButtonX + "," + BattleLevelButtonY + "," + BattleLevelButtonColor);
+                        streamWriter.WriteLine("SkillButton," + SkillButtonX + "," + SkillButtonY + "," + SkillButtonColor);
+                        streamWriter.WriteLine("SpeedButton," + SpeedButtonX + "," + SpeedButtonY + "," + SpeedButtonColor);
+                        streamWriter.WriteLine("PauseButton," + PauseButtonX + "," + PauseButtonY + "," + PauseButtonColor);
+                        streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX + "," + VictoryDefeatY + "," + VictoryDefeatColor);
+                        streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX + "," + GoldButtonBackgroundY + "," + GoldButtonBackgroundColor);
+                        streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY + "," + GoldButtonImageColor);
+                        streamWriter.WriteLine("NextButton," + NextButtonX + "," + NextButtonY + "," + NextButtonColor);
+                        streamWriter.WriteLine("NoGold," + NoGoldX + "," + NoGoldY + "," + NoGoldColor);
+                        streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + GameAdCloseButtonColor);
+                        streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY + "," + GoogleAdCloseButtonColor);
+                        streamWriter.WriteLine("NotResponding," + NotRespondingX + "," + NotRespondingY + "," + NotRespondingColor);
+                    }
                 }
-                else
+                else // 신버전
                 {
-                    GameAdCloseButtonX = int.Parse(lines[12].Split(',')[0]);
-                    GoldAdCloseButtonY = int.Parse(lines[12].Split(',')[1]);
-                    TroopAdCloseButtonY = int.Parse(lines[12].Split(',')[2]);
-                    GameAdCloseButtonColor = lines[12].Split(',')[3];
-
-                    LeftAdCloseButtonX = int.Parse(lines[13].Split(',')[0]);
-                    RightAdCloseButtonX = int.Parse(lines[13].Split(',')[1]);
-                    GoogleAdCloseButtonY = int.Parse(lines[13].Split(',')[2]);
-                    // 예외발생 임시처리 나중에 삭제할것
-                    if (lines[13].Split(',').Length < 4)
+                    foreach (string line in lines)
                     {
-                        GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
-                    }
-                    else
-                    {
-                        GoogleAdCloseButtonColor = lines[13].Split(',')[3];
-                    }
+                        string[] listitem = line.Split(',');
 
-                    NotRespondingX = int.Parse(lines[14].Split(',')[0]);
-                    NotRespondingY = int.Parse(lines[14].Split(',')[1]);
-                    NotRespondingColor = lines[14].Split(',')[2];
+                        switch (listitem[0].ToLower())
+                        {
+                            case ("windowtitle"):
+                                WindowTitleTextBox.Text = listitem[1];
+                                break;
+                            case ("monitoringinterval"):
+                                MonitoringIntervalTextBox.Text = listitem[1];
+                                break;
+                            case ("screencomparisoninterval"):
+                                ScreenComparisonIntervalTextBox.Text = listitem[1];
+                                break;
+                            case ("x3goldbuttondelay"):
+                                DelayTextBox.Text = listitem[1];
+                                break;
+                            case ("pixeldifference"):
+                                PixelDifferenceTextBox.Text = listitem[1];
+                                break;
+                            case ("adscloseclickpattern"):
+                                ClickPattern = listitem[1];
+                                break;
+                            case ("goldchestcheck"):
+                                GoldChestCheckBox.IsChecked = bool.Parse(listitem[1]);
+                                break;
+                            case ("pausability"):
+                                PausabilityCheckBox.IsChecked = bool.Parse(listitem[1]);
+                                break;
+                            case ("logging"):
+                                LogCheckBox.IsChecked = bool.Parse(listitem[1]);
+                                break;
+                            case ("email"):
+                                EmailTextBox.Text = listitem[1];
+                                break;
+                            case ("sendemail"):
+                                SendEmailCheckBox.IsChecked = bool.Parse(listitem[1]);
+                                break;
+                            case ("stophassan"):
+                                StopWorkingCheckBox.IsChecked = bool.Parse(listitem[1]);
+                                break;
+                            case ("shutdownpc"):
+                                ShutdownPCCheckBox.IsChecked = bool.Parse(listitem[1]);
+                                break;
+                        }
+                    }
                 }
 
                 ClickLog("Load Done");
@@ -434,7 +609,25 @@ namespace ArtOfHassan
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            using (StreamWriter streamWriter = new StreamWriter($@"setting.txt", false))
+            {
+                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                {
+                    streamWriter.WriteLine("WindowTitle," + WindowTitleTextBox.Text);
+                    streamWriter.WriteLine("MonitoringInterval," + MonitoringIntervalTextBox.Text);
+                    streamWriter.WriteLine("ScreenComparisonInterval," + ScreenComparisonIntervalTextBox.Text);
+                    streamWriter.WriteLine("X3GoldButtonDelay," + DelayTextBox.Text);
+                    streamWriter.WriteLine("PixelDifference," + PixelDifferenceTextBox.Text);
+                    streamWriter.WriteLine("AdsCloseClickPattern," + ClickPattern);
+                    streamWriter.WriteLine("GoldChestCheck," + GoldChestCheckBox.IsChecked.Value);
+                    streamWriter.WriteLine("Pausability," + PausabilityCheckBox.IsChecked.Value);
+                    streamWriter.WriteLine("Logging," + LogCheckBox.IsChecked.Value);
+                    streamWriter.WriteLine("Email," + EmailTextBox.Text);
+                    streamWriter.WriteLine("SendEmail," + SendEmailCheckBox.IsChecked.Value);
+                    streamWriter.WriteLine("StopHassan," + StopWorkingCheckBox.IsChecked.Value);
+                    streamWriter.WriteLine("ShutdownPC," + ShutdownPCCheckBox.IsChecked.Value);
+                }));
+            }
         }
 
 
