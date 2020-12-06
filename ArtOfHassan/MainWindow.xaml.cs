@@ -67,11 +67,14 @@ namespace ArtOfHassan
         bool DefeatFlag  = false;
         bool AdsFlag     = false;
 
+        bool IsNoGoldMailSent = false;
+
         int NumOfWar     = 0;
         int NumOfVictory = 0;
         int NumOfDefeat  = 0;
         int NumOfAds     = 0;
 
+        int ProblemMailSent = 0;
         int TimerCountForScreenCompare = 1;
 
         System.Drawing.Bitmap LastBitmap;
@@ -82,8 +85,6 @@ namespace ArtOfHassan
         public int PixelPositionY;
 
         public string ClickPattern = "L;R;L";
-
-        bool IsNoGoldMailSent = false;
 
 
         public MainWindow()
@@ -322,6 +323,7 @@ namespace ArtOfHassan
                 ProblemTimer.Enabled = true;
 
                 IsNoGoldMailSent = false;
+                ProblemMailSent = 0;
             }
             else
             {
@@ -374,31 +376,37 @@ namespace ArtOfHassan
             {
                 ClickLog("Problem Occured...");
 
-                try
+                if (ProblemMailSent < 10)
                 {
-                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    try
                     {
-                        if (!string.IsNullOrWhiteSpace(EmailIDTextBox.Text) &&
-                            !string.IsNullOrWhiteSpace(EmailPasswordBox.Password))
+                        string id = "";
+                        string pw = "";
+                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
-                            MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
-                                                                      EmailIDTextBox.Text,
+                            id = EmailIDTextBox.Text;
+                            pw = EmailPasswordBox.Password;
+                        }));
+                        if (!string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(pw))
+                        {
+                            MailMessage mailMessage = new MailMessage(id, id,
                                                                       "Art of Hassan",
                                                                       "Problem occured.\nPlease check.");
                             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                             smtpClient.UseDefaultCredentials = false;
                             smtpClient.EnableSsl = true;
                             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                            smtpClient.Credentials = new NetworkCredential(EmailIDTextBox.Text,
-                                                                           EmailPasswordBox.Password);
+                            smtpClient.Credentials = new NetworkCredential(id, pw);
                             smtpClient.Send(mailMessage);
                         }
-                    }));
+                    }
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show("Email Delivery Failed");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show("Email Delivery Failed");
-                }
+
+                ProblemMailSent++;
             }
             else
             {
