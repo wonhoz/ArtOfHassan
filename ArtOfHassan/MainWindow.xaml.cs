@@ -352,7 +352,7 @@ namespace ArtOfHassan
                     MailMessage mailMessage = new MailMessage(EmailIDTextBox.Text,
                                                               EmailIDTextBox.Text,
                                                               "Art of Hassan",
-                                                              "Problem occured.\nPlease check.");
+                                                              "Email Testing...\nPlease check.");
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.EnableSsl = true;
