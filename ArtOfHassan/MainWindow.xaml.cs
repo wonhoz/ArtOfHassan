@@ -683,7 +683,7 @@ namespace ArtOfHassan
         public int GameAdCloseButtonX       = 496;
         public int GoldAdCloseButtonY      = 180;
         public int TroopAdCloseButtonY      = 190;
-        public string GameAdCloseButtonColor = "#e9e9d8;#efe7d6".ToUpper();
+        public string GameAdCloseButtonColor = "#efe7d6;#e9e9d8".ToUpper();
 
         public int LeftAdCloseButtonX = 45;
         public int RightAdCloseButtonX = 513;

@@ -974,8 +974,8 @@ namespace ArtOfHassan
             TroopAdCloseButtonX.Text = 496.ToString();
             GoldAdCloseButtonY.Text = 180.ToString();
             TroopAdCloseButtonY.Text = 190.ToString();
-            GoldAdCloseButtonColor.Text = "#e9e9d8;#efe7d6".ToUpper();
-            TroopAdCloseButtonColor.Text = "#e9e9d8;#efe7d6".ToUpper();
+            GoldAdCloseButtonColor.Text = "#efe7d6;#e9e9d8".ToUpper();
+            TroopAdCloseButtonColor.Text = "#efe7d6;#e9e9d8".ToUpper();
 
             LeftAdCloseButtonX.Text = 45.ToString();
             RightAdCloseButtonX.Text = 513.ToString();
