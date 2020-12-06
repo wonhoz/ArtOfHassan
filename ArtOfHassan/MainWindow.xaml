@@ -177,10 +177,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Name="SettingButton" Content="Setting" Margin="5" Click="SettingButton_Click"/>
-            <Button Grid.Row="1" Grid.Column="2" Name="StartButton" Content="Start" Click="StartButton_Click" Margin="5" IsEnabled="False"/>
+            <Button Grid.Column="0" Name="PixelCustomizeButton" Content="Customize Pixel" Margin="5,5,2.5,5" Click="PixelCustomizeButton_Click"/>
+            <Button Grid.Column="1" Name="SaveButton" Content="Save Setting" Margin="2.5,5,2.5,5" Click="SaveButton_Click"/>
+            <Button Grid.Row="1" Grid.Column="2" Name="StartButton" Content="Start" Click="StartButton_Click" Margin="2.5,5,5,5" IsEnabled="False"/>
         </Grid>
 
         <TextBlock Grid.Row="9" Grid.ColumnSpan="3" Name="MessageBar" Text="War: 0 | Victory: 0 | Defeat: 0 | Ads: 0"

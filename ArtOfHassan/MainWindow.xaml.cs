@@ -315,7 +315,7 @@ namespace ArtOfHassan
             if (StartButton.Content.ToString() == "Start")
             {
                 StartButton.Content = "Stop";
-                SettingButton.IsEnabled = false;
+                PixelCustomizeButton.IsEnabled = false;
                 MonitoringIntervalTextBox.IsEnabled = false;
 
                 ButtonTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
@@ -328,7 +328,7 @@ namespace ArtOfHassan
             else
             {
                 StartButton.Content = "Start";
-                SettingButton.IsEnabled = true;
+                PixelCustomizeButton.IsEnabled = true;
                 MonitoringIntervalTextBox.IsEnabled = true;
 
                 ButtonTimer.Enabled = false;
@@ -430,6 +430,11 @@ namespace ArtOfHassan
             {
                 NumOfWar = NumOfVictory + NumOfDefeat;
             }
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
 
@@ -874,7 +879,7 @@ namespace ArtOfHassan
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
                             StartButton.Content = "Start";
-                            SettingButton.IsEnabled = true;
+                            PixelCustomizeButton.IsEnabled = true;
                             MonitoringIntervalTextBox.IsEnabled = true;
 
                             ButtonTimer.Enabled  = false;
@@ -1386,7 +1391,7 @@ namespace ArtOfHassan
             }
         }
 
-        private void SettingButton_Click(object sender, RoutedEventArgs e)
+        private void PixelCustomizeButton_Click(object sender, RoutedEventArgs e)
         {
             SettingWindow settingWindow = new SettingWindow();
             settingWindow.AppLocationX.Text = AppLocationX.ToString();
