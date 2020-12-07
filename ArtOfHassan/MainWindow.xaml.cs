@@ -5,7 +5,9 @@ using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -688,8 +690,8 @@ namespace ArtOfHassan
                 this.Title = "아트 오브 핫산";
                 WindowTitleTextBlock.Text = "앱플레이어\n    이름";
                 MonitoringIntervalTextBlock.Text = "모니터링\n주기 (ms)";
-                ScreenComparisonIntervalTextBlock.Text = "비교 주기\n  (횟수)";
-                DelayTextBlock.Text = "골드 광고 딜레이 (ms)";
+                ScreenComparisonIntervalTextBlock.Text = " 화면 비교\n주기 (횟수)";
+                DelayTextBlock.Text = " 골드 광고\n딜레이 (ms)";
                 PixelDifferenceTextBlock.Text = "픽셀 차이";
                 VersionTextBlock.Text = "버전";
                 LatestRadioButton.Content = "최신";
@@ -1841,6 +1843,48 @@ namespace ArtOfHassan
             pixelWindow.NoGoldButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor));
 
             pixelWindow.ShowDialog();
+        }
+
+        private void WindowTitleTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            int caretIndex = WindowTitleTextBox.CaretIndex;
+            WindowTitleTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Location, "");
+            WindowTitleTextBox.Select(caretIndex, 0);
+        }
+
+        private void MonitoringIntervalTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            int caretIndex = MonitoringIntervalTextBox.CaretIndex;
+            MonitoringIntervalTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            MonitoringIntervalTextBox.Select(caretIndex, 0);
+        }
+
+        private void ScreenComparisonIntervalTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            int caretIndex = ScreenComparisonIntervalTextBox.CaretIndex;
+            ScreenComparisonIntervalTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            ScreenComparisonIntervalTextBox.Select(caretIndex, 0);
+        }
+
+        private void DelayTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            int caretIndex = DelayTextBox.CaretIndex;
+            DelayTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            DelayTextBox.Select(caretIndex, 0);
+        }
+
+        private void PixelDifferenceTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            int caretIndex = PixelDifferenceTextBox.CaretIndex;
+            PixelDifferenceTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            PixelDifferenceTextBox.Select(caretIndex, 0);
+        }
+
+        private void EmailTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            int caretIndex = EmailTextBox.CaretIndex;
+            EmailTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Email, "");
+            EmailTextBox.Select(caretIndex, 0);
         }
     }
 }

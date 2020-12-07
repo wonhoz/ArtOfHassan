@@ -63,6 +63,7 @@
     <Compile Include="ClickPatternWindow.xaml.cs">
       <DependentUpon>ClickPatternWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RegExClass.cs" />
     <Compile Include="Screenshot.xaml.cs">
       <DependentUpon>Screenshot.xaml</DependentUpon>
     </Compile>
