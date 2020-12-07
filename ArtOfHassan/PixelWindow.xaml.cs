@@ -903,7 +903,7 @@ namespace ArtOfHassan
                                 ShopButtonY.Text = listitem[3];
                                 ShopButtonColor.Text = listitem[4];
                                 break;
-                            case ("middlebutton"):
+                            case ("collectbutton"):
                                 CollectButtonX.Text = listitem[1];
                                 CollectButtonY.Text = listitem[2];
                                 CollectButtonColor.Text = listitem[3];
@@ -928,7 +928,7 @@ namespace ArtOfHassan
                                 SpeedButtonY.Text = listitem[2];
                                 SpeedButtonColor.Text = listitem[3];
                                 break;
-                            case ("pausebutton"):
+                            case ("continuebutton"):
                                 ContinueButtonX.Text = listitem[1];
                                 ContinueButtonY.Text = listitem[2];
                                 ContinueButtonColor.Text = listitem[3];
