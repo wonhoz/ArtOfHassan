@@ -577,13 +577,11 @@ namespace ArtOfHassan
                                                               EmailTextBox.Text,
                                                               "Art of Hassan",
                                                               "Email Testing...\nPlease check.");
-
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.EnableSsl = true;
                     smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com",
-                                                                   "Rnrmf0575!");
+                    smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
                     smtpClient.Send(mailMessage);
                 }
             }
@@ -628,10 +626,10 @@ namespace ArtOfHassan
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
                             smtpClient.Send(mailMessage);
 
-                            mailMessage = new MailMessage(emailaddress,
+                            mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           "artofwarhassan@gmail.com",
                                                           "Art of Hassan",
-                                                          "Problem occured.\nPlease check.");
+                                                          $"From {emailaddress},\nProblem occured.\nPlease check.");
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
                             smtpClient.Send(mailMessage);
                         }
@@ -1177,8 +1175,7 @@ namespace ArtOfHassan
                                 smtpClient.UseDefaultCredentials = false;
                                 smtpClient.EnableSsl = true;
                                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                                smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com",
-                                                                               "Rnrmf0575!");
+                                smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
                                 smtpClient.Send(mailMessage);
                             }
                         }
