@@ -118,9 +118,9 @@ namespace ArtOfHassan
                             ShopButtonColor = listitem[4];
                             break;
                         case ("middlebutton"):
-                            MiddleButtonX = int.Parse(listitem[1]);
-                            MiddleButtonY = int.Parse(listitem[2]);
-                            MiddleButtonColor = listitem[3];
+                            CollectButtonX = int.Parse(listitem[1]);
+                            CollectButtonY = int.Parse(listitem[2]);
+                            CollectButtonColor = listitem[3];
                             break;
                         case ("goldchestbox"):
                             GoldChestBoxX = int.Parse(listitem[1]);
@@ -143,9 +143,9 @@ namespace ArtOfHassan
                             SpeedButtonColor = listitem[3];
                             break;
                         case ("pausebutton"):
-                            PauseButtonX = int.Parse(listitem[1]);
-                            PauseButtonY = int.Parse(listitem[2]);
-                            PauseButtonColor = listitem[3];
+                            ContinueButtonX = int.Parse(listitem[1]);
+                            ContinueButtonY = int.Parse(listitem[2]);
+                            ContinueButtonColor = listitem[3];
                             break;
                         case ("victorydefeat"):
                             VictoryDefeatX = int.Parse(listitem[1]);
@@ -221,9 +221,9 @@ namespace ArtOfHassan
                     ShopButtonY = int.Parse(lines[1].Split(',')[2]);
                     ShopButtonColor = lines[1].Split(',')[3];
 
-                    MiddleButtonX = int.Parse(lines[2].Split(',')[0]);
-                    MiddleButtonY = int.Parse(lines[2].Split(',')[1]);
-                    MiddleButtonColor = lines[2].Split(',')[2];
+                    CollectButtonX = int.Parse(lines[2].Split(',')[0]);
+                    CollectButtonY = int.Parse(lines[2].Split(',')[1]);
+                    CollectButtonColor = lines[2].Split(',')[2];
 
                     GoldChestBoxX = int.Parse(lines[3].Split(',')[0]);
                     GoldChestBoxY = int.Parse(lines[3].Split(',')[1]);
@@ -241,9 +241,9 @@ namespace ArtOfHassan
                     SpeedButtonY = int.Parse(lines[6].Split(',')[1]);
                     SpeedButtonColor = lines[6].Split(',')[2];
 
-                    PauseButtonX = int.Parse(lines[7].Split(',')[0]);
-                    PauseButtonY = int.Parse(lines[7].Split(',')[1]);
-                    PauseButtonColor = lines[7].Split(',')[2];
+                    ContinueButtonX = int.Parse(lines[7].Split(',')[0]);
+                    ContinueButtonY = int.Parse(lines[7].Split(',')[1]);
+                    ContinueButtonColor = lines[7].Split(',')[2];
 
                     VictoryDefeatX = int.Parse(lines[8].Split(',')[0]);
                     VictoryDefeatY = int.Parse(lines[8].Split(',')[1]);
@@ -337,12 +337,12 @@ namespace ArtOfHassan
                     {
                         streamWriter.WriteLine("AppLocation," + AppLocationX + "," + AppLocationY + "," + AppLocationColor);
                         streamWriter.WriteLine("ShopButton," + HomeButtonX + "," + ShopButtonX + "," + ShopButtonY + "," + ShopButtonColor);
-                        streamWriter.WriteLine("MiddleButton," + MiddleButtonX + "," + MiddleButtonY + "," + MiddleButtonColor);
+                        streamWriter.WriteLine("CollectButton," + CollectButtonX + "," + CollectButtonY + "," + CollectButtonColor);
                         streamWriter.WriteLine("GoldChestBox," + GoldChestBoxX + "," + GoldChestBoxY + "," + GoldChestBoxColor);
                         streamWriter.WriteLine("BattleLevelButton," + BattleLevelButtonX + "," + BattleLevelButtonY + "," + BattleLevelButtonColor);
                         streamWriter.WriteLine("SkillButton," + SkillButtonX + "," + SkillButtonY + "," + SkillButtonColor);
                         streamWriter.WriteLine("SpeedButton," + SpeedButtonX + "," + SpeedButtonY + "," + SpeedButtonColor);
-                        streamWriter.WriteLine("PauseButton," + PauseButtonX + "," + PauseButtonY + "," + PauseButtonColor);
+                        streamWriter.WriteLine("ContinueButton," + ContinueButtonX + "," + ContinueButtonY + "," + ContinueButtonColor);
                         streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX + "," + VictoryDefeatY + "," + VictoryDefeatColor);
                         streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX + "," + GoldButtonBackgroundY + "," + GoldButtonBackgroundColor);
                         streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY + "," + GoldButtonImageColor);
@@ -753,9 +753,9 @@ namespace ArtOfHassan
         public int ShopButtonY        = 980;
         public string ShopButtonColor = "#ea3d34".ToUpper();
 
-        public int MiddleButtonX        = 195;
-        public int MiddleButtonY        = 680;
-        public string MiddleButtonColor = "#fdbb00".ToUpper();
+        public int CollectButtonX        = 195;
+        public int CollectButtonY        = 680;
+        public string CollectButtonColor = "#fdbb00".ToUpper();
 
         public int GoldChestBoxX      = 150;
         public int GoldChestBoxY      = 410;
@@ -773,9 +773,9 @@ namespace ArtOfHassan
         public int SpeedButtonY     = 989;
         public string SpeedButtonColor = "#eda500".ToUpper();
 
-        public int PauseButtonX     = 215;
-        public int PauseButtonY     = 455;
-        public string PauseButtonColor = "#fdbb00".ToUpper();
+        public int ContinueButtonX     = 215;
+        public int ContinueButtonY     = 455;
+        public string ContinueButtonColor = "#fdbb00".ToUpper();
 
         public int VictoryDefeatX   = 120;
         public int VictoryDefeatY   = 355;
@@ -919,14 +919,14 @@ namespace ArtOfHassan
 
 
                 // Middle Button
-                color = CurrentBitmap.GetPixel(MiddleButtonX, MiddleButtonY);
+                color = CurrentBitmap.GetPixel(CollectButtonX, CollectButtonY);
                 TimerLog("Middle Button Color: " + color.R + "," + color.G + "," + color.B);
-                color1 = ColorTranslator.FromHtml(MiddleButtonColor);
+                color1 = ColorTranslator.FromHtml(CollectButtonColor);
                 if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
                     ClickLog("Middle Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + MiddleButtonX, (int)NoxPointY + MiddleButtonY);
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CollectButtonX, (int)NoxPointY + CollectButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1090,14 +1090,14 @@ namespace ArtOfHassan
                 }));
                 if (!IsPausable)
                 {
-                    color = CurrentBitmap.GetPixel(PauseButtonX, PauseButtonY);
-                    TimerLog("Pause Button Color: " + color.R + "," + color.G + "," + color.B);
-                    color1 = ColorTranslator.FromHtml(PauseButtonColor);
+                    color = CurrentBitmap.GetPixel(ContinueButtonX, ContinueButtonY);
+                    TimerLog("Continue Button Color: " + color.R + "," + color.G + "," + color.B);
+                    color1 = ColorTranslator.FromHtml(ContinueButtonColor);
                     if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                         ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                     {
-                        ClickLog("Pause Button");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + PauseButtonX, (int)NoxPointY + PauseButtonY);
+                        ClickLog("Continue Button");
+                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + ContinueButtonX, (int)NoxPointY + ContinueButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -1755,10 +1755,10 @@ namespace ArtOfHassan
             pixelWindow.ShopButtonColor.Text = ShopButtonColor;
             pixelWindow.ShopButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor));
 
-            pixelWindow.MiddleButtonX.Text = MiddleButtonX.ToString();
-            pixelWindow.MiddleButtonY.Text = MiddleButtonY.ToString();
-            pixelWindow.MiddleButtonColor.Text = MiddleButtonColor;
-            pixelWindow.MiddleButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(MiddleButtonColor));
+            pixelWindow.CollectButtonX.Text = CollectButtonX.ToString();
+            pixelWindow.CollectButtonY.Text = CollectButtonY.ToString();
+            pixelWindow.CollectButtonColor.Text = CollectButtonColor;
+            pixelWindow.CollectButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(CollectButtonColor));
 
             pixelWindow.GoldChestBoxX.Text = GoldChestBoxX.ToString();
             pixelWindow.GoldChestBoxY.Text = GoldChestBoxY.ToString();
@@ -1784,10 +1784,10 @@ namespace ArtOfHassan
             pixelWindow.SpeedButtonColor.Text = SpeedButtonColor;
             pixelWindow.SpeedButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SpeedButtonColor));
 
-            pixelWindow.PauseButtonX.Text = PauseButtonX.ToString();
-            pixelWindow.PauseButtonY.Text = PauseButtonY.ToString();
-            pixelWindow.PauseButtonColor.Text = PauseButtonColor;
-            pixelWindow.PauseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(PauseButtonColor));
+            pixelWindow.ContinueButtonX.Text = ContinueButtonX.ToString();
+            pixelWindow.ContinueButtonY.Text = ContinueButtonY.ToString();
+            pixelWindow.ContinueButtonColor.Text = ContinueButtonColor;
+            pixelWindow.ContinueButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ContinueButtonColor));
 
             pixelWindow.VictoryDefeatX.Text = VictoryDefeatX.ToString();
             pixelWindow.VictoryDefeatY.Text = VictoryDefeatY.ToString();

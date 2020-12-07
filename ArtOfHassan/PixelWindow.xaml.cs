@@ -50,16 +50,16 @@ namespace ArtOfHassan
                 AppLocationTextBlock.Text = "어플 위치";
                 HomeButtonTextBlock.Text = "홈버튼";
                 ShopButtonTextBlock.Text = "상점버튼";
-                CenterButtonTextBlock.Text = "수집버튼";
+                CollectButtonTextBlock.Text = "수집버튼";
                 GoldChestBoxTextBlock.Text = "시간보상";
                 BattleLevelButtonTextBlock.Text = "전투레벨버튼";
                 AutoSkillButtonTextBlock.Text = "자동스킬버튼";
                 VIPX2ButtonTextBlock.Text = "2배속버튼";
-                PauseButtonTextBlock.Text = "계속버튼";
+                ContinueButtonTextBlock.Text = "계속버튼";
                 VictoryDefeatTextBlock.Text = "승리패배 플래그";
                 X3GoldButtonBackgroundTextBlock.Text = "골드3배버튼 배경";
                 X3GoldButtonImageTextBlock.Text = "골드3배버튼 그림";
-                NextButtonTextBlock.Text = "다음버튼";
+                NextButtonTextBlock.Text = "다음버튼 (패배시)";
                 NoGoldTextBlock.Text = "골드벌이 없을 때";
                 GoldAdCloseButtonTextBlock.Text = "골드광고 닫기버튼";
                 TroopAdCloseButtonTextBlock.Text = "용병광고 닫기버튼";
@@ -186,23 +186,23 @@ namespace ArtOfHassan
             }));
         }
 
-        private void MiddleButton1_Click(object sender, RoutedEventArgs e)
+        private void CollectButton1_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(MiddleButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(MiddleButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(MiddleButtonColor.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(CollectButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(CollectButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(CollectButtonColor.Text);
             }));
 
             GetPixelPositionAndColor();
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                MiddleButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                MiddleButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                MiddleButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                MiddleButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+                CollectButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                CollectButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                CollectButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                CollectButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
         }
 
@@ -286,23 +286,23 @@ namespace ArtOfHassan
             }));
         }
 
-        private void PauseButton1_Click(object sender, RoutedEventArgs e)
+        private void ContinueButton1_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(PauseButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(PauseButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(PauseButtonColor.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(ContinueButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(ContinueButtonY.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(ContinueButtonColor.Text);
             }));
 
             GetPixelPositionAndColor();
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                PauseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                PauseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                PauseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                PauseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+                ContinueButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                ContinueButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                ContinueButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                ContinueButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
         }
 
@@ -695,12 +695,12 @@ namespace ArtOfHassan
         {
             AppLocationButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[0]));
             ShopButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor.Text));
-            MiddleButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(MiddleButtonColor.Text));
+            CollectButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(CollectButtonColor.Text));
             GoldChestBox1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Text.Split(';')[0]));
             BattleLevelButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[0]));
             SkillButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SkillButtonColor.Text));
             SpeedButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SpeedButtonColor.Text));
-            PauseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(PauseButtonColor.Text));
+            ContinueButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ContinueButtonColor.Text));
             VictoryDefeat1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Text.Split(';')[0]));
             GoldButtonBackground1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Text.Split(';')[0]));
             GoldButtonImage1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonImageColor.Text.Split(';')[0]));
@@ -746,9 +746,9 @@ namespace ArtOfHassan
                     ShopButtonY.Text = lines[1].Split(',')[2];
                     ShopButtonColor.Text = lines[1].Split(',')[3];
 
-                    MiddleButtonX.Text = lines[2].Split(',')[0];
-                    MiddleButtonY.Text = lines[2].Split(',')[1];
-                    MiddleButtonColor.Text = lines[2].Split(',')[2];
+                    CollectButtonX.Text = lines[2].Split(',')[0];
+                    CollectButtonY.Text = lines[2].Split(',')[1];
+                    CollectButtonColor.Text = lines[2].Split(',')[2];
 
                     GoldChestBoxX.Text = lines[3].Split(',')[0];
                     GoldChestBoxY.Text = lines[3].Split(',')[1];
@@ -766,9 +766,9 @@ namespace ArtOfHassan
                     SpeedButtonY.Text = lines[6].Split(',')[1];
                     SpeedButtonColor.Text = lines[6].Split(',')[2];
 
-                    PauseButtonX.Text = lines[7].Split(',')[0];
-                    PauseButtonY.Text = lines[7].Split(',')[1];
-                    PauseButtonColor.Text = lines[7].Split(',')[2];
+                    ContinueButtonX.Text = lines[7].Split(',')[0];
+                    ContinueButtonY.Text = lines[7].Split(',')[1];
+                    ContinueButtonColor.Text = lines[7].Split(',')[2];
 
                     VictoryDefeatX.Text = lines[8].Split(',')[0];
                     VictoryDefeatY.Text = lines[8].Split(',')[1];
@@ -904,9 +904,9 @@ namespace ArtOfHassan
                                 ShopButtonColor.Text = listitem[4];
                                 break;
                             case ("middlebutton"):
-                                MiddleButtonX.Text = listitem[1];
-                                MiddleButtonY.Text = listitem[2];
-                                MiddleButtonColor.Text = listitem[3];
+                                CollectButtonX.Text = listitem[1];
+                                CollectButtonY.Text = listitem[2];
+                                CollectButtonColor.Text = listitem[3];
                                 break;
                             case ("goldchestbox"):
                                 GoldChestBoxX.Text = listitem[1];
@@ -929,9 +929,9 @@ namespace ArtOfHassan
                                 SpeedButtonColor.Text = listitem[3];
                                 break;
                             case ("pausebutton"):
-                                PauseButtonX.Text = listitem[1];
-                                PauseButtonY.Text = listitem[2];
-                                PauseButtonColor.Text = listitem[3];
+                                ContinueButtonX.Text = listitem[1];
+                                ContinueButtonY.Text = listitem[2];
+                                ContinueButtonColor.Text = listitem[3];
                                 break;
                             case ("victorydefeat"):
                                 VictoryDefeatX.Text = listitem[1];
@@ -1014,12 +1014,12 @@ namespace ArtOfHassan
                 {
                     streamWriter.WriteLine("AppLocation," + AppLocationX.Text + "," + AppLocationY.Text + "," + AppLocationColor.Text);
                     streamWriter.WriteLine("ShopButton," + HomeButtonX.Text + "," + ShopButtonX.Text + "," + ShopButtonY.Text + "," + ShopButtonColor.Text);
-                    streamWriter.WriteLine("MiddleButton," + MiddleButtonX.Text + "," + MiddleButtonY.Text + "," + MiddleButtonColor.Text);
+                    streamWriter.WriteLine("CollectButton," + CollectButtonX.Text + "," + CollectButtonY.Text + "," + CollectButtonColor.Text);
                     streamWriter.WriteLine("GoldChestBox," + GoldChestBoxX.Text + "," + GoldChestBoxY.Text + "," + GoldChestBoxColor.Text);
                     streamWriter.WriteLine("BattleLevelButton," + BattleLevelButtonX.Text + "," + BattleLevelButtonY.Text + "," + BattleLevelButtonColor.Text);
                     streamWriter.WriteLine("SkillButton," + SkillButtonX.Text + "," + SkillButtonY.Text + "," + SkillButtonColor.Text);
                     streamWriter.WriteLine("SpeedButton," + SpeedButtonX.Text + "," + SpeedButtonY.Text + "," + SpeedButtonColor.Text);
-                    streamWriter.WriteLine("PauseButton," + PauseButtonX.Text + "," + PauseButtonY.Text + "," + PauseButtonColor.Text);
+                    streamWriter.WriteLine("ContinueButton," + ContinueButtonX.Text + "," + ContinueButtonY.Text + "," + ContinueButtonColor.Text);
                     streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX.Text + "," + VictoryDefeatY.Text + "," + VictoryDefeatColor.Text);
                     streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX.Text + "," + GoldButtonBackgroundY.Text + "," + GoldButtonBackgroundColor.Text);
                     streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX.Text + "," + GoldButtonImageY.Text + "," + GoldButtonImageColor.Text);
@@ -1043,9 +1043,9 @@ namespace ArtOfHassan
             ShopButtonY.Text = 980.ToString();
             ShopButtonColor.Text = "#ea3d34".ToUpper();
 
-            MiddleButtonX.Text = 195.ToString();
-            MiddleButtonY.Text = 680.ToString();
-            MiddleButtonColor.Text = "#fdbb00".ToUpper();
+            CollectButtonX.Text = 195.ToString();
+            CollectButtonY.Text = 680.ToString();
+            CollectButtonColor.Text = "#fdbb00".ToUpper();
 
             GoldChestBoxX.Text = 150.ToString();
             GoldChestBoxY.Text = 410.ToString();
@@ -1063,9 +1063,9 @@ namespace ArtOfHassan
             SpeedButtonY.Text = 989.ToString();
             SpeedButtonColor.Text = "#eda500".ToUpper();
 
-            PauseButtonX.Text = 215.ToString();
-            PauseButtonY.Text = 455.ToString();
-            PauseButtonColor.Text = "#fdbb00".ToUpper();
+            ContinueButtonX.Text = 215.ToString();
+            ContinueButtonY.Text = 455.ToString();
+            ContinueButtonColor.Text = "#fdbb00".ToUpper();
 
             VictoryDefeatX.Text = 120.ToString();
             VictoryDefeatY.Text = 355.ToString();
@@ -1127,10 +1127,10 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).ShopButtonColor = ShopButtonColor.Text;
                     streamWriter.WriteLine("ShopButton," + HomeButtonX.Text + "," + ShopButtonX.Text + "," + ShopButtonY.Text + "," + ShopButtonColor.Text);
 
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).MiddleButtonX = int.Parse(MiddleButtonX.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).MiddleButtonY = int.Parse(MiddleButtonY.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).MiddleButtonColor = MiddleButtonColor.Text;
-                    streamWriter.WriteLine("MiddleButton," + MiddleButtonX.Text + "," + MiddleButtonY.Text + "," + MiddleButtonColor.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).CollectButtonX = int.Parse(CollectButtonX.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).CollectButtonY = int.Parse(CollectButtonY.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).CollectButtonColor = CollectButtonColor.Text;
+                    streamWriter.WriteLine("CollectButton," + CollectButtonX.Text + "," + CollectButtonY.Text + "," + CollectButtonColor.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoldChestBoxX = int.Parse(GoldChestBoxX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoldChestBoxY = int.Parse(GoldChestBoxY.Text);
@@ -1152,10 +1152,10 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).SpeedButtonColor = SpeedButtonColor.Text;
                     streamWriter.WriteLine("SpeedButton," + SpeedButtonX.Text + "," + SpeedButtonY.Text + "," + SpeedButtonColor.Text);
 
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).PauseButtonX = int.Parse(PauseButtonX.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).PauseButtonY = int.Parse(PauseButtonY.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).PauseButtonColor = PauseButtonColor.Text;
-                    streamWriter.WriteLine("PauseButton," + PauseButtonX.Text + "," + PauseButtonY.Text + "," + PauseButtonColor.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).ContinueButtonX = int.Parse(ContinueButtonX.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).ContinueButtonY = int.Parse(ContinueButtonY.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).ContinueButtonColor = ContinueButtonColor.Text;
+                    streamWriter.WriteLine("ContinueButton," + ContinueButtonX.Text + "," + ContinueButtonY.Text + "," + ContinueButtonColor.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).VictoryDefeatX = int.Parse(VictoryDefeatX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).VictoryDefeatY = int.Parse(VictoryDefeatY.Text);
@@ -1231,11 +1231,11 @@ namespace ArtOfHassan
             ShopButtonX.Select(caretIndex, 0);
         }
 
-        private void MiddleButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void CollectButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = MiddleButtonX.CaretIndex;
-            MiddleButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            MiddleButtonX.Select(caretIndex, 0);
+            int caretIndex = CollectButtonX.CaretIndex;
+            CollectButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            CollectButtonX.Select(caretIndex, 0);
         }
 
         private void GoldChestBoxX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -1266,11 +1266,11 @@ namespace ArtOfHassan
             SpeedButtonX.Select(caretIndex, 0);
         }
 
-        private void PauseButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void ContinueButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = PauseButtonX.CaretIndex;
-            PauseButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            PauseButtonX.Select(caretIndex, 0);
+            int caretIndex = ContinueButtonX.CaretIndex;
+            ContinueButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            ContinueButtonX.Select(caretIndex, 0);
         }
 
         private void VictoryDefeatX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -1371,11 +1371,11 @@ namespace ArtOfHassan
             ShopButtonY.Select(caretIndex, 0);
         }
 
-        private void MiddleButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void CollectButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = MiddleButtonY.CaretIndex;
-            MiddleButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            MiddleButtonY.Select(caretIndex, 0);
+            int caretIndex = CollectButtonY.CaretIndex;
+            CollectButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            CollectButtonY.Select(caretIndex, 0);
         }
 
         private void GoldChestBoxY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -1406,11 +1406,11 @@ namespace ArtOfHassan
             SpeedButtonY.Select(caretIndex, 0);
         }
 
-        private void PauseButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void ContinueButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = PauseButtonY.CaretIndex;
-            PauseButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            PauseButtonY.Select(caretIndex, 0);
+            int caretIndex = ContinueButtonY.CaretIndex;
+            ContinueButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            ContinueButtonY.Select(caretIndex, 0);
         }
 
         private void VictoryDefeatY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -1504,11 +1504,11 @@ namespace ArtOfHassan
             ShopButtonColor.Select(caretIndex, 0);
         }
 
-        private void MiddleButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void CollectButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = MiddleButtonColor.CaretIndex;
-            MiddleButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            MiddleButtonColor.Select(caretIndex, 0);
+            int caretIndex = CollectButtonColor.CaretIndex;
+            CollectButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
+            CollectButtonColor.Select(caretIndex, 0);
         }
 
         private void GoldChestBoxColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -1539,11 +1539,11 @@ namespace ArtOfHassan
             SpeedButtonColor.Select(caretIndex, 0);
         }
 
-        private void PauseButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void ContinueButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = PauseButtonColor.CaretIndex;
-            PauseButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            PauseButtonColor.Select(caretIndex, 0);
+            int caretIndex = ContinueButtonColor.CaretIndex;
+            ContinueButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
+            ContinueButtonColor.Select(caretIndex, 0);
         }
 
         private void VictoryDefeatColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
