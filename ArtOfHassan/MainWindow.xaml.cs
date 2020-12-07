@@ -374,6 +374,9 @@ namespace ArtOfHassan
                             case ("pixeldifference"):
                                 PixelDifferenceTextBox.Text = listitem[1];
                                 break;
+                            case ("korean"):
+                                KoreanCheckBox.IsChecked = bool.Parse(listitem[1]);
+                                break;
                             case ("adscloseclickpattern"):
                                 ClickPattern = listitem[1];
                                 break;
@@ -665,6 +668,7 @@ namespace ArtOfHassan
                     streamWriter.WriteLine("ScreenComparisonInterval," + ScreenComparisonIntervalTextBox.Text);
                     streamWriter.WriteLine("X3GoldButtonDelay," + DelayTextBox.Text);
                     streamWriter.WriteLine("PixelDifference," + PixelDifferenceTextBox.Text);
+                    streamWriter.WriteLine("korean," + KoreanCheckBox.IsChecked.Value);
                     streamWriter.WriteLine("AdsCloseClickPattern," + ClickPattern);
                     streamWriter.WriteLine("GoldChestCheck," + GoldChestCheckBox.IsChecked.Value);
                     streamWriter.WriteLine("Pausability," + PausabilityCheckBox.IsChecked.Value);
