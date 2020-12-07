@@ -478,7 +478,7 @@ namespace ArtOfHassan
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(NotRespondingX.Text);
                 ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(NotRespondingY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(NotRespondingColor.Text);
+                //((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(NotRespondingColor.Text);
             }));
 
             GetPixelPositionAndColor();
@@ -487,8 +487,8 @@ namespace ArtOfHassan
             {
                 NotRespondingX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
                 NotRespondingY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                NotRespondingColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+                //NotRespondingColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                //NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
         }
 
@@ -708,7 +708,7 @@ namespace ArtOfHassan
             GoldAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldAdCloseButtonColor.Text.Split(';')[0]));
             TroopAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(TroopAdCloseButtonColor.Text.Split(';')[1]));
             MidasAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(MidasAdCloseButtonColor.Text.Split(';')[2]));
-            NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor.Text));
+            //NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor.Text));
             NoGoldButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor.Text));
 
             AppLocationButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[1]));
@@ -835,7 +835,7 @@ namespace ArtOfHassan
 
                         NotRespondingX.Text = lines[15].Split(',')[0];
                         NotRespondingY.Text = lines[15].Split(',')[1];
-                        NotRespondingColor.Text = lines[15].Split(',')[2];
+                        //NotRespondingColor.Text = lines[15].Split(',')[2];
                     }
                     else
                     {
@@ -881,7 +881,7 @@ namespace ArtOfHassan
 
                         NotRespondingX.Text = lines[14].Split(',')[0];
                         NotRespondingY.Text = lines[14].Split(',')[1];
-                        NotRespondingColor.Text = lines[14].Split(',')[2];
+                        //NotRespondingColor.Text = lines[14].Split(',')[2];
                     }
                 }
                 else // 신버전
@@ -994,7 +994,7 @@ namespace ArtOfHassan
                             case ("notresponding"):
                                 NotRespondingX.Text = listitem[1];
                                 NotRespondingY.Text = listitem[2];
-                                NotRespondingColor.Text = listitem[3];
+                                //NotRespondingColor.Text = listitem[3];
                                 break;
                         }
                     }
@@ -1027,7 +1027,7 @@ namespace ArtOfHassan
                     streamWriter.WriteLine("NoGold," + NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
                     streamWriter.WriteLine("GameAdCloseButton," + (int)((int.Parse(GoldAdCloseButtonX.Text) + int.Parse(TroopAdCloseButtonX.Text) + int.Parse(MidasAdCloseButtonX.Text)) / 3) + "," + GoldAdCloseButtonY.Text + "," + TroopAdCloseButtonY.Text + "," + MidasAdCloseButtonY.Text + "," + GoldAdCloseButtonColor.Text);
                     streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX.Text + "," + RightAdCloseButtonX.Text + "," + (int)((int.Parse(LeftAdCloseButtonY.Text) + int.Parse(RightAdCloseButtonY.Text)) / 2) + "," + LeftAdCloseButtonColor.Text);
-                    streamWriter.WriteLine("NotResponding," + NotRespondingX.Text + "," + NotRespondingY.Text + "," + NotRespondingColor.Text);
+                    //streamWriter.WriteLine("NotResponding," + NotRespondingX.Text + "," + NotRespondingY.Text + "," + NotRespondingColor.Text);
                 }
             }
         }
@@ -1101,7 +1101,7 @@ namespace ArtOfHassan
 
             NotRespondingX.Text = 79.ToString();
             NotRespondingY.Text = 540.ToString();
-            NotRespondingColor.Text = "#009688".ToUpper();
+            //NotRespondingColor.Text = "#009688".ToUpper();
 
             NoGoldX.Text = 320.ToString(); ;
             NoGoldY.Text = 646.ToString(); ;
@@ -1197,8 +1197,8 @@ namespace ArtOfHassan
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingX = int.Parse(NotRespondingX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingY = int.Parse(NotRespondingY.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingColor = NotRespondingColor.Text;
-                    streamWriter.WriteLine("NotResponding," + NotRespondingX.Text + "," + NotRespondingY.Text + "," + NotRespondingColor.Text);
+                    //((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingColor = NotRespondingColor.Text;
+                    //streamWriter.WriteLine("NotResponding," + NotRespondingX.Text + "," + NotRespondingY.Text + "," + NotRespondingColor.Text);
                 }));
             }
 
@@ -1618,9 +1618,9 @@ namespace ArtOfHassan
 
         private void NotRespondingColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = NotRespondingColor.CaretIndex;
-            NotRespondingColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            NotRespondingColor.Select(caretIndex, 0);
+            //int caretIndex = NotRespondingColor.CaretIndex;
+            //NotRespondingColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
+            //NotRespondingColor.Select(caretIndex, 0);
         }
     }
 }

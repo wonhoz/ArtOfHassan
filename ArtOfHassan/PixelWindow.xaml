@@ -131,7 +131,7 @@
         <TextBox Grid.Row="17" Grid.Column="3" Name="MidasAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="MidasAdCloseButtonColor_TextChanged"/>
         <TextBox Grid.Row="18" Grid.Column="3" Name="LeftAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LeftAdCloseButtonColor_TextChanged"/>
         <TextBox Grid.Row="19" Grid.Column="3" Name="RightAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="RightAdCloseButtonColor_TextChanged"/>
-        <TextBox Grid.Row="20" Grid.Column="3" Name="NotRespondingColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondingColor_TextChanged"/>
+        <!--<TextBox Grid.Row="20" Grid.Column="3" Name="NotRespondingColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondingColor_TextChanged"/>-->
 
         <Button Grid.Row="1" Grid.Column="4" Name="AppLocationButton1" Click="AppLocationButton1_Click" Margin="5"/>
         <Button Grid.Row="2" Grid.Column="4" Name="HomeButton1" Click="HomeButton1_Click" Margin="5"/>

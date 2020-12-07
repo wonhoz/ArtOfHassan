@@ -1838,8 +1838,8 @@ namespace ArtOfHassan
 
             pixelWindow.NotRespondingX.Text = NotRespondingX.ToString();
             pixelWindow.NotRespondingY.Text = NotRespondingY.ToString();
-            pixelWindow.NotRespondingColor.Text = NotRespondingColor.ToString();
-            pixelWindow.NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor));
+            //pixelWindow.NotRespondingColor.Text = NotRespondingColor.ToString();
+            //pixelWindow.NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor));
 
             pixelWindow.NoGoldX.Text = NoGoldX.ToString();
             pixelWindow.NoGoldY.Text = NoGoldY.ToString();
