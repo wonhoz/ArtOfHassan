@@ -1008,7 +1008,14 @@ namespace ArtOfHassan
 
                     System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                     {
-                        MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
+                        if (KoreanCheckBox.IsChecked.Value)
+                        {
+                            MessageBar.Text = $"전투: {NumOfVictory + NumOfDefeat}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
+                        }
+                        else
+                        {
+                            MessageBar.Text = $"War: {NumOfVictory + NumOfDefeat}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
+                        }
                     }));
                 }
                 else if ((color.R == color3.R) && (color.G == color3.G) && (color.B == color3.B)) // 빨간색
