@@ -654,6 +654,17 @@ namespace ArtOfHassan
 
                 ProblemMailSent++;
 
+                int monitoringInterval = 1000;
+                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                {
+                    monitoringInterval = int.Parse(MonitoringIntervalTextBox.Text);
+                }));
+
+                if (monitoringInterval < 1000)
+                {
+                    monitoringInterval = 1000;
+                }
+
                 // Not Responding Button
                 ClickLog("Not Responding Button");
                 System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingX, (int)NoxPointY + NotRespondingY);
@@ -661,7 +672,7 @@ namespace ArtOfHassan
                 System.Threading.Thread.Sleep(50);
                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep((int)(monitoringInterval * 1.5));
 
                 ClickLog("Close All Apps...");
                 System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + 495, (int)NoxPointY + 100);
@@ -886,11 +897,17 @@ namespace ArtOfHassan
             if (!IsProblemOccurred)
             {
                 int pixelDifference = 0;
+                int monitoringInterval = 1000;
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
                     if (!int.TryParse(PixelDifferenceTextBox.Text, out pixelDifference))
                     {
                         pixelDifference = 0;
+                    }
+
+                    if (!int.TryParse(MonitoringIntervalTextBox.Text, out monitoringInterval))
+                    {
+                        monitoringInterval = 1000;
                     }
                 }));
 
@@ -979,7 +996,7 @@ namespace ArtOfHassan
                             System.Threading.Thread.Sleep(50);
                             mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                            System.Threading.Thread.Sleep(500);
+                            System.Threading.Thread.Sleep((int)(monitoringInterval * 4 / 5));
 
                             return;
                         }
@@ -1086,7 +1103,7 @@ namespace ArtOfHassan
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                        System.Threading.Thread.Sleep(500);
+                        System.Threading.Thread.Sleep((int)(monitoringInterval * 3 / 4));
                     }
 
 
@@ -1128,10 +1145,15 @@ namespace ArtOfHassan
                     }
 
 
-                    int DelayCriteria = 0; // X3 Gold Button Delay
-
-
                     // Check Victory or Defeat
+                    int DelayCriteria = 0; // X3 Gold Button Delay
+                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    {
+                        if (!int.TryParse(DelayTextBox.Text, out DelayCriteria))
+                        {
+                            DelayCriteria = 0;
+                        }
+                    }));
                     color = CurrentBitmap.GetPixel(VictoryDefeatX, VictoryDefeatY);
                     TimerLog("Victory or Defeat Color: " + color.R + "," + color.G + "," + color.B);
                     color1 = ColorTranslator.FromHtml(VictoryDefeatColor.Split(';')[0]);
@@ -1142,19 +1164,11 @@ namespace ArtOfHassan
                         ClickLog("Victory Checked");
                         VictoryFlag = true;
 
-                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                        if (DelayCriteria < monitoringInterval)
                         {
-                            if (!int.TryParse(DelayTextBox.Text, out DelayCriteria))
-                            {
-                                DelayCriteria = 0;
-                            }
-
-                            if (DelayCriteria < int.Parse(MonitoringIntervalTextBox.Text))
-                            {
-                                DelayCriteria = 0;
-                                System.Threading.Thread.Sleep(DelayCriteria);
-                            }
-                        }));
+                            DelayCriteria = 0;
+                            System.Threading.Thread.Sleep(DelayCriteria);
+                        }
                     }
                     else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                              ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference)))
@@ -1495,7 +1509,7 @@ namespace ArtOfHassan
 
                             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                             {
-                                AdsClickInterval = int.Parse(MonitoringIntervalTextBox.Text) / ClickPatterns.Length;
+                                AdsClickInterval = (int)(monitoringInterval / (ClickPatterns.Length - 0.5));
                                 isGoogleAdCloseButtonColorCheck = AdsCloseCheckBox.IsChecked.Value;
                             }));
 
