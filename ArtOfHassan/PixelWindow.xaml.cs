@@ -1099,8 +1099,8 @@ namespace ArtOfHassan
             LeftAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
             RightAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
 
-            NotRespondingX.Text = 79.ToString();
-            NotRespondingY.Text = 540.ToString();
+            NotRespondingX.Text = 580.ToString();
+            NotRespondingY.Text = 1000.ToString();
             //NotRespondingColor.Text = "#009688".ToUpper();
 
             NoGoldX.Text = 320.ToString(); ;
