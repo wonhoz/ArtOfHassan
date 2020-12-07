@@ -514,9 +514,18 @@ namespace ArtOfHassan
         {
             ClickLog("StartButton: " + StartButton.Content.ToString());
 
-            if (StartButton.Content.ToString() == "Start")
+            if ((StartButton.Content.ToString() == "Start") ||
+                (StartButton.Content.ToString() == "시작"))
             {
-                StartButton.Content = "Stop";
+                if (KoreanCheckBox.IsChecked.Value)
+                {
+                    StartButton.Content = "중지";
+                }
+                else
+                {
+                    StartButton.Content = "Stop";
+                }
+
                 PixelCustomizeButton.IsEnabled = false;
                 MonitoringIntervalTextBox.IsEnabled = false;
 
@@ -529,7 +538,14 @@ namespace ArtOfHassan
             }
             else
             {
-                StartButton.Content = "Start";
+                if (KoreanCheckBox.IsChecked.Value)
+                {
+                    StartButton.Content = "시작";
+                }
+                else
+                {
+                    StartButton.Content = "Start";
+                }
                 PixelCustomizeButton.IsEnabled = true;
                 MonitoringIntervalTextBox.IsEnabled = true;
 
@@ -661,6 +677,68 @@ namespace ArtOfHassan
             }
         }
 
+        private void KoreanCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if (KoreanCheckBox.IsChecked.Value)
+            {
+                this.Title = "아트 오브 핫산";
+                WindowTitleTextBlock.Text = "앱플레이어\n    이름";
+                MonitoringIntervalTextBlock.Text = "모니터링\n주기 (ms)";
+                ScreenComparisonIntervalTextBlock.Text = "비교 주기\n  (횟수)";
+                DelayTextBlock.Text = "골드 광고 딜레이 (ms)";
+                PixelDifferenceTextBlock.Text = "픽셀 차이";
+                VersionTextBlock.Text = "버전";
+                LatestRadioButton.Content = "최신";
+                AdsCloseTextBlock.Text = "광고 닫기";
+                AdsCloseCheckBox.Content = "색상 확인";
+                AdsClosePatternButton.Content = "광고 닫기\n클릭 패턴";
+                OptionTextBlock.Text = "옵션";
+                GoldChestCheckBox.Content = "골드 상자";
+                PausabilityCheckBox.Content = "멈춤 가능";
+                LogCheckBox.Content = "로그";
+                EmailAlarmTextBlock.Text = "이메일 알림";
+                EmailTestButton.Content = "테스트";
+                NoGoldTextBlock.Text = "골드 벌이\n  없을때";
+                SendEmailCheckBox.Content = "이메일";
+                StopWorkingCheckBox.Content = "핫산 중지";
+                ShutdownPCCheckBox.Content = "PC 종료";
+                PixelCustomizeButton.Content = "픽셀 커스텀";
+                SaveButton.Content = "설정 저장";
+                StartButton.Content = "시작";
+                MessageBar.Text = $"전투: {NumOfWar}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
+                ShareProblemCheckBox.Content = "우리 핫산 개선을 위해 문제 발생 스샷 공유 :)";
+            }
+            else
+            {
+                this.Title = "Art of Hassan";
+                WindowTitleTextBlock.Text = "Window Title";
+                MonitoringIntervalTextBlock.Text = "Monitoring\nInterval (ms)";
+                ScreenComparisonIntervalTextBlock.Text = "   Screen\nComparison\n Interval (#)";
+                DelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
+                PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
+                VersionTextBlock.Text = "Version";
+                LatestRadioButton.Content = "Latest";
+                AdsCloseTextBlock.Text = "Ads Close";
+                AdsCloseCheckBox.Content = "Check Color";
+                AdsClosePatternButton.Content = "  Ads Close\nClick Pattern";
+                OptionTextBlock.Text = "Option";
+                GoldChestCheckBox.Content = "Gold Chest";
+                PausabilityCheckBox.Content = "Pausable";
+                LogCheckBox.Content = "Logging";
+                EmailAlarmTextBlock.Text = "Email Alarm";
+                EmailTestButton.Content = "Test";
+                NoGoldTextBlock.Text = "No Gold";
+                SendEmailCheckBox.Content = "Send\nEmail";
+                StopWorkingCheckBox.Content = " Stop\nHassan";
+                ShutdownPCCheckBox.Content = "Shutdown\nComputer";
+                PixelCustomizeButton.Content = "Customize Pixel";
+                SaveButton.Content = "Save Setting";
+                StartButton.Content = "Start";
+                MessageBar.Text = $"War: {NumOfWar}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
+                ShareProblemCheckBox.Content = "Share screenshot of problem to improve our Hassan :)";
+            }
+        }
+
 
         public int AppLocationX        = 60;
         public int AppLocationY        = 500;
@@ -749,7 +827,14 @@ namespace ArtOfHassan
                     ProblemTimer.Enabled  = false;
                     ButtonTimer.Enabled   = false;
                     StartButton.IsEnabled = false;
-                    StartButton.Content   = "Start";
+                    if (KoreanCheckBox.IsChecked.Value)
+                    {
+                        StartButton.Content = "시작";
+                    }
+                    else
+                    {
+                        StartButton.Content = "Start";
+                    }
                 }));
             }
             else
@@ -1103,7 +1188,14 @@ namespace ArtOfHassan
 
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
-                            StartButton.Content = "Start";
+                            if (KoreanCheckBox.IsChecked.Value)
+                            {
+                                StartButton.Content = "시작";
+                            }
+                            else
+                            {
+                                StartButton.Content = "Start";
+                            }
                             PixelCustomizeButton.IsEnabled = true;
                             MonitoringIntervalTextBox.IsEnabled = true;
 

@@ -41,6 +41,42 @@ namespace ArtOfHassan
         public PixelWindow()
         {
             InitializeComponent();
+
+            if (((MainWindow)System.Windows.Application.Current.MainWindow).KoreanCheckBox.IsChecked.Value)
+            {
+                this.Title = "픽셀 위치 및 색상 사용자화";
+                ItemTextBlock.Text = "항목";
+                AppLocationTextBlock.Text = "어플 위치";
+                HomeButtonTextBlock.Text = "홈버튼";
+                ShopButtonTextBlock.Text = "상점버튼";
+                CenterButtonTextBlock.Text = "수집버튼";
+                GoldChestBoxTextBlock.Text = "시간보상";
+                BattleLevelButtonTextBlock.Text = "전투레벨버튼";
+                AutoSkillButtonTextBlock.Text = "자동스킬버튼";
+                VIPX2ButtonTextBlock.Text = "2배속버튼";
+                PauseButtonTextBlock.Text = "계속버튼";
+                VictoryDefeatTextBlock.Text = "승리패배 플래그";
+                X3GoldButtonBackgroundTextBlock.Text = "골드3배버튼 배경";
+                X3GoldButtonImageTextBlock.Text = "골드3배버튼 그림";
+                NextButtonTextBlock.Text = "다음버튼";
+                NoGoldTextBlock.Text = "골드벌이 없을 때";
+                GoldAdCloseButtonTextBlock.Text = "골드광고 닫기버튼";
+                TroopAdCloseButtonTextBlock.Text = "용병광고 닫기버튼";
+                MidasAdCloseButtonTextBlock.Text = "마이더스 닫기버튼";
+                LeftAdCloseButtonTextBlock.Text = "왼쪽 광고닫기버튼";
+                RightAdCloseButtonTextBlock.Text = "오른쪽 광고닫기버튼";
+                NotRespondingTextBlock.Text = "응답없음시 앱닫기";
+                XPositionTextBlock.Text = "X 좌표";
+                YPositionTextBlock.Text = "Y 좌표";
+                ColorCodeTextBlock.Text = "HTML 색상코드";
+                ColorPickTextBlock.Text = "색상 선택";
+
+                LoadButton.Content = "불러오기";
+                SaveButton.Content = "다른이름으로\n      저장";
+                DefaultButton.Content = "초기화";
+                ApplyButton.Content = "적용";
+                CancelButton.Content = "취소";
+            }
         }
 
         private IntPtr GetWinAscHandle()

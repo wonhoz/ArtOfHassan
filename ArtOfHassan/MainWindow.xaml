@@ -26,7 +26,7 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Window Title" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        <TextBlock Name="WindowTitleTextBlock" Text="Window Title" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
         <TextBox Grid.Column="1" Name="WindowTitleTextBox" Text="NoxPlayer" Margin="5"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -39,12 +39,14 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="Monitoring&#10;Interval (ms)" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Grid.Column="0" Name="MonitoringIntervalTextBlock" Text="Monitoring&#10;Interval (ms)"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
             <TextBox Grid.Row="1" Grid.Column="1" Name="MonitoringIntervalTextBox" Text="1000" Margin="5"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <TextBlock Grid.Column="2" Text="   Screen&#10;Comparison&#10; Interval (#)" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Grid.Column="2" Name="ScreenComparisonIntervalTextBlock" Text="   Screen&#10;Comparison&#10; Interval (#)"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
             <TextBox Grid.Row="1" Grid.Column="3" Name="ScreenComparisonIntervalTextBox" Text="3" Margin="5"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -58,24 +60,29 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text=" X3 Gold&#10;  Button&#10;Delay (ms)" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Grid.Column="0" Name="DelayTextBlock" Text=" X3 Gold&#10;  Button&#10;Delay (ms)"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
             <TextBox Grid.Row="1" Grid.Column="1" Name="DelayTextBox" Text="300" Margin="5"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <TextBlock Grid.Column="2" Text="   Pixel&#10;Difference" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Grid.Column="2" Name="PixelDifferenceTextBlock" Text="   Pixel&#10;Difference"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
             <TextBox Grid.Row="1" Grid.Column="3" Name="PixelDifferenceTextBox" Text="1" Margin="5"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <TextBlock Grid.Row="3" Text="Version" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        <TextBlock Grid.Row="3" Name="VersionTextBlock" Text="Version"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
         <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="0.1*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
@@ -86,9 +93,16 @@
             <RadioButton Grid.Column="1" Name="OldRadioButton" Content="3.0.8" Click="OldRadioButton_Click"
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <TextBlock Grid.Column="2" Text="|" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
+
+            <CheckBox Grid.Column="3" Name="KoreanCheckBox" Content="한국어" Click="KoreanCheckBox_Click"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <TextBlock Grid.Row="4" Text="Ads Close" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        <TextBlock Grid.Row="4" Name="AdsCloseTextBlock" Text="Ads Close"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
         <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -111,7 +125,8 @@
             <Button Grid.Column="1" Name="AdsClosePatternButton" Content="  Ads Close&#10;Click Pattern" Click="AdsClosePatternButton_Click" Margin="5"/>
         </Grid>
 
-        <TextBlock Grid.Row="5" Text="Option" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        <TextBlock Grid.Row="5" Name="OptionTextBlock" Text="Option"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
         <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -133,7 +148,8 @@
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <TextBlock Grid.Row="6" Text="Email Alarm" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        <TextBlock Grid.Row="6" Name="EmailAlarmTextBlock" Text="Email Alarm"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
         <Grid Grid.Row="6" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -152,7 +168,8 @@
             <Button Grid.Column="2" Name="EmailTestButton" Content="Test" Click="EmailTestButton_Click" Margin="2.5,5,5,5"/>
         </Grid>
 
-        <TextBlock Grid.Row="7" Text="No Gold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="7" Name="NoGoldTextBlock" Text="No Gold"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <Grid Grid.Row="7" Grid.Column="1">
             <Grid.ColumnDefinitions>
