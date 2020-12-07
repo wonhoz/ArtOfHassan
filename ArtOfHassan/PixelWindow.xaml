@@ -149,7 +149,7 @@
         <Button Grid.Row="14" Grid.Column="4" Name="NoGoldButton1" Click="NoGoldButton1_Click" Margin="5"/>
         <Button Grid.Row="15" Grid.Column="4" Name="GoldAdCloseButton1" Click="GoldAdCloseButton1_Click" Margin="5"/>
         <Button Grid.Row="16" Grid.Column="4" Name="TroopAdCloseButton1" Click="TroopAdCloseButton1_Click" Margin="5"/>
-        <Button Grid.Row="17" Grid.Column="4" Name="MidasAdCloseButton1" Click="TroopAdCloseButton1_Click" Margin="5"/>
+        <Button Grid.Row="17" Grid.Column="4" Name="MidasAdCloseButton1" Click="MidasAdCloseButton1_Click" Margin="5"/>
         <Button Grid.Row="18" Grid.Column="4" Name="LeftAdCloseButton1" Click="LeftAdCloseButton1_Click" Margin="5"/>
         <Button Grid.Row="19" Grid.Column="4" Name="RightAdCloseButton1" Click="RightAdCloseButton1_Click" Margin="5"/>
         <Button Grid.Row="20" Grid.Column="4" Name="NotResponding1" Click="NotResponding1_Click" Margin="5"/>
@@ -157,8 +157,8 @@
         <Button Grid.Row="1" Grid.Column="5" Name="AppLocationButton2" Click="AppLocationButton2_Click" Margin="5"/>
         <!--Button Grid.Row="2" Grid.Column="5" Name="HomeButton2" Click="" Margin="5"/-->
         <!--<Button Grid.Row="3" Grid.Column="5" Name="ShopButton2" Click="" Margin="5"/>-->
-        <!--<Button Grid.Row="4" Grid.Column="5" Name="CollectButton2" Click="" Margin="5"/>-->
-        <Button Grid.Row="5" Grid.Column="5" Name="GoldChestBox2" Click="GoldChestBox2_Click" Margin="5"/>
+        <!--<Button Grid.Row="5" Grid.Column="5" Name="CollectButton2" Click="" Margin="5"/>-->
+        <Button Grid.Row="4" Grid.Column="5" Name="GoldChestBox2" Click="GoldChestBox2_Click" Margin="5"/>
         <Button Grid.Row="6" Grid.Column="5" Name="BattleLevelButton2" Click="BattleLevelButton2_Click" Margin="5"/>
         <!--<Button Grid.Row="7" Grid.Column="5" Name="SkillButton2" Click="" Margin="5"/>-->
         <!--<Button Grid.Row="8" Grid.Column="5" Name="SpeedButton2" Click="" Margin="5"/>-->

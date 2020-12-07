@@ -456,7 +456,7 @@ namespace ArtOfHassan
             {
                 ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(MidasAdCloseButtonX.Text);
                 ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(MidasAdCloseButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(MidasAdCloseButtonColor.Text.Split(';')[1]);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(MidasAdCloseButtonColor.Text.Split(';')[2]);
             }));
 
             GetPixelPositionAndColor();

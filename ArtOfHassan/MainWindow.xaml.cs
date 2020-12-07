@@ -689,7 +689,7 @@ namespace ArtOfHassan
                     streamWriter.WriteLine("ScreenComparisonInterval," + ScreenComparisonIntervalTextBox.Text);
                     streamWriter.WriteLine("X3GoldButtonDelay," + DelayTextBox.Text);
                     streamWriter.WriteLine("PixelDifference," + PixelDifferenceTextBox.Text);
-                    streamWriter.WriteLine("korean," + KoreanCheckBox.IsChecked.Value);
+                    streamWriter.WriteLine("Korean," + KoreanCheckBox.IsChecked.Value);
                     streamWriter.WriteLine("AdsCloseClickPattern," + ClickPattern);
                     streamWriter.WriteLine("GoldChestCheck," + GoldChestCheckBox.IsChecked.Value);
                     streamWriter.WriteLine("Pausability," + PausabilityCheckBox.IsChecked.Value);
