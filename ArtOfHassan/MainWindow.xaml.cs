@@ -411,7 +411,7 @@ namespace ArtOfHassan
                 ClickLog("Load Done");
             }
 
-            ProblemTimer.Interval = 5 * 60 * 1000; // 5분
+            ProblemTimer.Interval = 3 * 60 * 1000; // 5분
             ProblemTimer.Elapsed += ProblemTimerFunction;
 
             ButtonTimer.Interval = 1000; // 1초
