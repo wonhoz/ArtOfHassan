@@ -600,56 +600,68 @@ namespace ArtOfHassan
 
                 IsProblemOccurred = true;
 
-                if (ProblemMailSent < 3)
+                bool isShareProblem = true; // 무늬만 사용
+                string emailaddress = "";
+                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
-                    try
+                    isShareProblem = ShareProblemCheckBox.IsChecked.Value;
+                    emailaddress   = EmailTextBox.Text;
+                }));
+
+                CurrentBitmap.Save("Problem.png", System.Drawing.Imaging.ImageFormat.Png);
+
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.EnableSsl = true;
+                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
+
+                try
+                {
+                    if (ProblemMailSent < 5)
                     {
-                        CurrentBitmap.Save("Problem.png", System.Drawing.Imaging.ImageFormat.Png);
-
-                        bool isShareEmail = true; // 무늬만 사용
-                        string emailaddress = "";
-                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                        {
-                            isShareEmail = ShareProblemCheckBox.IsChecked.Value;
-                            emailaddress = EmailTextBox.Text;
-                        }));
-
-                        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                        smtpClient.UseDefaultCredentials = false;
-                        smtpClient.EnableSsl = true;
-                        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                        smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
-
-                        if (!string.IsNullOrWhiteSpace(emailaddress))
+                        if (string.IsNullOrWhiteSpace(emailaddress))
                         {
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                          emailaddress,
-                                                          "Art of Hassan",
-                                                          "Problem occured.\nPlease check.");
-                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
-                            smtpClient.Send(mailMessage);
-
-                            mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                          "artofwarhassan@gmail.com",
-                                                          "Art of Hassan",
-                                                          $"From {emailaddress},\nProblem occured.\nPlease check.");
+                                                                      "artofwarhassan@gmail.com",
+                                                                      "Art of Hassan",
+                                                                      "No Email.\nProblem occured.\nIs share problem? = " + isShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
                             smtpClient.Send(mailMessage);
                         }
                         else
                         {
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                                      "artofwarhassan@gmail.com",
-                                                                      "Art of Hassan",
-                                                                      "Problem occured.\nPlease check.");
+                                                          emailaddress,
+                                                          "Art of Hassan",
+                                                          "Problem occured.\nRestarting Art of War...");
+                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
+                            smtpClient.Send(mailMessage);
+
+                            mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                          "artofwarhassan@gmail.com",
+                                                          "Art of Hassan",
+                                                          $"From {emailaddress},\nProblem occured.\nIs share problem? = " + isShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
                             smtpClient.Send(mailMessage);
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        //MessageBox.Show("Email Delivery Failed");
+                        if (!string.IsNullOrWhiteSpace(emailaddress))
+                        {
+                            MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                          emailaddress,
+                                                          "Art of Hassan",
+                                                          "Problem occured.\nPlease check manually!");
+                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
+                            smtpClient.Send(mailMessage);
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("Email Delivery Failed");
                 }
 
                 ProblemMailSent++;
