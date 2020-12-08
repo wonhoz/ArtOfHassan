@@ -581,8 +581,15 @@ namespace ArtOfHassan
 
                     if ((CurrentBitmap.Width != 0) && (CurrentBitmap.Height != 0))
                     {
-                        CurrentBitmap.Save("Test.png", System.Drawing.Imaging.ImageFormat.Png);
-                        mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Test.png"));
+                        DirectoryInfo directoryInfo = new DirectoryInfo("screenshot");
+                        if (!directoryInfo.Exists)
+                        {
+                            directoryInfo.Create();
+                        }
+
+                        string filename = @"screenshot\Screenshot_" + DateTime.Now.ToString("yyMMdd_HHmmssfff") + ".png";
+                        CurrentBitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
+                        mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                     }
 
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
@@ -615,7 +622,11 @@ namespace ArtOfHassan
                     emailaddress   = EmailTextBox.Text;
                 }));
 
-                CurrentBitmap.Save("Problem.png", System.Drawing.Imaging.ImageFormat.Png);
+                DirectoryInfo directoryInfo = new DirectoryInfo("screenshot");
+                if (!directoryInfo.Exists)
+                {
+                    directoryInfo.Create();
+                }
 
                 SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                 smtpClient.UseDefaultCredentials = false;
@@ -625,6 +636,9 @@ namespace ArtOfHassan
 
                 try
                 {
+                    string filename = @"screenshot\Screenshot_" + DateTime.Now.ToString("yyMMdd_HHmmssfff") + ".png";
+                    CurrentBitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
+
                     if (ProblemMailSent < 5)
                     {
                         if (string.IsNullOrWhiteSpace(emailaddress))
@@ -633,7 +647,7 @@ namespace ArtOfHassan
                                                                       "artofwarhassan@gmail.com",
                                                                       "Art of Hassan",
                                                                       "No Email.\nProblem occured.\nIs share problem? = " + isShareProblem);
-                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
+                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
                         }
                         else
@@ -642,14 +656,14 @@ namespace ArtOfHassan
                                                           emailaddress,
                                                           "Art of Hassan",
                                                           "Problem occured.\nRestarting Art of War...");
-                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
+                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
 
                             mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           "artofwarhassan@gmail.com",
                                                           "Art of Hassan",
                                                           $"From {emailaddress},\nProblem occured.\nIs share problem? = " + isShareProblem);
-                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
+                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
                         }
                     }
@@ -661,7 +675,7 @@ namespace ArtOfHassan
                                                           emailaddress,
                                                           "Art of Hassan",
                                                           "Problem occured.\nPlease check manually!");
-                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Problem.png"));
+                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
                         }
                     }
@@ -691,7 +705,7 @@ namespace ArtOfHassan
                 System.Threading.Thread.Sleep(50);
                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                System.Threading.Thread.Sleep((int)(monitoringInterval * 1.5));
+                System.Threading.Thread.Sleep((int)(monitoringInterval * 2));
 
                 ClickLog("Close All Apps...");
                 System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + 495, (int)NoxPointY + 100);
@@ -699,7 +713,7 @@ namespace ArtOfHassan
                 System.Threading.Thread.Sleep(50);
                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                System.Threading.Thread.Sleep(monitoringInterval);
+                System.Threading.Thread.Sleep(monitoringInterval * 2);
 
                 IsProblemOccurred = false;
             }
