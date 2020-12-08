@@ -577,7 +577,14 @@ namespace ArtOfHassan
                     MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                               EmailTextBox.Text,
                                                               "Art of Hassan",
-                                                              "Email Testing...\nPlease check.");
+                                                              "Email Testing...");
+
+                    if ((CurrentBitmap.Width != 0) && (CurrentBitmap.Height != 0))
+                    {
+                        CurrentBitmap.Save("Test.png", System.Drawing.Imaging.ImageFormat.Png);
+                        mailMessage.Attachments.Add(new System.Net.Mail.Attachment("Test.png"));
+                    }
+
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.EnableSsl = true;
