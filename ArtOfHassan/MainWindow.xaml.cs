@@ -579,7 +579,7 @@ namespace ArtOfHassan
                                                               "Art of Hassan",
                                                               "Email Testing...");
 
-                    if ((CurrentBitmap.Width != 0) && (CurrentBitmap.Height != 0))
+                    if ((CurrentBitmap != null) && (CurrentBitmap.Width != 0) && (CurrentBitmap.Height != 0))
                     {
                         DirectoryInfo directoryInfo = new DirectoryInfo("screenshot");
                         if (!directoryInfo.Exists)
