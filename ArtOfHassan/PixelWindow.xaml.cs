@@ -66,7 +66,7 @@ namespace ArtOfHassan
                 MidasAdCloseButtonTextBlock.Text = "마이더스 닫기버튼";
                 LeftAdCloseButtonTextBlock.Text = "왼쪽 광고닫기버튼";
                 RightAdCloseButtonTextBlock.Text = "오른쪽 광고닫기버튼";
-                NotRespondingTextBlock.Text = "응답없음시 앱닫기";
+                LatestUsedAppButtonTextBlock.Text = "응답없음시 앱닫기";
                 XPositionTextBlock.Text = "X 좌표";
                 YPositionTextBlock.Text = "Y 좌표";
                 ColorCodeTextBlock.Text = "HTML 색상코드";
@@ -472,23 +472,23 @@ namespace ArtOfHassan
             }));
         }
 
-        private void NotResponding1_Click(object sender, RoutedEventArgs e)
+        private void LatestUsedAppButton1_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(NotRespondingX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(NotRespondingY.Text);
-                //((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(NotRespondingColor.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(LatestUsedAppButtonX.Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(LatestUsedAppButtonY.Text);
+                //((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(LatestUsedAppButtonColor.Text);
             }));
 
             GetPixelPositionAndColor();
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                NotRespondingX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                NotRespondingY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                //NotRespondingColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                //NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+                LatestUsedAppButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                LatestUsedAppButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                //LatestUsedAppButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                //LatestUsedAppButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
             }));
         }
 
@@ -708,7 +708,7 @@ namespace ArtOfHassan
             GoldAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldAdCloseButtonColor.Text.Split(';')[0]));
             TroopAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(TroopAdCloseButtonColor.Text.Split(';')[1]));
             MidasAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(MidasAdCloseButtonColor.Text.Split(';')[2]));
-            //NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor.Text));
+            //LatestUsedAppButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LatestUsedAppButtonColor.Text));
             NoGoldButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor.Text));
 
             AppLocationButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[1]));
@@ -833,9 +833,9 @@ namespace ArtOfHassan
                             RightAdCloseButtonColor.Text = lines[14].Split(',')[3];
                         }
 
-                        NotRespondingX.Text = lines[15].Split(',')[0];
-                        NotRespondingY.Text = lines[15].Split(',')[1];
-                        //NotRespondingColor.Text = lines[15].Split(',')[2];
+                        LatestUsedAppButtonX.Text = lines[15].Split(',')[0];
+                        LatestUsedAppButtonY.Text = lines[15].Split(',')[1];
+                        //LatestUsedAppButtonColor.Text = lines[15].Split(',')[2];
                     }
                     else
                     {
@@ -879,9 +879,9 @@ namespace ArtOfHassan
                             RightAdCloseButtonColor.Text = lines[13].Split(',')[3];
                         }
 
-                        NotRespondingX.Text = lines[14].Split(',')[0];
-                        NotRespondingY.Text = lines[14].Split(',')[1];
-                        //NotRespondingColor.Text = lines[14].Split(',')[2];
+                        LatestUsedAppButtonX.Text = lines[14].Split(',')[0];
+                        LatestUsedAppButtonY.Text = lines[14].Split(',')[1];
+                        //LatestUsedAppButtonColor.Text = lines[14].Split(',')[2];
                     }
                 }
                 else // 신버전
@@ -991,10 +991,10 @@ namespace ArtOfHassan
                                 LeftAdCloseButtonColor.Text = listitem[4];
                                 RightAdCloseButtonColor.Text = listitem[4];
                                 break;
-                            case ("notresponding"):
-                                NotRespondingX.Text = listitem[1];
-                                NotRespondingY.Text = listitem[2];
-                                //NotRespondingColor.Text = listitem[3];
+                            case ("latestusedsppbutton"):
+                                LatestUsedAppButtonX.Text = listitem[1];
+                                LatestUsedAppButtonY.Text = listitem[2];
+                                //LatestUsedAppButtonColor.Text = listitem[3];
                                 break;
                         }
                     }
@@ -1027,7 +1027,7 @@ namespace ArtOfHassan
                     streamWriter.WriteLine("NoGold," + NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
                     streamWriter.WriteLine("GameAdCloseButton," + (int)((int.Parse(GoldAdCloseButtonX.Text) + int.Parse(TroopAdCloseButtonX.Text) + int.Parse(MidasAdCloseButtonX.Text)) / 3) + "," + GoldAdCloseButtonY.Text + "," + TroopAdCloseButtonY.Text + "," + MidasAdCloseButtonY.Text + "," + GoldAdCloseButtonColor.Text);
                     streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX.Text + "," + RightAdCloseButtonX.Text + "," + (int)((int.Parse(LeftAdCloseButtonY.Text) + int.Parse(RightAdCloseButtonY.Text)) / 2) + "," + LeftAdCloseButtonColor.Text);
-                    //streamWriter.WriteLine("NotResponding," + NotRespondingX.Text + "," + NotRespondingY.Text + "," + NotRespondingColor.Text);
+                    //streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX.Text + "," + LatestUsedAppButtonY.Text + "," + LatestUsedAppButtonColor.Text);
                 }
             }
         }
@@ -1099,9 +1099,9 @@ namespace ArtOfHassan
             LeftAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
             RightAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
 
-            NotRespondingX.Text = 580.ToString();
-            NotRespondingY.Text = 1000.ToString();
-            //NotRespondingColor.Text = "#009688".ToUpper();
+            LatestUsedAppButtonX.Text = 580.ToString();
+            LatestUsedAppButtonY.Text = 1000.ToString();
+            //LatestUsedAppButtonColor.Text = "#009688".ToUpper();
 
             NoGoldX.Text = 320.ToString(); ;
             NoGoldY.Text = 646.ToString(); ;
@@ -1195,10 +1195,10 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoogleAdCloseButtonColor = LeftAdCloseButtonColor.Text;
                     streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX.Text + "," + RightAdCloseButtonX.Text + "," + (int)((int.Parse(LeftAdCloseButtonY.Text) + int.Parse(RightAdCloseButtonY.Text)) / 2) + "," + LeftAdCloseButtonColor.Text);
 
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingX = int.Parse(NotRespondingX.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingY = int.Parse(NotRespondingY.Text);
-                    //((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondingColor = NotRespondingColor.Text;
-                    //streamWriter.WriteLine("NotResponding," + NotRespondingX.Text + "," + NotRespondingY.Text + "," + NotRespondingColor.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).LatestUsedAppButtonX = int.Parse(LatestUsedAppButtonX.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).LatestUsedAppButtonY = int.Parse(LatestUsedAppButtonY.Text);
+                    //((MainWindow)System.Windows.Application.Current.MainWindow).LatestUsedAppButtonColor = LatestUsedAppButtonColor.Text;
+                    //streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX.Text + "," + LatestUsedAppButtonY.Text + "," + LatestUsedAppButtonColor.Text);
                 }));
             }
 
@@ -1343,11 +1343,11 @@ namespace ArtOfHassan
             RightAdCloseButtonX.Select(caretIndex, 0);
         }
 
-        private void NotRespondingX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void LatestUsedAppButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = NotRespondingX.CaretIndex;
-            NotRespondingX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            NotRespondingX.Select(caretIndex, 0);
+            int caretIndex = LatestUsedAppButtonX.CaretIndex;
+            LatestUsedAppButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            LatestUsedAppButtonX.Select(caretIndex, 0);
         }
 
         private void AppLocationY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -1483,11 +1483,11 @@ namespace ArtOfHassan
             RightAdCloseButtonY.Select(caretIndex, 0);
         }
 
-        private void NotRespondingY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void LatestUsedAppButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = NotRespondingY.CaretIndex;
-            NotRespondingY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            NotRespondingY.Select(caretIndex, 0);
+            int caretIndex = LatestUsedAppButtonY.CaretIndex;
+            LatestUsedAppButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            LatestUsedAppButtonY.Select(caretIndex, 0);
         }
 
         private void AppLocationColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -1616,11 +1616,11 @@ namespace ArtOfHassan
             RightAdCloseButtonColor.Select(caretIndex, 0);
         }
 
-        private void NotRespondingColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void LatestUsedAppButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            //int caretIndex = NotRespondingColor.CaretIndex;
-            //NotRespondingColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            //NotRespondingColor.Select(caretIndex, 0);
+            //int caretIndex = LatestUsedAppButtonColor.CaretIndex;
+            //LatestUsedAppButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
+            //LatestUsedAppButtonColor.Select(caretIndex, 0);
         }
     }
 }

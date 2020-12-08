@@ -194,10 +194,10 @@ namespace ArtOfHassan
                             GoogleAdCloseButtonY = int.Parse(listitem[3]);
                             GoogleAdCloseButtonColor = listitem[4];
                             break;
-                        case ("notresponding"):
-                            NotRespondingX = int.Parse(listitem[1]);
-                            NotRespondingY = int.Parse(listitem[2]);
-                            NotRespondingColor = listitem[3];
+                        case ("latestusedsppbutton"):
+                            LatestUsedAppButtonX = int.Parse(listitem[1]);
+                            LatestUsedAppButtonY = int.Parse(listitem[2]);
+                            LatestUsedAppButtonColor = listitem[3];
                             break;
                     }
                 }
@@ -296,9 +296,9 @@ namespace ArtOfHassan
                             GoogleAdCloseButtonColor = lines[14].Split(',')[3];
                         }
 
-                        NotRespondingX = int.Parse(lines[15].Split(',')[0]);
-                        NotRespondingY = int.Parse(lines[15].Split(',')[1]);
-                        NotRespondingColor = lines[15].Split(',')[2];
+                        LatestUsedAppButtonX = int.Parse(lines[15].Split(',')[0]);
+                        LatestUsedAppButtonY = int.Parse(lines[15].Split(',')[1]);
+                        LatestUsedAppButtonColor = lines[15].Split(',')[2];
                     }
                     else
                     {
@@ -329,9 +329,9 @@ namespace ArtOfHassan
                             GoogleAdCloseButtonColor = lines[13].Split(',')[3];
                         }
 
-                        NotRespondingX = int.Parse(lines[14].Split(',')[0]);
-                        NotRespondingY = int.Parse(lines[14].Split(',')[1]);
-                        NotRespondingColor = lines[14].Split(',')[2];
+                        LatestUsedAppButtonX = int.Parse(lines[14].Split(',')[0]);
+                        LatestUsedAppButtonY = int.Parse(lines[14].Split(',')[1]);
+                        LatestUsedAppButtonColor = lines[14].Split(',')[2];
                     }
 
                     using (StreamWriter streamWriter = new StreamWriter("pixel.txt", false))
@@ -351,7 +351,7 @@ namespace ArtOfHassan
                         streamWriter.WriteLine("NoGold," + NoGoldX + "," + NoGoldY + "," + NoGoldColor);
                         streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY + "," + GameAdCloseButtonColor);
                         streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY + "," + GoogleAdCloseButtonColor);
-                        streamWriter.WriteLine("NotResponding," + NotRespondingX + "," + NotRespondingY + "," + NotRespondingColor);
+                        streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX + "," + LatestUsedAppButtonY + "," + LatestUsedAppButtonColor);
                     }
                 }
                 else // 신버전
@@ -686,7 +686,7 @@ namespace ArtOfHassan
 
                 // Latest Used App Button
                 ClickLog("Latest Used App Button");
-                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingX, (int)NoxPointY + NotRespondingY);
+                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LatestUsedAppButtonX, (int)NoxPointY + LatestUsedAppButtonY);
                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                 System.Threading.Thread.Sleep(50);
                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -857,9 +857,9 @@ namespace ArtOfHassan
         public int GoogleAdCloseButtonY  = 63;
         public string GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
 
-        public int NotRespondingX   = 580;
-        public int NotRespondingY   = 1000;
-        public string NotRespondingColor = "#009688".ToUpper();
+        public int LatestUsedAppButtonX   = 580;
+        public int LatestUsedAppButtonY   = 1000;
+        public string LatestUsedAppButtonColor = "#009688".ToUpper();
 
         public int NoGoldX = 320;
         public int NoGoldY = 646;
@@ -1889,10 +1889,10 @@ namespace ArtOfHassan
             pixelWindow.RightAdCloseButtonColor.Text = GoogleAdCloseButtonColor;
             pixelWindow.RightAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[1]));
 
-            pixelWindow.NotRespondingX.Text = NotRespondingX.ToString();
-            pixelWindow.NotRespondingY.Text = NotRespondingY.ToString();
-            //pixelWindow.NotRespondingColor.Text = NotRespondingColor.ToString();
-            //pixelWindow.NotResponding1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingColor));
+            pixelWindow.LatestUsedAppButtonX.Text = LatestUsedAppButtonX.ToString();
+            pixelWindow.LatestUsedAppButtonY.Text = LatestUsedAppButtonY.ToString();
+            //pixelWindow.LatestUsedAppButtonColor.Text = LatestUsedAppButtonColor.ToString();
+            //pixelWindow.LatestUsedAppButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LatestUsedAppButtonColor));
 
             pixelWindow.NoGoldX.Text = NoGoldX.ToString();
             pixelWindow.NoGoldY.Text = NoGoldY.ToString();
