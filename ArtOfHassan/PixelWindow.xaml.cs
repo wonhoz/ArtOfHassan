@@ -66,7 +66,7 @@ namespace ArtOfHassan
                 MidasAdCloseButtonTextBlock.Text = "마이더스 닫기버튼";
                 LeftAdCloseButtonTextBlock.Text = "왼쪽 광고닫기버튼";
                 RightAdCloseButtonTextBlock.Text = "오른쪽 광고닫기버튼";
-                LatestUsedAppButtonTextBlock.Text = "응답없음시 앱닫기";
+                LatestUsedAppButtonTextBlock.Text = "최근 사용앱 버튼";
                 XPositionTextBlock.Text = "X 좌표";
                 YPositionTextBlock.Text = "Y 좌표";
                 ColorCodeTextBlock.Text = "HTML 색상코드";
