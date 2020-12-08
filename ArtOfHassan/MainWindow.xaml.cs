@@ -620,7 +620,7 @@ namespace ArtOfHassan
                         smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                         smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
 
-                        if (string.IsNullOrWhiteSpace(emailaddress))
+                        if (!string.IsNullOrWhiteSpace(emailaddress))
                         {
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           emailaddress,
@@ -665,8 +665,8 @@ namespace ArtOfHassan
                     monitoringInterval = 1000;
                 }
 
-                // Not Responding Button
-                ClickLog("Not Responding Button");
+                // Latest Used App Button
+                ClickLog("Latest Used App Button");
                 System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingX, (int)NoxPointY + NotRespondingY);
                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                 System.Threading.Thread.Sleep(50);
@@ -679,6 +679,8 @@ namespace ArtOfHassan
                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                 System.Threading.Thread.Sleep(50);
                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                System.Threading.Thread.Sleep(monitoringInterval);
 
                 IsProblemOccurred = false;
             }
