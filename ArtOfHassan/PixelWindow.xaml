@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d" Icon="icon.ico"
-        Title="Pixel Position and Color Customization" Height="800" Width="750" WindowStartupLocation="CenterScreen">
+        Title="Pixel Position and Color Customization" Height="850" Width="750" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -47,8 +49,8 @@
         <TextBlock Grid.Row="1" Name="AppLocationTextBlock" Text="App Location" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="2" Name="HomeButtonTextBlock" Text="Home Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="3" Name="ShopButtonTextBlock" Text="Shop Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="5" Name="CollectButtonTextBlock" Text="Collect Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="4" Name="GoldChestBoxTextBlock" Text="Gold Chest Box" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="5" Name="CollectButtonTextBlock" Text="Collect Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="6" Name="BattleLevelButtonTextBlock" Text="Battle &amp; Level Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="7" Name="AutoSkillButtonTextBlock" Text="Auto Skill Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="8" Name="VIPX2ButtonTextBlock" Text="VIP X2 Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -64,6 +66,8 @@
         <TextBlock Grid.Row="18" Name="LeftAdCloseButtonTextBlock" Text="Left Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="19" Name="RightAdCloseButtonTextBlock" Text="Right Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="20" Name="LatestUsedAppButtonTextBlock" Text="Latest Used App Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="21" Name="CloseAllAppButtonTextBlock" Text="Close All App Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="22" Name="NotRespondingButtonTextBlock" Text="Not Responding Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <TextBlock Grid.Column="1" Name="XPositionTextBlock" Text="X Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="2" Name="YPositionTextBlock" Text="Y Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -73,8 +77,8 @@
         <TextBox Grid.Row="1" Grid.Column="1" Name="AppLocationX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="AppLocationX_TextChanged"/>
         <TextBox Grid.Row="2" Grid.Column="1" Name="HomeButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="HomeButtonX_TextChanged"/>
         <TextBox Grid.Row="3" Grid.Column="1" Name="ShopButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="ShopButtonX_TextChanged"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Name="CollectButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="CollectButtonX_TextChanged"/>
         <TextBox Grid.Row="4" Grid.Column="1" Name="GoldChestBoxX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="GoldChestBoxX_TextChanged"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Name="CollectButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="CollectButtonX_TextChanged"/>
         <TextBox Grid.Row="6" Grid.Column="1" Name="BattleLevelButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="BattleLevelButtonX_TextChanged"/>
         <TextBox Grid.Row="7" Grid.Column="1" Name="SkillButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="SkillButtonX_TextChanged"/>
         <TextBox Grid.Row="8" Grid.Column="1" Name="SpeedButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="SpeedButtonX_TextChanged"/>
@@ -90,12 +94,14 @@
         <TextBox Grid.Row="18" Grid.Column="1" Name="LeftAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LeftAdCloseButtonX_TextChanged"/>
         <TextBox Grid.Row="19" Grid.Column="1" Name="RightAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="RightAdCloseButtonX_TextChanged"/>
         <TextBox Grid.Row="20" Grid.Column="1" Name="LatestUsedAppButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LatestUsedAppButtonX_TextChanged"/>
+        <TextBox Grid.Row="21" Grid.Column="1" Name="CloseAllAppButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="CloseAllAppButtonX_TextChanged"/>
+        <TextBox Grid.Row="22" Grid.Column="1" Name="NotRespondingButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondingButtonX_TextChanged"/>
 
         <TextBox Grid.Row="1" Grid.Column="2" Name="AppLocationY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="AppLocationY_TextChanged"/>
         <TextBox Grid.Row="2" Grid.Column="2" Name="HomeButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="HomeButtonY_TextChanged"/>
         <TextBox Grid.Row="3" Grid.Column="2" Name="ShopButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="ShopButtonY_TextChanged"/>
-        <TextBox Grid.Row="5" Grid.Column="2" Name="CollectButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="CollectButtonY_TextChanged"/>
         <TextBox Grid.Row="4" Grid.Column="2" Name="GoldChestBoxY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="GoldChestBoxY_TextChanged"/>
+        <TextBox Grid.Row="5" Grid.Column="2" Name="CollectButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="CollectButtonY_TextChanged"/>
         <TextBox Grid.Row="6" Grid.Column="2" Name="BattleLevelButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="BattleLevelButtonY_TextChanged"/>
         <TextBox Grid.Row="7" Grid.Column="2" Name="SkillButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="SkillButtonY_TextChanged"/>
         <TextBox Grid.Row="8" Grid.Column="2" Name="SpeedButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="SpeedButtonY_TextChanged"/>
@@ -111,12 +117,14 @@
         <TextBox Grid.Row="18" Grid.Column="2" Name="LeftAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LeftAdCloseButtonY_TextChanged"/>
         <TextBox Grid.Row="19" Grid.Column="2" Name="RightAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="RightAdCloseButtonY_TextChanged"/>
         <TextBox Grid.Row="20" Grid.Column="2" Name="LatestUsedAppButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LatestUsedAppButtonY_TextChanged"/>
+        <TextBox Grid.Row="21" Grid.Column="2" Name="CloseAllAppButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="CloseAllAppButtonY_TextChanged"/>
+        <TextBox Grid.Row="22" Grid.Column="2" Name="NotRespondingButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondingButtonY_TextChanged"/>
 
         <TextBox Grid.Row="1" Grid.Column="3" Name="AppLocationColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="AppLocationColor_TextChanged"/>
         <!--TextBox Grid.Row="2" Grid.Column="3" Name="HomeButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/-->
         <TextBox Grid.Row="3" Grid.Column="3" Name="ShopButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="ShopButtonColor_TextChanged"/>
-        <TextBox Grid.Row="5" Grid.Column="3" Name="CollectButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="CollectButtonColor_TextChanged"/>
         <TextBox Grid.Row="4" Grid.Column="3" Name="GoldChestBoxColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="GoldChestBoxColor_TextChanged"/>
+        <TextBox Grid.Row="5" Grid.Column="3" Name="CollectButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="CollectButtonColor_TextChanged"/>
         <TextBox Grid.Row="6" Grid.Column="3" Name="BattleLevelButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="BattleLevelButtonColor_TextChanged"/>
         <TextBox Grid.Row="7" Grid.Column="3" Name="SkillButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="SkillButtonColor_TextChanged"/>
         <TextBox Grid.Row="8" Grid.Column="3" Name="SpeedButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="SpeedButtonColor_TextChanged"/>
@@ -132,12 +140,13 @@
         <TextBox Grid.Row="18" Grid.Column="3" Name="LeftAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LeftAdCloseButtonColor_TextChanged"/>
         <TextBox Grid.Row="19" Grid.Column="3" Name="RightAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="RightAdCloseButtonColor_TextChanged"/>
         <!--<TextBox Grid.Row="20" Grid.Column="3" Name="LatestUsedAppButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LatestUsedAppButtonColor_TextChanged"/>-->
+        <TextBox Grid.Row="22" Grid.Column="3" Name="NotRespondingButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondingButtonColor_TextChanged"/>
 
         <Button Grid.Row="1" Grid.Column="4" Name="AppLocationButton1" Click="AppLocationButton1_Click" Margin="5"/>
         <Button Grid.Row="2" Grid.Column="4" Name="HomeButton1" Click="HomeButton1_Click" Margin="5"/>
         <Button Grid.Row="3" Grid.Column="4" Name="ShopButton1" Click="ShopButton1_Click" Margin="5"/>
-        <Button Grid.Row="5" Grid.Column="4" Name="CollectButton1" Click="CollectButton1_Click" Margin="5"/>
         <Button Grid.Row="4" Grid.Column="4" Name="GoldChestBox1" Click="GoldChestBox1_Click" Margin="5"/>
+        <Button Grid.Row="5" Grid.Column="4" Name="CollectButton1" Click="CollectButton1_Click" Margin="5"/>
         <Button Grid.Row="6" Grid.Column="4" Name="BattleLevelButton1" Click="BattleLevelButton1_Click" Margin="5"/>
         <Button Grid.Row="7" Grid.Column="4" Name="SkillButton1" Click="SkillButton1_Click" Margin="5"/>
         <Button Grid.Row="8" Grid.Column="4" Name="SpeedButton1" Click="SpeedButton1_Click" Margin="5"/>
@@ -153,12 +162,14 @@
         <Button Grid.Row="18" Grid.Column="4" Name="LeftAdCloseButton1" Click="LeftAdCloseButton1_Click" Margin="5"/>
         <Button Grid.Row="19" Grid.Column="4" Name="RightAdCloseButton1" Click="RightAdCloseButton1_Click" Margin="5"/>
         <Button Grid.Row="20" Grid.Column="4" Name="LatestUsedAppButton1" Click="LatestUsedAppButton1_Click" Margin="5"/>
+        <Button Grid.Row="21" Grid.Column="4" Name="CloseAllAppButton1" Click="LatestUsedAppButton1_Click" Margin="5"/>
+        <Button Grid.Row="22" Grid.Column="4" Name="NotRespondingButton1" Click="LatestUsedAppButton1_Click" Margin="5"/>
 
         <Button Grid.Row="1" Grid.Column="5" Name="AppLocationButton2" Click="AppLocationButton2_Click" Margin="5"/>
         <!--Button Grid.Row="2" Grid.Column="5" Name="HomeButton2" Click="" Margin="5"/-->
         <!--<Button Grid.Row="3" Grid.Column="5" Name="ShopButton2" Click="" Margin="5"/>-->
-        <!--<Button Grid.Row="5" Grid.Column="5" Name="CollectButton2" Click="" Margin="5"/>-->
         <Button Grid.Row="4" Grid.Column="5" Name="GoldChestBox2" Click="GoldChestBox2_Click" Margin="5"/>
+        <!--<Button Grid.Row="5" Grid.Column="5" Name="CollectButton2" Click="" Margin="5"/>-->
         <Button Grid.Row="6" Grid.Column="5" Name="BattleLevelButton2" Click="BattleLevelButton2_Click" Margin="5"/>
         <!--<Button Grid.Row="7" Grid.Column="5" Name="SkillButton2" Click="" Margin="5"/>-->
         <!--<Button Grid.Row="8" Grid.Column="5" Name="SpeedButton2" Click="" Margin="5"/>-->
@@ -176,7 +187,7 @@
         <Button Grid.Row="6" Grid.Column="6" Name="BattleLevelButton3" Click="BattleLevelButton3_Click" Margin="5"/>
         <Button Grid.Row="6" Grid.Column="7" Name="BattleLevelButton4" Click="BattleLevelButton4_Click" Margin="5"/>
 
-        <Grid Grid.Row="21" Grid.ColumnSpan="8">
+        <Grid Grid.Row="23" Grid.ColumnSpan="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
