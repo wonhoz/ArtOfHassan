@@ -71,6 +71,7 @@ namespace ArtOfHassan
 
         bool IsNoGoldMailSent = false;
         bool IsProblemOccurred = false;
+        bool IsStopHassan = false;
 
         int NumOfWar     = 0;
         int NumOfVictory = 0;
@@ -411,7 +412,7 @@ namespace ArtOfHassan
                 ClickLog("Load Done");
             }
 
-            ProblemTimer.Interval = 2 * 60 * 1000; // 2분
+            ProblemTimer.Interval = 3 * 60 * 1000; // 3분
             ProblemTimer.Elapsed += ProblemTimerFunction;
 
             ButtonTimer.Interval = 1000; // 1초
@@ -535,10 +536,12 @@ namespace ArtOfHassan
                 PixelCustomizeButton.IsEnabled = false;
                 MonitoringIntervalTextBox.IsEnabled = false;
 
+                ProblemTimer.Interval = int.Parse(ScreenComparisonIntervalTextBox.Text) * 60 * 1000;
                 ButtonTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
                 ButtonTimer.Enabled = true;
                 ProblemTimer.Enabled = true;
 
+                IsStopHassan = false;
                 IsNoGoldMailSent = false;
                 ProblemMailSent = 0;
             }
@@ -705,8 +708,9 @@ namespace ArtOfHassan
                 System.Threading.Thread.Sleep(50);
                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                System.Threading.Thread.Sleep((int)(monitoringInterval * 2));
+                System.Threading.Thread.Sleep(monitoringInterval * 2);
 
+                // Close All Apps Button
                 ClickLog("Close All Apps...");
                 System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + 495, (int)NoxPointY + 100);
                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -1045,10 +1049,11 @@ namespace ArtOfHassan
                     color2 = ColorTranslator.FromHtml(BattleLevelButtonColor.Split(';')[1]);
                     System.Drawing.Color color3 = ColorTranslator.FromHtml(BattleLevelButtonColor.Split(';')[2]);
                     System.Drawing.Color color4 = ColorTranslator.FromHtml(BattleLevelButtonColor.Split(';')[3]);
-                    if ((((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
-                         ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) || // 황금색
-                        (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
-                         ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))   // + 메뉴 음영
+                    if ((!IsStopHassan &&
+                        ((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                        ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) || // 황금색
+                       (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                        ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))  // + 메뉴 음영
                     {
                         ClickLog("Battle Level Button");
                         AdsStopwatch.Reset();
@@ -1223,12 +1228,12 @@ namespace ArtOfHassan
                         ClickLog("No Gold");
 
                         bool isSendEmail = false;
-                        bool isStopHassan = false;
+                        IsStopHassan = false;
                         bool isShutdownPC = false;
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
                             isSendEmail = SendEmailCheckBox.IsChecked.Value;
-                            isStopHassan = StopWorkingCheckBox.IsChecked.Value;
+                            IsStopHassan = StopWorkingCheckBox.IsChecked.Value;
                             isShutdownPC = ShutdownPCCheckBox.IsChecked.Value;
                         }));
 
@@ -1264,26 +1269,26 @@ namespace ArtOfHassan
                             }
                         }
 
-                        if (isStopHassan)
+                        if (IsStopHassan)
                         {
                             ClickLog("Stop Hassan...");
 
-                            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                            {
-                                if (KoreanCheckBox.IsChecked.Value)
-                                {
-                                    StartButton.Content = "시작";
-                                }
-                                else
-                                {
-                                    StartButton.Content = "Start";
-                                }
-                                PixelCustomizeButton.IsEnabled = true;
-                                MonitoringIntervalTextBox.IsEnabled = true;
+                            //System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                            //{
+                            //    if (KoreanCheckBox.IsChecked.Value)
+                            //    {
+                            //        StartButton.Content = "시작";
+                            //    }
+                            //    else
+                            //    {
+                            //        StartButton.Content = "Start";
+                            //    }
+                            //    PixelCustomizeButton.IsEnabled = true;
+                            //    MonitoringIntervalTextBox.IsEnabled = true;
 
-                                ButtonTimer.Enabled = false;
-                                ProblemTimer.Enabled = false;
-                            }));
+                            //    ButtonTimer.Enabled = false;
+                            //    ProblemTimer.Enabled = false;
+                            //}));
                         }
 
                         if (isShutdownPC)
