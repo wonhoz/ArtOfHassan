@@ -758,7 +758,7 @@ namespace ArtOfHassan
                 System.Threading.Thread.Sleep(50);
                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                System.Threading.Thread.Sleep(monitoringInterval * 2);
+                System.Threading.Thread.Sleep(monitoringInterval);
 
                 // Close Not Responding Button
                 System.Drawing.Color color = CurrentBitmap.GetPixel(NotRespondingButtonX, NotRespondingButtonY);
@@ -773,7 +773,23 @@ namespace ArtOfHassan
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                    System.Threading.Thread.Sleep(monitoringInterval * 2);
+                    System.Threading.Thread.Sleep(monitoringInterval);
+                }
+
+                // Close System Error Button
+                color = CurrentBitmap.GetPixel(NotRespondingButtonX, NotRespondingButtonY + 15);
+                TimerLog("Close System Error Button Color: " + color.R + "," + color.G + "," + color.B);
+                color1 = ColorTranslator.FromHtml(NotRespondingButtonColor);
+                if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                    ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
+                {
+                    ClickLog("Close System Error Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingButtonX, (int)NoxPointY + NotRespondingButtonY + 15);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                    System.Threading.Thread.Sleep(monitoringInterval);
                 }
 
                 IsProblemOccurred = false;
