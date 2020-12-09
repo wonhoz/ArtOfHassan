@@ -162,8 +162,8 @@
         <Button Grid.Row="18" Grid.Column="4" Name="LeftAdCloseButton1" Click="LeftAdCloseButton1_Click" Margin="5"/>
         <Button Grid.Row="19" Grid.Column="4" Name="RightAdCloseButton1" Click="RightAdCloseButton1_Click" Margin="5"/>
         <Button Grid.Row="20" Grid.Column="4" Name="LatestUsedAppButton1" Click="LatestUsedAppButton1_Click" Margin="5"/>
-        <Button Grid.Row="21" Grid.Column="4" Name="CloseAllAppButton1" Click="LatestUsedAppButton1_Click" Margin="5"/>
-        <Button Grid.Row="22" Grid.Column="4" Name="NotRespondingButton1" Click="LatestUsedAppButton1_Click" Margin="5"/>
+        <Button Grid.Row="21" Grid.Column="4" Name="CloseAllAppButton1" Click="CloseAllAppButton1_Click" Margin="5"/>
+        <Button Grid.Row="22" Grid.Column="4" Name="NotRespondingButton1" Click="NotRespondingButton1_Click" Margin="5"/>
 
         <Button Grid.Row="1" Grid.Column="5" Name="AppLocationButton2" Click="AppLocationButton2_Click" Margin="5"/>
         <!--Button Grid.Row="2" Grid.Column="5" Name="HomeButton2" Click="" Margin="5"/-->
