@@ -936,11 +936,11 @@ namespace ArtOfHassan
         public int LatestUsedAppButtonY   = 1000;
         //public string LatestUsedAppButtonColor = "#009688".ToUpper();
 
-        public int CloseAllAppButtonX = 580;
-        public int CloseAllAppButtonY = 1000;
+        public int CloseAllAppButtonX = 495;
+        public int CloseAllAppButtonY = 100;
 
-        public int NotRespondingButtonX = 580;
-        public int NotRespondingButtonY = 1000;
+        public int NotRespondingButtonX = 79;
+        public int NotRespondingButtonY = 510;
         public string NotRespondingButtonColor = "#009688".ToUpper();
 
         public int NoGoldX = 320;
