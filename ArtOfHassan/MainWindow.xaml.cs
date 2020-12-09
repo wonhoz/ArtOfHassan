@@ -621,12 +621,17 @@ namespace ArtOfHassan
                 bool isShareProblem = true; // 무늬만 사용
                 string minute = "3";
                 string emailaddress = "";
+                int pixelDifference = 0;
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
                     minute = ScreenComparisonIntervalTextBox.Text;
                     isKorean = KoreanCheckBox.IsChecked.Value;
                     isShareProblem = ShareProblemCheckBox.IsChecked.Value;
                     emailaddress   = EmailTextBox.Text;
+                    if (!int.TryParse(PixelDifferenceTextBox.Text, out pixelDifference))
+                    {
+                        pixelDifference = 0;
+                    }
                 }));
 
                 DirectoryInfo directoryInfo = new DirectoryInfo("screenshot");
@@ -743,14 +748,21 @@ namespace ArtOfHassan
 
                 System.Threading.Thread.Sleep(monitoringInterval * 2);
 
-                // Not Responding Button
-                ClickLog("Not Responding");
-                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + 79, (int)NoxPointY + 510);
-                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                System.Threading.Thread.Sleep(50);
-                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                // Close App Button
+                System.Drawing.Color color = CurrentBitmap.GetPixel(79, 510);
+                TimerLog("Not Responding Button Color: " + color.R + "," + color.G + "," + color.B);
+                System.Drawing.Color color1 = ColorTranslator.FromHtml("#009688");
+                if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                    ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
+                {
+                    ClickLog("Close App Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + 79, (int)NoxPointY + 510);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                System.Threading.Thread.Sleep(monitoringInterval * 2);
+                    System.Threading.Thread.Sleep(monitoringInterval * 2);
+                }
 
                 IsProblemOccurred = false;
             }
