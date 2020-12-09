@@ -743,6 +743,15 @@ namespace ArtOfHassan
 
                 System.Threading.Thread.Sleep(monitoringInterval * 2);
 
+                // Not Responding Button
+                ClickLog("Not Responding");
+                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + 79, (int)NoxPointY + 510);
+                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                System.Threading.Thread.Sleep(50);
+                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                System.Threading.Thread.Sleep(monitoringInterval * 2);
+
                 IsProblemOccurred = false;
             }
             else
