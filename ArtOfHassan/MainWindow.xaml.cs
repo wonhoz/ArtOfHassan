@@ -617,10 +617,14 @@ namespace ArtOfHassan
 
                 IsProblemOccurred = true;
 
+                bool isKorean = false;
                 bool isShareProblem = true; // 무늬만 사용
+                string minute = "3";
                 string emailaddress = "";
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
+                    minute = ScreenComparisonIntervalTextBox.Text;
+                    isKorean = KoreanCheckBox.IsChecked.Value;
                     isShareProblem = ShareProblemCheckBox.IsChecked.Value;
                     emailaddress   = EmailTextBox.Text;
                 }));
@@ -649,23 +653,33 @@ namespace ArtOfHassan
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                                       "artofwarhassan@gmail.com",
                                                                       "Art of Hassan",
-                                                                      "No Email.\nProblem occured.\nIs share problem? = " + isShareProblem);
+                                                                      "No Email.\nProblem reported.\nShare = " + isShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
                         }
                         else
                         {
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                          emailaddress,
+                                                          "artofwarhassan@gmail.com",
                                                           "Art of Hassan",
-                                                          "Problem occured.\nRestarting Art of War...");
+                                                          $"From {emailaddress},\nProblem reported.\nShare = " + isShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
 
+                            string message;
+                            if (isKorean)
+                            {
+                                message = $"{minute}분동안 전투횟수가 증가하지않아 Art of War 를 재시작 합니다...";
+                            }
+                            else
+                            {
+                                message = $"Number of war did not increase during {minute} minute(s).\nRestarting Art of War...";
+                            }
+
                             mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                          "artofwarhassan@gmail.com",
+                                                          emailaddress,
                                                           "Art of Hassan",
-                                                          $"From {emailaddress},\nProblem occured.\nIs share problem? = " + isShareProblem);
+                                                          message);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
                         }
@@ -674,10 +688,20 @@ namespace ArtOfHassan
                     {
                         if (!string.IsNullOrWhiteSpace(emailaddress))
                         {
+                            string message;
+                            if (isKorean)
+                            {
+                                message = "Art of War 재시작이 되지 않고 있으니 확인바랍니다.\n최근 사용한 앱에 Art of War 만 있어야 합니다.";
+                            }
+                            else
+                            {
+                                message = "Restarting Art of War seems not working...\nThere should be only Art of War in latest used app!";
+                            }
+
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           emailaddress,
                                                           "Art of Hassan",
-                                                          "Problem occured.\nPlease check manually!");
+                                                          message);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
                         }
