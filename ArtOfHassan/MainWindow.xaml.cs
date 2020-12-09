@@ -623,7 +623,7 @@ namespace ArtOfHassan
 
         private void ProblemTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if ((NumOfVictory + NumOfDefeat) == NumOfWar)
+            if (((NumOfVictory + NumOfDefeat) == NumOfWar) && !IsStopHassan)
             {
                 ClickLog("Problem Occured...");
 
