@@ -591,7 +591,7 @@ namespace ArtOfHassan
                 {
                     MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                               EmailTextBox.Text,
-                                                              "Art of Hassan",
+                                                              $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
                                                               "Email Testing...");
 
                     if ((CurrentBitmap != null) && (CurrentBitmap.Width != 0) && (CurrentBitmap.Height != 0))
@@ -669,7 +669,7 @@ namespace ArtOfHassan
                         {
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                                       "artofwarhassan@gmail.com",
-                                                                      "Art of Hassan",
+                                                                      $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
                                                                       "No Email.\nProblem reported.\nShare = " + isShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
@@ -678,7 +678,7 @@ namespace ArtOfHassan
                         {
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           "artofwarhassan@gmail.com",
-                                                          "Art of Hassan",
+                                                          $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
                                                           $"From {emailaddress},\nProblem reported.\nShare = " + isShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
@@ -695,7 +695,7 @@ namespace ArtOfHassan
 
                             mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           emailaddress,
-                                                          "Art of Hassan",
+                                                          $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
                                                           message);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
@@ -717,7 +717,7 @@ namespace ArtOfHassan
 
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           emailaddress,
-                                                          "Art of Hassan",
+                                                          $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
                                                           message);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
@@ -1336,7 +1336,7 @@ namespace ArtOfHassan
                                 {
                                     MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                                               emailaddress,
-                                                                              "Art of Hassan",
+                                                                              $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
                                                                               "No Gold.\nPlease check.");
                                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                                     smtpClient.UseDefaultCredentials = false;
