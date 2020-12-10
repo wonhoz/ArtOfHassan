@@ -663,7 +663,7 @@ namespace ArtOfHassan
                     string filename = @"screenshot\Screenshot_" + DateTime.Now.ToString("yyMMdd_HHmmssfff") + ".png";
                     CurrentBitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
 
-                    if (ProblemMailSent < 5)
+                    if (ProblemMailSent < 3)
                     {
                         if (string.IsNullOrWhiteSpace(emailaddress))
                         {
@@ -701,7 +701,7 @@ namespace ArtOfHassan
                             smtpClient.Send(mailMessage);
                         }
                     }
-                    else
+                    else if (ProblemMailSent < 5)
                     {
                         if (!string.IsNullOrWhiteSpace(emailaddress))
                         {
