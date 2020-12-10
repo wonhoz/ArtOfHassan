@@ -63,7 +63,7 @@
             <TextBlock Grid.Column="0" Name="DelayTextBlock" Text=" X3 Gold&#10;  Button&#10;Delay (ms)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-            <TextBox Grid.Row="1" Grid.Column="1" Name="DelayTextBox" Text="300" Margin="5" TextChanged="DelayTextBox_TextChanged"
+            <TextBox Grid.Row="1" Grid.Column="1" Name="DelayTextBox" Text="100" Margin="5" TextChanged="DelayTextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 

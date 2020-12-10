@@ -57,7 +57,6 @@ namespace ArtOfHassan
         private static System.Timers.Timer ProblemTimer = new System.Timers.Timer();
 
         Stopwatch AdsStopwatch    = new Stopwatch();
-        Stopwatch DelayStopwatch  = new Stopwatch();
         Stopwatch BattleStopwatch = new Stopwatch();
 
         double NoxPointX = 0;
@@ -80,6 +79,7 @@ namespace ArtOfHassan
 
         int ProblemMailSent = 0;
         int TimerCountForScreenCompare = 1;
+        int X3GoldButtonClickDelay = 0;
 
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
@@ -1157,8 +1157,6 @@ namespace ArtOfHassan
                         ClickLog("Battle Level Button");
                         AdsStopwatch.Reset();
                         AdsStopwatch.Stop();
-                        DelayStopwatch.Reset();
-                        DelayStopwatch.Stop();
                         BattleStopwatch.Reset();
                         BattleStopwatch.Stop();
 
@@ -1243,6 +1241,7 @@ namespace ArtOfHassan
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
                         System.Threading.Thread.Sleep((int)(monitoringInterval * 3 / 4));
+                        return;
                     }
 
 
@@ -1258,6 +1257,9 @@ namespace ArtOfHassan
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                         System.Threading.Thread.Sleep(50);
                         mouse_event(LBUTTONUP, 0, 0, 0, 0);
+
+                        System.Threading.Thread.Sleep((int)(monitoringInterval * 3 / 4));
+                        return;
                     }
 
 
@@ -1285,35 +1287,48 @@ namespace ArtOfHassan
 
 
                     // Check Victory or Defeat
-                    int DelayCriteria = 0; // X3 Gold Button Delay
-                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    if (!VictoryFlag && !DefeatFlag)
                     {
-                        if (!int.TryParse(DelayTextBox.Text, out DelayCriteria))
+                        color = CurrentBitmap.GetPixel(VictoryDefeatX, VictoryDefeatY);
+                        TimerLog("Victory or Defeat Color: " + color.R + "," + color.G + "," + color.B);
+                        color1 = ColorTranslator.FromHtml(VictoryDefeatColor.Split(';')[0]);
+                        color2 = ColorTranslator.FromHtml(VictoryDefeatColor.Split(';')[1]);
+                        if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                            ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                         {
-                            DelayCriteria = 0;
-                        }
-                    }));
-                    color = CurrentBitmap.GetPixel(VictoryDefeatX, VictoryDefeatY);
-                    TimerLog("Victory or Defeat Color: " + color.R + "," + color.G + "," + color.B);
-                    color1 = ColorTranslator.FromHtml(VictoryDefeatColor.Split(';')[0]);
-                    color2 = ColorTranslator.FromHtml(VictoryDefeatColor.Split(';')[1]);
-                    if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
-                        ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
-                    {
-                        ClickLog("Victory Checked");
-                        VictoryFlag = true;
+                            ClickLog("Victory Checked");
+                            VictoryFlag = true;
+                            System.Threading.Thread.Sleep((int)(monitoringInterval * 4 / 5));
 
-                        if (DelayCriteria < monitoringInterval)
-                        {
-                            DelayCriteria = 0;
-                            System.Threading.Thread.Sleep(DelayCriteria);
+                            // X3 Gold Button Click Delay
+                            X3GoldButtonClickDelay = 0;
+                            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                            {
+                                if (!int.TryParse(DelayTextBox.Text, out X3GoldButtonClickDelay))
+                                {
+                                    X3GoldButtonClickDelay = 0;
+                                }
+                            }));
+                            return;
                         }
-                    }
-                    else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
-                             ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference)))
-                    {
-                        ClickLog("Defeat Checked");
-                        DefeatFlag = true;
+                        else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                                 ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference)))
+                        {
+                            ClickLog("Defeat Checked");
+                            DefeatFlag = true;
+                            System.Threading.Thread.Sleep((int)(monitoringInterval * 4 / 5));
+
+                            // X3 Gold Button Click Delay
+                            X3GoldButtonClickDelay = 0;
+                            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                            {
+                                if (!int.TryParse(DelayTextBox.Text, out X3GoldButtonClickDelay))
+                                {
+                                    X3GoldButtonClickDelay = 0;
+                                }
+                            }));
+                            return;
+                        }
                     }
 
 
@@ -1402,75 +1417,66 @@ namespace ArtOfHassan
                     }
 
 
-                    // Gold Button
-                    color = CurrentBitmap.GetPixel(GoldButtonBackgroundX, GoldButtonBackgroundY);
-                    TimerLog("Gold Button Background Color: " + color.R + "," + color.G + "," + color.B);
-                    color1 = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Split(';')[0]);
-                    color2 = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Split(';')[1]);
-                    if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
-                        ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) // Green
+                    // X3 Gold Button
+                    if (VictoryFlag || DefeatFlag)
                     {
-                        color = CurrentBitmap.GetPixel(GoldButtonImageX, GoldButtonImageY);
-                        TimerLog("Gold Button Image Color: " + color.R + "," + color.G + "," + color.B);
-                        color1 = ColorTranslator.FromHtml(GoldButtonImageColor);
-                        if (!IsLatest || (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
-                                          ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))) // Yellow
+                        color = CurrentBitmap.GetPixel(GoldButtonBackgroundX, GoldButtonBackgroundY);
+                        TimerLog("Gold Button Background Color: " + color.R + "," + color.G + "," + color.B);
+                        color1 = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Split(';')[0]);
+                        color2 = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Split(';')[1]);
+                        if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                            ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))) // Green
                         {
-                            if (DelayCriteria == 0)
+                            color = CurrentBitmap.GetPixel(GoldButtonImageX, GoldButtonImageY);
+                            TimerLog("Gold Button Image Color: " + color.R + "," + color.G + "," + color.B);
+                            color1 = ColorTranslator.FromHtml(GoldButtonImageColor);
+                            if (!IsLatest ||
+                               (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                                ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))) // Yellow
                             {
+                                if (X3GoldButtonClickDelay < monitoringInterval)
+                                {
+                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                }
+                                else
+                                {
+                                    X3GoldButtonClickDelay -= monitoringInterval;
+                                    return;
+                                }
+
                                 ClickLog("Gold Button");
                                 AdsFlag = true;
                                 AdsStopwatch.Restart();
-                                DelayStopwatch.Reset();
-                                DelayStopwatch.Stop();
 
                                 System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldButtonBackgroundX, (int)NoxPointY + GoldButtonBackgroundY);
                                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                                 System.Threading.Thread.Sleep(50);
                                 mouse_event(LBUTTONUP, 0, 0, 0, 0);
                             }
-                            else
+                            else // Green such as Retry
                             {
-                                if (DelayStopwatch.IsRunning)
-                                {
-                                    if (DelayStopwatch.ElapsedMilliseconds > DelayCriteria)
-                                    {
-                                        ClickLog("Gold Button");
-                                        AdsFlag = true;
-                                        AdsStopwatch.Restart();
-                                        DelayStopwatch.Reset();
-                                        DelayStopwatch.Stop();
+                                ClickLog("Next Button");
 
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldButtonBackgroundX, (int)NoxPointY + GoldButtonBackgroundY);
-                                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                        System.Threading.Thread.Sleep(50);
-                                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
-                                    }
-                                }
-                                else
-                                {
-                                    DelayStopwatch.Restart();
-                                }
+                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + GoldButtonBackgroundY);
+                                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                                System.Threading.Thread.Sleep(50);
+                                mouse_event(LBUTTONUP, 0, 0, 0, 0);
                             }
                         }
-                        else // Green such as Retry
+                        else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
+                                 ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))) // Gray
                         {
-                            ClickLog("Next Button");
+                            if (X3GoldButtonClickDelay < monitoringInterval)
+                            {
+                                System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                            }
+                            else
+                            {
+                                X3GoldButtonClickDelay -= monitoringInterval;
+                                return;
+                            }
 
-                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + GoldButtonBackgroundY);
-                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                            System.Threading.Thread.Sleep(50);
-                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
-                        }
-                    }
-                    else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
-                             ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))) // Gray
-                    {
-                        if (DelayCriteria == 0)
-                        {
                             ClickLog("Gold Button is Gray");
-                            DelayStopwatch.Reset();
-                            DelayStopwatch.Stop();
 
                             if (IsLatest)
                             {
@@ -1484,34 +1490,6 @@ namespace ArtOfHassan
                             System.Threading.Thread.Sleep(50);
                             mouse_event(LBUTTONUP, 0, 0, 0, 0);
                         }
-                        else
-                        {
-                            if (DelayStopwatch.IsRunning)
-                            {
-                                if (DelayStopwatch.ElapsedMilliseconds > DelayCriteria)
-                                {
-                                    ClickLog("Gold Button is Gray");
-                                    DelayStopwatch.Reset();
-                                    DelayStopwatch.Stop();
-
-                                    if (IsLatest)
-                                    {
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + GoldButtonBackgroundY);
-                                    }
-                                    else
-                                    {
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + NextButtonY);
-                                    }
-                                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                    System.Threading.Thread.Sleep(50);
-                                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
-                                }
-                            }
-                            else
-                            {
-                                DelayStopwatch.Restart();
-                            }
-                        }
                     }
 
 
@@ -1519,8 +1497,9 @@ namespace ArtOfHassan
                     color = CurrentBitmap.GetPixel(NextButtonX, NextButtonY);
                     TimerLog("Next Button Color: " + color.R + "," + color.G + "," + color.B);
                     color1 = ColorTranslator.FromHtml(NextButtonColor);
-                    if (IsLatest && (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
-                                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))))
+                    if (IsLatest &&
+                       (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                        ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))))
                     {
                         ClickLog("Next Button");
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + NextButtonY);
