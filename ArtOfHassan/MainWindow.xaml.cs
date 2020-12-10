@@ -1412,8 +1412,6 @@ namespace ArtOfHassan
 
                             System.Diagnostics.Process.Start("shutdown.exe", "-s -f -t 0");
                         }
-
-                        return;
                     }
 
 
