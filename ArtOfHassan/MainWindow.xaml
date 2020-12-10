@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d" Icon="icon.ico"
-        Title="Art of Hassan v1.1.1" Height="600" Width="350" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        Title="Art of Hassan v1.1.2" Height="600" Width="350" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
