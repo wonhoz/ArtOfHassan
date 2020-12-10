@@ -1096,21 +1096,6 @@ namespace ArtOfHassan
                     }
 
 
-                    // Collect Button
-                    color = CurrentBitmap.GetPixel(CollectButtonX, CollectButtonY);
-                    TimerLog("Collect Button Color: " + color.R + "," + color.G + "," + color.B);
-                    color1 = ColorTranslator.FromHtml(CollectButtonColor);
-                    if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
-                        ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
-                    {
-                        ClickLog("Collect Button");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CollectButtonX, (int)NoxPointY + CollectButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
-                    }
-
-
                     // Gold Chest Box Button
                     bool IsOpenGoldChestBox = false;
                     System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
@@ -1138,6 +1123,21 @@ namespace ArtOfHassan
 
                             return;
                         }
+                    }
+
+
+                    // Collect Button
+                    color = CurrentBitmap.GetPixel(CollectButtonX, CollectButtonY);
+                    TimerLog("Collect Button Color: " + color.R + "," + color.G + "," + color.B);
+                    color1 = ColorTranslator.FromHtml(CollectButtonColor);
+                    if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
+                        ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
+                    {
+                        ClickLog("Collect Button");
+                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CollectButtonX, (int)NoxPointY + CollectButtonY);
+                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                        System.Threading.Thread.Sleep(50);
+                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
                     }
 
 
@@ -1515,7 +1515,7 @@ namespace ArtOfHassan
                     }
 
 
-                    // Next Button
+                    // Next Button (Defeat or Old)
                     color = CurrentBitmap.GetPixel(NextButtonX, NextButtonY);
                     TimerLog("Next Button Color: " + color.R + "," + color.G + "," + color.B);
                     color1 = ColorTranslator.FromHtml(NextButtonColor);
