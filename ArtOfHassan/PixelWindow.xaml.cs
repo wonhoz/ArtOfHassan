@@ -1159,8 +1159,8 @@ namespace ArtOfHassan
             LatestUsedAppButtonY.Text = 1000.ToString();
             //LatestUsedAppButtonColor.Text = "#009688".ToUpper();
 
-            CloseAllAppButtonX.Text = 495.ToString();
-            CloseAllAppButtonY.Text = 100.ToString();
+            CloseAllAppButtonX.Text = 501.ToString();
+            CloseAllAppButtonY.Text = 150.ToString();
             //CloseAllAppButtonColor.Text = "#009688".ToUpper();
 
             NotRespondingButtonX.Text = 79.ToString();

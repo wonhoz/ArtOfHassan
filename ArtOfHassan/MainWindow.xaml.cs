@@ -751,14 +751,17 @@ namespace ArtOfHassan
 
                 System.Threading.Thread.Sleep(monitoringInterval * 2);
 
-                // Close All Apps Button
-                ClickLog("Close All Apps Button");
-                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CloseAllAppButtonX, (int)NoxPointY + CloseAllAppButtonY);
-                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                System.Threading.Thread.Sleep(50);
-                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                for (int i = 0; i < 10; i++)
+                {
+                    // Close All Apps Button
+                    ClickLog("Close All Apps Button");
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CloseAllAppButtonX, (int)NoxPointY + CloseAllAppButtonY);
+                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+                    System.Threading.Thread.Sleep(50);
+                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
 
-                System.Threading.Thread.Sleep(monitoringInterval);
+                    System.Threading.Thread.Sleep(500);
+                }
 
                 // Close Not Responding Button
                 System.Drawing.Color color = CurrentBitmap.GetPixel(NotRespondingButtonX, NotRespondingButtonY);
@@ -952,8 +955,8 @@ namespace ArtOfHassan
         public int LatestUsedAppButtonY   = 1000;
         //public string LatestUsedAppButtonColor = "#009688".ToUpper();
 
-        public int CloseAllAppButtonX = 495;
-        public int CloseAllAppButtonY = 100;
+        public int CloseAllAppButtonX = 501;
+        public int CloseAllAppButtonY = 150;
 
         public int NotRespondingButtonX = 79;
         public int NotRespondingButtonY = 510;
