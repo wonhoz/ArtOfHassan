@@ -41,13 +41,15 @@
 
             <TextBlock Grid.Column="0" Name="MonitoringIntervalTextBlock" Text="Monitoring&#10;Interval (ms)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Name="MonitoringIntervalTextBox" Text="1000" Margin="5" TextChanged="MonitoringIntervalTextBox_TextChanged"
+            <TextBox Grid.Row="1" Grid.Column="1" Name="MonitoringIntervalTextBox" Text="1000" Margin="5"
+                     TextChanged="MonitoringIntervalTextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
             <TextBlock Grid.Column="2" Name="ScreenComparisonIntervalTextBlock" Text="   Screen&#10;Comparison&#10; Interval (#)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Grid.Row="1" Grid.Column="3" Name="ScreenComparisonIntervalTextBox" Text="3" Margin="5" TextChanged="ScreenComparisonIntervalTextBox_TextChanged"
+            <TextBox Grid.Row="1" Grid.Column="3" Name="ScreenComparisonIntervalTextBox" Text="3" Margin="5"
+                     TextChanged="ScreenComparisonIntervalTextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
@@ -60,17 +62,19 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Name="DelayTextBlock" Text=" X3 Gold&#10;  Button&#10;Delay (ms)"
+            <TextBlock Grid.Column="0" Name="X3GoldButtonClickDelayTextBlock" Text=" X3 Gold&#10;  Button&#10;Delay (ms)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-            <TextBox Grid.Row="1" Grid.Column="1" Name="DelayTextBox" Text="100" Margin="5" TextChanged="DelayTextBox_TextChanged"
+            <TextBox Grid.Row="1" Grid.Column="1" Name="X3GoldButtonClickDelayTextBox" Text="100" Margin="5"
+                     TextChanged="X3GoldButtonClickDelayTextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
             <TextBlock Grid.Column="2" Name="PixelDifferenceTextBlock" Text="   Pixel&#10;Difference"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-            <TextBox Grid.Row="1" Grid.Column="3" Name="PixelDifferenceTextBox" Text="1" Margin="5" TextChanged="PixelDifferenceTextBox_TextChanged"
+            <TextBox Grid.Row="1" Grid.Column="3" Name="PixelDifferenceTextBox" Text="1" Margin="5"
+                     TextChanged="PixelDifferenceTextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
@@ -118,11 +122,12 @@
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>-->
 
-            <CheckBox Grid.Column="0" Name="AdsCloseCheckBox" Content="Check Color" IsChecked="False"
+            <CheckBox Grid.Column="0" Name="AdsCloseColorCheckBox" Content="Check Color" IsChecked="False"
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <Button Grid.Column="1" Name="AdsClosePatternButton" Content="  Ads Close&#10;Click Pattern" Click="AdsClosePatternButton_Click" Margin="5"/>
+            <Button Grid.Column="1" Name="AdsCloseClickPatternButton" Content="  Ads Close&#10;Click Pattern"
+                    Click="AdsCloseClickPatternButton_Click" Margin="5"/>
         </Grid>
 
         <TextBlock Grid.Row="5" Name="OptionTextBlock" Text="Option"
@@ -157,7 +162,8 @@
                 <ColumnDefinition Width="0.35*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Row="1" Grid.Column="0" Name="EmailTextBox" Margin="5,5,2.5,5" TextChanged="EmailTextBox_TextChanged"
+            <TextBox Grid.Row="1" Grid.Column="0" Name="EmailAddressTextBox" Margin="5,5,2.5,5"
+                     TextChanged="EmailAddressTextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
@@ -182,11 +188,11 @@
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <CheckBox Grid.Column="1" Name="StopWorkingCheckBox" Content=" Stop&#10;Hassan"
+            <CheckBox Grid.Column="1" Name="StopHassanCheckBox" Content=" Stop&#10;Hassan"
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <CheckBox Grid.Column="2" Name="ShutdownPCCheckBox" Content="Shutdown&#10;Computer"
+            <CheckBox Grid.Column="2" Name="ShutdownComputerCheckBox" Content="Shutdown&#10;Computer"
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
@@ -198,12 +204,16 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Name="PixelCustomizeButton" Content="Customize Pixel" Margin="5,5,2.5,5" Click="PixelCustomizeButton_Click"/>
-            <Button Grid.Column="1" Name="SaveButton" Content="Save Setting" Margin="2.5,5,2.5,5" Click="SaveButton_Click"/>
-            <Button Grid.Row="1" Grid.Column="2" Name="StartButton" Content="Start" Click="StartButton_Click" Margin="2.5,5,5,5" IsEnabled="False"/>
+            <Button Grid.Column="0" Name="PixelCustomizeButton" Content="Customize Pixel"
+                    Click="PixelCustomizeButton_Click" Margin="5,5,2.5,5"/>
+            <Button Grid.Column="1" Name="SaveSettingButton" Content="Save Setting"
+                    Click="SaveSettingButton_Click" Margin="2.5,5,2.5,5"/>
+            <Button Grid.Row="1" Grid.Column="2" Name="StartButton" Content="Start"
+                    Click="StartButton_Click" Margin="2.5,5,5,5" IsEnabled="False"/>
         </Grid>
 
-        <TextBlock Grid.Row="9" Grid.ColumnSpan="3" Name="MessageBar" Text="War: 0  |  Victory: 0  |  Defeat: 0  |  Ads: 0"
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="3" Name="MessageBar"
+                   Text="War: 0  |  Victory: 0  |  Defeat: 0  |  Ads: 0"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
         <CheckBox Grid.Row="10" Grid.ColumnSpan="2" Name="ShareProblemCheckBox" IsChecked="True"

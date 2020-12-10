@@ -52,34 +52,34 @@ namespace ArtOfHassan
         private const uint RBUTTONDOWN  = 0x0008;  // 오른쪽 마우스 버튼 눌림
         private const uint RBUTTONUP    = 0x00010; // 오른쪽 마우스 버튼 떼어짐
 
-        private static System.Timers.Timer NoxTimer     = new System.Timers.Timer();
-        private static System.Timers.Timer ButtonTimer  = new System.Timers.Timer();
-        private static System.Timers.Timer ProblemTimer = new System.Timers.Timer();
+        private static System.Timers.Timer NoxMonitoringTimer      = new System.Timers.Timer();
+        private static System.Timers.Timer ArtOfWarMonitoringTimer = new System.Timers.Timer();
+        private static System.Timers.Timer ProblemMonitoringTimer  = new System.Timers.Timer();
 
-        Stopwatch AdsStopwatch    = new Stopwatch();
-        Stopwatch BattleStopwatch = new Stopwatch();
+        Stopwatch AdsCloseStopwatch          = new Stopwatch();
+        Stopwatch BattleButtonInRedStopwatch = new Stopwatch();
 
         double NoxPointX = 0;
         double NoxPointY = 0;
         double NoxWidth  = 0;
         double NoxHeight = 0;
 
-        bool VictoryFlag = false;
-        bool DefeatFlag  = false;
-        bool AdsFlag     = false;
+        bool VictoryFlag  = false;
+        bool DefeatFlag   = false;
+        bool AdsWatchFlag = false;
 
-        bool IsNoGoldMailSent = false;
+        bool IsNoGoldMailSent  = false;
         bool IsProblemOccurred = false;
-        bool IsStopHassan = false;
+        bool IsStopHassan      = false;
 
         int NumOfWar     = 0;
         int NumOfVictory = 0;
         int NumOfDefeat  = 0;
         int NumOfAds     = 0;
 
-        int ProblemMailSent = 0;
+        int ProblemMailSent            = 0;
         int TimerCountForScreenCompare = 1;
-        int X3GoldButtonClickDelay = 0;
+        int X3GoldButtonClickDelay     = 0;
 
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
@@ -200,15 +200,15 @@ namespace ArtOfHassan
                             LatestUsedAppButtonY = int.Parse(listitem[2]);
                             //LatestUsedAppButtonColor = listitem[3];
                             break;
-                        case ("closeallappbutton"):
-                            CloseAllAppButtonX = int.Parse(listitem[1]);
-                            CloseAllAppButtonY = int.Parse(listitem[2]);
-                            //CloseAllAppButtonColor.Text = listitem[3];
+                        case ("righttopappclosebutton"):
+                            RightTopAppCloseButtonX = int.Parse(listitem[1]);
+                            RightTopAppCloseButtonY = int.Parse(listitem[2]);
+                            //RightTopAppCloseButtonColor.Text = listitem[3];
                             break;
-                        case ("notrespondingbutton"):
-                            NotRespondingButtonX = int.Parse(listitem[1]);
-                            NotRespondingButtonY = int.Parse(listitem[2]);
-                            NotRespondingButtonColor = listitem[3];
+                        case ("notrespondappclosebutton"):
+                            NotRespondAppCloseButtonX = int.Parse(listitem[1]);
+                            NotRespondAppCloseButtonY = int.Parse(listitem[2]);
+                            NotRespondAppCloseButtonColor = listitem[3];
                             break;
                     }
                 }
@@ -363,8 +363,8 @@ namespace ArtOfHassan
                         streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY + "," + GameAdCloseButtonColor);
                         streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY + "," + GoogleAdCloseButtonColor);
                         streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX + "," + LatestUsedAppButtonY);
-                        streamWriter.WriteLine("CloseAllAppButton," + CloseAllAppButtonX + "," + CloseAllAppButtonY);
-                        streamWriter.WriteLine("NotRespondingButton," + NotRespondingButtonX + "," + NotRespondingButtonY + "," + NotRespondingButtonColor);
+                        streamWriter.WriteLine("RightTopAppCloseButton," + RightTopAppCloseButtonX + "," + RightTopAppCloseButtonY);
+                        streamWriter.WriteLine("NotRespondAppCloseButton," + NotRespondAppCloseButtonX + "," + NotRespondAppCloseButtonY + "," + NotRespondAppCloseButtonColor);
                     }
                 }
                 else // 신버전
@@ -385,7 +385,7 @@ namespace ArtOfHassan
                                 ScreenComparisonIntervalTextBox.Text = listitem[1];
                                 break;
                             case ("x3goldbuttondelay"):
-                                DelayTextBox.Text = listitem[1];
+                                X3GoldButtonClickDelayTextBox.Text = listitem[1];
                                 break;
                             case ("pixeldifference"):
                                 PixelDifferenceTextBox.Text = listitem[1];
@@ -406,16 +406,16 @@ namespace ArtOfHassan
                                 LogCheckBox.IsChecked = bool.Parse(listitem[1]);
                                 break;
                             case ("email"):
-                                EmailTextBox.Text = listitem[1];
+                                EmailAddressTextBox.Text = listitem[1];
                                 break;
                             case ("sendemail"):
                                 SendEmailCheckBox.IsChecked = bool.Parse(listitem[1]);
                                 break;
                             case ("stophassan"):
-                                StopWorkingCheckBox.IsChecked = bool.Parse(listitem[1]);
+                                StopHassanCheckBox.IsChecked = bool.Parse(listitem[1]);
                                 break;
                             case ("shutdownpc"):
-                                ShutdownPCCheckBox.IsChecked = bool.Parse(listitem[1]);
+                                ShutdownComputerCheckBox.IsChecked = bool.Parse(listitem[1]);
                                 break;
                         }
                     }
@@ -424,22 +424,22 @@ namespace ArtOfHassan
                 ClickLog("Load Done");
             }
 
-            ProblemTimer.Interval = 3 * 60 * 1000; // 3분
-            ProblemTimer.Elapsed += ProblemTimerFunction;
+            ProblemMonitoringTimer.Interval = 3 * 60 * 1000; // 3분
+            ProblemMonitoringTimer.Elapsed += ProblemMonitoringTimerFunction;
 
-            ButtonTimer.Interval = 1000; // 1초
-            ButtonTimer.Elapsed += ButtonTimerFunction;
+            ArtOfWarMonitoringTimer.Interval = 1000; // 1초
+            ArtOfWarMonitoringTimer.Elapsed += ArtOfWarMonitoringTimerFunction;
 
-            NoxTimer.Interval = 200;
-            NoxTimer.Elapsed += NoxTimerFunction;
-            NoxTimer.Enabled = true;
+            NoxMonitoringTimer.Interval = 200;
+            NoxMonitoringTimer.Elapsed += NoxMonitoringTimerFunction;
+            NoxMonitoringTimer.Enabled = true;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ProblemTimer.Enabled = false;
-            ButtonTimer.Enabled = false;
-            NoxTimer.Enabled    = false;
+            ProblemMonitoringTimer.Enabled = false;
+            ArtOfWarMonitoringTimer.Enabled = false;
+            NoxMonitoringTimer.Enabled    = false;
         }
 
         private void ClickLog(string log)
@@ -548,10 +548,10 @@ namespace ArtOfHassan
                 PixelCustomizeButton.IsEnabled = false;
                 MonitoringIntervalTextBox.IsEnabled = false;
 
-                ProblemTimer.Interval = int.Parse(ScreenComparisonIntervalTextBox.Text) * 60 * 1000;
-                ButtonTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
-                ButtonTimer.Enabled = true;
-                ProblemTimer.Enabled = true;
+                ProblemMonitoringTimer.Interval = int.Parse(ScreenComparisonIntervalTextBox.Text) * 60 * 1000;
+                ArtOfWarMonitoringTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
+                ArtOfWarMonitoringTimer.Enabled = true;
+                ProblemMonitoringTimer.Enabled = true;
 
                 IsStopHassan = false;
                 IsNoGoldMailSent = false;
@@ -570,12 +570,12 @@ namespace ArtOfHassan
                 PixelCustomizeButton.IsEnabled = true;
                 MonitoringIntervalTextBox.IsEnabled = true;
 
-                ButtonTimer.Enabled = false;
-                ProblemTimer.Enabled = false;
+                ArtOfWarMonitoringTimer.Enabled = false;
+                ProblemMonitoringTimer.Enabled = false;
             }
         }
 
-        private void AdsClosePatternButton_Click(object sender, RoutedEventArgs e)
+        private void AdsCloseClickPatternButton_Click(object sender, RoutedEventArgs e)
         {
             ClickPatternWindow clickPatternWindow = new ClickPatternWindow();
             clickPatternWindow.ShowDialog();
@@ -587,10 +587,10 @@ namespace ArtOfHassan
 
             try
             {
-                if (!string.IsNullOrWhiteSpace(EmailTextBox.Text))
+                if (!string.IsNullOrWhiteSpace(EmailAddressTextBox.Text))
                 {
                     MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                              EmailTextBox.Text,
+                                                              EmailAddressTextBox.Text,
                                                               $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
                                                               "Email Testing...");
 
@@ -621,7 +621,7 @@ namespace ArtOfHassan
             }
         }
 
-        private void ProblemTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
+        private void ProblemMonitoringTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (((NumOfVictory + NumOfDefeat) == NumOfWar) && !IsStopHassan)
             {
@@ -639,7 +639,7 @@ namespace ArtOfHassan
                     minute = ScreenComparisonIntervalTextBox.Text;
                     isKorean = KoreanCheckBox.IsChecked.Value;
                     isShareProblem = ShareProblemCheckBox.IsChecked.Value;
-                    emailaddress   = EmailTextBox.Text;
+                    emailaddress   = EmailAddressTextBox.Text;
                     if (!int.TryParse(PixelDifferenceTextBox.Text, out pixelDifference))
                     {
                         pixelDifference = 0;
@@ -755,7 +755,7 @@ namespace ArtOfHassan
                 {
                     // Close All Apps Button
                     ClickLog("Close All Apps Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CloseAllAppButtonX, (int)NoxPointY + CloseAllAppButtonY);
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightTopAppCloseButtonX, (int)NoxPointY + RightTopAppCloseButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -764,14 +764,14 @@ namespace ArtOfHassan
                 }
 
                 // Close Not Responding Button
-                System.Drawing.Color color = CurrentBitmap.GetPixel(NotRespondingButtonX, NotRespondingButtonY);
+                System.Drawing.Color color = CurrentBitmap.GetPixel(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY);
                 TimerLog("Close Not Responding Button Color: " + color.R + "," + color.G + "," + color.B);
-                System.Drawing.Color color1 = ColorTranslator.FromHtml(NotRespondingButtonColor);
+                System.Drawing.Color color1 = ColorTranslator.FromHtml(NotRespondAppCloseButtonColor);
                 if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
                     ClickLog("Close Not Responding Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingButtonX, (int)NoxPointY + NotRespondingButtonY);
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondAppCloseButtonX, (int)NoxPointY + NotRespondAppCloseButtonY);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -780,14 +780,14 @@ namespace ArtOfHassan
                 }
 
                 // Close System Error Button
-                color = CurrentBitmap.GetPixel(NotRespondingButtonX, NotRespondingButtonY + 15);
+                color = CurrentBitmap.GetPixel(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 15);
                 TimerLog("Close System Error Button Color: " + color.R + "," + color.G + "," + color.B);
-                color1 = ColorTranslator.FromHtml(NotRespondingButtonColor);
+                color1 = ColorTranslator.FromHtml(NotRespondAppCloseButtonColor);
                 if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
                     ClickLog("Close System Error Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingButtonX, (int)NoxPointY + NotRespondingButtonY + 15);
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondAppCloseButtonX, (int)NoxPointY + NotRespondAppCloseButtonY + 15);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -796,14 +796,14 @@ namespace ArtOfHassan
                 }
 
                 // Close System Error Button
-                color = CurrentBitmap.GetPixel(NotRespondingButtonX, NotRespondingButtonY + 30);
+                color = CurrentBitmap.GetPixel(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 30);
                 TimerLog("Close System Error Button Color: " + color.R + "," + color.G + "," + color.B);
-                color1 = ColorTranslator.FromHtml(NotRespondingButtonColor);
+                color1 = ColorTranslator.FromHtml(NotRespondAppCloseButtonColor);
                 if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
                     ClickLog("Close System Error Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondingButtonX, (int)NoxPointY + NotRespondingButtonY + 30);
+                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondAppCloseButtonX, (int)NoxPointY + NotRespondAppCloseButtonY + 30);
                     mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
                     System.Threading.Thread.Sleep(50);
                     mouse_event(LBUTTONUP, 0, 0, 0, 0);
@@ -820,7 +820,7 @@ namespace ArtOfHassan
             }
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveSettingButton_Click(object sender, RoutedEventArgs e)
         {
             using (StreamWriter streamWriter = new StreamWriter($@"setting.txt", false))
             {
@@ -829,17 +829,17 @@ namespace ArtOfHassan
                     streamWriter.WriteLine("WindowTitle," + WindowTitleTextBox.Text);
                     streamWriter.WriteLine("MonitoringInterval," + MonitoringIntervalTextBox.Text);
                     streamWriter.WriteLine("ScreenComparisonInterval," + ScreenComparisonIntervalTextBox.Text);
-                    streamWriter.WriteLine("X3GoldButtonDelay," + DelayTextBox.Text);
+                    streamWriter.WriteLine("X3GoldButtonDelay," + X3GoldButtonClickDelayTextBox.Text);
                     streamWriter.WriteLine("PixelDifference," + PixelDifferenceTextBox.Text);
                     streamWriter.WriteLine("Korean," + KoreanCheckBox.IsChecked.Value);
                     streamWriter.WriteLine("AdsCloseClickPattern," + ClickPattern);
                     streamWriter.WriteLine("GoldChestCheck," + GoldChestCheckBox.IsChecked.Value);
                     streamWriter.WriteLine("Pausability," + PausabilityCheckBox.IsChecked.Value);
                     streamWriter.WriteLine("Logging," + LogCheckBox.IsChecked.Value);
-                    streamWriter.WriteLine("Email," + EmailTextBox.Text);
+                    streamWriter.WriteLine("Email," + EmailAddressTextBox.Text);
                     streamWriter.WriteLine("SendEmail," + SendEmailCheckBox.IsChecked.Value);
-                    streamWriter.WriteLine("StopHassan," + StopWorkingCheckBox.IsChecked.Value);
-                    streamWriter.WriteLine("ShutdownPC," + ShutdownPCCheckBox.IsChecked.Value);
+                    streamWriter.WriteLine("StopHassan," + StopHassanCheckBox.IsChecked.Value);
+                    streamWriter.WriteLine("ShutdownPC," + ShutdownComputerCheckBox.IsChecked.Value);
                 }));
             }
         }
@@ -852,13 +852,13 @@ namespace ArtOfHassan
                 WindowTitleTextBlock.Text = "앱플레이어\n    이름";
                 MonitoringIntervalTextBlock.Text = "모니터링\n주기 (ms)";
                 ScreenComparisonIntervalTextBlock.Text = " 화면 비교\n주기 (횟수)";
-                DelayTextBlock.Text = " 골드 광고\n딜레이 (ms)";
+                X3GoldButtonClickDelayTextBlock.Text = " 골드 광고\n딜레이 (ms)";
                 PixelDifferenceTextBlock.Text = "픽셀 차이";
                 VersionTextBlock.Text = "버전";
                 LatestRadioButton.Content = "최신";
                 AdsCloseTextBlock.Text = "광고 닫기";
-                AdsCloseCheckBox.Content = "색상 확인";
-                AdsClosePatternButton.Content = "광고 닫기\n클릭 패턴";
+                AdsCloseColorCheckBox.Content = "색상 확인";
+                AdsCloseClickPatternButton.Content = "광고 닫기\n클릭 패턴";
                 OptionTextBlock.Text = "옵션";
                 GoldChestCheckBox.Content = "골드 상자";
                 PausabilityCheckBox.Content = "멈춤 가능";
@@ -867,10 +867,10 @@ namespace ArtOfHassan
                 EmailTestButton.Content = "테스트";
                 NoGoldTextBlock.Text = "골드 벌이\n  없을때";
                 SendEmailCheckBox.Content = "이메일";
-                StopWorkingCheckBox.Content = "핫산 중지";
-                ShutdownPCCheckBox.Content = "PC 종료";
+                StopHassanCheckBox.Content = "핫산 중지";
+                ShutdownComputerCheckBox.Content = "PC 종료";
                 PixelCustomizeButton.Content = "픽셀 커스텀";
-                SaveButton.Content = "설정 저장";
+                SaveSettingButton.Content = "설정 저장";
                 StartButton.Content = "시작";
                 MessageBar.Text = $"전투: {NumOfWar}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
                 ShareProblemCheckBox.Content = "우리 핫산 개선을 위해 문제 발생 스샷 공유 :)";
@@ -881,13 +881,13 @@ namespace ArtOfHassan
                 WindowTitleTextBlock.Text = "Window Title";
                 MonitoringIntervalTextBlock.Text = "Monitoring\nInterval (ms)";
                 ScreenComparisonIntervalTextBlock.Text = "   Screen\nComparison\n Interval (#)";
-                DelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
+                X3GoldButtonClickDelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
                 PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
                 VersionTextBlock.Text = "Version";
                 LatestRadioButton.Content = "Latest";
                 AdsCloseTextBlock.Text = "Ads Close";
-                AdsCloseCheckBox.Content = "Check Color";
-                AdsClosePatternButton.Content = "  Ads Close\nClick Pattern";
+                AdsCloseColorCheckBox.Content = "Check Color";
+                AdsCloseClickPatternButton.Content = "  Ads Close\nClick Pattern";
                 OptionTextBlock.Text = "Option";
                 GoldChestCheckBox.Content = "Gold Chest";
                 PausabilityCheckBox.Content = "Pausable";
@@ -896,10 +896,10 @@ namespace ArtOfHassan
                 EmailTestButton.Content = "Test";
                 NoGoldTextBlock.Text = "No Gold";
                 SendEmailCheckBox.Content = "Send\nEmail";
-                StopWorkingCheckBox.Content = " Stop\nHassan";
-                ShutdownPCCheckBox.Content = "Shutdown\nComputer";
+                StopHassanCheckBox.Content = " Stop\nHassan";
+                ShutdownComputerCheckBox.Content = "Shutdown\nComputer";
                 PixelCustomizeButton.Content = "Customize Pixel";
-                SaveButton.Content = "Save Setting";
+                SaveSettingButton.Content = "Save Setting";
                 StartButton.Content = "Start";
                 MessageBar.Text = $"War: {NumOfWar}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
                 ShareProblemCheckBox.Content = "Share screenshot of problem to improve our Hassan :)";
@@ -971,19 +971,19 @@ namespace ArtOfHassan
         public int LatestUsedAppButtonY   = 1000;
         //public string LatestUsedAppButtonColor = "#009688".ToUpper();
 
-        public int CloseAllAppButtonX = 501;
-        public int CloseAllAppButtonY = 150;
+        public int RightTopAppCloseButtonX = 501;
+        public int RightTopAppCloseButtonY = 150;
 
-        public int NotRespondingButtonX = 79;
-        public int NotRespondingButtonY = 510;
-        public string NotRespondingButtonColor = "#009688".ToUpper();
+        public int NotRespondAppCloseButtonX = 79;
+        public int NotRespondAppCloseButtonY = 510;
+        public string NotRespondAppCloseButtonColor = "#009688".ToUpper();
 
         public int NoGoldX = 320;
         public int NoGoldY = 646;
         public string NoGoldColor = "#dfd6be".ToUpper();
 
 
-        private void NoxTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
+        private void NoxMonitoringTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
             System.Windows.Point point = new System.Windows.Point();
             System.Windows.Size size = new System.Windows.Size();
@@ -998,8 +998,8 @@ namespace ArtOfHassan
             {
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
-                    ProblemTimer.Enabled  = false;
-                    ButtonTimer.Enabled   = false;
+                    ProblemMonitoringTimer.Enabled  = false;
+                    ArtOfWarMonitoringTimer.Enabled   = false;
                     StartButton.IsEnabled = false;
                     if (KoreanCheckBox.IsChecked.Value)
                     {
@@ -1030,7 +1030,7 @@ namespace ArtOfHassan
             //TimerLog("NoxHeight: " + NoxHeight);
         }
 
-        private void ButtonTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
+        private void ArtOfWarMonitoringTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (!IsProblemOccurred)
             {
@@ -1155,10 +1155,10 @@ namespace ArtOfHassan
                         ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))  // + 메뉴 음영
                     {
                         ClickLog("Battle Level Button");
-                        AdsStopwatch.Reset();
-                        AdsStopwatch.Stop();
-                        BattleStopwatch.Reset();
-                        BattleStopwatch.Stop();
+                        AdsCloseStopwatch.Reset();
+                        AdsCloseStopwatch.Stop();
+                        BattleButtonInRedStopwatch.Reset();
+                        BattleButtonInRedStopwatch.Stop();
 
                         System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleLevelButtonX, (int)NoxPointY + BattleLevelButtonY);
                         mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -1177,9 +1177,9 @@ namespace ArtOfHassan
                             NumOfDefeat++;
                         }
 
-                        if (AdsFlag)
+                        if (AdsWatchFlag)
                         {
-                            AdsFlag = false;
+                            AdsWatchFlag = false;
                             NumOfAds++;
                         }
 
@@ -1199,13 +1199,13 @@ namespace ArtOfHassan
                     {
                         ClickLog("Battle Level Button is Red");
 
-                        if (BattleStopwatch.IsRunning)
+                        if (BattleButtonInRedStopwatch.IsRunning)
                         {
-                            if (BattleStopwatch.ElapsedMilliseconds > 30000)
+                            if (BattleButtonInRedStopwatch.ElapsedMilliseconds > 30000)
                             {
                                 ClickLog("Battle Level Cancel Button");
-                                BattleStopwatch.Reset();
-                                BattleStopwatch.Stop();
+                                BattleButtonInRedStopwatch.Reset();
+                                BattleButtonInRedStopwatch.Stop();
 
                                 System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleLevelButtonX, (int)NoxPointY + BattleLevelButtonY);
                                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -1215,7 +1215,7 @@ namespace ArtOfHassan
                         }
                         else
                         {
-                            BattleStopwatch.Restart();
+                            BattleButtonInRedStopwatch.Restart();
                         }
 
                         return;
@@ -1304,7 +1304,7 @@ namespace ArtOfHassan
                             X3GoldButtonClickDelay = 0;
                             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                             {
-                                if (!int.TryParse(DelayTextBox.Text, out X3GoldButtonClickDelay))
+                                if (!int.TryParse(X3GoldButtonClickDelayTextBox.Text, out X3GoldButtonClickDelay))
                                 {
                                     X3GoldButtonClickDelay = 0;
                                 }
@@ -1322,7 +1322,7 @@ namespace ArtOfHassan
                             X3GoldButtonClickDelay = 0;
                             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                             {
-                                if (!int.TryParse(DelayTextBox.Text, out X3GoldButtonClickDelay))
+                                if (!int.TryParse(X3GoldButtonClickDelayTextBox.Text, out X3GoldButtonClickDelay))
                                 {
                                     X3GoldButtonClickDelay = 0;
                                 }
@@ -1347,8 +1347,8 @@ namespace ArtOfHassan
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
                             isSendEmail = SendEmailCheckBox.IsChecked.Value;
-                            IsStopHassan = StopWorkingCheckBox.IsChecked.Value;
-                            isShutdownPC = ShutdownPCCheckBox.IsChecked.Value;
+                            IsStopHassan = StopHassanCheckBox.IsChecked.Value;
+                            isShutdownPC = ShutdownComputerCheckBox.IsChecked.Value;
                         }));
 
                         if (isSendEmail && !IsNoGoldMailSent)
@@ -1361,7 +1361,7 @@ namespace ArtOfHassan
                                 string emailaddress = "";
                                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                                 {
-                                    emailaddress = EmailTextBox.Text;
+                                    emailaddress = EmailAddressTextBox.Text;
                                 }));
                                 if (!string.IsNullOrWhiteSpace(emailaddress))
                                 {
@@ -1402,18 +1402,16 @@ namespace ArtOfHassan
                                 {
                                     StartButton.Content = "Start";
                                 }
-                                PixelCustomizeButton.IsEnabled = true;
+                                PixelCustomizeButton.IsEnabled      = true;
                                 MonitoringIntervalTextBox.IsEnabled = true;
 
-                                ButtonTimer.Enabled = false;
-                                ProblemTimer.Enabled = false;
-                                NoxTimer.Enabled = false;
+                                ArtOfWarMonitoringTimer.Enabled = false;
+                                ProblemMonitoringTimer.Enabled  = false;
+                                NoxMonitoringTimer.Enabled      = false;
                             }));
 
                             System.Diagnostics.Process.Start("shutdown.exe", "-s -f -t 0");
                         }
-
-                        return;
                     }
 
 
@@ -1445,8 +1443,8 @@ namespace ArtOfHassan
                                 }
 
                                 ClickLog("Gold Button");
-                                AdsFlag = true;
-                                AdsStopwatch.Restart();
+                                AdsWatchFlag = true;
+                                AdsCloseStopwatch.Restart();
 
                                 System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldButtonBackgroundX, (int)NoxPointY + GoldButtonBackgroundY);
                                 mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
@@ -1614,13 +1612,13 @@ namespace ArtOfHassan
                             }
                         }
 
-                        TimerLog("Screen is changed: " + isDifferent + ", AdsStopwatchElapsed: " + AdsStopwatch.ElapsedMilliseconds);
+                        TimerLog("Screen is changed: " + isDifferent + ", AdsCloseStopwatchElapsed: " + AdsCloseStopwatch.ElapsedMilliseconds);
 
-                        if (!isDifferent || (AdsStopwatch.ElapsedMilliseconds > 34000))
+                        if (!isDifferent || (AdsCloseStopwatch.ElapsedMilliseconds > 34000))
                         {
                             ClickLog("Ads Close Button");
-                            AdsStopwatch.Reset();
-                            AdsStopwatch.Stop();
+                            AdsCloseStopwatch.Reset();
+                            AdsCloseStopwatch.Stop();
 
                             int AdsClickInterval = 333;
                             bool isGoogleAdCloseButtonColorCheck = false;
@@ -1629,7 +1627,7 @@ namespace ArtOfHassan
                             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                             {
                                 AdsClickInterval = (int)(monitoringInterval / (ClickPatterns.Length - 0.5));
-                                isGoogleAdCloseButtonColorCheck = AdsCloseCheckBox.IsChecked.Value;
+                                isGoogleAdCloseButtonColorCheck = AdsCloseColorCheckBox.IsChecked.Value;
                             }));
 
                             if (isGoogleAdCloseButtonColorCheck)
@@ -1992,13 +1990,13 @@ namespace ArtOfHassan
             //pixelWindow.LatestUsedAppButtonColor.Text = LatestUsedAppButtonColor.ToString();
             //pixelWindow.LatestUsedAppButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LatestUsedAppButtonColor));
 
-            pixelWindow.CloseAllAppButtonX.Text = CloseAllAppButtonX.ToString();
-            pixelWindow.CloseAllAppButtonY.Text = CloseAllAppButtonY.ToString();
+            pixelWindow.RightTopAppCloseButtonX.Text = RightTopAppCloseButtonX.ToString();
+            pixelWindow.RightTopAppCloseButtonY.Text = RightTopAppCloseButtonY.ToString();
 
-            pixelWindow.NotRespondingButtonX.Text = NotRespondingButtonX.ToString();
-            pixelWindow.NotRespondingButtonY.Text = NotRespondingButtonY.ToString();
-            pixelWindow.NotRespondingButtonColor.Text = NotRespondingButtonColor.ToString();
-            pixelWindow.NotRespondingButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondingButtonColor));
+            pixelWindow.NotRespondAppCloseButtonX.Text = NotRespondAppCloseButtonX.ToString();
+            pixelWindow.NotRespondAppCloseButtonY.Text = NotRespondAppCloseButtonY.ToString();
+            pixelWindow.NotRespondAppCloseButtonColor.Text = NotRespondAppCloseButtonColor.ToString();
+            pixelWindow.NotRespondAppCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondAppCloseButtonColor));
 
             pixelWindow.NoGoldX.Text = NoGoldX.ToString();
             pixelWindow.NoGoldY.Text = NoGoldY.ToString();
@@ -2029,11 +2027,11 @@ namespace ArtOfHassan
             ScreenComparisonIntervalTextBox.Select(caretIndex, 0);
         }
 
-        private void DelayTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void X3GoldButtonClickDelayTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = DelayTextBox.CaretIndex;
-            DelayTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            DelayTextBox.Select(caretIndex, 0);
+            int caretIndex = X3GoldButtonClickDelayTextBox.CaretIndex;
+            X3GoldButtonClickDelayTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            X3GoldButtonClickDelayTextBox.Select(caretIndex, 0);
         }
 
         private void PixelDifferenceTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -2043,11 +2041,11 @@ namespace ArtOfHassan
             PixelDifferenceTextBox.Select(caretIndex, 0);
         }
 
-        private void EmailTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void EmailAddressTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = EmailTextBox.CaretIndex;
-            EmailTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Email, "");
-            EmailTextBox.Select(caretIndex, 0);
+            int caretIndex = EmailAddressTextBox.CaretIndex;
+            EmailAddressTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Email, "");
+            EmailAddressTextBox.Select(caretIndex, 0);
         }
     }
 }

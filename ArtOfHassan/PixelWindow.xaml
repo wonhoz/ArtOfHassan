@@ -66,8 +66,8 @@
         <TextBlock Grid.Row="18" Name="LeftAdCloseButtonTextBlock" Text="Left Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="19" Name="RightAdCloseButtonTextBlock" Text="Right Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="20" Name="LatestUsedAppButtonTextBlock" Text="Latest Used App Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="21" Name="CloseAllAppButtonTextBlock" Text="Close All App Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="22" Name="NotRespondingButtonTextBlock" Text="Not Responding Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="21" Name="RightTopAppCloseButtonTextBlock" Text="Right Top App Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="22" Name="NotRespondAppCloseButtonTextBlock" Text="Not Respond App Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <TextBlock Grid.Column="1" Name="XPositionTextBlock" Text="X Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="2" Name="YPositionTextBlock" Text="Y Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -94,8 +94,8 @@
         <TextBox Grid.Row="18" Grid.Column="1" Name="LeftAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LeftAdCloseButtonX_TextChanged"/>
         <TextBox Grid.Row="19" Grid.Column="1" Name="RightAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="RightAdCloseButtonX_TextChanged"/>
         <TextBox Grid.Row="20" Grid.Column="1" Name="LatestUsedAppButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LatestUsedAppButtonX_TextChanged"/>
-        <TextBox Grid.Row="21" Grid.Column="1" Name="CloseAllAppButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="CloseAllAppButtonX_TextChanged"/>
-        <TextBox Grid.Row="22" Grid.Column="1" Name="NotRespondingButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondingButtonX_TextChanged"/>
+        <TextBox Grid.Row="21" Grid.Column="1" Name="RightTopAppCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="RightTopAppCloseButtonX_TextChanged"/>
+        <TextBox Grid.Row="22" Grid.Column="1" Name="NotRespondAppCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondAppCloseButtonX_TextChanged"/>
 
         <TextBox Grid.Row="1" Grid.Column="2" Name="AppLocationY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="AppLocationY_TextChanged"/>
         <TextBox Grid.Row="2" Grid.Column="2" Name="HomeButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="HomeButtonY_TextChanged"/>
@@ -117,8 +117,8 @@
         <TextBox Grid.Row="18" Grid.Column="2" Name="LeftAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LeftAdCloseButtonY_TextChanged"/>
         <TextBox Grid.Row="19" Grid.Column="2" Name="RightAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="RightAdCloseButtonY_TextChanged"/>
         <TextBox Grid.Row="20" Grid.Column="2" Name="LatestUsedAppButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LatestUsedAppButtonY_TextChanged"/>
-        <TextBox Grid.Row="21" Grid.Column="2" Name="CloseAllAppButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="CloseAllAppButtonY_TextChanged"/>
-        <TextBox Grid.Row="22" Grid.Column="2" Name="NotRespondingButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondingButtonY_TextChanged"/>
+        <TextBox Grid.Row="21" Grid.Column="2" Name="RightTopAppCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="RightTopAppCloseButtonY_TextChanged"/>
+        <TextBox Grid.Row="22" Grid.Column="2" Name="NotRespondAppCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondAppCloseButtonY_TextChanged"/>
 
         <TextBox Grid.Row="1" Grid.Column="3" Name="AppLocationColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="AppLocationColor_TextChanged"/>
         <!--TextBox Grid.Row="2" Grid.Column="3" Name="HomeButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5"/-->
@@ -140,7 +140,7 @@
         <TextBox Grid.Row="18" Grid.Column="3" Name="LeftAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LeftAdCloseButtonColor_TextChanged"/>
         <TextBox Grid.Row="19" Grid.Column="3" Name="RightAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="RightAdCloseButtonColor_TextChanged"/>
         <!--<TextBox Grid.Row="20" Grid.Column="3" Name="LatestUsedAppButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="LatestUsedAppButtonColor_TextChanged"/>-->
-        <TextBox Grid.Row="22" Grid.Column="3" Name="NotRespondingButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondingButtonColor_TextChanged"/>
+        <TextBox Grid.Row="22" Grid.Column="3" Name="NotRespondAppCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="NotRespondAppCloseButtonColor_TextChanged"/>
 
         <Button Grid.Row="1" Grid.Column="4" Name="AppLocationButton1" Click="AppLocationButton1_Click" Margin="5"/>
         <Button Grid.Row="2" Grid.Column="4" Name="HomeButton1" Click="HomeButton1_Click" Margin="5"/>
@@ -162,8 +162,8 @@
         <Button Grid.Row="18" Grid.Column="4" Name="LeftAdCloseButton1" Click="LeftAdCloseButton1_Click" Margin="5"/>
         <Button Grid.Row="19" Grid.Column="4" Name="RightAdCloseButton1" Click="RightAdCloseButton1_Click" Margin="5"/>
         <Button Grid.Row="20" Grid.Column="4" Name="LatestUsedAppButton1" Click="LatestUsedAppButton1_Click" Margin="5"/>
-        <Button Grid.Row="21" Grid.Column="4" Name="CloseAllAppButton1" Click="CloseAllAppButton1_Click" Margin="5"/>
-        <Button Grid.Row="22" Grid.Column="4" Name="NotRespondingButton1" Click="NotRespondingButton1_Click" Margin="5"/>
+        <Button Grid.Row="21" Grid.Column="4" Name="RightTopAppCloseButton1" Click="RightTopAppCloseButton1_Click" Margin="5"/>
+        <Button Grid.Row="22" Grid.Column="4" Name="NotRespondAppCloseButton1" Click="NotRespondAppCloseButton1_Click" Margin="5"/>
 
         <Button Grid.Row="1" Grid.Column="5" Name="AppLocationButton2" Click="AppLocationButton2_Click" Margin="5"/>
         <!--Button Grid.Row="2" Grid.Column="5" Name="HomeButton2" Click="" Margin="5"/-->
@@ -200,7 +200,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="3" Name="LoadButton" Content="Load" Click="LoadButton_Click" Margin="5,5,2.5,5"/>
-            <Button Grid.Column="4" Name="SaveButton" Content="Save As" Click="SaveButton_Click" Margin="5,5,2.5,5"/>
+            <Button Grid.Column="4" Name="SavePixelButton" Content="Save As" Click="SavePixelButton_Click" Margin="5,5,2.5,5"/>
             <Button Grid.Column="5" Name="DefaultButton" Content="Default" Click="DefaultButton_Click" Margin="5,5,2.5,5"/>
             <Button Grid.Column="6" Name="ApplyButton" Content="Apply" Click="ApplyButton_Click" Margin="5,5,2.5,5"/>
             <Button Grid.Column="7" Name="CancelButton" Content="Cancel" Click="CancelButton_Click" Margin="2.5,5,5,5"/>
