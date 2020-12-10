@@ -1352,30 +1352,31 @@ namespace ArtOfHassan
                         if (IsStopHassan)
                         {
                             ClickLog("Stop Hassan...");
-
-                            //System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                            //{
-                            //    if (KoreanCheckBox.IsChecked.Value)
-                            //    {
-                            //        StartButton.Content = "시작";
-                            //    }
-                            //    else
-                            //    {
-                            //        StartButton.Content = "Start";
-                            //    }
-                            //    PixelCustomizeButton.IsEnabled = true;
-                            //    MonitoringIntervalTextBox.IsEnabled = true;
-
-                            //    ButtonTimer.Enabled = false;
-                            //    ProblemTimer.Enabled = false;
-                            //}));
                         }
 
                         if (isShutdownPC)
                         {
                             ClickLog("Shutting Down PC...");
 
-                            System.Diagnostics.Process.Start("shutdown.exe", "-s -f -t 30");
+                            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                            {
+                                if (KoreanCheckBox.IsChecked.Value)
+                                {
+                                    StartButton.Content = "시작";
+                                }
+                                else
+                                {
+                                    StartButton.Content = "Start";
+                                }
+                                PixelCustomizeButton.IsEnabled = true;
+                                MonitoringIntervalTextBox.IsEnabled = true;
+
+                                ButtonTimer.Enabled = false;
+                                ProblemTimer.Enabled = false;
+                                NoxTimer.Enabled = false;
+                            }));
+
+                            System.Diagnostics.Process.Start("shutdown.exe", "-s -f -t 0");
                         }
 
                         return;
