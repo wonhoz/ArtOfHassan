@@ -13,6 +13,8 @@ using System.Windows.Threading;
 
 namespace ArtOfHassan
 {
+    #region Internal
+
     internal enum SHOW_WINDOW_COMMANDS : int
     {
         HIDE      = 0,
@@ -31,11 +33,15 @@ namespace ArtOfHassan
         public System.Drawing.Rectangle normal_position;
     }
 
+    #endregion
+
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Dll Import
+
         [DllImport("user32.dll")]
         static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
 
@@ -44,6 +50,10 @@ namespace ArtOfHassan
 
         [DllImport("user32.dll")]
         internal static extern bool GetWindowPlacement(IntPtr handle, ref WINDOWPLACEMENT placement);
+
+        #endregion
+
+        #region Private Variable
 
         private const uint MOUSEMOVE    = 0x0001;  // 마우스 이동
         private const uint ABSOLUTEMOVE = 0x8000;  // 전역 위치
@@ -55,6 +65,20 @@ namespace ArtOfHassan
         private static System.Timers.Timer NoxMonitoringTimer      = new System.Timers.Timer();
         private static System.Timers.Timer ArtOfWarMonitoringTimer = new System.Timers.Timer();
         private static System.Timers.Timer ProblemMonitoringTimer  = new System.Timers.Timer();
+
+        #endregion
+
+        #region Public Variable
+
+        public System.Drawing.Color PixelColor;
+        public int PixelPositionX;
+        public int PixelPositionY;
+
+        public string ClickPattern = "L;R;L";
+
+        #endregion
+
+        #region Variable
 
         Stopwatch AdsCloseStopwatch          = new Stopwatch();
         Stopwatch BattleButtonInRedStopwatch = new Stopwatch();
@@ -84,11 +108,7 @@ namespace ArtOfHassan
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
 
-        public System.Drawing.Color PixelColor;
-        public int PixelPositionX;
-        public int PixelPositionY;
-
-        public string ClickPattern = "L;R;L";
+        #endregion
 
 
         public MainWindow()
