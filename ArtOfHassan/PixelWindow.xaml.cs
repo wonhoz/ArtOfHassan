@@ -17,6 +17,8 @@ namespace ArtOfHassan
     /// </summary>
     public partial class PixelWindow : Window
     {
+        #region Dll Import
+
         [DllImport("user32.dll")]
         static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
 
@@ -26,17 +28,27 @@ namespace ArtOfHassan
         [DllImport("user32.dll")]
         internal static extern bool GetWindowPlacement(IntPtr handle, ref WINDOWPLACEMENT placement);
 
-        private const uint MOUSEMOVE = 0x0001;  // 마우스 이동
+        #endregion
+
+        #region Private Variable
+
+        private const uint MOUSEMOVE    = 0x0001;  // 마우스 이동
         private const uint ABSOLUTEMOVE = 0x8000;  // 전역 위치
-        private const uint LBUTTONDOWN = 0x0002;  // 왼쪽 마우스 버튼 눌림
-        private const uint LBUTTONUP = 0x0004;  // 왼쪽 마우스 버튼 떼어짐
-        private const uint RBUTTONDOWN = 0x0008;  // 오른쪽 마우스 버튼 눌림
-        private const uint RBUTTONUP = 0x00010; // 오른쪽 마우스 버튼 떼어짐
+        private const uint LBUTTONDOWN  = 0x0002;  // 왼쪽 마우스 버튼 눌림
+        private const uint LBUTTONUP    = 0x0004;  // 왼쪽 마우스 버튼 떼어짐
+        private const uint RBUTTONDOWN  = 0x0008;  // 오른쪽 마우스 버튼 눌림
+        private const uint RBUTTONUP    = 0x00010; // 오른쪽 마우스 버튼 떼어짐
+
+        #endregion
+
+        #region Variable
 
         double NoxPointX = 0;
         double NoxPointY = 0;
         double NoxWidth  = 0;
         double NoxHeight = 0;
+
+        #endregion
 
 
         public PixelWindow()
@@ -1284,452 +1296,19 @@ namespace ArtOfHassan
             this.Close();
         }
 
-        private void AppLocationX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = AppLocationX.CaretIndex;
-            AppLocationX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            AppLocationX.Select(caretIndex, 0);
-        }
-
-        private void HomeButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = HomeButtonX.CaretIndex;
-            HomeButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            HomeButtonX.Select(caretIndex, 0);
-        }
-
-        private void ShopButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = ShopButtonX.CaretIndex;
-            ShopButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            ShopButtonX.Select(caretIndex, 0);
-        }
-
-        private void CollectButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = CollectButtonX.CaretIndex;
-            CollectButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            CollectButtonX.Select(caretIndex, 0);
-        }
-
-        private void GoldChestBoxX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldChestBoxX.CaretIndex;
-            GoldChestBoxX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            GoldChestBoxX.Select(caretIndex, 0);
-        }
-
-        private void BattleLevelButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = BattleLevelButtonX.CaretIndex;
-            BattleLevelButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            BattleLevelButtonX.Select(caretIndex, 0);
-        }
-
-        private void SkillButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = SkillButtonX.CaretIndex;
-            SkillButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            SkillButtonX.Select(caretIndex, 0);
-        }
-
-        private void SpeedButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = SpeedButtonX.CaretIndex;
-            SpeedButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            SpeedButtonX.Select(caretIndex, 0);
-        }
-
-        private void ContinueButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = ContinueButtonX.CaretIndex;
-            ContinueButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            ContinueButtonX.Select(caretIndex, 0);
-        }
-
-        private void VictoryDefeatX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = VictoryDefeatX.CaretIndex;
-            VictoryDefeatX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            VictoryDefeatX.Select(caretIndex, 0);
-        }
-
-        private void GoldButtonBackgroundX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldButtonBackgroundX.CaretIndex;
-            GoldButtonBackgroundX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            GoldButtonBackgroundX.Select(caretIndex, 0);
-        }
-
-        private void GoldButtonImageX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldButtonImageX.CaretIndex;
-            GoldButtonImageX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            GoldButtonImageX.Select(caretIndex, 0);
-        }
-
-        private void NextButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = NextButtonX.CaretIndex;
-            NextButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            NextButtonX.Select(caretIndex, 0);
-        }
-
-        private void NoGoldX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = NoGoldX.CaretIndex;
-            NoGoldX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            NoGoldX.Select(caretIndex, 0);
-        }
-
-        private void GoldAdCloseButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldAdCloseButtonX.CaretIndex;
-            GoldAdCloseButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            GoldAdCloseButtonX.Select(caretIndex, 0);
-        }
-
-        private void TroopAdCloseButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = TroopAdCloseButtonX.CaretIndex;
-            TroopAdCloseButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            TroopAdCloseButtonX.Select(caretIndex, 0);
-        }
-
-        private void MidasAdCloseButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = MidasAdCloseButtonX.CaretIndex;
-            MidasAdCloseButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            MidasAdCloseButtonX.Select(caretIndex, 0);
-        }
-
-        private void LeftAdCloseButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = LeftAdCloseButtonX.CaretIndex;
-            LeftAdCloseButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            LeftAdCloseButtonX.Select(caretIndex, 0);
-        }
-
-        private void RightAdCloseButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = RightAdCloseButtonX.CaretIndex;
-            RightAdCloseButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            RightAdCloseButtonX.Select(caretIndex, 0);
-        }
-
-        private void LatestUsedAppButtonX_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = LatestUsedAppButtonX.CaretIndex;
-            LatestUsedAppButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            LatestUsedAppButtonX.Select(caretIndex, 0);
-        }
-
-        private void RightTopAppCloseButtonX_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            int caretIndex = RightTopAppCloseButtonX.CaretIndex;
-            RightTopAppCloseButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            RightTopAppCloseButtonX.Select(caretIndex, 0);
-        }
-
-        private void NotRespondAppCloseButtonX_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            int caretIndex = NotRespondAppCloseButtonX.CaretIndex;
-            NotRespondAppCloseButtonX.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            NotRespondAppCloseButtonX.Select(caretIndex, 0);
-        }
-
-        private void AppLocationY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = AppLocationY.CaretIndex;
-            AppLocationY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            AppLocationY.Select(caretIndex, 0);
-        }
-
-        private void HomeButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = HomeButtonY.CaretIndex;
-            HomeButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            HomeButtonY.Select(caretIndex, 0);
-        }
-
-        private void ShopButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = ShopButtonY.CaretIndex;
-            ShopButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            ShopButtonY.Select(caretIndex, 0);
-        }
-
-        private void CollectButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = CollectButtonY.CaretIndex;
-            CollectButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            CollectButtonY.Select(caretIndex, 0);
-        }
-
-        private void GoldChestBoxY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldChestBoxY.CaretIndex;
-            GoldChestBoxY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            GoldChestBoxY.Select(caretIndex, 0);
-        }
-
-        private void BattleLevelButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = BattleLevelButtonY.CaretIndex;
-            BattleLevelButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            BattleLevelButtonY.Select(caretIndex, 0);
-        }
-
-        private void SkillButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = SkillButtonY.CaretIndex;
-            SkillButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            SkillButtonY.Select(caretIndex, 0);
-        }
-
-        private void SpeedButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = SpeedButtonY.CaretIndex;
-            SpeedButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            SpeedButtonY.Select(caretIndex, 0);
-        }
-
-        private void ContinueButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = ContinueButtonY.CaretIndex;
-            ContinueButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            ContinueButtonY.Select(caretIndex, 0);
-        }
-
-        private void VictoryDefeatY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = VictoryDefeatY.CaretIndex;
-            VictoryDefeatY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            VictoryDefeatY.Select(caretIndex, 0);
-        }
-
-        private void GoldButtonBackgroundY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldButtonBackgroundY.CaretIndex;
-            GoldButtonBackgroundY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            GoldButtonBackgroundY.Select(caretIndex, 0);
-        }
-
-        private void GoldButtonImageY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldButtonImageY.CaretIndex;
-            GoldButtonImageY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            GoldButtonImageY.Select(caretIndex, 0);
-        }
-
-        private void NextButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = NextButtonY.CaretIndex;
-            NextButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            NextButtonY.Select(caretIndex, 0);
-        }
-
-        private void NoGoldY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = NoGoldY.CaretIndex;
-            NoGoldY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            NoGoldY.Select(caretIndex, 0);
-        }
-
-        private void GoldAdCloseButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldAdCloseButtonY.CaretIndex;
-            GoldAdCloseButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            GoldAdCloseButtonY.Select(caretIndex, 0);
-        }
-
-        private void TroopAdCloseButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = TroopAdCloseButtonY.CaretIndex;
-            TroopAdCloseButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            TroopAdCloseButtonY.Select(caretIndex, 0);
-        }
-
-        private void MidasAdCloseButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = MidasAdCloseButtonY.CaretIndex;
-            MidasAdCloseButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            MidasAdCloseButtonY.Select(caretIndex, 0);
-        }
-
-        private void LeftAdCloseButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = LeftAdCloseButtonY.CaretIndex;
-            LeftAdCloseButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            LeftAdCloseButtonY.Select(caretIndex, 0);
-        }
-
-        private void RightAdCloseButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = RightAdCloseButtonY.CaretIndex;
-            RightAdCloseButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            RightAdCloseButtonY.Select(caretIndex, 0);
-        }
-
-        private void LatestUsedAppButtonY_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = LatestUsedAppButtonY.CaretIndex;
-            LatestUsedAppButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            LatestUsedAppButtonY.Select(caretIndex, 0);
-        }
-
-        private void RightTopAppCloseButtonY_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            int caretIndex = RightTopAppCloseButtonY.CaretIndex;
-            RightTopAppCloseButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            RightTopAppCloseButtonY.Select(caretIndex, 0);
-        }
-
-        private void NotRespondAppCloseButtonY_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            int caretIndex = NotRespondAppCloseButtonY.CaretIndex;
-            NotRespondAppCloseButtonY.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            NotRespondAppCloseButtonY.Select(caretIndex, 0);
-        }
-
-        private void AppLocationColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = AppLocationColor.CaretIndex;
-            AppLocationColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            AppLocationColor.Select(caretIndex, 0);
-        }
-
-        private void ShopButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = ShopButtonColor.CaretIndex;
-            ShopButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            ShopButtonColor.Select(caretIndex, 0);
-        }
-
-        private void CollectButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = CollectButtonColor.CaretIndex;
-            CollectButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            CollectButtonColor.Select(caretIndex, 0);
-        }
-
-        private void GoldChestBoxColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldChestBoxColor.CaretIndex;
-            GoldChestBoxColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            GoldChestBoxColor.Select(caretIndex, 0);
-        }
-
-        private void BattleLevelButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = BattleLevelButtonColor.CaretIndex;
-            BattleLevelButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            BattleLevelButtonColor.Select(caretIndex, 0);
-        }
-
-        private void SkillButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = SkillButtonColor.CaretIndex;
-            SkillButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            SkillButtonColor.Select(caretIndex, 0);
-        }
-
-        private void SpeedButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = SpeedButtonColor.CaretIndex;
-            SpeedButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            SpeedButtonColor.Select(caretIndex, 0);
-        }
-
-        private void ContinueButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = ContinueButtonColor.CaretIndex;
-            ContinueButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            ContinueButtonColor.Select(caretIndex, 0);
-        }
-
-        private void VictoryDefeatColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = VictoryDefeatColor.CaretIndex;
-            VictoryDefeatColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            VictoryDefeatColor.Select(caretIndex, 0);
-        }
-
-        private void GoldButtonBackgroundColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldButtonBackgroundColor.CaretIndex;
-            GoldButtonBackgroundColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            GoldButtonBackgroundColor.Select(caretIndex, 0);
-        }
-
-        private void GoldButtonImageColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldButtonImageColor.CaretIndex;
-            GoldButtonImageColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            GoldButtonImageColor.Select(caretIndex, 0);
-        }
-
-        private void NextButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = NextButtonColor.CaretIndex;
-            NextButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            NextButtonColor.Select(caretIndex, 0);
-        }
-
-        private void NoGoldColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = NoGoldColor.CaretIndex;
-            NoGoldColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            NoGoldColor.Select(caretIndex, 0);
-        }
-
-        private void GoldAdCloseButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = GoldAdCloseButtonColor.CaretIndex;
-            GoldAdCloseButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            GoldAdCloseButtonColor.Select(caretIndex, 0);
-        }
-
-        private void TroopAdCloseButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = TroopAdCloseButtonColor.CaretIndex;
-            TroopAdCloseButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            TroopAdCloseButtonColor.Select(caretIndex, 0);
-        }
-
-        private void MidasAdCloseButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = MidasAdCloseButtonColor.CaretIndex;
-            MidasAdCloseButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            MidasAdCloseButtonColor.Select(caretIndex, 0);
-        }
-
-        private void LeftAdCloseButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = LeftAdCloseButtonColor.CaretIndex;
-            LeftAdCloseButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            LeftAdCloseButtonColor.Select(caretIndex, 0);
-        }
-
-        private void RightAdCloseButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = RightAdCloseButtonColor.CaretIndex;
-            RightAdCloseButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            RightAdCloseButtonColor.Select(caretIndex, 0);
-        }
-
-        private void LatestUsedAppButtonColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            //int caretIndex = LatestUsedAppButtonColor.CaretIndex;
-            //LatestUsedAppButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            //LatestUsedAppButtonColor.Select(caretIndex, 0);
-        }
-
-        private void NotRespondAppCloseButtonColor_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            int caretIndex = NotRespondAppCloseButtonColor.CaretIndex;
-            NotRespondAppCloseButtonColor.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
-            NotRespondAppCloseButtonColor.Select(caretIndex, 0);
+        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            int caretIndex = (e.Source as TextBox).CaretIndex;
+            string name = (e.Source as TextBox).Name;
+            if (name.Contains("Color"))
+            {
+                (e.Source as TextBox).Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.HtmlColor, "");
+            }
+            else
+            {
+                (e.Source as TextBox).Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Numbers, "");
+            }
+            (e.Source as TextBox).Select(caretIndex, 0);
         }
     }
 }

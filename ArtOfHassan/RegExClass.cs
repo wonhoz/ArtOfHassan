@@ -14,6 +14,8 @@ namespace ArtOfHassan
 
         public static readonly string Number         = @"[^0-9]";
 
+        public static readonly string Numbers        = @"[^0-9;]";
+
         public static readonly string NumberDot      = @"[^0-9.]";
 
         public static readonly string Word           = @"[^\w]";
