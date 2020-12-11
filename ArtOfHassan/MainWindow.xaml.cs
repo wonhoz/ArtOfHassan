@@ -218,21 +218,17 @@ namespace ArtOfHassan
         private void NoxMonitoringTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
             System.Windows.Point point = new System.Windows.Point();
-            System.Windows.Size size = new System.Windows.Size();
+            System.Windows.Size size   = new System.Windows.Size();
 
             GetWindowPos(GetWinAscHandle(), ref point, ref size);
-            //TimerLog("point.X: "     + point.X);
-            //TimerLog("point.Y: "     + point.Y);
-            //TimerLog("size.Width: "  + size.Width);
-            //TimerLog("size.Height: " + size.Height);
 
             if ((size.Width == 0) || (size.Height == 0))
             {
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
-                    ProblemMonitoringTimer.Enabled = false;
+                    ProblemMonitoringTimer.Enabled  = false;
                     ArtOfWarMonitoringTimer.Enabled = false;
-                    StartButton.IsEnabled = false;
+                    StartButton.IsEnabled           = false;
                     if (KoreanCheckBox.IsChecked.Value)
                     {
                         StartButton.Content = "시작";
@@ -247,7 +243,7 @@ namespace ArtOfHassan
             {
                 NoxPointX = point.X;
                 NoxPointY = point.Y;
-                NoxWidth = size.Width;
+                NoxWidth  = size.Width;
                 NoxHeight = size.Height;
 
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
@@ -271,11 +267,6 @@ namespace ArtOfHassan
                     }
                 }));
             }
-
-            //TimerLog("NoxPointX: " + NoxPointX);
-            //TimerLog("NoxPointY: " + NoxPointY);
-            //TimerLog("NoxWidth: "  + NoxWidth);
-            //TimerLog("NoxHeight: " + NoxHeight);
         }
 
         private void ProblemMonitoringTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
@@ -288,13 +279,13 @@ namespace ArtOfHassan
                 IsProblemOccurred = true;
 
                 bool isShareProblem = true; // 무늬만 사용
-                string minute = "3";
+                string minute       = "3";
                 string emailaddress = "";
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
                     isShareProblem = ShareProblemCheckBox.IsChecked.Value;
-                    minute = ScreenComparisonIntervalTextBox.Text;
-                    emailaddress = EmailAddressTextBox.Text;
+                    minute         = ScreenComparisonIntervalTextBox.Text;
+                    emailaddress   = EmailAddressTextBox.Text;
                 }));
 
                 // 이메일 전송 부분
@@ -664,7 +655,7 @@ namespace ArtOfHassan
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
                             IsStopHassan = StopHassanCheckBox.IsChecked.Value;
-                            isSendEmail = SendEmailCheckBox.IsChecked.Value;
+                            isSendEmail  = SendEmailCheckBox.IsChecked.Value;
                             isShutdownPC = ShutdownComputerCheckBox.IsChecked.Value;
                         }));
 
@@ -857,7 +848,7 @@ namespace ArtOfHassan
 
                             for (int col = 0; col < NoxWidth; col++)
                             {
-                                System.Drawing.Color lastColor = LastBitmap.GetPixel(col, row);
+                                System.Drawing.Color lastColor    = LastBitmap.GetPixel(col, row);
                                 System.Drawing.Color currentColor = CurrentBitmap.GetPixel(col, row);
 
                                 if ((lastColor.R != currentColor.R) && (lastColor.G != currentColor.G) && (lastColor.B != currentColor.B))
@@ -1064,18 +1055,18 @@ namespace ArtOfHassan
         private void LatestRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Working for the latest version");
-            IsLatest = true;
-            GoldChestBoxX = 150;
-            GoldChestBoxY = 410;
+            IsLatest              = true;
+            GoldChestBoxX         = 150;
+            GoldChestBoxY         = 410;
             GoldButtonBackgroundY = 780;
         }
 
         private void OldRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Working for the version 3.0.8");
-            IsLatest = false;
-            GoldChestBoxX = 165;
-            GoldChestBoxY = 420;
+            IsLatest              = false;
+            GoldChestBoxX         = 165;
+            GoldChestBoxY         = 420;
             GoldButtonBackgroundY = 710;
         }
 
@@ -1372,8 +1363,6 @@ namespace ArtOfHassan
 
             pixelWindow.LatestUsedAppButtonX.Text = LatestUsedAppButtonX.ToString();
             pixelWindow.LatestUsedAppButtonY.Text = LatestUsedAppButtonY.ToString();
-            //pixelWindow.LatestUsedAppButtonColor.Text = LatestUsedAppButtonColor.ToString();
-            //pixelWindow.LatestUsedAppButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LatestUsedAppButtonColor));
 
             pixelWindow.RightTopAppCloseButtonX.Text = RightTopAppCloseButtonX.ToString();
             pixelWindow.RightTopAppCloseButtonY.Text = RightTopAppCloseButtonY.ToString();
@@ -1480,7 +1469,7 @@ namespace ArtOfHassan
 
             GetWindowPlacement(hwnd, ref placement);
 
-            size = new System.Windows.Size(placement.normal_position.Right - (placement.normal_position.Left * 2), placement.normal_position.Bottom - (placement.normal_position.Top * 2));
+            size  = new System.Windows.Size(placement.normal_position.Right - (placement.normal_position.Left * 2), placement.normal_position.Bottom - (placement.normal_position.Top * 2));
             point = new System.Windows.Point(placement.normal_position.Left, placement.normal_position.Top);
         }
 
@@ -1494,7 +1483,7 @@ namespace ArtOfHassan
 
         private bool MousePointColorCheck(int PositionX, int PositionY, string Color)
         {
-            System.Drawing.Color TargetColor = ColorTranslator.FromHtml(Color);
+            System.Drawing.Color TargetColor  = ColorTranslator.FromHtml(Color);
             System.Drawing.Color CurrentColor = CurrentBitmap.GetPixel(PositionX, PositionY);
 
             TimerLog(nameof(Color) + ": " + CurrentColor.R + "," + CurrentColor.G + "," + CurrentColor.B);
@@ -1506,7 +1495,7 @@ namespace ArtOfHassan
         private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             int caretIndex = (e.Source as TextBox).CaretIndex;
-            string name = (e.Source as TextBox).Name;
+            string name    = (e.Source as TextBox).Name;
             if (name.Contains("WindowTitle"))
             {
                 (e.Source as TextBox).Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Location, "");
@@ -1683,12 +1672,10 @@ namespace ArtOfHassan
                         case ("latestusedsppbutton"):
                             LatestUsedAppButtonX = int.Parse(listitem[1]);
                             LatestUsedAppButtonY = int.Parse(listitem[2]);
-                            //LatestUsedAppButtonColor = listitem[3];
                             break;
                         case ("righttopappclosebutton"):
                             RightTopAppCloseButtonX = int.Parse(listitem[1]);
                             RightTopAppCloseButtonY = int.Parse(listitem[2]);
-                            //RightTopAppCloseButtonColor.Text = listitem[3];
                             break;
                         case ("notrespondappclosebutton"):
                             NotRespondAppCloseButtonX = int.Parse(listitem[1]);
