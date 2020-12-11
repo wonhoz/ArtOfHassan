@@ -2026,46 +2026,23 @@ namespace ArtOfHassan
             pixelWindow.ShowDialog();
         }
 
-        private void WindowTitleTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            int caretIndex = WindowTitleTextBox.CaretIndex;
-            WindowTitleTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Location, "");
-            WindowTitleTextBox.Select(caretIndex, 0);
-        }
-
-        private void MonitoringIntervalTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = MonitoringIntervalTextBox.CaretIndex;
-            MonitoringIntervalTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            MonitoringIntervalTextBox.Select(caretIndex, 0);
-        }
-
-        private void ScreenComparisonIntervalTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = ScreenComparisonIntervalTextBox.CaretIndex;
-            ScreenComparisonIntervalTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            ScreenComparisonIntervalTextBox.Select(caretIndex, 0);
-        }
-
-        private void X3GoldButtonClickDelayTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = X3GoldButtonClickDelayTextBox.CaretIndex;
-            X3GoldButtonClickDelayTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            X3GoldButtonClickDelayTextBox.Select(caretIndex, 0);
-        }
-
-        private void PixelDifferenceTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = PixelDifferenceTextBox.CaretIndex;
-            PixelDifferenceTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
-            PixelDifferenceTextBox.Select(caretIndex, 0);
-        }
-
-        private void EmailAddressTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            int caretIndex = EmailAddressTextBox.CaretIndex;
-            EmailAddressTextBox.Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Email, "");
-            EmailAddressTextBox.Select(caretIndex, 0);
+            int caretIndex = (e.Source as TextBox).CaretIndex;
+            string name = (e.Source as TextBox).Name;
+            if (name.Contains("WindowTitle"))
+            {
+                (e.Source as TextBox).Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Location, "");
+            }
+            else if (name.Contains("Email"))
+            {
+                (e.Source as TextBox).Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Email, "");
+            }
+            else
+            {
+                (e.Source as TextBox).Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
+            }
+            (e.Source as TextBox).Select(caretIndex, 0);
         }
     }
 }

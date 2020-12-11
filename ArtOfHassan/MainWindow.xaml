@@ -27,7 +27,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Name="WindowTitleTextBlock" Text="Window Title" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-        <TextBox Grid.Column="1" Name="WindowTitleTextBox" Text="NoxPlayer" Margin="5" TextChanged="WindowTitleTextBox_TextChanged"
+        <TextBox Grid.Column="1" Name="WindowTitleTextBox" Text="NoxPlayer" Margin="5" TextChanged="TextBox_TextChanged"
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
@@ -42,14 +42,14 @@
             <TextBlock Grid.Column="0" Name="MonitoringIntervalTextBlock" Text="Monitoring&#10;Interval (ms)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
             <TextBox Grid.Row="1" Grid.Column="1" Name="MonitoringIntervalTextBox" Text="1000" Margin="5"
-                     TextChanged="MonitoringIntervalTextBox_TextChanged"
+                     TextChanged="TextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
             <TextBlock Grid.Column="2" Name="ScreenComparisonIntervalTextBlock" Text="   Screen&#10;Comparison&#10; Interval (#)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
             <TextBox Grid.Row="1" Grid.Column="3" Name="ScreenComparisonIntervalTextBox" Text="3" Margin="5"
-                     TextChanged="ScreenComparisonIntervalTextBox_TextChanged"
+                     TextChanged="TextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
@@ -66,7 +66,7 @@
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
             <TextBox Grid.Row="1" Grid.Column="1" Name="X3GoldButtonClickDelayTextBox" Text="100" Margin="5"
-                     TextChanged="X3GoldButtonClickDelayTextBox_TextChanged"
+                     TextChanged="TextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
@@ -74,7 +74,7 @@
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
             <TextBox Grid.Row="1" Grid.Column="3" Name="PixelDifferenceTextBox" Text="1" Margin="5"
-                     TextChanged="PixelDifferenceTextBox_TextChanged"
+                     TextChanged="TextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
@@ -163,7 +163,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBox Grid.Row="1" Grid.Column="0" Name="EmailAddressTextBox" Margin="5,5,2.5,5"
-                     TextChanged="EmailAddressTextBox_TextChanged"
+                     TextChanged="TextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
