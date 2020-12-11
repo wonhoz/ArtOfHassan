@@ -115,334 +115,8 @@ namespace ArtOfHassan
         {
             InitializeComponent();
 
-            FileInfo fileInfo = new FileInfo("pixel.txt");
-            if (fileInfo.Exists)
-            {
-                ClickLog("Load Pixel...");
-
-                string[] lines = File.ReadAllLines("pixel.txt");
-
-                foreach (string line in lines)
-                {
-                    string[] listitem = line.Split(',');
-
-                    switch (listitem[0].ToLower())
-                    {
-                        case ("applocation"):
-                            AppLocationX = int.Parse(listitem[1]);
-                            AppLocationY = int.Parse(listitem[2]);
-                            AppLocationColor = listitem[3];
-                            break;
-                        case ("shopbutton"):
-                            HomeButtonX = int.Parse(listitem[1]);
-                            ShopButtonX = int.Parse(listitem[2]);
-                            ShopButtonY = int.Parse(listitem[3]);
-                            ShopButtonColor = listitem[4];
-                            break;
-                        case ("collectbutton"):
-                            CollectButtonX = int.Parse(listitem[1]);
-                            CollectButtonY = int.Parse(listitem[2]);
-                            CollectButtonColor = listitem[3];
-                            break;
-                        case ("goldchestbox"):
-                            GoldChestBoxX = int.Parse(listitem[1]);
-                            GoldChestBoxY = int.Parse(listitem[2]);
-                            GoldChestBoxColor = listitem[3];
-                            break;
-                        case ("battlelevelbutton"):
-                            BattleLevelButtonX = int.Parse(listitem[1]);
-                            BattleLevelButtonY = int.Parse(listitem[2]);
-                            BattleLevelButtonColor = listitem[3];
-                            break;
-                        case ("skillbutton"):
-                            SkillButtonX = int.Parse(listitem[1]);
-                            SkillButtonY = int.Parse(listitem[2]);
-                            SkillButtonColor = listitem[3];
-                            break;
-                        case ("speedbutton"):
-                            SpeedButtonX = int.Parse(listitem[1]);
-                            SpeedButtonY = int.Parse(listitem[2]);
-                            SpeedButtonColor = listitem[3];
-                            break;
-                        case ("continuebutton"):
-                            ContinueButtonX = int.Parse(listitem[1]);
-                            ContinueButtonY = int.Parse(listitem[2]);
-                            ContinueButtonColor = listitem[3];
-                            break;
-                        case ("victorydefeat"):
-                            VictoryDefeatX = int.Parse(listitem[1]);
-                            VictoryDefeatY = int.Parse(listitem[2]);
-                            VictoryDefeatColor = listitem[3];
-                            break;
-                        case ("goldbuttonbackground"):
-                            GoldButtonBackgroundX = int.Parse(listitem[1]);
-                            GoldButtonBackgroundY = int.Parse(listitem[2]);
-                            GoldButtonBackgroundColor = listitem[3];
-                            break;
-                        case ("goldbuttonimage"):
-                            GoldButtonImageX = int.Parse(listitem[1]);
-                            GoldButtonImageY = int.Parse(listitem[2]);
-                            GoldButtonImageColor = listitem[3];
-                            break;
-                        case ("nextbutton"):
-                            NextButtonX = int.Parse(listitem[1]);
-                            NextButtonY = int.Parse(listitem[2]);
-                            NextButtonColor = listitem[3];
-                            break;
-                        case ("nogold"):
-                            NoGoldX = int.Parse(listitem[1]);
-                            NoGoldY = int.Parse(listitem[2]);
-                            NoGoldColor = listitem[3];
-                            break;
-                        case ("gameadclosebutton"):
-                            GameAdCloseButtonX = int.Parse(listitem[1]);
-                            GoldAdCloseButtonY = int.Parse(listitem[2]);
-                            TroopAdCloseButtonY = int.Parse(listitem[3]);
-                            // 예외발생 임시처리 나중에 삭제할것
-                            if (listitem.Length < 6)
-                            {
-                                GameAdCloseButtonColor = listitem[4] + ";#e9e9d8".ToUpper();
-                            }
-                            else
-                            {
-                                MidasAdCloseButtonY = int.Parse(listitem[4]);
-                                GameAdCloseButtonColor = listitem[5];
-                            }
-                            break;
-                        case ("googleadclosebutton"):
-                            LeftAdCloseButtonX = int.Parse(listitem[1]);
-                            RightAdCloseButtonX = int.Parse(listitem[2]);
-                            GoogleAdCloseButtonY = int.Parse(listitem[3]);
-                            GoogleAdCloseButtonColor = listitem[4];
-                            break;
-                        case ("latestusedsppbutton"):
-                            LatestUsedAppButtonX = int.Parse(listitem[1]);
-                            LatestUsedAppButtonY = int.Parse(listitem[2]);
-                            //LatestUsedAppButtonColor = listitem[3];
-                            break;
-                        case ("righttopappclosebutton"):
-                            RightTopAppCloseButtonX = int.Parse(listitem[1]);
-                            RightTopAppCloseButtonY = int.Parse(listitem[2]);
-                            //RightTopAppCloseButtonColor.Text = listitem[3];
-                            break;
-                        case ("notrespondappclosebutton"):
-                            NotRespondAppCloseButtonX = int.Parse(listitem[1]);
-                            NotRespondAppCloseButtonY = int.Parse(listitem[2]);
-                            NotRespondAppCloseButtonColor = listitem[3];
-                            break;
-                    }
-                }
-            }
-
-            fileInfo = new FileInfo("setting.txt");
-            if (fileInfo.Exists)
-            {
-                ClickLog("Load Setting...");
-
-                string[] lines = File.ReadAllLines("setting.txt");
-
-                int tempnum;
-                if (int.TryParse(lines[0].Split(',')[0], out tempnum)) // 구버전 - 추후 제거
-                {
-                    AppLocationX = int.Parse(lines[0].Split(',')[0]);
-                    AppLocationY = int.Parse(lines[0].Split(',')[1]);
-                    AppLocationColor = lines[0].Split(',')[2];
-
-                    HomeButtonX = int.Parse(lines[1].Split(',')[0]);
-                    ShopButtonX = int.Parse(lines[1].Split(',')[1]);
-                    ShopButtonY = int.Parse(lines[1].Split(',')[2]);
-                    ShopButtonColor = lines[1].Split(',')[3];
-
-                    CollectButtonX = int.Parse(lines[2].Split(',')[0]);
-                    CollectButtonY = int.Parse(lines[2].Split(',')[1]);
-                    CollectButtonColor = lines[2].Split(',')[2];
-
-                    GoldChestBoxX = int.Parse(lines[3].Split(',')[0]);
-                    GoldChestBoxY = int.Parse(lines[3].Split(',')[1]);
-                    GoldChestBoxColor = lines[3].Split(',')[2];
-
-                    BattleLevelButtonX = int.Parse(lines[4].Split(',')[0]);
-                    BattleLevelButtonY = int.Parse(lines[4].Split(',')[1]);
-                    BattleLevelButtonColor = lines[4].Split(',')[2];
-
-                    SkillButtonX = int.Parse(lines[5].Split(',')[0]);
-                    SkillButtonY = int.Parse(lines[5].Split(',')[1]);
-                    SkillButtonColor = lines[5].Split(',')[2];
-
-                    SpeedButtonX = int.Parse(lines[6].Split(',')[0]);
-                    SpeedButtonY = int.Parse(lines[6].Split(',')[1]);
-                    SpeedButtonColor = lines[6].Split(',')[2];
-
-                    ContinueButtonX = int.Parse(lines[7].Split(',')[0]);
-                    ContinueButtonY = int.Parse(lines[7].Split(',')[1]);
-                    ContinueButtonColor = lines[7].Split(',')[2];
-
-                    VictoryDefeatX = int.Parse(lines[8].Split(',')[0]);
-                    VictoryDefeatY = int.Parse(lines[8].Split(',')[1]);
-                    VictoryDefeatColor = lines[8].Split(',')[2];
-
-                    GoldButtonBackgroundX = int.Parse(lines[9].Split(',')[0]);
-                    GoldButtonBackgroundY = int.Parse(lines[9].Split(',')[1]);
-                    GoldButtonBackgroundColor = lines[9].Split(',')[2];
-
-                    GoldButtonImageX = int.Parse(lines[10].Split(',')[0]);
-                    GoldButtonImageY = int.Parse(lines[10].Split(',')[1]);
-                    GoldButtonImageColor = lines[10].Split(',')[2];
-
-                    NextButtonX = int.Parse(lines[11].Split(',')[0]);
-                    NextButtonY = int.Parse(lines[11].Split(',')[1]);
-                    NextButtonColor = lines[11].Split(',')[2];
-
-                    // 예외발생 임시처리 나중에 삭제할것
-                    if (lines.Length == 16)
-                    {
-                        NoGoldX = int.Parse(lines[12].Split(',')[0]);
-                        NoGoldY = int.Parse(lines[12].Split(',')[1]);
-                        NoGoldColor = lines[12].Split(',')[2];
-
-                        GameAdCloseButtonX = int.Parse(lines[13].Split(',')[0]);
-                        GoldAdCloseButtonY = int.Parse(lines[13].Split(',')[1]);
-                        TroopAdCloseButtonY = int.Parse(lines[13].Split(',')[2]);
-						// 예외발생 임시처리 나중에 삭제할것
-                        if (lines[13].Split(',').Length < 5)
-                        {
-                            GameAdCloseButtonColor = lines[13].Split(',')[3] + ";#e9e9d8".ToUpper();
-                        }
-                        else
-                        {
-                            MidasAdCloseButtonY = int.Parse(lines[13].Split(',')[3]);
-                            GameAdCloseButtonColor = lines[13].Split(',')[4];
-                        }
-
-                        LeftAdCloseButtonX = int.Parse(lines[14].Split(',')[0]);
-                        RightAdCloseButtonX = int.Parse(lines[14].Split(',')[1]);
-                        GoogleAdCloseButtonY = int.Parse(lines[14].Split(',')[2]);
-                        // 예외발생 임시처리 나중에 삭제할것
-                        if (lines[14].Split(',').Length < 4)
-                        {
-                            GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
-                        }
-                        else
-                        {
-                            GoogleAdCloseButtonColor = lines[14].Split(',')[3];
-                        }
-
-                        LatestUsedAppButtonX = int.Parse(lines[15].Split(',')[0]);
-                        LatestUsedAppButtonY = int.Parse(lines[15].Split(',')[1]);
-                        //LatestUsedAppButtonColor = lines[15].Split(',')[2];
-                    }
-                    else
-                    {
-                        GameAdCloseButtonX = int.Parse(lines[12].Split(',')[0]);
-                        GoldAdCloseButtonY = int.Parse(lines[12].Split(',')[1]);
-                        TroopAdCloseButtonY = int.Parse(lines[12].Split(',')[2]);
-						// 예외발생 임시처리 나중에 삭제할것
-                        if (lines[12].Split(',').Length < 5)
-                        {
-                            GameAdCloseButtonColor = lines[12].Split(',')[3] + ";#e9e9d8".ToUpper();
-                        }
-                        else
-                        {
-                            MidasAdCloseButtonY = int.Parse(lines[12].Split(',')[3]);
-                            GameAdCloseButtonColor = lines[12].Split(',')[4];
-                        }
-
-                        LeftAdCloseButtonX = int.Parse(lines[13].Split(',')[0]);
-                        RightAdCloseButtonX = int.Parse(lines[13].Split(',')[1]);
-                        GoogleAdCloseButtonY = int.Parse(lines[13].Split(',')[2]);
-                        // 예외발생 임시처리 나중에 삭제할것
-                        if (lines[13].Split(',').Length < 4)
-                        {
-                            GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
-                        }
-                        else
-                        {
-                            GoogleAdCloseButtonColor = lines[13].Split(',')[3];
-                        }
-
-                        LatestUsedAppButtonX = int.Parse(lines[14].Split(',')[0]);
-                        LatestUsedAppButtonY = int.Parse(lines[14].Split(',')[1]);
-                        //LatestUsedAppButtonColor = lines[14].Split(',')[2];
-                    }
-
-                    using (StreamWriter streamWriter = new StreamWriter("pixel.txt", false))
-                    {
-                        streamWriter.WriteLine("AppLocation," + AppLocationX + "," + AppLocationY + "," + AppLocationColor);
-                        streamWriter.WriteLine("ShopButton," + HomeButtonX + "," + ShopButtonX + "," + ShopButtonY + "," + ShopButtonColor);
-                        streamWriter.WriteLine("GoldChestBox," + GoldChestBoxX + "," + GoldChestBoxY + "," + GoldChestBoxColor);
-                        streamWriter.WriteLine("CollectButton," + CollectButtonX + "," + CollectButtonY + "," + CollectButtonColor);
-                        streamWriter.WriteLine("BattleLevelButton," + BattleLevelButtonX + "," + BattleLevelButtonY + "," + BattleLevelButtonColor);
-                        streamWriter.WriteLine("SkillButton," + SkillButtonX + "," + SkillButtonY + "," + SkillButtonColor);
-                        streamWriter.WriteLine("SpeedButton," + SpeedButtonX + "," + SpeedButtonY + "," + SpeedButtonColor);
-                        streamWriter.WriteLine("ContinueButton," + ContinueButtonX + "," + ContinueButtonY + "," + ContinueButtonColor);
-                        streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX + "," + VictoryDefeatY + "," + VictoryDefeatColor);
-                        streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX + "," + GoldButtonBackgroundY + "," + GoldButtonBackgroundColor);
-                        streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY + "," + GoldButtonImageColor);
-                        streamWriter.WriteLine("NextButton," + NextButtonX + "," + NextButtonY + "," + NextButtonColor);
-                        streamWriter.WriteLine("NoGold," + NoGoldX + "," + NoGoldY + "," + NoGoldColor);
-                        streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY + "," + GameAdCloseButtonColor);
-                        streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY + "," + GoogleAdCloseButtonColor);
-                        streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX + "," + LatestUsedAppButtonY);
-                        streamWriter.WriteLine("RightTopAppCloseButton," + RightTopAppCloseButtonX + "," + RightTopAppCloseButtonY);
-                        streamWriter.WriteLine("NotRespondAppCloseButton," + NotRespondAppCloseButtonX + "," + NotRespondAppCloseButtonY + "," + NotRespondAppCloseButtonColor);
-                    }
-                }
-                else // 신버전
-                {
-                    foreach (string line in lines)
-                    {
-                        string[] listitem = line.Split(',');
-
-                        switch (listitem[0].ToLower())
-                        {
-                            case ("windowtitle"):
-                                WindowTitleTextBox.Text = listitem[1];
-                                break;
-                            case ("monitoringinterval"):
-                                MonitoringIntervalTextBox.Text = listitem[1];
-                                break;
-                            case ("screencomparisoninterval"):
-                                ScreenComparisonIntervalTextBox.Text = listitem[1];
-                                break;
-                            case ("x3goldbuttondelay"):
-                                X3GoldButtonClickDelayTextBox.Text = listitem[1];
-                                break;
-                            case ("pixeldifference"):
-                                PixelDifferenceTextBox.Text = listitem[1];
-                                break;
-                            case ("korean"):
-                                KoreanCheckBox.IsChecked = bool.Parse(listitem[1]);
-                                break;
-                            case ("adscloseclickpattern"):
-                                ClickPattern = listitem[1];
-                                break;
-                            case ("goldchestcheck"):
-                                GoldChestCheckBox.IsChecked = bool.Parse(listitem[1]);
-                                break;
-                            case ("pausability"):
-                                PausabilityCheckBox.IsChecked = bool.Parse(listitem[1]);
-                                break;
-                            case ("logging"):
-                                LogCheckBox.IsChecked = bool.Parse(listitem[1]);
-                                break;
-                            case ("email"):
-                                EmailAddressTextBox.Text = listitem[1];
-                                break;
-                            case ("sendemail"):
-                                SendEmailCheckBox.IsChecked = bool.Parse(listitem[1]);
-                                break;
-                            case ("stophassan"):
-                                StopHassanCheckBox.IsChecked = bool.Parse(listitem[1]);
-                                break;
-                            case ("shutdownpc"):
-                                ShutdownComputerCheckBox.IsChecked = bool.Parse(listitem[1]);
-                                break;
-                        }
-                    }
-                }
-
-                ClickLog("Load Done");
-            }
+            LoadSettingTxt();
+            LoadPixelTxt();
 
             ProblemMonitoringTimer.Interval = 3 * 60 * 1000; // 3분
             ProblemMonitoringTimer.Elapsed += ProblemMonitoringTimerFunction;
@@ -455,14 +129,152 @@ namespace ArtOfHassan
             NoxMonitoringTimer.Enabled = true;
         }
 
+
+        #region Private Event Mothod
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ProblemMonitoringTimer.Enabled = false;
+            ProblemMonitoringTimer.Enabled  = false;
             ArtOfWarMonitoringTimer.Enabled = false;
-            NoxMonitoringTimer.Enabled    = false;
+            NoxMonitoringTimer.Enabled      = false;
         }
 
-        private void ClickLog(string log)
+        bool IsLatest = true;
+
+        private void LatestRadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            MonitoringLog("Working for the latest version");
+            IsLatest = true;
+            GoldChestBoxX = 150;
+            GoldChestBoxY = 410;
+            GoldButtonBackgroundY = 780;
+        }
+
+        private void OldRadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            MonitoringLog("Working for the version 3.0.8");
+            IsLatest = false;
+            GoldChestBoxX = 165;
+            GoldChestBoxY = 420;
+            GoldButtonBackgroundY = 710;
+        }
+
+        private void AdsCloseClickPatternButton_Click(object sender, RoutedEventArgs e)
+        {
+            ClickPatternWindow clickPatternWindow = new ClickPatternWindow();
+            clickPatternWindow.ShowDialog();
+        }
+
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            MonitoringLog("StartButton: " + StartButton.Content.ToString());
+
+            if ((StartButton.Content.ToString() == "Start") ||
+                (StartButton.Content.ToString() == "시작"))
+            {
+                if (KoreanCheckBox.IsChecked.Value)
+                {
+                    StartButton.Content = "중지";
+                }
+                else
+                {
+                    StartButton.Content = "Stop";
+                }
+
+                PixelCustomizeButton.IsEnabled      = false;
+                MonitoringIntervalTextBox.IsEnabled = false;
+
+                ProblemMonitoringTimer.Interval  = int.Parse(ScreenComparisonIntervalTextBox.Text) * 60 * 1000;
+                ArtOfWarMonitoringTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
+                ArtOfWarMonitoringTimer.Enabled  = true;
+                ProblemMonitoringTimer.Enabled   = true;
+
+                IsStopHassan     = false;
+                IsNoGoldMailSent = false;
+                ProblemMailSent  = 0;
+            }
+            else
+            {
+                if (KoreanCheckBox.IsChecked.Value)
+                {
+                    StartButton.Content = "시작";
+                }
+                else
+                {
+                    StartButton.Content = "Start";
+                }
+                PixelCustomizeButton.IsEnabled      = true;
+                MonitoringIntervalTextBox.IsEnabled = true;
+
+                ArtOfWarMonitoringTimer.Enabled = false;
+                ProblemMonitoringTimer.Enabled  = false;
+            }
+        }
+
+        private void EmailTestButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(EmailAddressTextBox.Text))
+            {
+                if (KoreanCheckBox.IsChecked.Value)
+                {
+                    MessageBox.Show("이메일을 입력해주세요.");
+                }
+                else
+                {
+                    MessageBox.Show("Please input email.");
+                }
+            }
+            else
+            {
+                MonitoringLog("Email Testing...");
+
+                try
+                {
+                    MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                              EmailAddressTextBox.Text,
+                                                              $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
+                                                              "Email Testing...");
+
+                    if ((CurrentBitmap != null) && (CurrentBitmap.Width != 0) && (CurrentBitmap.Height != 0))
+                    {
+                        DirectoryInfo directoryInfo = new DirectoryInfo("screenshot");
+                        if (!directoryInfo.Exists)
+                        {
+                            directoryInfo.Create();
+                        }
+
+                        string filename = @"screenshot\Screenshot_" + DateTime.Now.ToString("yyMMdd_HHmmss_fff") + ".png";
+                        CurrentBitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
+                        mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
+                    }
+
+                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
+                    smtpClient.Send(mailMessage);
+                }
+                catch (Exception ex)
+                {
+                    if (KoreanCheckBox.IsChecked.Value)
+                    {
+                        MessageBox.Show("이메일 송신 실패.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Email Delivery Failed.");
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+
+        #region Private Method
+
+        private void MonitoringLog(string log)
         {
             bool isLogging = false;
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
@@ -478,7 +290,7 @@ namespace ArtOfHassan
                     directoryInfo.Create();
                 }
 
-                using (StreamWriter streamWriter = new StreamWriter($@"log\Click_{DateTime.Today.ToString("yyyyMMdd")}.log", true))
+                using (StreamWriter streamWriter = new StreamWriter($@"log\Monitoring_{DateTime.Today.ToString("yyyyMMdd")}.log", true))
                 {
                     streamWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ") + log);
                 }
@@ -529,159 +341,74 @@ namespace ArtOfHassan
             point = new System.Windows.Point(placement.normal_position.Left, placement.normal_position.Top);
         }
 
-        bool IsLatest = true;
-
-        private void LatestRadioButton_Click(object sender, RoutedEventArgs e)
+        private void MousePointClick(int PositionX, int PositionY)
         {
-            ClickLog("Working for the latest version");
-            IsLatest = true;
-            GoldChestBoxX = 150;
-            GoldChestBoxY = 410;
-            GoldButtonBackgroundY = 780;
+            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + PositionX, (int)NoxPointY + PositionY);
+            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
+            System.Threading.Thread.Sleep(50);
+            mouse_event(LBUTTONUP, 0, 0, 0, 0);
         }
 
-        private void OldRadioButton_Click(object sender, RoutedEventArgs e)
-        {
-            ClickLog("Working for the version 3.0.8");
-            IsLatest = false;
-            GoldChestBoxX = 165;
-            GoldChestBoxY = 420;
-            GoldButtonBackgroundY = 710;
-        }
+        #endregion
 
-        private void StartButton_Click(object sender, RoutedEventArgs e)
-        {
-            ClickLog("StartButton: " + StartButton.Content.ToString());
 
-            if ((StartButton.Content.ToString() == "Start") ||
-                (StartButton.Content.ToString() == "시작"))
+        #region Private Timer Function
+
+        private void ProblemMonitoringTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            // 전투 횟수가 올라가지 않거나 핫산 중지 상태가 아닐 때만 체크
+            if (((NumOfVictory + NumOfDefeat) == NumOfWar) && !IsStopHassan)
             {
-                if (KoreanCheckBox.IsChecked.Value)
+                MonitoringLog("Problem Occured...");
+
+                IsProblemOccurred = true;
+
+                bool isKorean          = false;
+                bool isShareProblem    = true; // 무늬만 사용
+                string minute          = "3";
+                string emailaddress    = "";
+                int pixelDifference    = 0;
+                int monitoringInterval = 1000;
+                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
-                    StartButton.Content = "중지";
-                }
-                else
-                {
-                    StartButton.Content = "Stop";
-                }
-
-                PixelCustomizeButton.IsEnabled = false;
-                MonitoringIntervalTextBox.IsEnabled = false;
-
-                ProblemMonitoringTimer.Interval = int.Parse(ScreenComparisonIntervalTextBox.Text) * 60 * 1000;
-                ArtOfWarMonitoringTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
-                ArtOfWarMonitoringTimer.Enabled = true;
-                ProblemMonitoringTimer.Enabled = true;
-
-                IsStopHassan = false;
-                IsNoGoldMailSent = false;
-                ProblemMailSent = 0;
-            }
-            else
-            {
-                if (KoreanCheckBox.IsChecked.Value)
-                {
-                    StartButton.Content = "시작";
-                }
-                else
-                {
-                    StartButton.Content = "Start";
-                }
-                PixelCustomizeButton.IsEnabled = true;
-                MonitoringIntervalTextBox.IsEnabled = true;
-
-                ArtOfWarMonitoringTimer.Enabled = false;
-                ProblemMonitoringTimer.Enabled = false;
-            }
-        }
-
-        private void AdsCloseClickPatternButton_Click(object sender, RoutedEventArgs e)
-        {
-            ClickPatternWindow clickPatternWindow = new ClickPatternWindow();
-            clickPatternWindow.ShowDialog();
-        }
-
-        private void EmailTestButton_Click(object sender, RoutedEventArgs e)
-        {
-            ClickLog("Email Testing...");
-
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(EmailAddressTextBox.Text))
-                {
-                    MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                              EmailAddressTextBox.Text,
-                                                              $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
-                                                              "Email Testing...");
-
-                    if ((CurrentBitmap != null) && (CurrentBitmap.Width != 0) && (CurrentBitmap.Height != 0))
+                    isKorean       = KoreanCheckBox.IsChecked.Value;
+                    isShareProblem = ShareProblemCheckBox.IsChecked.Value;
+                    minute         = ScreenComparisonIntervalTextBox.Text;
+                    emailaddress   = EmailAddressTextBox.Text;
+                    if (!int.TryParse(PixelDifferenceTextBox.Text, out pixelDifference))
                     {
-                        DirectoryInfo directoryInfo = new DirectoryInfo("screenshot");
-                        if (!directoryInfo.Exists)
-                        {
-                            directoryInfo.Create();
-                        }
-
-                        string filename = @"screenshot\Screenshot_" + DateTime.Now.ToString("yyMMdd_HHmmssfff") + ".png";
-                        CurrentBitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
-                        mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
+                        pixelDifference = 0;
                     }
+                    if (int.TryParse(MonitoringIntervalTextBox.Text, out monitoringInterval))
+                    {
+                        if (monitoringInterval < 1000)
+                        {
+                            monitoringInterval = 1000;
+                        }
+                    }
+                    else
+                    {
+                        monitoringInterval = 1000;
+                    }
+                }));
+
+                // 이메일 전송 부분
+                try
+                {
+                    DirectoryInfo directoryInfo = new DirectoryInfo("screenshot");
+                    if (!directoryInfo.Exists)
+                    {
+                        directoryInfo.Create();
+                    }
+
+                    string filename = @"screenshot\Screenshot_" + DateTime.Now.ToString("yyMMdd_HHmmssfff") + ".png";
+                    CurrentBitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
 
                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.EnableSsl = true;
                     smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
-                    smtpClient.Send(mailMessage);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Email Delivery Failed");
-            }
-        }
-
-        private void ProblemMonitoringTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            if (((NumOfVictory + NumOfDefeat) == NumOfWar) && !IsStopHassan)
-            {
-                ClickLog("Problem Occured...");
-
-                IsProblemOccurred = true;
-
-                bool isKorean = false;
-                bool isShareProblem = true; // 무늬만 사용
-                string minute = "3";
-                string emailaddress = "";
-                int pixelDifference = 0;
-                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                {
-                    minute = ScreenComparisonIntervalTextBox.Text;
-                    isKorean = KoreanCheckBox.IsChecked.Value;
-                    isShareProblem = ShareProblemCheckBox.IsChecked.Value;
-                    emailaddress   = EmailAddressTextBox.Text;
-                    if (!int.TryParse(PixelDifferenceTextBox.Text, out pixelDifference))
-                    {
-                        pixelDifference = 0;
-                    }
-                }));
-
-                DirectoryInfo directoryInfo = new DirectoryInfo("screenshot");
-                if (!directoryInfo.Exists)
-                {
-                    directoryInfo.Create();
-                }
-
-                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.EnableSsl = true;
-                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
-
-                try
-                {
-                    string filename = @"screenshot\Screenshot_" + DateTime.Now.ToString("yyMMdd_HHmmssfff") + ".png";
-                    CurrentBitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
 
                     if (ProblemMailSent < 3)
                     {
@@ -703,6 +430,7 @@ namespace ArtOfHassan
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
 
+                            // 아래 내용은 추후 제거해도 될 것 같음
                             string message;
                             if (isKorean)
                             {
@@ -728,11 +456,11 @@ namespace ArtOfHassan
                             string message;
                             if (isKorean)
                             {
-                                message = "Art of War 재시작이 되지 않고 있으니 확인바랍니다.\n최근 사용한 앱에 Art of War 만 있어야 합니다.";
+                                message = "Art of War 재시작이 되지 않고 있으니 확인바랍니다.";
                             }
                             else
                             {
-                                message = "Restarting Art of War seems not working...\nThere should be only Art of War in latest used app!";
+                                message = "Restarting Art of War seems not working...";
                             }
 
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
@@ -751,34 +479,18 @@ namespace ArtOfHassan
 
                 ProblemMailSent++;
 
-                int monitoringInterval = 1000;
-                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                {
-                    monitoringInterval = int.Parse(MonitoringIntervalTextBox.Text);
-                }));
-
-                if (monitoringInterval < 1000)
-                {
-                    monitoringInterval = 1000;
-                }
 
                 // Latest Used App Button
-                ClickLog("Latest Used App Button");
-                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LatestUsedAppButtonX, (int)NoxPointY + LatestUsedAppButtonY);
-                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                System.Threading.Thread.Sleep(50);
-                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                MonitoringLog("Latest Used App Button");
+                MousePointClick(LatestUsedAppButtonX, LatestUsedAppButtonY);
 
                 System.Threading.Thread.Sleep(monitoringInterval * 2);
 
                 for (int i = 0; i < 10; i++)
                 {
                     // Close All Apps Button
-                    ClickLog("Close All Apps Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightTopAppCloseButtonX, (int)NoxPointY + RightTopAppCloseButtonY);
-                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                    System.Threading.Thread.Sleep(50);
-                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                    MonitoringLog("Close All Apps Button");
+                    MousePointClick(RightTopAppCloseButtonX, RightTopAppCloseButtonY);
 
                     System.Threading.Thread.Sleep(500);
                 }
@@ -790,11 +502,8 @@ namespace ArtOfHassan
                 if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
-                    ClickLog("Close Not Responding Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondAppCloseButtonX, (int)NoxPointY + NotRespondAppCloseButtonY);
-                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                    System.Threading.Thread.Sleep(50);
-                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                    MonitoringLog("Close Not Responding Button");
+                    MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY);
 
                     System.Threading.Thread.Sleep(monitoringInterval);
                 }
@@ -806,11 +515,8 @@ namespace ArtOfHassan
                 if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
-                    ClickLog("Close System Error Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondAppCloseButtonX, (int)NoxPointY + NotRespondAppCloseButtonY + 15);
-                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                    System.Threading.Thread.Sleep(50);
-                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                    MonitoringLog("Close System Error Button");
+                    MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 15);
 
                     System.Threading.Thread.Sleep(monitoringInterval);
                 }
@@ -822,11 +528,8 @@ namespace ArtOfHassan
                 if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                     ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                 {
-                    ClickLog("Close System Error Button");
-                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NotRespondAppCloseButtonX, (int)NoxPointY + NotRespondAppCloseButtonY + 30);
-                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                    System.Threading.Thread.Sleep(50);
-                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                    MonitoringLog("Close System Error Button");
+                    MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 30);
 
                     System.Threading.Thread.Sleep(monitoringInterval);
                 }
@@ -839,6 +542,26 @@ namespace ArtOfHassan
                 ProblemMailSent = 0;
             }
         }
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void SaveSettingButton_Click(object sender, RoutedEventArgs e)
         {
@@ -1093,11 +816,8 @@ namespace ArtOfHassan
                         (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                     {
-                        ClickLog("Off Check");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + AppLocationX, (int)NoxPointY + AppLocationY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        MonitoringLog("Off Check");
+                        MousePointClick(AppLocationX, AppLocationY);
                     }
 
 
@@ -1108,11 +828,8 @@ namespace ArtOfHassan
                     if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                         ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                     {
-                        ClickLog("Shop Check");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + HomeButtonX, (int)NoxPointY + ShopButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        MonitoringLog("Shop Check");
+                        MousePointClick(HomeButtonX, ShopButtonY);
                     }
 
 
@@ -1133,11 +850,8 @@ namespace ArtOfHassan
                             (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                              ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))   // 3.0.8
                         {
-                            ClickLog("Gold Chest Box");
-                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldChestBoxX, (int)NoxPointY + GoldChestBoxY);
-                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                            System.Threading.Thread.Sleep(50);
-                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                            MonitoringLog("Gold Chest Box");
+                            MousePointClick(GoldChestBoxX, GoldChestBoxY);
 
                             System.Threading.Thread.Sleep((int)(monitoringInterval * 4 / 5));
 
@@ -1153,11 +867,8 @@ namespace ArtOfHassan
                     if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                         ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                     {
-                        ClickLog("Collect Button");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + CollectButtonX, (int)NoxPointY + CollectButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        MonitoringLog("Collect Button");
+                        MousePointClick(CollectButtonX, CollectButtonY);
                     }
 
 
@@ -1174,16 +885,13 @@ namespace ArtOfHassan
                        (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                         ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))  // + 메뉴 음영
                     {
-                        ClickLog("Battle Level Button");
+                        MonitoringLog("Battle Level Button");
                         AdsCloseStopwatch.Reset();
                         AdsCloseStopwatch.Stop();
                         BattleButtonInRedStopwatch.Reset();
                         BattleButtonInRedStopwatch.Stop();
 
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleLevelButtonX, (int)NoxPointY + BattleLevelButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        MousePointClick(BattleLevelButtonX, BattleLevelButtonY);
 
                         if (VictoryFlag)
                         {
@@ -1217,20 +925,17 @@ namespace ArtOfHassan
                     }
                     else if ((color.R == color3.R) && (color.G == color3.G) && (color.B == color3.B)) // 빨간색
                     {
-                        ClickLog("Battle Level Button is Red");
+                        MonitoringLog("Battle Level Button is Red");
 
                         if (BattleButtonInRedStopwatch.IsRunning)
                         {
                             if (BattleButtonInRedStopwatch.ElapsedMilliseconds > 30000)
                             {
-                                ClickLog("Battle Level Cancel Button");
+                                MonitoringLog("Battle Level Cancel Button");
                                 BattleButtonInRedStopwatch.Reset();
                                 BattleButtonInRedStopwatch.Stop();
 
-                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + BattleLevelButtonX, (int)NoxPointY + BattleLevelButtonY);
-                                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                System.Threading.Thread.Sleep(50);
-                                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                MousePointClick(BattleLevelButtonX, BattleLevelButtonY);
                             }
                         }
                         else
@@ -1242,7 +947,7 @@ namespace ArtOfHassan
                     }
                     else if ((color.R == color4.R) && (color.G == color4.G) && (color.B == color4.B)) // 바탕색
                     {
-                        ClickLog("Battle Level Button is disappered");
+                        MonitoringLog("Battle Level Button is disappered");
                         return;
                     }
 
@@ -1254,11 +959,8 @@ namespace ArtOfHassan
                     if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                         ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                     {
-                        ClickLog("Skill Button");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + SkillButtonX, (int)NoxPointY + SkillButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        MonitoringLog("Skill Button");
+                        MousePointClick(SkillButtonX, SkillButtonY);
 
                         System.Threading.Thread.Sleep((int)(monitoringInterval * 3 / 4));
                         return;
@@ -1272,11 +974,8 @@ namespace ArtOfHassan
                     if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                         ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                     {
-                        ClickLog("Speed Button");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + SpeedButtonX, (int)NoxPointY + SpeedButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        MonitoringLog("Speed Button");
+                        MousePointClick(SpeedButtonX, SpeedButtonY);
 
                         System.Threading.Thread.Sleep((int)(monitoringInterval * 3 / 4));
                         return;
@@ -1297,11 +996,8 @@ namespace ArtOfHassan
                         if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                             ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                         {
-                            ClickLog("Continue Button");
-                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + ContinueButtonX, (int)NoxPointY + ContinueButtonY);
-                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                            System.Threading.Thread.Sleep(50);
-                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                            MonitoringLog("Continue Button");
+                            MousePointClick(ContinueButtonX, ContinueButtonY);
                         }
                     }
 
@@ -1316,7 +1012,7 @@ namespace ArtOfHassan
                         if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                             ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                         {
-                            ClickLog("Victory Checked");
+                            MonitoringLog("Victory Checked");
                             VictoryFlag = true;
                             System.Threading.Thread.Sleep((int)(monitoringInterval * 4 / 5));
 
@@ -1334,7 +1030,7 @@ namespace ArtOfHassan
                         else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                  ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference)))
                         {
-                            ClickLog("Defeat Checked");
+                            MonitoringLog("Defeat Checked");
                             DefeatFlag = true;
                             System.Threading.Thread.Sleep((int)(monitoringInterval * 4 / 5));
 
@@ -1359,7 +1055,7 @@ namespace ArtOfHassan
                     if (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                         ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference)))
                     {
-                        ClickLog("No Gold");
+                        MonitoringLog("No Gold");
 
                         bool isSendEmail = false;
                         IsStopHassan = false;
@@ -1373,7 +1069,7 @@ namespace ArtOfHassan
 
                         if (isSendEmail && !IsNoGoldMailSent)
                         {
-                            ClickLog("Sending Email...");
+                            MonitoringLog("Sending Email...");
                             IsNoGoldMailSent = true;
 
                             try
@@ -1405,12 +1101,12 @@ namespace ArtOfHassan
 
                         if (IsStopHassan)
                         {
-                            ClickLog("Stop Hassan...");
+                            MonitoringLog("Stop Hassan...");
                         }
 
                         if (isShutdownPC)
                         {
-                            ClickLog("Shutting Down PC...");
+                            MonitoringLog("Shutting Down PC...");
 
                             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                             {
@@ -1462,23 +1158,17 @@ namespace ArtOfHassan
                                     return;
                                 }
 
-                                ClickLog("Gold Button");
+                                MonitoringLog("Gold Button");
                                 AdsWatchFlag = true;
                                 AdsCloseStopwatch.Restart();
 
-                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GoldButtonBackgroundX, (int)NoxPointY + GoldButtonBackgroundY);
-                                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                System.Threading.Thread.Sleep(50);
-                                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                MousePointClick(GoldButtonBackgroundX, GoldButtonBackgroundY);
                             }
                             else // Green such as Retry
                             {
-                                ClickLog("Next Button");
+                                MonitoringLog("Next Button");
 
-                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + GoldButtonBackgroundY);
-                                mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                System.Threading.Thread.Sleep(50);
-                                mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                MousePointClick(NextButtonX, GoldButtonBackgroundY);
                             }
                         }
                         else if (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
@@ -1494,19 +1184,16 @@ namespace ArtOfHassan
                                 return;
                             }
 
-                            ClickLog("Gold Button is Gray");
+                            MonitoringLog("Gold Button is Gray");
 
                             if (IsLatest)
                             {
-                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + GoldButtonBackgroundY);
+                                MousePointClick(NextButtonX, GoldButtonBackgroundY);
                             }
                             else
                             {
-                                System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + NextButtonY);
+                                MousePointClick(NextButtonX, NextButtonY);
                             }
-                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                            System.Threading.Thread.Sleep(50);
-                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
                         }
                     }
 
@@ -1519,11 +1206,8 @@ namespace ArtOfHassan
                        (((color.R >= color1.R - pixelDifference) && (color.G >= color1.G - pixelDifference) && (color.B >= color1.B - pixelDifference)) &&
                         ((color.R <= color1.R + pixelDifference) && (color.G <= color1.G + pixelDifference) && (color.B <= color1.B + pixelDifference))))
                     {
-                        ClickLog("Next Button");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + NextButtonX, (int)NoxPointY + NextButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        MonitoringLog("Next Button");
+                        MousePointClick(NextButtonX, NextButtonY);
                     }
 
 
@@ -1540,11 +1224,8 @@ namespace ArtOfHassan
                         (((color.R >= color3.R - pixelDifference) && (color.G >= color3.G - pixelDifference) && (color.B >= color3.B - pixelDifference)) &&
                          ((color.R <= color3.R + pixelDifference) && (color.G <= color3.G + pixelDifference) && (color.B <= color3.B + pixelDifference))))
                     {
-                        ClickLog("Gold Ad Close Button");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GameAdCloseButtonX, (int)NoxPointY + GoldAdCloseButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        MonitoringLog("Gold Ad Close Button");
+                        MousePointClick(GameAdCloseButtonX, GoldAdCloseButtonY);
 
                         return;
                     }
@@ -1563,11 +1244,8 @@ namespace ArtOfHassan
                         (((color.R >= color3.R - pixelDifference) && (color.G >= color3.G - pixelDifference) && (color.B >= color3.B - pixelDifference)) &&
                          ((color.R <= color3.R + pixelDifference) && (color.G <= color3.G + pixelDifference) && (color.B <= color3.B + pixelDifference))))
                     {
-                        ClickLog("Troop Ad Close Button");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GameAdCloseButtonX, (int)NoxPointY + TroopAdCloseButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        MonitoringLog("Troop Ad Close Button");
+                        MousePointClick(GameAdCloseButtonX, TroopAdCloseButtonY);
 
                         return;
                     }
@@ -1586,11 +1264,8 @@ namespace ArtOfHassan
                         (((color.R >= color3.R - pixelDifference) && (color.G >= color3.G - pixelDifference) && (color.B >= color3.B - pixelDifference)) &&
                          ((color.R <= color3.R + pixelDifference) && (color.G <= color3.G + pixelDifference) && (color.B <= color3.B + pixelDifference))))
                     {
-                        ClickLog("Midas Ad Close Button");
-                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + GameAdCloseButtonX, (int)NoxPointY + MidasAdCloseButtonY);
-                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                        System.Threading.Thread.Sleep(50);
-                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                        MonitoringLog("Midas Ad Close Button");
+                        MousePointClick(GameAdCloseButtonX, MidasAdCloseButtonY);
 
                         return;
                     }
@@ -1636,7 +1311,7 @@ namespace ArtOfHassan
 
                         if (!isDifferent || (AdsCloseStopwatch.ElapsedMilliseconds > 34000))
                         {
-                            ClickLog("Ads Close Button");
+                            MonitoringLog("Ads Close Button");
                             AdsCloseStopwatch.Reset();
                             AdsCloseStopwatch.Stop();
 
@@ -1663,11 +1338,8 @@ namespace ArtOfHassan
                                         (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                     {
-                                        ClickLog("Left Ad Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                        System.Threading.Thread.Sleep(50);
-                                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                        MonitoringLog("Left Ad Close Button");
+                                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
                                     }
                                 }
                                 else
@@ -1681,11 +1353,8 @@ namespace ArtOfHassan
                                         (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                     {
-                                        ClickLog("Right Ad Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                        System.Threading.Thread.Sleep(50);
-                                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                        MonitoringLog("Right Ad Close Button");
+                                        MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                     }
                                 }
 
@@ -1702,11 +1371,8 @@ namespace ArtOfHassan
                                         (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                     {
-                                        ClickLog("Left Ad Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                        System.Threading.Thread.Sleep(50);
-                                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                        MonitoringLog("Left Ad Close Button");
+                                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
                                     }
                                 }
                                 else
@@ -1720,11 +1386,8 @@ namespace ArtOfHassan
                                         (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                          ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                     {
-                                        ClickLog("Right Ad Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                        System.Threading.Thread.Sleep(50);
-                                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                        MonitoringLog("Right Ad Close Button");
+                                        MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                     }
                                 }
 
@@ -1743,11 +1406,8 @@ namespace ArtOfHassan
                                             (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                              ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                         {
-                                            ClickLog("Left Ad Close Button");
-                                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                            System.Threading.Thread.Sleep(50);
-                                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                            MonitoringLog("Left Ad Close Button");
+                                            MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
                                         }
                                     }
                                     else
@@ -1761,11 +1421,8 @@ namespace ArtOfHassan
                                             (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                              ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                         {
-                                            ClickLog("Right Ad Close Button");
-                                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                            System.Threading.Thread.Sleep(50);
-                                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                            MonitoringLog("Right Ad Close Button");
+                                            MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                         }
                                     }
                                 }
@@ -1785,11 +1442,8 @@ namespace ArtOfHassan
                                             (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                              ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                         {
-                                            ClickLog("Left Ad Close Button");
-                                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                            System.Threading.Thread.Sleep(50);
-                                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                            MonitoringLog("Left Ad Close Button");
+                                            MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
                                         }
                                     }
                                     else
@@ -1803,11 +1457,8 @@ namespace ArtOfHassan
                                             (((color.R >= color2.R - pixelDifference) && (color.G >= color2.G - pixelDifference) && (color.B >= color2.B - pixelDifference)) &&
                                              ((color.R <= color2.R + pixelDifference) && (color.G <= color2.G + pixelDifference) && (color.B <= color2.B + pixelDifference))))
                                         {
-                                            ClickLog("Right Ad Close Button");
-                                            System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                            mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                            System.Threading.Thread.Sleep(50);
-                                            mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                            MonitoringLog("Right Ad Close Button");
+                                            MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                         }
                                     }
                                 }
@@ -1816,38 +1467,26 @@ namespace ArtOfHassan
                             {
                                 if (ClickPatterns[0] == "L")
                                 {
-                                    ClickLog("Left Ad Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                    System.Threading.Thread.Sleep(50);
-                                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                    MonitoringLog("Left Ad Close Button");
+                                    MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
                                 }
                                 else
                                 {
-                                    ClickLog("Right Ad Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                    System.Threading.Thread.Sleep(50);
-                                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                    MonitoringLog("Right Ad Close Button");
+                                    MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                 }
 
                                 System.Threading.Thread.Sleep(AdsClickInterval);
 
                                 if (ClickPatterns[1] == "L")
                                 {
-                                    ClickLog("Left Ad Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                    System.Threading.Thread.Sleep(50);
-                                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                    MonitoringLog("Left Ad Close Button");
+                                    MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
                                 }
                                 else
                                 {
-                                    ClickLog("Right Ad Close Button");
-                                    System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                    mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                    System.Threading.Thread.Sleep(50);
-                                    mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                    MonitoringLog("Right Ad Close Button");
+                                    MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                 }
 
                                 if (ClickPatterns.Length == 3)
@@ -1856,19 +1495,13 @@ namespace ArtOfHassan
 
                                     if (ClickPatterns[2] == "L")
                                     {
-                                        ClickLog("Left Ad Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                        System.Threading.Thread.Sleep(50);
-                                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                        MonitoringLog("Left Ad Close Button");
+                                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
                                     }
                                     else
                                     {
-                                        ClickLog("Right Ad Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                        System.Threading.Thread.Sleep(50);
-                                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                        MonitoringLog("Right Ad Close Button");
+                                        MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                     }
                                 }
 
@@ -1878,19 +1511,13 @@ namespace ArtOfHassan
 
                                     if (ClickPatterns[3] == "L")
                                     {
-                                        ClickLog("Left Ad Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + LeftAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                        System.Threading.Thread.Sleep(50);
-                                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                        MonitoringLog("Left Ad Close Button");
+                                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
                                     }
                                     else
                                     {
-                                        ClickLog("Right Ad Close Button");
-                                        System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)NoxPointX + RightAdCloseButtonX, (int)NoxPointY + GoogleAdCloseButtonY);
-                                        mouse_event(LBUTTONDOWN, 0, 0, 0, 0);
-                                        System.Threading.Thread.Sleep(50);
-                                        mouse_event(LBUTTONUP, 0, 0, 0, 0);
+                                        MonitoringLog("Right Ad Close Button");
+                                        MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                     }
                                 }
                             }
@@ -2043,6 +1670,186 @@ namespace ArtOfHassan
                 (e.Source as TextBox).Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Number, "");
             }
             (e.Source as TextBox).Select(caretIndex, 0);
+        }
+
+        private void LoadSettingTxt()
+        {
+            FileInfo fileInfo = new FileInfo("setting.txt");
+            if (fileInfo.Exists)
+            {
+                MonitoringLog("Load Setting...");
+
+                string[] lines = File.ReadAllLines("setting.txt");
+
+                foreach (string line in lines)
+                {
+                    string[] listitem = line.Split(',');
+
+                    switch (listitem[0].ToLower())
+                    {
+                        case ("windowtitle"):
+                            WindowTitleTextBox.Text = listitem[1];
+                            break;
+                        case ("monitoringinterval"):
+                            MonitoringIntervalTextBox.Text = listitem[1];
+                            break;
+                        case ("screencomparisoninterval"):
+                            ScreenComparisonIntervalTextBox.Text = listitem[1];
+                            break;
+                        case ("x3goldbuttondelay"):
+                            X3GoldButtonClickDelayTextBox.Text = listitem[1];
+                            break;
+                        case ("pixeldifference"):
+                            PixelDifferenceTextBox.Text = listitem[1];
+                            break;
+                        case ("korean"):
+                            KoreanCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            break;
+                        case ("adscloseclickpattern"):
+                            ClickPattern = listitem[1];
+                            break;
+                        case ("goldchestcheck"):
+                            GoldChestCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            break;
+                        case ("pausability"):
+                            PausabilityCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            break;
+                        case ("logging"):
+                            LogCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            break;
+                        case ("email"):
+                            EmailAddressTextBox.Text = listitem[1];
+                            break;
+                        case ("sendemail"):
+                            SendEmailCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            break;
+                        case ("stophassan"):
+                            StopHassanCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            break;
+                        case ("shutdownpc"):
+                            ShutdownComputerCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            break;
+                    }
+                }
+
+                MonitoringLog("Load Setting Done");
+            }
+        }
+
+        private void LoadPixelTxt()
+        {
+            FileInfo fileInfo = new FileInfo("pixel.txt");
+            if (fileInfo.Exists)
+            {
+                MonitoringLog("Load Pixel...");
+
+                string[] lines = File.ReadAllLines("pixel.txt");
+
+                foreach (string line in lines)
+                {
+                    string[] listitem = line.Split(',');
+
+                    switch (listitem[0].ToLower())
+                    {
+                        case ("applocation"):
+                            AppLocationX = int.Parse(listitem[1]);
+                            AppLocationY = int.Parse(listitem[2]);
+                            AppLocationColor = listitem[3];
+                            break;
+                        case ("shopbutton"):
+                            HomeButtonX = int.Parse(listitem[1]);
+                            ShopButtonX = int.Parse(listitem[2]);
+                            ShopButtonY = int.Parse(listitem[3]);
+                            ShopButtonColor = listitem[4];
+                            break;
+                        case ("collectbutton"):
+                            CollectButtonX = int.Parse(listitem[1]);
+                            CollectButtonY = int.Parse(listitem[2]);
+                            CollectButtonColor = listitem[3];
+                            break;
+                        case ("goldchestbox"):
+                            GoldChestBoxX = int.Parse(listitem[1]);
+                            GoldChestBoxY = int.Parse(listitem[2]);
+                            GoldChestBoxColor = listitem[3];
+                            break;
+                        case ("battlelevelbutton"):
+                            BattleLevelButtonX = int.Parse(listitem[1]);
+                            BattleLevelButtonY = int.Parse(listitem[2]);
+                            BattleLevelButtonColor = listitem[3];
+                            break;
+                        case ("skillbutton"):
+                            SkillButtonX = int.Parse(listitem[1]);
+                            SkillButtonY = int.Parse(listitem[2]);
+                            SkillButtonColor = listitem[3];
+                            break;
+                        case ("speedbutton"):
+                            SpeedButtonX = int.Parse(listitem[1]);
+                            SpeedButtonY = int.Parse(listitem[2]);
+                            SpeedButtonColor = listitem[3];
+                            break;
+                        case ("continuebutton"):
+                            ContinueButtonX = int.Parse(listitem[1]);
+                            ContinueButtonY = int.Parse(listitem[2]);
+                            ContinueButtonColor = listitem[3];
+                            break;
+                        case ("victorydefeat"):
+                            VictoryDefeatX = int.Parse(listitem[1]);
+                            VictoryDefeatY = int.Parse(listitem[2]);
+                            VictoryDefeatColor = listitem[3];
+                            break;
+                        case ("goldbuttonbackground"):
+                            GoldButtonBackgroundX = int.Parse(listitem[1]);
+                            GoldButtonBackgroundY = int.Parse(listitem[2]);
+                            GoldButtonBackgroundColor = listitem[3];
+                            break;
+                        case ("goldbuttonimage"):
+                            GoldButtonImageX = int.Parse(listitem[1]);
+                            GoldButtonImageY = int.Parse(listitem[2]);
+                            GoldButtonImageColor = listitem[3];
+                            break;
+                        case ("nextbutton"):
+                            NextButtonX = int.Parse(listitem[1]);
+                            NextButtonY = int.Parse(listitem[2]);
+                            NextButtonColor = listitem[3];
+                            break;
+                        case ("nogold"):
+                            NoGoldX = int.Parse(listitem[1]);
+                            NoGoldY = int.Parse(listitem[2]);
+                            NoGoldColor = listitem[3];
+                            break;
+                        case ("gameadclosebutton"):
+                            GameAdCloseButtonX = int.Parse(listitem[1]);
+                            GoldAdCloseButtonY = int.Parse(listitem[2]);
+                            TroopAdCloseButtonY = int.Parse(listitem[3]);
+                            MidasAdCloseButtonY = int.Parse(listitem[4]);
+                            GameAdCloseButtonColor = listitem[5];
+                            break;
+                        case ("googleadclosebutton"):
+                            LeftAdCloseButtonX = int.Parse(listitem[1]);
+                            RightAdCloseButtonX = int.Parse(listitem[2]);
+                            GoogleAdCloseButtonY = int.Parse(listitem[3]);
+                            GoogleAdCloseButtonColor = listitem[4];
+                            break;
+                        case ("latestusedsppbutton"):
+                            LatestUsedAppButtonX = int.Parse(listitem[1]);
+                            LatestUsedAppButtonY = int.Parse(listitem[2]);
+                            //LatestUsedAppButtonColor = listitem[3];
+                            break;
+                        case ("righttopappclosebutton"):
+                            RightTopAppCloseButtonX = int.Parse(listitem[1]);
+                            RightTopAppCloseButtonY = int.Parse(listitem[2]);
+                            //RightTopAppCloseButtonColor.Text = listitem[3];
+                            break;
+                        case ("notrespondappclosebutton"):
+                            NotRespondAppCloseButtonX = int.Parse(listitem[1]);
+                            NotRespondAppCloseButtonY = int.Parse(listitem[2]);
+                            NotRespondAppCloseButtonColor = listitem[3];
+                            break;
+                    }
+                }
+
+                MonitoringLog("Load Pixel Done");
+            }
         }
     }
 }
