@@ -385,21 +385,6 @@ namespace ArtOfHassan
                 ProblemMailSent++;
 
 
-                // LatestUsedAppButton
-                MonitoringLog("LatestUsedAppButton");
-                MousePointClick(LatestUsedAppButtonX, LatestUsedAppButtonY);
-
-                System.Threading.Thread.Sleep(MonitoringInterval * 2);
-
-                for (int i = 0; i < 10; i++)
-                {
-                    // RightTopAppCloseButton
-                    MonitoringLog("RightTopAppCloseButton");
-                    MousePointClick(RightTopAppCloseButtonX, RightTopAppCloseButtonY);
-
-                    System.Threading.Thread.Sleep(500);
-                }
-
                 // NotRespondAppCloseButton
                 if (MousePointColorCheck(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY, NotRespondAppCloseButtonColor))
                 {
@@ -425,6 +410,24 @@ namespace ArtOfHassan
                     MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 30);
 
                     System.Threading.Thread.Sleep(MonitoringInterval);
+                }
+
+                if (!MousePointColorCheck(AppLocationX, AppLocationY, AppLocationColor))
+                {
+                    // LatestUsedAppButton
+                    MonitoringLog("LatestUsedAppButton");
+                    MousePointClick(LatestUsedAppButtonX, LatestUsedAppButtonY);
+
+                    System.Threading.Thread.Sleep(MonitoringInterval * 2);
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        // RightTopAppCloseButton
+                        MonitoringLog("RightTopAppCloseButton");
+                        MousePointClick(RightTopAppCloseButtonX, RightTopAppCloseButtonY);
+
+                        System.Threading.Thread.Sleep(500);
+                    }
                 }
 
                 IsProblemOccurred = false;
