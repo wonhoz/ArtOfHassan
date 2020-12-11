@@ -151,7 +151,7 @@ namespace ArtOfHassan
         public string NotRespondAppCloseButtonColor = "#009688".ToUpper();
 
         public int NoGoldX = 320;
-        public int NoGoldY = 646;
+        public int NoGoldY = 645;
         public string NoGoldColor = "#dfd6be".ToUpper();
 
         #endregion
