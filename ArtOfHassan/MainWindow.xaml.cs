@@ -434,14 +434,11 @@ namespace ArtOfHassan
         {
             if (!IsProblemOccurred)
             {
-                TimerLog("Allocate CurrentBitmap");
                 // 화면 크기만큼의 Bitmap 생성
                 CurrentBitmap = new System.Drawing.Bitmap((int)NoxWidth, (int)NoxHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                 // Bitmap 이미지 변경을 위해 Graphics 객체 생성
-                TimerLog("Allocate Graphics from CurrentBitmap");
                 using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(CurrentBitmap))
                 {
-                    TimerLog("CopyFromScreen");
                     // 화면을 그대로 카피해서 Bitmap 메모리에 저장
                     graphics.CopyFromScreen((int)NoxPointX, (int)NoxPointY, 0, 0, CurrentBitmap.Size);
                     // Bitmap 데이타를 파일로 저장
@@ -832,7 +829,6 @@ namespace ArtOfHassan
                             screenCompareInterval = 3;
                         }
                     }));
-                    TimerLog("Screen Compare Interval: " + screenCompareInterval);
                     if ((TimerCountForScreenCompare % screenCompareInterval) == 0)
                     {
                         TimerCountForScreenCompare = 1;
@@ -858,8 +854,6 @@ namespace ArtOfHassan
                                 }
                             }
                         }
-
-                        TimerLog("Screen is changed: " + isDifferent + ", AdsCloseStopwatchElapsed: " + AdsCloseStopwatch.ElapsedMilliseconds);
 
                         if (!isDifferent || (AdsCloseStopwatch.ElapsedMilliseconds > 34000))
                         {
@@ -1429,29 +1423,6 @@ namespace ArtOfHassan
             }
         }
 
-        private void TimerLog(string log)
-        {
-            bool isLogging = false;
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                isLogging = LogCheckBox.IsChecked.Value;
-            }));
-
-            if (isLogging)
-            {
-                DirectoryInfo directoryInfo = new DirectoryInfo("log");
-                if (!directoryInfo.Exists)
-                {
-                    directoryInfo.Create();
-                }
-
-                using (StreamWriter streamWriter = new StreamWriter($@"log\Timer_{DateTime.Today.ToString("yyyyMMdd")}.log", true))
-                {
-                    streamWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff ") + InsertSpaceBeforeUpper(log));
-                }
-            }
-        }
-
         private IntPtr GetWinAscHandle()
         {
             string windowTitle = "NoxPlayer";
@@ -1485,8 +1456,6 @@ namespace ArtOfHassan
         {
             System.Drawing.Color TargetColor  = ColorTranslator.FromHtml(Color);
             System.Drawing.Color CurrentColor = CurrentBitmap.GetPixel(PositionX, PositionY);
-
-            TimerLog(nameof(Color) + ": " + CurrentColor.R + "," + CurrentColor.G + "," + CurrentColor.B);
 
             return (((CurrentColor.R >= TargetColor.R - PixelDifference) && (CurrentColor.G >= TargetColor.G - PixelDifference) && (CurrentColor.B >= TargetColor.B - PixelDifference)) &&
                     ((CurrentColor.R <= TargetColor.R + PixelDifference) && (CurrentColor.G <= TargetColor.G + PixelDifference) && (CurrentColor.B <= TargetColor.B + PixelDifference)));
