@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -55,729 +56,155 @@ namespace ArtOfHassan
         {
             InitializeComponent();
 
-            if (((MainWindow)System.Windows.Application.Current.MainWindow).KoreanCheckBox.IsChecked.Value)
-            {
-                this.Title = "픽셀 위치 및 색상 사용자화";
-                ItemTextBlock.Text = "항목";
-                AppLocationTextBlock.Text = "어플 위치";
-                HomeButtonTextBlock.Text = "홈버튼";
-                ShopButtonTextBlock.Text = "상점버튼";
-                CollectButtonTextBlock.Text = "수집버튼";
-                GoldChestBoxTextBlock.Text = "시간보상";
-                BattleLevelButtonTextBlock.Text = "전투레벨버튼";
-                AutoSkillButtonTextBlock.Text = "자동스킬버튼";
-                VIPX2ButtonTextBlock.Text = "2배속버튼";
-                ContinueButtonTextBlock.Text = "계속버튼";
-                VictoryDefeatTextBlock.Text = "승리패배 플래그";
-                X3GoldButtonBackgroundTextBlock.Text = "골드3배버튼 배경";
-                X3GoldButtonImageTextBlock.Text = "골드3배버튼 그림";
-                NextButtonTextBlock.Text = "다음버튼 (패배시)";
-                NoGoldTextBlock.Text = "골드벌이 없을 때";
-                GoldAdCloseButtonTextBlock.Text = "골드광고 닫기버튼";
-                TroopAdCloseButtonTextBlock.Text = "용병광고 닫기버튼";
-                MidasAdCloseButtonTextBlock.Text = "마이더스 닫기버튼";
-                LeftAdCloseButtonTextBlock.Text = "왼쪽 광고닫기버튼";
-                RightAdCloseButtonTextBlock.Text = "오른쪽 광고닫기버튼";
-                LatestUsedAppButtonTextBlock.Text = "최근 사용앱 버튼";
-                RightTopAppCloseButtonTextBlock.Text = "모든앱 닫기버튼";
-                NotRespondAppCloseButtonTextBlock.Text = "응답없음 닫기버튼";
-                XPositionTextBlock.Text = "X 좌표";
-                YPositionTextBlock.Text = "Y 좌표";
-                ColorCodeTextBlock.Text = "HTML 색상코드";
-                ColorPickTextBlock.Text = "색상 선택";
+            SetUiLanguage();
+        }
 
-                LoadButton.Content = "불러오기";
-                SavePixelButton.Content = "다른이름으로\n      저장";
-                DefaultButton.Content = "초기화";
-                ApplyButton.Content = "적용";
-                CancelButton.Content = "취소";
+
+        #region Private Event Method
+
+        private void PositionColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            string buttonName = (e.Source as Button).Name;
+
+            int buttonIndex;
+
+            FieldInfo fieldInfoX;
+            FieldInfo fieldInfoY;
+            FieldInfo fieldInfoColor;
+
+            if (buttonName.Contains("1"))
+            {
+                buttonIndex    = 0;
+                fieldInfoX     = this.GetType().GetField(buttonName.Replace("1", "X"),     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                fieldInfoY     = this.GetType().GetField(buttonName.Replace("1", "Y"),     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                fieldInfoColor = this.GetType().GetField(buttonName.Replace("1", "Color"), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             }
-        }
-
-        private IntPtr GetWinAscHandle()
-        {
-            string windowTitle = "NoxPlayer";
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            else if (buttonName.Contains("2"))
             {
-                windowTitle = ((MainWindow)System.Windows.Application.Current.MainWindow).WindowTitleTextBox.Text;
-            }));
-            return FindWindow(null, windowTitle);
-        }
-
-        private void GetWindowPos(IntPtr hwnd, ref System.Windows.Point point, ref System.Windows.Size size)
-        {
-            WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
-            placement.length = System.Runtime.InteropServices.Marshal.SizeOf(placement);
-
-            GetWindowPlacement(hwnd, ref placement);
-
-            size = new System.Windows.Size(placement.normal_position.Right - (placement.normal_position.Left * 2), placement.normal_position.Bottom - (placement.normal_position.Top * 2));
-            point = new System.Windows.Point(placement.normal_position.Left, placement.normal_position.Top);
-        }
-
-        private void GetPixelPositionAndColor()
-        {
-            System.Windows.Point point = new System.Windows.Point();
-            System.Windows.Size size = new System.Windows.Size();
-
-            GetWindowPos(GetWinAscHandle(), ref point, ref size);
-
-            if ((size.Width != 0) && (size.Height != 0))
-            {
-                NoxPointX = point.X;
-                NoxPointY = point.Y;
-                NoxWidth = size.Width;
-                NoxHeight = size.Height;
-
-                // 화면 크기만큼의 Bitmap 생성
-                System.Drawing.Bitmap CurrentBitmap = new System.Drawing.Bitmap((int)NoxWidth, (int)NoxHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                // Bitmap 이미지 변경을 위해 Graphics 객체 생성
-                using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(CurrentBitmap))
-                {
-                    // 화면을 그대로 카피해서 Bitmap 메모리에 저장
-                    graphics.CopyFromScreen((int)NoxPointX, (int)NoxPointY, 0, 0, CurrentBitmap.Size);
-                    // Bitmap 데이타를 파일로 저장
-                    //CurrentBitmap.Save("screenshot.png", System.Drawing.Imaging.ImageFormat.Png);
-                }
-
-                using (MemoryStream memory = new MemoryStream())
-                {
-                    CurrentBitmap.Save(memory, ImageFormat.Png);
-                    memory.Position = 0;
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.StreamSource = memory;
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.EndInit();
-
-                    Screenshot screenshot = new Screenshot();
-                    screenshot.Width = NoxWidth;
-                    screenshot.Height = NoxHeight;
-                    screenshot.MainImage.Source = bitmapImage;
-                    screenshot.CurrentBitmap = CurrentBitmap;
-                    screenshot.ShowDialog();
-                }
+                buttonIndex    = 1;
+                fieldInfoX     = this.GetType().GetField(buttonName.Replace("2", "X"),     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                fieldInfoY     = this.GetType().GetField(buttonName.Replace("2", "Y"),     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                fieldInfoColor = this.GetType().GetField(buttonName.Replace("2", "Color"), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             }
-        }
+            else if (buttonName.Contains("3"))
+            {
+                buttonIndex    = 2;
+                fieldInfoX     = this.GetType().GetField(buttonName.Replace("3", "X"),     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                fieldInfoY     = this.GetType().GetField(buttonName.Replace("3", "Y"),     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                fieldInfoColor = this.GetType().GetField(buttonName.Replace("3", "Color"), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            }
+            else
+            {
+                buttonIndex    = 3;
+                fieldInfoX     = this.GetType().GetField(buttonName.Replace("4", "X"),     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                fieldInfoY     = this.GetType().GetField(buttonName.Replace("4", "Y"),     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                fieldInfoColor = this.GetType().GetField(buttonName.Replace("4", "Color"), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            }
 
-        private void AppLocationButton1_Click(object sender, RoutedEventArgs e)
-        {
+            TextBox TargetTextBox = new TextBox();
+            string[] colorset = { };
+            if (fieldInfoColor != null)
+            {
+                TargetTextBox = fieldInfoColor.GetValue(this) as TextBox;
+                colorset      = TargetTextBox.Text.Split(';');
+            }
+
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AppLocationX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AppLocationY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(AppLocationColor.Text.Split(';')[0]);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse((fieldInfoX.GetValue(this) as TextBox).Text);
+                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse((fieldInfoY.GetValue(this) as TextBox).Text);
+                if (fieldInfoColor != null)
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(colorset[buttonIndex]);
+                }
             }));
 
             GetPixelPositionAndColor();
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                AppLocationX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                AppLocationY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                AppLocationColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + AppLocationColor.Text.Split(';')[1];
-                AppLocationButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+                (fieldInfoX.GetValue(this) as TextBox).Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                (fieldInfoY.GetValue(this) as TextBox).Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+
+                if (fieldInfoColor != null)
+                {
+                    (e.Source as Button).Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+
+                    switch (colorset.Length)
+                    {
+                        case 1:
+                            {
+                                TargetTextBox.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                            }
+                            break;
+                        case 2:
+                            {
+                                switch (buttonIndex)
+                                {
+                                    case 0:
+                                        TargetTextBox.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + colorset[1];
+                                        break;
+                                    case 1:
+                                        TargetTextBox.Text = colorset[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                                        break;
+                                }
+                            }
+                            break;
+                        case 3:
+                            {
+                                switch (buttonIndex)
+                                {
+                                    case 0:
+                                        TargetTextBox.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + colorset[1] + ";" + colorset[2];
+                                        break;
+                                    case 1:
+                                        TargetTextBox.Text = colorset[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + colorset[2];
+                                        break;
+                                    case 2:
+                                        TargetTextBox.Text = colorset[0] + ";" + colorset[1] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                                        break;
+                                }
+                            }
+                            break;
+                        case 4:
+                            {
+                                switch (buttonIndex)
+                                {
+                                    case 0:
+                                        TargetTextBox.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + colorset[1] + ";" + colorset[2] + ";" + colorset[3];
+                                        break;
+                                    case 1:
+                                        TargetTextBox.Text = colorset[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + colorset[2] + ";" + colorset[3];
+                                        break;
+                                    case 2:
+                                        TargetTextBox.Text = colorset[0] + ";" + colorset[1] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + colorset[3];
+                                        break;
+                                    case 3:
+                                        TargetTextBox.Text = colorset[0] + ";" + colorset[1] + ";" + colorset[2] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
+                                        break;
+                                }
+                            }
+                            break;
+                    }
+
+                    string targetTextBoxText = TargetTextBox.Text;
+
+                    if (TargetTextBox.Name.Contains("GoldAd")  ||
+                        TargetTextBox.Name.Contains("TroopAd") ||
+                        TargetTextBox.Name.Contains("MidasAd"))
+                    {
+                        GoldAdCloseButtonColor.Text  = targetTextBoxText;
+                        TroopAdCloseButtonColor.Text = targetTextBoxText;
+                        MidasAdCloseButtonColor.Text = targetTextBoxText;
+                    }
+                    else if (TargetTextBox.Name.Contains("LeftAd") ||
+                             TargetTextBox.Name.Contains("RightAd"))
+                    {
+                        LeftAdCloseButtonColor.Text  = targetTextBoxText;
+                        RightAdCloseButtonColor.Text = targetTextBoxText;
+                    }
+                }
             }));
-        }
-
-        private void ShopButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(ShopButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(ShopButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(ShopButtonColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ShopButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                ShopButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                ShopButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                ShopButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void CollectButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(CollectButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(CollectButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(CollectButtonColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                CollectButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                CollectButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                CollectButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                CollectButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void GoldChestBox1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldChestBoxX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldChestBoxY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldChestBoxColor.Text.Split(';')[0]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                GoldChestBoxX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                GoldChestBoxY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                GoldChestBoxColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + GoldChestBoxColor.Text.Split(';')[1];
-                GoldChestBox1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void BattleLevelButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(BattleLevelButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(BattleLevelButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(BattleLevelButtonColor.Text.Split(';')[0]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                BattleLevelButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                BattleLevelButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                BattleLevelButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + BattleLevelButtonColor.Text.Split(';')[1] + ";" + BattleLevelButtonColor.Text.Split(';')[2] + ";" + BattleLevelButtonColor.Text.Split(';')[3];
-                BattleLevelButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void SkillButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(SkillButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(SkillButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(SkillButtonColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                SkillButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                SkillButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                SkillButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                SkillButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void SpeedButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(SpeedButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(SpeedButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(SpeedButtonColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                SpeedButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                SpeedButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                SpeedButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                SpeedButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void ContinueButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(ContinueButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(ContinueButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(ContinueButtonColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ContinueButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                ContinueButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                ContinueButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                ContinueButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void VictoryDefeat1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(VictoryDefeatX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(VictoryDefeatY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(VictoryDefeatColor.Text.Split(';')[0]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                VictoryDefeatX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                VictoryDefeatY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                VictoryDefeatColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + VictoryDefeatColor.Text.Split(';')[1];
-                VictoryDefeat1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void GoldButtonBackground1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldButtonBackgroundX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldButtonBackgroundY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Text.Split(';')[0]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                GoldButtonBackgroundX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                GoldButtonBackgroundY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                GoldButtonBackgroundColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + GoldButtonBackgroundColor.Text.Split(';')[1];
-                GoldButtonBackground1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void GoldButtonImage1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldButtonImageX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldButtonImageY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldButtonImageColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                GoldButtonImageX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                GoldButtonImageY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                GoldButtonImageColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                GoldButtonImage1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void NextButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(NextButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(NextButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(NextButtonColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                NextButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                NextButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                NextButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                NextButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void NoGoldButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(NoGoldX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(NoGoldY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(NoGoldColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                NoGoldX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                NoGoldY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                NoGoldColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                NoGoldButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void GoldAdCloseButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldAdCloseButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldAdCloseButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldAdCloseButtonColor.Text.Split(';')[0]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                GoldAdCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                GoldAdCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                GoldAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + GoldAdCloseButtonColor.Text.Split(';')[1] + ";" + GoldAdCloseButtonColor.Text.Split(';')[2];
-                TroopAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + TroopAdCloseButtonColor.Text.Split(';')[1] + ";" + TroopAdCloseButtonColor.Text.Split(';')[2];
-                MidasAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + MidasAdCloseButtonColor.Text.Split(';')[1] + ";" + MidasAdCloseButtonColor.Text.Split(';')[2];
-                GoldAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void TroopAdCloseButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(TroopAdCloseButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(TroopAdCloseButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(TroopAdCloseButtonColor.Text.Split(';')[1]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                TroopAdCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                TroopAdCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                GoldAdCloseButtonColor.Text = GoldAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + GoldAdCloseButtonColor.Text.Split(';')[2];
-                TroopAdCloseButtonColor.Text = TroopAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + TroopAdCloseButtonColor.Text.Split(';')[2];
-                MidasAdCloseButtonColor.Text = MidasAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + MidasAdCloseButtonColor.Text.Split(';')[2];
-                TroopAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void MidasAdCloseButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(MidasAdCloseButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(MidasAdCloseButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(MidasAdCloseButtonColor.Text.Split(';')[2]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                MidasAdCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                MidasAdCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                GoldAdCloseButtonColor.Text = GoldAdCloseButtonColor.Text.Split(';')[0] + ";" + GoldAdCloseButtonColor.Text.Split(';')[1] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                TroopAdCloseButtonColor.Text = TroopAdCloseButtonColor.Text.Split(';')[0] + ";" + TroopAdCloseButtonColor.Text.Split(';')[1] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                MidasAdCloseButtonColor.Text = MidasAdCloseButtonColor.Text.Split(';')[0] + ";" + MidasAdCloseButtonColor.Text.Split(';')[1] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                MidasAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void LatestUsedAppButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(LatestUsedAppButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(LatestUsedAppButtonY.Text);
-                //((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(LatestUsedAppButtonColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                LatestUsedAppButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                LatestUsedAppButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                //LatestUsedAppButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                //LatestUsedAppButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void RightTopAppCloseButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(RightTopAppCloseButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(RightTopAppCloseButtonY.Text);
-                //((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(RightTopAppCloseButtonColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                RightTopAppCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                RightTopAppCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                //RightTopAppCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                //RightTopAppCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void NotRespondAppCloseButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(NotRespondAppCloseButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(NotRespondAppCloseButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(NotRespondAppCloseButtonColor.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                NotRespondAppCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                NotRespondAppCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                NotRespondAppCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                NotRespondAppCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void AppLocationButton2_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(AppLocationX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(AppLocationY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(AppLocationColor.Text.Split(';')[1]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                AppLocationX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                AppLocationY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                AppLocationColor.Text = AppLocationColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                AppLocationButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void GoldChestBox2_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldChestBoxX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldChestBoxY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldChestBoxColor.Text.Split(';')[1]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                GoldChestBoxX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                GoldChestBoxY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                GoldChestBoxColor.Text = GoldChestBoxColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                GoldChestBox2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void BattleLevelButton2_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(BattleLevelButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(BattleLevelButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(BattleLevelButtonColor.Text.Split(';')[1]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                BattleLevelButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                BattleLevelButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                BattleLevelButtonColor.Text = BattleLevelButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + BattleLevelButtonColor.Text.Split(';')[2] + ";" + BattleLevelButtonColor.Text.Split(';')[3];
-                BattleLevelButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void VictoryDefeat2_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(VictoryDefeatX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(VictoryDefeatY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(VictoryDefeatColor.Text.Split(';')[1]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                VictoryDefeatX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                VictoryDefeatY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                VictoryDefeatColor.Text = VictoryDefeatColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                VictoryDefeat2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void GoldButtonBackground2_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(GoldButtonBackgroundX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(GoldButtonBackgroundY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(GoldButtonBackgroundColor.Text.Split(';')[1]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                GoldButtonBackgroundX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                GoldButtonBackgroundY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                GoldButtonBackgroundColor.Text = GoldButtonBackgroundColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                GoldButtonBackground2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void BattleLevelButton3_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(BattleLevelButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(BattleLevelButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(BattleLevelButtonColor.Text.Split(';')[2]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                BattleLevelButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                BattleLevelButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                BattleLevelButtonColor.Text = BattleLevelButtonColor.Text.Split(';')[0] + ";" + BattleLevelButtonColor.Text.Split(';')[1] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + BattleLevelButtonColor.Text.Split(';')[3];
-                BattleLevelButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void BattleLevelButton4_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(BattleLevelButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(BattleLevelButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(BattleLevelButtonColor.Text.Split(';')[3]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                BattleLevelButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                BattleLevelButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                BattleLevelButtonColor.Text = BattleLevelButtonColor.Text.Split(';')[0] + ";" + BattleLevelButtonColor.Text.Split(';')[1] + ";" + BattleLevelButtonColor.Text.Split(';')[2] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                BattleLevelButton4.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void HomeButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(HomeButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(HomeButtonY.Text);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                HomeButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                HomeButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-            }));
-        }
-
-        private void LeftAdCloseButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(LeftAdCloseButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(LeftAdCloseButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(LeftAdCloseButtonColor.Text.Split(';')[0]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                LeftAdCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                LeftAdCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                LeftAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + LeftAdCloseButtonColor.Text.Split(';')[1];
-                RightAdCloseButtonColor.Text = ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor) + ";" + RightAdCloseButtonColor.Text.Split(';')[1];
-                LeftAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void RightAdCloseButton1_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse(RightAdCloseButtonX.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse(RightAdCloseButtonY.Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(RightAdCloseButtonColor.Text.Split(';')[1]);
-            }));
-
-            GetPixelPositionAndColor();
-
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                RightAdCloseButtonX.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                RightAdCloseButtonY.Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
-                LeftAdCloseButtonColor.Text = LeftAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                RightAdCloseButtonColor.Text = RightAdCloseButtonColor.Text.Split(';')[0] + ";" + ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor);
-                RightAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
-            }));
-        }
-
-        private void ChangeButtonsColors()
-        {
-            AppLocationButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[0]));
-            ShopButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor.Text));
-            CollectButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(CollectButtonColor.Text));
-            GoldChestBox1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Text.Split(';')[0]));
-            BattleLevelButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[0]));
-            SkillButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SkillButtonColor.Text));
-            SpeedButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SpeedButtonColor.Text));
-            ContinueButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ContinueButtonColor.Text));
-            VictoryDefeat1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Text.Split(';')[0]));
-            GoldButtonBackground1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Text.Split(';')[0]));
-            GoldButtonImage1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonImageColor.Text.Split(';')[0]));
-            NextButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NextButtonColor.Text));
-            GoldAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldAdCloseButtonColor.Text.Split(';')[0]));
-            TroopAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(TroopAdCloseButtonColor.Text.Split(';')[1]));
-            MidasAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(MidasAdCloseButtonColor.Text.Split(';')[2]));
-            //LatestUsedAppButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LatestUsedAppButtonColor.Text));
-            //RightTopAppCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(RightTopAppCloseButtonColor.Text));
-            NotRespondAppCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondAppCloseButtonColor.Text));
-            NoGoldButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor.Text));
-
-            AppLocationButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[1]));
-            GoldChestBox2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Text.Split(';')[1]));
-            BattleLevelButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[1]));
-            VictoryDefeat2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Text.Split(';')[1]));
-            GoldButtonBackground2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Text.Split(';')[1]));
-
-            BattleLevelButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[2]));
-            BattleLevelButton4.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[3]));
-
-            LeftAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LeftAdCloseButtonColor.Text.Split(';')[0]));
-            RightAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LeftAdCloseButtonColor.Text.Split(';')[1]));
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -790,279 +217,110 @@ namespace ArtOfHassan
             {
                 string[] lines = File.ReadAllLines(openFileDialog.FileName);
 
-                int tempnum;
-                if (int.TryParse(lines[0].Split(',')[0], out tempnum)) // 구버전 - 추후 제거
+                foreach (string line in lines)
                 {
-                    AppLocationX.Text = lines[0].Split(',')[0];
-                    AppLocationY.Text = lines[0].Split(',')[1];
-                    AppLocationColor.Text = lines[0].Split(',')[2];
+                    string[] listitem = line.Split(',');
 
-                    HomeButtonX.Text = lines[1].Split(',')[0];
-                    ShopButtonX.Text = lines[1].Split(',')[1];
-                    ShopButtonY.Text = lines[1].Split(',')[2];
-                    ShopButtonColor.Text = lines[1].Split(',')[3];
-
-                    CollectButtonX.Text = lines[2].Split(',')[0];
-                    CollectButtonY.Text = lines[2].Split(',')[1];
-                    CollectButtonColor.Text = lines[2].Split(',')[2];
-
-                    GoldChestBoxX.Text = lines[3].Split(',')[0];
-                    GoldChestBoxY.Text = lines[3].Split(',')[1];
-                    GoldChestBoxColor.Text = lines[3].Split(',')[2];
-
-                    BattleLevelButtonX.Text = lines[4].Split(',')[0];
-                    BattleLevelButtonY.Text = lines[4].Split(',')[1];
-                    BattleLevelButtonColor.Text = lines[4].Split(',')[2];
-
-                    SkillButtonX.Text = lines[5].Split(',')[0];
-                    SkillButtonY.Text = lines[5].Split(',')[1];
-                    SkillButtonColor.Text = lines[5].Split(',')[2];
-
-                    SpeedButtonX.Text = lines[6].Split(',')[0];
-                    SpeedButtonY.Text = lines[6].Split(',')[1];
-                    SpeedButtonColor.Text = lines[6].Split(',')[2];
-
-                    ContinueButtonX.Text = lines[7].Split(',')[0];
-                    ContinueButtonY.Text = lines[7].Split(',')[1];
-                    ContinueButtonColor.Text = lines[7].Split(',')[2];
-
-                    VictoryDefeatX.Text = lines[8].Split(',')[0];
-                    VictoryDefeatY.Text = lines[8].Split(',')[1];
-                    VictoryDefeatColor.Text = lines[8].Split(',')[2];
-
-                    GoldButtonBackgroundX.Text = lines[9].Split(',')[0];
-                    GoldButtonBackgroundY.Text = lines[9].Split(',')[1];
-                    GoldButtonBackgroundColor.Text = lines[9].Split(',')[2];
-
-                    GoldButtonImageX.Text = lines[10].Split(',')[0];
-                    GoldButtonImageY.Text = lines[10].Split(',')[1];
-                    GoldButtonImageColor.Text = lines[10].Split(',')[2];
-
-                    NextButtonX.Text = lines[11].Split(',')[0];
-                    NextButtonY.Text = lines[11].Split(',')[1];
-                    NextButtonColor.Text = lines[11].Split(',')[2];
-
-                    // 예외발생 임시처리 나중에 삭제할것
-                    if (lines.Length == 16)
+                    switch (listitem[0].ToLower())
                     {
-                        NoGoldX.Text = lines[12].Split(',')[0];
-                        NoGoldY.Text = lines[12].Split(',')[1];
-                        NoGoldColor.Text = lines[12].Split(',')[2];
-
-                        GoldAdCloseButtonX.Text = lines[13].Split(',')[0];
-                        GoldAdCloseButtonY.Text = lines[13].Split(',')[1];
-                        TroopAdCloseButtonX.Text = lines[13].Split(',')[0];
-                        TroopAdCloseButtonY.Text = lines[13].Split(',')[2];
-						// 예외발생 임시처리 나중에 삭제할것
-                        if (lines[13].Split(',').Length < 5)
-                        {
-                            GoldAdCloseButtonColor.Text = lines[13].Split(',')[3] + ";#e9e9d8".ToUpper();
-                            TroopAdCloseButtonColor.Text = lines[13].Split(',')[3] + ";#e9e9d8".ToUpper();
-
-                            MidasAdCloseButtonX.Text = lines[13].Split(',')[0];
-                            MidasAdCloseButtonY.Text = 262.ToString();
-                            MidasAdCloseButtonColor.Text = lines[13].Split(',')[3] + ";#e9e9d8".ToUpper();
-                        }
-                        else
-                        {
-                            MidasAdCloseButtonX.Text = lines[13].Split(',')[0];
-                            MidasAdCloseButtonY.Text = lines[13].Split(',')[3];
-
-                            GoldAdCloseButtonColor.Text = lines[13].Split(',')[4];
-                            TroopAdCloseButtonColor.Text = lines[13].Split(',')[4];
-                            MidasAdCloseButtonColor.Text = lines[13].Split(',')[4];
-                        }
-
-                        LeftAdCloseButtonX.Text = lines[14].Split(',')[0];
-                        LeftAdCloseButtonY.Text = lines[14].Split(',')[2];
-                        RightAdCloseButtonX.Text = lines[14].Split(',')[1];
-                        RightAdCloseButtonY.Text = lines[14].Split(',')[2];
-                        // 예외발생 임시처리 나중에 삭제할것
-                        if (lines[14].Split(',').Length < 4)
-                        {
-                            LeftAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
-                            RightAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
-                        }
-                        else
-                        {
-                            LeftAdCloseButtonColor.Text = lines[14].Split(',')[3];
-                            RightAdCloseButtonColor.Text = lines[14].Split(',')[3];
-                        }
-
-                        LatestUsedAppButtonX.Text = lines[15].Split(',')[0];
-                        LatestUsedAppButtonY.Text = lines[15].Split(',')[1];
-                        //LatestUsedAppButtonColor.Text = lines[15].Split(',')[2];
-                    }
-                    else
-                    {
-                        GoldAdCloseButtonX.Text = lines[12].Split(',')[0];
-                        GoldAdCloseButtonY.Text = lines[12].Split(',')[1];
-                        TroopAdCloseButtonX.Text = lines[12].Split(',')[0];
-                        TroopAdCloseButtonY.Text = lines[12].Split(',')[2];
-                        // 예외발생 임시처리 나중에 삭제할것
-                        if (lines[12].Split(',').Length < 5)
-                        {
-                            GoldAdCloseButtonColor.Text = lines[12].Split(',')[3] + ";#e9e9d8".ToUpper();
-                            TroopAdCloseButtonColor.Text = lines[12].Split(',')[3] + ";#e9e9d8".ToUpper();
-
-                            MidasAdCloseButtonX.Text = lines[12].Split(',')[0];
-                            MidasAdCloseButtonY.Text = 262.ToString();
-                            MidasAdCloseButtonColor.Text = lines[12].Split(',')[3] + ";#e9e9d8".ToUpper();
-                        }
-                        else
-                        {
-                            MidasAdCloseButtonX.Text = lines[12].Split(',')[0];
-                            MidasAdCloseButtonY.Text = lines[12].Split(',')[3];
-
-                            GoldAdCloseButtonColor.Text = lines[12].Split(',')[4];
-                            TroopAdCloseButtonColor.Text = lines[12].Split(',')[4];
-                            MidasAdCloseButtonColor.Text = lines[12].Split(',')[4];
-                        }
-
-                        LeftAdCloseButtonX.Text = lines[13].Split(',')[0];
-                        LeftAdCloseButtonY.Text = lines[13].Split(',')[2];
-                        RightAdCloseButtonX.Text = lines[13].Split(',')[1];
-                        RightAdCloseButtonY.Text = lines[13].Split(',')[2];
-                        // 예외발생 임시처리 나중에 삭제할것
-                        if (lines[13].Split(',').Length < 4)
-                        {
-                            LeftAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
-                            RightAdCloseButtonColor.Text = "#4c4c4f;#3c4043".ToUpper();
-                        }
-                        else
-                        {
-                            LeftAdCloseButtonColor.Text = lines[13].Split(',')[3];
-                            RightAdCloseButtonColor.Text = lines[13].Split(',')[3];
-                        }
-
-                        LatestUsedAppButtonX.Text = lines[14].Split(',')[0];
-                        LatestUsedAppButtonY.Text = lines[14].Split(',')[1];
-                        //LatestUsedAppButtonColor.Text = lines[14].Split(',')[2];
-                    }
-                }
-                else // 신버전
-                {
-                    foreach (string line in lines)
-                    {
-                        string[] listitem = line.Split(',');
-
-                        switch (listitem[0].ToLower())
-                        {
-                            case ("applocation"):
-                                AppLocationX.Text = listitem[1];
-                                AppLocationY.Text = listitem[2];
-                                AppLocationColor.Text = listitem[3];
-                                break;
-                            case ("shopbutton"):
-                                HomeButtonX.Text = listitem[1];
-                                ShopButtonX.Text = listitem[2];
-                                ShopButtonY.Text = listitem[3];
-                                ShopButtonColor.Text = listitem[4];
-                                break;
-                            case ("collectbutton"):
-                                CollectButtonX.Text = listitem[1];
-                                CollectButtonY.Text = listitem[2];
-                                CollectButtonColor.Text = listitem[3];
-                                break;
-                            case ("goldchestbox"):
-                                GoldChestBoxX.Text = listitem[1];
-                                GoldChestBoxY.Text = listitem[2];
-                                GoldChestBoxColor.Text = listitem[3];
-                                break;
-                            case ("battlelevelbutton"):
-                                BattleLevelButtonX.Text = listitem[1];
-                                BattleLevelButtonY.Text = listitem[2];
-                                BattleLevelButtonColor.Text = listitem[3];
-                                break;
-                            case ("skillbutton"):
-                                SkillButtonX.Text = listitem[1];
-                                SkillButtonY.Text = listitem[2];
-                                SkillButtonColor.Text = listitem[3];
-                                break;
-                            case ("speedbutton"):
-                                SpeedButtonX.Text = listitem[1];
-                                SpeedButtonY.Text = listitem[2];
-                                SpeedButtonColor.Text = listitem[3];
-                                break;
-                            case ("continuebutton"):
-                                ContinueButtonX.Text = listitem[1];
-                                ContinueButtonY.Text = listitem[2];
-                                ContinueButtonColor.Text = listitem[3];
-                                break;
-                            case ("victorydefeat"):
-                                VictoryDefeatX.Text = listitem[1];
-                                VictoryDefeatY.Text = listitem[2];
-                                VictoryDefeatColor.Text = listitem[3];
-                                break;
-                            case ("goldbuttonbackground"):
-                                GoldButtonBackgroundX.Text = listitem[1];
-                                GoldButtonBackgroundY.Text = listitem[2];
-                                GoldButtonBackgroundColor.Text = listitem[3];
-                                break;
-                            case ("goldbuttonimage"):
-                                GoldButtonImageX.Text = listitem[1];
-                                GoldButtonImageY.Text = listitem[2];
-                                GoldButtonImageColor.Text = listitem[3];
-                                break;
-                            case ("nextbutton"):
-                                NextButtonX.Text = listitem[1];
-                                NextButtonY.Text = listitem[2];
-                                NextButtonColor.Text = listitem[3];
-                                break;
-                            case ("nogold"):
-                                NoGoldX.Text = listitem[1];
-                                NoGoldY.Text = listitem[2];
-                                NoGoldColor.Text = listitem[3];
-                                break;
-                            case ("gameadclosebutton"):
-                                GoldAdCloseButtonX.Text = listitem[1];
-                                TroopAdCloseButtonX.Text = listitem[1];
-                                GoldAdCloseButtonY.Text = listitem[2];
-                                TroopAdCloseButtonY.Text = listitem[3];
-								// 예외발생 임시처리 나중에 삭제할것
-                                if (listitem.Length == 5)
-                                {
-                                    GoldAdCloseButtonColor.Text = listitem[4] + ";#e9e9d8".ToUpper();
-                                    TroopAdCloseButtonColor.Text = listitem[4] + ";#e9e9d8".ToUpper();
-
-                                    MidasAdCloseButtonX.Text = listitem[1];
-                                    MidasAdCloseButtonY.Text = 262.ToString();
-                                    MidasAdCloseButtonColor.Text = listitem[4] + ";#e9e9d8".ToUpper();
-                                }
-                                else
-                                {
-                                    MidasAdCloseButtonX.Text = listitem[1];
-                                    MidasAdCloseButtonY.Text = listitem[4];
-
-                                    GoldAdCloseButtonColor.Text = listitem[5];
-                                    TroopAdCloseButtonColor.Text = listitem[5];
-                                    MidasAdCloseButtonColor.Text = listitem[5];
-                                }
-                                break;
-                            case ("googleadclosebutton"):
-                                LeftAdCloseButtonX.Text = listitem[1];
-                                RightAdCloseButtonX.Text = listitem[2];
-                                LeftAdCloseButtonY.Text = listitem[3];
-                                RightAdCloseButtonY.Text = listitem[3];
-                                LeftAdCloseButtonColor.Text = listitem[4];
-                                RightAdCloseButtonColor.Text = listitem[4];
-                                break;
-                            case ("latestusedsppbutton"):
-                                LatestUsedAppButtonX.Text = listitem[1];
-                                LatestUsedAppButtonY.Text = listitem[2];
-                                //LatestUsedAppButtonColor.Text = listitem[3];
-                                break;
-                            case ("righttopappclosebutton"):
-                                RightTopAppCloseButtonX.Text = listitem[1];
-                                RightTopAppCloseButtonY.Text = listitem[2];
-                                //RightTopAppCloseButtonColor.Text = listitem[3];
-                                break;
-                            case ("notrespondappclosebutton"):
-                                NotRespondAppCloseButtonX.Text = listitem[1];
-                                NotRespondAppCloseButtonY.Text = listitem[2];
-                                NotRespondAppCloseButtonColor.Text = listitem[3];
-                                break;
-                        }
+                        case ("applocation"):
+                            AppLocationX.Text = listitem[1];
+                            AppLocationY.Text = listitem[2];
+                            AppLocationColor.Text = listitem[3];
+                            break;
+                        case ("shopbutton"):
+                            HomeButtonX.Text = listitem[1];
+                            ShopButtonX.Text = listitem[2];
+                            ShopButtonY.Text = listitem[3];
+                            ShopButtonColor.Text = listitem[4];
+                            break;
+                        case ("goldchestbox"):
+                            GoldChestBoxX.Text = listitem[1];
+                            GoldChestBoxY.Text = listitem[2];
+                            GoldChestBoxColor.Text = listitem[3];
+                            break;
+                        case ("collectbutton"):
+                            CollectButtonX.Text = listitem[1];
+                            CollectButtonY.Text = listitem[2];
+                            CollectButtonColor.Text = listitem[3];
+                            break;
+                        case ("battlelevelbutton"):
+                            BattleLevelButtonX.Text = listitem[1];
+                            BattleLevelButtonY.Text = listitem[2];
+                            BattleLevelButtonColor.Text = listitem[3];
+                            break;
+                        case ("skillbutton"):
+                            SkillButtonX.Text = listitem[1];
+                            SkillButtonY.Text = listitem[2];
+                            SkillButtonColor.Text = listitem[3];
+                            break;
+                        case ("speedbutton"):
+                            SpeedButtonX.Text = listitem[1];
+                            SpeedButtonY.Text = listitem[2];
+                            SpeedButtonColor.Text = listitem[3];
+                            break;
+                        case ("continuebutton"):
+                            ContinueButtonX.Text = listitem[1];
+                            ContinueButtonY.Text = listitem[2];
+                            ContinueButtonColor.Text = listitem[3];
+                            break;
+                        case ("victorydefeat"):
+                            VictoryDefeatX.Text = listitem[1];
+                            VictoryDefeatY.Text = listitem[2];
+                            VictoryDefeatColor.Text = listitem[3];
+                            break;
+                        case ("nogold"):
+                            NoGoldX.Text = listitem[1];
+                            NoGoldY.Text = listitem[2];
+                            NoGoldColor.Text = listitem[3];
+                            break;
+                        case ("goldbuttonbackground"):
+                            GoldButtonBackgroundX.Text = listitem[1];
+                            GoldButtonBackgroundY.Text = listitem[2];
+                            GoldButtonBackgroundColor.Text = listitem[3];
+                            break;
+                        case ("goldbuttonimage"):
+                            GoldButtonImageX.Text = listitem[1];
+                            GoldButtonImageY.Text = listitem[2];
+                            GoldButtonImageColor.Text = listitem[3];
+                            break;
+                        case ("nextbutton"):
+                            NextButtonX.Text = listitem[1];
+                            NextButtonY.Text = listitem[2];
+                            NextButtonColor.Text = listitem[3];
+                            break;
+                        case ("gameadclosebutton"):
+                            GoldAdCloseButtonX.Text = listitem[1];
+                            TroopAdCloseButtonX.Text = listitem[1];
+                            MidasAdCloseButtonX.Text = listitem[1];
+                            GoldAdCloseButtonY.Text = listitem[2];
+                            TroopAdCloseButtonY.Text = listitem[3];
+                            MidasAdCloseButtonY.Text = listitem[4];
+                            GoldAdCloseButtonColor.Text = listitem[5];
+                            TroopAdCloseButtonColor.Text = listitem[5];
+                            MidasAdCloseButtonColor.Text = listitem[5];
+                            break;
+                        case ("googleadclosebutton"):
+                            LeftAdCloseButtonX.Text = listitem[1];
+                            RightAdCloseButtonX.Text = listitem[2];
+                            LeftAdCloseButtonY.Text = listitem[3];
+                            RightAdCloseButtonY.Text = listitem[3];
+                            LeftAdCloseButtonColor.Text = listitem[4];
+                            RightAdCloseButtonColor.Text = listitem[4];
+                            break;
+                        case ("latestusedsppbutton"):
+                            LatestUsedAppButtonX.Text = listitem[1];
+                            LatestUsedAppButtonY.Text = listitem[2];
+                            break;
+                        case ("righttopappclosebutton"):
+                            RightTopAppCloseButtonX.Text = listitem[1];
+                            RightTopAppCloseButtonY.Text = listitem[2];
+                            break;
+                        case ("notrespondappclosebutton"):
+                            NotRespondAppCloseButtonX.Text = listitem[1];
+                            NotRespondAppCloseButtonY.Text = listitem[2];
+                            NotRespondAppCloseButtonColor.Text = listitem[3];
+                            break;
                     }
                 }
 
@@ -1087,10 +345,10 @@ namespace ArtOfHassan
                     streamWriter.WriteLine("SpeedButton," + SpeedButtonX.Text + "," + SpeedButtonY.Text + "," + SpeedButtonColor.Text);
                     streamWriter.WriteLine("ContinueButton," + ContinueButtonX.Text + "," + ContinueButtonY.Text + "," + ContinueButtonColor.Text);
                     streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX.Text + "," + VictoryDefeatY.Text + "," + VictoryDefeatColor.Text);
+                    streamWriter.WriteLine("NoGold," + NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
                     streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX.Text + "," + GoldButtonBackgroundY.Text + "," + GoldButtonBackgroundColor.Text);
                     streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX.Text + "," + GoldButtonImageY.Text + "," + GoldButtonImageColor.Text);
                     streamWriter.WriteLine("NextButton," + NextButtonX.Text + "," + NextButtonY.Text + "," + NextButtonColor.Text);
-                    streamWriter.WriteLine("NoGold," + NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
                     streamWriter.WriteLine("GameAdCloseButton," + (int)((int.Parse(GoldAdCloseButtonX.Text) + int.Parse(TroopAdCloseButtonX.Text) + int.Parse(MidasAdCloseButtonX.Text)) / 3) + "," + GoldAdCloseButtonY.Text + "," + TroopAdCloseButtonY.Text + "," + MidasAdCloseButtonY.Text + "," + GoldAdCloseButtonColor.Text);
                     streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX.Text + "," + RightAdCloseButtonX.Text + "," + (int)((int.Parse(LeftAdCloseButtonY.Text) + int.Parse(RightAdCloseButtonY.Text)) / 2) + "," + LeftAdCloseButtonColor.Text);
                     streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX.Text + "," + LatestUsedAppButtonY.Text);
@@ -1111,13 +369,13 @@ namespace ArtOfHassan
             ShopButtonY.Text = 980.ToString();
             ShopButtonColor.Text = "#ea3d34".ToUpper();
 
-            CollectButtonX.Text = 195.ToString();
-            CollectButtonY.Text = 680.ToString();
-            CollectButtonColor.Text = "#fdbb00".ToUpper();
-
             GoldChestBoxX.Text = 150.ToString();
             GoldChestBoxY.Text = 410.ToString();
             GoldChestBoxColor.Text = "#fff102;#eabf2f".ToUpper();
+
+            CollectButtonX.Text = 195.ToString();
+            CollectButtonY.Text = 680.ToString();
+            CollectButtonColor.Text = "#fdbb00".ToUpper();
 
             BattleLevelButtonX.Text = 180.ToString();
             BattleLevelButtonY.Text = 855.ToString();
@@ -1138,6 +396,10 @@ namespace ArtOfHassan
             VictoryDefeatX.Text = 120.ToString();
             VictoryDefeatY.Text = 355.ToString();
             VictoryDefeatColor.Text = "#d91c13;#12a7d8".ToUpper();
+
+            NoGoldX.Text = 320.ToString(); ;
+            NoGoldY.Text = 645.ToString(); ;
+            NoGoldColor.Text = "#dfd6be".ToUpper();
 
             GoldButtonBackgroundX.Text = 115.ToString();
             GoldButtonBackgroundY.Text = 780.ToString();
@@ -1169,19 +431,13 @@ namespace ArtOfHassan
 
             LatestUsedAppButtonX.Text = 580.ToString();
             LatestUsedAppButtonY.Text = 1000.ToString();
-            //LatestUsedAppButtonColor.Text = "#009688".ToUpper();
 
             RightTopAppCloseButtonX.Text = 501.ToString();
             RightTopAppCloseButtonY.Text = 150.ToString();
-            //RightTopAppCloseButtonColor.Text = "#009688".ToUpper();
 
             NotRespondAppCloseButtonX.Text = 79.ToString();
             NotRespondAppCloseButtonY.Text = 510.ToString();
             NotRespondAppCloseButtonColor.Text = "#009688".ToUpper();
-
-            NoGoldX.Text = 320.ToString(); ;
-            NoGoldY.Text = 646.ToString(); ;
-            NoGoldColor.Text = "#dfd6be".ToUpper();
 
             ChangeButtonsColors();
         }
@@ -1238,6 +494,11 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).VictoryDefeatColor = VictoryDefeatColor.Text;
                     streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX.Text + "," + VictoryDefeatY.Text + "," + VictoryDefeatColor.Text);
 
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).NoGoldX = int.Parse(NoGoldX.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).NoGoldY = int.Parse(NoGoldY.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).NoGoldColor = NoGoldColor.Text;
+                    streamWriter.WriteLine("NoGold," + NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
+
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoldButtonBackgroundX = int.Parse(GoldButtonBackgroundX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoldButtonBackgroundY = int.Parse(GoldButtonBackgroundY.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoldButtonBackgroundColor = GoldButtonBackgroundColor.Text;
@@ -1252,11 +513,6 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NextButtonY = int.Parse(NextButtonY.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NextButtonColor = NextButtonColor.Text;
                     streamWriter.WriteLine("NextButton," + NextButtonX.Text + "," + NextButtonY.Text + "," + NextButtonColor.Text);
-
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).NoGoldX = int.Parse(NoGoldX.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).NoGoldY = int.Parse(NoGoldY.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).NoGoldColor = NoGoldColor.Text;
-                    streamWriter.WriteLine("NoGold," + NoGoldX.Text + "," + NoGoldY.Text + "," + NoGoldColor.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GameAdCloseButtonX = (int.Parse(GoldAdCloseButtonX.Text) + int.Parse(TroopAdCloseButtonX.Text) + int.Parse(MidasAdCloseButtonX.Text)) / 3;
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoldAdCloseButtonY = int.Parse(GoldAdCloseButtonY.Text);
@@ -1273,12 +529,10 @@ namespace ArtOfHassan
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).LatestUsedAppButtonX = int.Parse(LatestUsedAppButtonX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).LatestUsedAppButtonY = int.Parse(LatestUsedAppButtonY.Text);
-                    //((MainWindow)System.Windows.Application.Current.MainWindow).LatestUsedAppButtonColor = LatestUsedAppButtonColor.Text;
                     streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX.Text + "," + LatestUsedAppButtonY.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).RightTopAppCloseButtonX = int.Parse(RightTopAppCloseButtonX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).RightTopAppCloseButtonY = int.Parse(RightTopAppCloseButtonY.Text);
-                    //((MainWindow)System.Windows.Application.Current.MainWindow).RightTopAppCloseButtonColor = RightTopAppCloseButtonColor.Text;
                     streamWriter.WriteLine("RightTopAppCloseButton," + RightTopAppCloseButtonX.Text + "," + RightTopAppCloseButtonY.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).NotRespondAppCloseButtonX = int.Parse(NotRespondAppCloseButtonX.Text);
@@ -1310,5 +564,149 @@ namespace ArtOfHassan
             }
             (e.Source as TextBox).Select(caretIndex, 0);
         }
+
+        #endregion
+
+
+        #region Private Method
+
+        private IntPtr GetWinAscHandle()
+        {
+            string windowTitle = "NoxPlayer";
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                windowTitle = ((MainWindow)System.Windows.Application.Current.MainWindow).WindowTitleTextBox.Text;
+            }));
+            return FindWindow(null, windowTitle);
+        }
+
+        private void GetWindowPos(IntPtr hwnd, ref System.Windows.Point point, ref System.Windows.Size size)
+        {
+            WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
+            placement.length = System.Runtime.InteropServices.Marshal.SizeOf(placement);
+
+            GetWindowPlacement(hwnd, ref placement);
+
+            size  = new System.Windows.Size(placement.normal_position.Right - (placement.normal_position.Left * 2), placement.normal_position.Bottom - (placement.normal_position.Top * 2));
+            point = new System.Windows.Point(placement.normal_position.Left, placement.normal_position.Top);
+        }
+
+        private void GetPixelPositionAndColor()
+        {
+            System.Windows.Point point = new System.Windows.Point();
+            System.Windows.Size size   = new System.Windows.Size();
+
+            GetWindowPos(GetWinAscHandle(), ref point, ref size);
+
+            if ((size.Width != 0) && (size.Height != 0))
+            {
+                NoxPointX = point.X;
+                NoxPointY = point.Y;
+                NoxWidth  = size.Width;
+                NoxHeight = size.Height;
+
+                // 화면 크기만큼의 Bitmap 생성
+                System.Drawing.Bitmap CurrentBitmap = new System.Drawing.Bitmap((int)NoxWidth, (int)NoxHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                // Bitmap 이미지 변경을 위해 Graphics 객체 생성
+                using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(CurrentBitmap))
+                {
+                    // 화면을 그대로 카피해서 Bitmap 메모리에 저장
+                    graphics.CopyFromScreen((int)NoxPointX, (int)NoxPointY, 0, 0, CurrentBitmap.Size);
+                    // Bitmap 데이타를 파일로 저장
+                    //CurrentBitmap.Save("screenshot.png", System.Drawing.Imaging.ImageFormat.Png);
+                }
+
+                using (MemoryStream memory = new MemoryStream())
+                {
+                    CurrentBitmap.Save(memory, ImageFormat.Png);
+                    memory.Position = 0;
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = memory;
+                    bitmapImage.CacheOption  = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+
+                    Screenshot screenshot = new Screenshot();
+                    screenshot.Width  = NoxWidth;
+                    screenshot.Height = NoxHeight;
+                    screenshot.MainImage.Source = bitmapImage;
+                    screenshot.CurrentBitmap    = CurrentBitmap;
+                    screenshot.ShowDialog();
+                }
+            }
+        }
+
+        private void SetUiLanguage()
+        {
+            if (((MainWindow)System.Windows.Application.Current.MainWindow).KoreanCheckBox.IsChecked.Value)
+            {
+                this.Title = "픽셀 위치 및 색상 사용자화";
+                ItemTextBlock.Text = "항목";
+                AppLocationTextBlock.Text = "어플 위치";
+                HomeButtonTextBlock.Text = "홈버튼";
+                ShopButtonTextBlock.Text = "상점버튼";
+                GoldChestBoxTextBlock.Text = "시간보상";
+                CollectButtonTextBlock.Text = "수집버튼";
+                BattleLevelButtonTextBlock.Text = "전투레벨버튼";
+                AutoSkillButtonTextBlock.Text = "자동스킬버튼";
+                VIPX2ButtonTextBlock.Text = "2배속버튼";
+                ContinueButtonTextBlock.Text = "계속버튼";
+                VictoryDefeatTextBlock.Text = "승리패배 플래그";
+                X3GoldButtonBackgroundTextBlock.Text = "골드3배버튼 배경";
+                X3GoldButtonImageTextBlock.Text = "골드3배버튼 그림";
+                NextButtonTextBlock.Text = "다음버튼 (패배시)";
+                NoGoldTextBlock.Text = "골드벌이 없을 때";
+                GoldAdCloseButtonTextBlock.Text = "골드광고 닫기버튼";
+                TroopAdCloseButtonTextBlock.Text = "용병광고 닫기버튼";
+                MidasAdCloseButtonTextBlock.Text = "마이더스 닫기버튼";
+                LeftAdCloseButtonTextBlock.Text = "왼쪽 광고닫기버튼";
+                RightAdCloseButtonTextBlock.Text = "오른쪽 광고닫기버튼";
+                LatestUsedAppButtonTextBlock.Text = "최근 사용앱 버튼";
+                RightTopAppCloseButtonTextBlock.Text = "우상단 앱 닫기버튼";
+                NotRespondAppCloseButtonTextBlock.Text = "응답없음 닫기버튼";
+                XPositionTextBlock.Text = "X 좌표";
+                YPositionTextBlock.Text = "Y 좌표";
+                ColorCodeTextBlock.Text = "HTML 색상코드";
+                ColorPickTextBlock.Text = "색상 선택";
+
+                LoadButton.Content = "불러오기";
+                SavePixelButton.Content = "다른이름으로\n      저장";
+                DefaultButton.Content = "초기화";
+                ApplyButton.Content = "적용";
+                CancelButton.Content = "취소";
+            }
+        }
+
+        private void ChangeButtonsColors()
+        {
+            AppLocation1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[0]));
+            AppLocation2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[1]));
+            ShopButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor.Text));
+            GoldChestBox1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Text.Split(';')[0]));
+            GoldChestBox2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Text.Split(';')[1]));
+            CollectButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(CollectButtonColor.Text));
+            BattleLevelButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[0]));
+            BattleLevelButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[1]));
+            BattleLevelButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[2]));
+            BattleLevelButton4.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Text.Split(';')[3]));
+            SkillButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SkillButtonColor.Text));
+            SpeedButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SpeedButtonColor.Text));
+            ContinueButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ContinueButtonColor.Text));
+            VictoryDefeat1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Text.Split(';')[0]));
+            VictoryDefeat2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Text.Split(';')[1]));
+            NoGold1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor.Text));
+            GoldButtonBackground1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Text.Split(';')[0]));
+            GoldButtonBackground2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Text.Split(';')[1]));
+            GoldButtonImage1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonImageColor.Text.Split(';')[0]));
+            NextButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NextButtonColor.Text));
+            GoldAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldAdCloseButtonColor.Text.Split(';')[0]));
+            TroopAdCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(TroopAdCloseButtonColor.Text.Split(';')[1]));
+            MidasAdCloseButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(MidasAdCloseButtonColor.Text.Split(';')[2]));
+            LeftAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LeftAdCloseButtonColor.Text.Split(';')[0]));
+            RightAdCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(LeftAdCloseButtonColor.Text.Split(';')[1]));
+            NotRespondAppCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondAppCloseButtonColor.Text));
+        }
+
+        #endregion
     }
 }

@@ -117,6 +117,10 @@ namespace ArtOfHassan
         public int VictoryDefeatY = 355;
         public string VictoryDefeatColor = "#d91c13;#12a7d8".ToUpper();
 
+        public int NoGoldX = 320;
+        public int NoGoldY = 645;
+        public string NoGoldColor = "#dfd6be".ToUpper();
+
         public int GoldButtonBackgroundX = 115;
         public int GoldButtonBackgroundY = 780;
         public string GoldButtonBackgroundColor = "#7da70a;#8e8e8e".ToUpper();
@@ -150,10 +154,6 @@ namespace ArtOfHassan
         public int NotRespondAppCloseButtonY = 510;
         public string NotRespondAppCloseButtonColor = "#009688".ToUpper();
 
-        public int NoGoldX = 320;
-        public int NoGoldY = 645;
-        public string NoGoldColor = "#dfd6be".ToUpper();
-
         #endregion
 
         #region Variable
@@ -171,6 +171,7 @@ namespace ArtOfHassan
         bool AdsWatchFlag = false;
 
         bool IsProblemOccurred = false;
+        bool IsNoGoldStatus    = false;
         bool IsNoGoldMailSent  = false;
         bool IsStopHassan      = false;
 
@@ -388,7 +389,7 @@ namespace ArtOfHassan
                 // NotRespondAppCloseButton
                 if (MousePointColorCheck(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 15, NotRespondAppCloseButtonColor))
                 {
-                    MonitoringLog("NotRespondAppCloseButton");
+                    MonitoringLog("NotRespondAppCloseButton15");
                     MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 15);
 
                     System.Threading.Thread.Sleep(MonitoringInterval);
@@ -397,13 +398,14 @@ namespace ArtOfHassan
                 // NotRespondAppCloseButton
                 if (MousePointColorCheck(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 30, NotRespondAppCloseButtonColor))
                 {
-                    MonitoringLog("NotRespondAppCloseButton");
+                    MonitoringLog("NotRespondAppCloseButton30");
                     MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 30);
 
                     System.Threading.Thread.Sleep(MonitoringInterval);
                 }
 
-                if (!MousePointColorCheck(AppLocationX, AppLocationY, AppLocationColor))
+                if (!(MousePointColorCheck(AppLocationX, AppLocationY, AppLocationColor.Split(';')[0]) ||
+                      MousePointColorCheck(AppLocationX, AppLocationY, AppLocationColor.Split(';')[1])))
                 {
                     // LatestUsedAppButton
                     MonitoringLog("LatestUsedAppButton");
@@ -434,8 +436,15 @@ namespace ArtOfHassan
         {
             if (!IsProblemOccurred)
             {
+                MonitoringLog("Monitoring...");
+
                 // 화면 크기만큼의 Bitmap 생성
                 CurrentBitmap = new System.Drawing.Bitmap((int)NoxWidth, (int)NoxHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                if (LastBitmap == null)
+                {
+                    LastBitmap = CurrentBitmap;
+                }
+
                 // Bitmap 이미지 변경을 위해 Graphics 객체 생성
                 using (System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(CurrentBitmap))
                 {
@@ -646,8 +655,9 @@ namespace ArtOfHassan
                     {
                         MonitoringLog("NoGold");
 
-                        IsStopHassan = false;
-                        bool isSendEmail = false;
+                        IsNoGoldStatus    = true;
+                        IsStopHassan      = false;
+                        bool isSendEmail  = false;
                         bool isShutdownPC = false;
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
@@ -723,7 +733,8 @@ namespace ArtOfHassan
                     // X3 Gold Button
                     if (VictoryFlag || DefeatFlag)
                     {
-                        if (MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundColor.Split(';')[0])) // Green
+                        if (!IsNoGoldStatus && 
+                            MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundColor.Split(';')[0])) // Green
                         {
                             if (!IsLatest ||
                                 MousePointColorCheck(GoldButtonImageX, GoldButtonImageY, GoldButtonImageColor)) // Yellow
@@ -750,7 +761,8 @@ namespace ArtOfHassan
                                 MousePointClick(NextButtonX, GoldButtonBackgroundY);
                             }
                         }
-                        else if (MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundColor.Split(';')[1])) // Gray
+                        else if (IsNoGoldStatus ||
+                                 MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundColor.Split(';')[1])) // Gray
                         {
                             if (X3GoldButtonClickDelay < MonitoringInterval)
                             {
@@ -762,8 +774,6 @@ namespace ArtOfHassan
                                 return;
                             }
 
-                            MonitoringLog("Gold Button is Gray");
-
                             if (IsLatest)
                             {
                                 MousePointClick(NextButtonX, GoldButtonBackgroundY);
@@ -771,6 +781,15 @@ namespace ArtOfHassan
                             else
                             {
                                 MousePointClick(NextButtonX, NextButtonY);
+                            }
+
+                            if (IsNoGoldStatus)
+                            {
+                                return;
+                            }
+                            else
+                            {
+                                MonitoringLog("Gold Button is Gray");
                             }
                         }
                     }
@@ -1095,6 +1114,7 @@ namespace ArtOfHassan
                 ProblemMonitoringTimer.Enabled   = true;
 
                 IsStopHassan     = false;
+                IsNoGoldStatus   = false;
                 IsNoGoldMailSent = false;
                 ProblemMailSent  = 0;
             }
@@ -1263,8 +1283,8 @@ namespace ArtOfHassan
             pixelWindow.AppLocationX.Text = AppLocationX.ToString();
             pixelWindow.AppLocationY.Text = AppLocationY.ToString();
             pixelWindow.AppLocationColor.Text = AppLocationColor;
-            pixelWindow.AppLocationButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[0]));
-            pixelWindow.AppLocationButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[1]));
+            pixelWindow.AppLocation1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[0]));
+            pixelWindow.AppLocation2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[1]));
 
             pixelWindow.HomeButtonX.Text = HomeButtonX.ToString();
             pixelWindow.HomeButtonY.Text = ShopButtonY.ToString();
@@ -1338,12 +1358,12 @@ namespace ArtOfHassan
             pixelWindow.TroopAdCloseButtonX.Text = GameAdCloseButtonX.ToString();
             pixelWindow.TroopAdCloseButtonY.Text = TroopAdCloseButtonY.ToString();
             pixelWindow.TroopAdCloseButtonColor.Text = GameAdCloseButtonColor;
-            pixelWindow.TroopAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[1]));
+            pixelWindow.TroopAdCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[1]));
 
             pixelWindow.MidasAdCloseButtonX.Text = GameAdCloseButtonX.ToString();
             pixelWindow.MidasAdCloseButtonY.Text = MidasAdCloseButtonY.ToString();
             pixelWindow.MidasAdCloseButtonColor.Text = GameAdCloseButtonColor;
-            pixelWindow.MidasAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[2]));
+            pixelWindow.MidasAdCloseButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[2]));
 
             pixelWindow.LeftAdCloseButtonX.Text = LeftAdCloseButtonX.ToString();
             pixelWindow.LeftAdCloseButtonY.Text = GoogleAdCloseButtonY.ToString();
@@ -1353,7 +1373,7 @@ namespace ArtOfHassan
             pixelWindow.RightAdCloseButtonX.Text = RightAdCloseButtonX.ToString();
             pixelWindow.RightAdCloseButtonY.Text = GoogleAdCloseButtonY.ToString();
             pixelWindow.RightAdCloseButtonColor.Text = GoogleAdCloseButtonColor;
-            pixelWindow.RightAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[1]));
+            pixelWindow.RightAdCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[1]));
 
             pixelWindow.LatestUsedAppButtonX.Text = LatestUsedAppButtonX.ToString();
             pixelWindow.LatestUsedAppButtonY.Text = LatestUsedAppButtonY.ToString();
@@ -1369,7 +1389,7 @@ namespace ArtOfHassan
             pixelWindow.NoGoldX.Text = NoGoldX.ToString();
             pixelWindow.NoGoldY.Text = NoGoldY.ToString();
             pixelWindow.NoGoldColor.Text = NoGoldColor.ToString();
-            pixelWindow.NoGoldButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor));
+            pixelWindow.NoGold1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor));
 
             pixelWindow.ShowDialog();
         }
