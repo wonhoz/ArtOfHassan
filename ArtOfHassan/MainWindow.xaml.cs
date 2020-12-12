@@ -436,7 +436,7 @@ namespace ArtOfHassan
         {
             if (!IsProblemOccurred)
             {
-                MonitoringLog("Monitoring...");
+                //MonitoringLog("Monitoring...");
 
                 // 화면 크기만큼의 Bitmap 생성
                 CurrentBitmap = new System.Drawing.Bitmap((int)NoxWidth, (int)NoxHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
