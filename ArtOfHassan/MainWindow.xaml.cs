@@ -307,7 +307,7 @@ namespace ArtOfHassan
                     smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
 
-                    if (ProblemMailSent < 3)
+                    if ((ProblemMailSent > 2) && (ProblemMailSent < 5))
                     {
                         if (string.IsNullOrWhiteSpace(emailaddress))
                         {
@@ -327,29 +327,6 @@ namespace ArtOfHassan
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
 
-                            // 아래 내용은 추후 제거해도 될 것 같음
-                            string message;
-                            if (IsKorean)
-                            {
-                                message = $"{minute}분동안 전투횟수가 증가하지않아 Art of War 를 재시작 합니다...";
-                            }
-                            else
-                            {
-                                message = $"Number of war did not increase during {minute} minute(s).\nRestarting Art of War...";
-                            }
-
-                            mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                          emailaddress,
-                                                          $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
-                                                          message);
-                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
-                            smtpClient.Send(mailMessage);
-                        }
-                    }
-                    else if (ProblemMailSent < 5)
-                    {
-                        if (!string.IsNullOrWhiteSpace(emailaddress))
-                        {
                             string message;
                             if (IsKorean)
                             {
@@ -360,7 +337,7 @@ namespace ArtOfHassan
                                 message = "Restarting Art of War seems not working...";
                             }
 
-                            MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                            mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           emailaddress,
                                                           $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
                                                           message);
