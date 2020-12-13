@@ -1263,13 +1263,10 @@ namespace ArtOfHassan
             pixelWindow.AppLocation1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[0]));
             pixelWindow.AppLocation2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[1]));
 
-            pixelWindow.HomeButtonX.Text = HomeButtonX.ToString();
-            pixelWindow.HomeButtonY.Text = ShopButtonY.ToString();
-
-            pixelWindow.ShopButtonX.Text = ShopButtonX.ToString();
-            pixelWindow.ShopButtonY.Text = ShopButtonY.ToString();
-            pixelWindow.ShopButtonColor.Text = ShopButtonColor;
-            pixelWindow.ShopButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor));
+            pixelWindow.ShopHomeButtonX.Text = HomeButtonX.ToString() + ";" + ShopButtonX.ToString();
+            pixelWindow.ShopHomeButtonY.Text = ShopButtonY.ToString();
+            pixelWindow.ShopHomeButtonColor.Text = ShopButtonColor;
+            pixelWindow.ShopHomeButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor));
 
             pixelWindow.CollectButtonX.Text = CollectButtonX.ToString();
             pixelWindow.CollectButtonY.Text = CollectButtonY.ToString();
@@ -1561,7 +1558,7 @@ namespace ArtOfHassan
                             AppLocationY = int.Parse(listitem[2]);
                             AppLocationColor = listitem[3];
                             break;
-                        case ("shopbutton"):
+                        case ("shophomebutton"):
                             HomeButtonX = int.Parse(listitem[1]);
                             ShopButtonX = int.Parse(listitem[2]);
                             ShopButtonY = int.Parse(listitem[3]);

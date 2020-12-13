@@ -111,11 +111,37 @@ namespace ArtOfHassan
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse((fieldInfoX.GetValue(this) as TextBox).Text);
-                ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse((fieldInfoY.GetValue(this) as TextBox).Text);
+                // X Position
+                if ((fieldInfoX.GetValue(this) as TextBox).Text.Contains(";"))
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse((fieldInfoX.GetValue(this) as TextBox).Text.Split(';')[buttonIndex]);
+                }
+                else
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX = int.Parse((fieldInfoX.GetValue(this) as TextBox).Text);
+                }
+
+                // Y Position
+                if ((fieldInfoY.GetValue(this) as TextBox).Text.Contains(";"))
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse((fieldInfoY.GetValue(this) as TextBox).Text.Split(';')[buttonIndex]);
+                }
+                else
+                {
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY = int.Parse((fieldInfoY.GetValue(this) as TextBox).Text);
+                }
+
+                // Color
                 if (fieldInfoColor != null)
                 {
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(colorset[buttonIndex]);
+                    if (buttonName == "ShopHomeButton2")
+                    {
+                        ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(colorset[0]);
+                    }
+                    else
+                    {
+                        ((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor = ColorTranslator.FromHtml(colorset[buttonIndex]);
+                    }
                 }
             }));
 
@@ -123,12 +149,69 @@ namespace ArtOfHassan
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                (fieldInfoX.GetValue(this) as TextBox).Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
-                (fieldInfoY.GetValue(this) as TextBox).Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                // X Position
+                if ((fieldInfoX.GetValue(this) as TextBox).Text.Contains(";"))
+                {
+                    string resultText = "";
+                    string[] originalTexts = (fieldInfoX.GetValue(this) as TextBox).Text.Split(';');
+                    for (int i = 0; i < originalTexts.Length; i++)
+                    {
+                        if (i == buttonIndex)
+                        {
+                            resultText += ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                        }
+                        else
+                        {
+                            resultText += originalTexts[i];
+                        }
 
+                        if (i != (originalTexts.Length - 1))
+                        {
+                            resultText += ";";
+                        }
+                    }
+                    (fieldInfoX.GetValue(this) as TextBox).Text = resultText;
+                }
+                else
+                {
+                    (fieldInfoX.GetValue(this) as TextBox).Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionX.ToString();
+                }
+
+                // Y Position
+                if ((fieldInfoY.GetValue(this) as TextBox).Text.Contains(";"))
+                {
+                    string resultText = "";
+                    string[] originalTexts = (fieldInfoY.GetValue(this) as TextBox).Text.Split(';');
+                    for (int i = 0; i < originalTexts.Length; i++)
+                    {
+                        if (i == buttonIndex)
+                        {
+                            resultText += ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                        }
+                        else
+                        {
+                            resultText += originalTexts[i];
+                        }
+
+                        if (i != (originalTexts.Length - 1))
+                        {
+                            resultText += ";";
+                        }
+                    }
+                    (fieldInfoX.GetValue(this) as TextBox).Text = resultText;
+                }
+                else
+                {
+                    (fieldInfoY.GetValue(this) as TextBox).Text = ((MainWindow)System.Windows.Application.Current.MainWindow).PixelPositionY.ToString();
+                }
+
+                // Color
                 if (fieldInfoColor != null)
                 {
-                    (e.Source as Button).Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+                    if (buttonName != "ShopHomeButton2")
+                    {
+                        (e.Source as Button).Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ColorTranslator.ToHtml(((MainWindow)System.Windows.Application.Current.MainWindow).PixelColor)));
+                    }
 
                     switch (colorset.Length)
                     {
@@ -228,11 +311,10 @@ namespace ArtOfHassan
                             AppLocationY.Text = listitem[2];
                             AppLocationColor.Text = listitem[3];
                             break;
-                        case ("shopbutton"):
-                            HomeButtonX.Text = listitem[1];
-                            ShopButtonX.Text = listitem[2];
-                            ShopButtonY.Text = listitem[3];
-                            ShopButtonColor.Text = listitem[4];
+                        case ("shophomebutton"):
+                            ShopHomeButtonX.Text = listitem[1];
+                            ShopHomeButtonY.Text = listitem[2];
+                            ShopHomeButtonColor.Text = listitem[3];
                             break;
                         case ("goldchestbox"):
                             GoldChestBoxX.Text = listitem[1];
@@ -337,7 +419,7 @@ namespace ArtOfHassan
                 using (StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName, false))
                 {
                     streamWriter.WriteLine("AppLocation," + AppLocationX.Text + "," + AppLocationY.Text + "," + AppLocationColor.Text);
-                    streamWriter.WriteLine("ShopButton," + HomeButtonX.Text + "," + ShopButtonX.Text + "," + ShopButtonY.Text + "," + ShopButtonColor.Text);
+                    streamWriter.WriteLine("ShopHomeButton," + ShopHomeButtonX.Text + "," + ShopHomeButtonY.Text + "," + ShopHomeButtonColor.Text);
                     streamWriter.WriteLine("GoldChestBox," + GoldChestBoxX.Text + "," + GoldChestBoxY.Text + "," + GoldChestBoxColor.Text);
                     streamWriter.WriteLine("CollectButton," + CollectButtonX.Text + "," + CollectButtonY.Text + "," + CollectButtonColor.Text);
                     streamWriter.WriteLine("BattleLevelButton," + BattleLevelButtonX.Text + "," + BattleLevelButtonY.Text + "," + BattleLevelButtonColor.Text);
@@ -364,10 +446,9 @@ namespace ArtOfHassan
             AppLocationY.Text = 500.ToString();
             AppLocationColor.Text = "#a9d8ff;#97c601".ToUpper();
 
-            HomeButtonX.Text = 290.ToString();
-            ShopButtonX.Text = 65.ToString();
-            ShopButtonY.Text = 980.ToString();
-            ShopButtonColor.Text = "#ea3d34".ToUpper();
+            ShopHomeButtonX.Text = 65.ToString() + "," + 290.ToString();
+            ShopHomeButtonY.Text = 980.ToString();
+            ShopHomeButtonColor.Text = "#ea3d34".ToUpper();
 
             GoldChestBoxX.Text = 150.ToString();
             GoldChestBoxY.Text = 410.ToString();
@@ -453,11 +534,11 @@ namespace ArtOfHassan
                     ((MainWindow)System.Windows.Application.Current.MainWindow).AppLocationColor = AppLocationColor.Text;
                     streamWriter.WriteLine("AppLocation," + AppLocationX.Text + "," + AppLocationY.Text + "," + AppLocationColor.Text);
 
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).HomeButtonX = int.Parse(HomeButtonX.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).ShopButtonX = int.Parse(ShopButtonX.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).ShopButtonY = int.Parse(ShopButtonY.Text);
-                    ((MainWindow)System.Windows.Application.Current.MainWindow).ShopButtonColor = ShopButtonColor.Text;
-                    streamWriter.WriteLine("ShopButton," + HomeButtonX.Text + "," + ShopButtonX.Text + "," + ShopButtonY.Text + "," + ShopButtonColor.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).HomeButtonX = int.Parse(ShopHomeButtonX.Text.Split(';')[0]);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).ShopButtonX = int.Parse(ShopHomeButtonX.Text.Split(';')[1]);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).ShopButtonY = int.Parse(ShopHomeButtonY.Text);
+                    ((MainWindow)System.Windows.Application.Current.MainWindow).ShopButtonColor = ShopHomeButtonColor.Text;
+                    streamWriter.WriteLine("ShopHomeButton," + ShopHomeButtonX.Text + "," + ShopHomeButtonY.Text + "," + ShopHomeButtonColor.Text);
 
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoldChestBoxX = int.Parse(GoldChestBoxX.Text);
                     ((MainWindow)System.Windows.Application.Current.MainWindow).GoldChestBoxY = int.Parse(GoldChestBoxY.Text);
@@ -643,8 +724,7 @@ namespace ArtOfHassan
                 this.Title = "픽셀 위치 및 색상 사용자화";
                 ItemTextBlock.Text = "항목";
                 AppLocationTextBlock.Text = "어플 위치";
-                HomeButtonTextBlock.Text = "홈버튼";
-                ShopButtonTextBlock.Text = "상점버튼";
+                ShopHomeButtonTextBlock.Text = "상점 및 홈버튼";
                 GoldChestBoxTextBlock.Text = "시간보상";
                 CollectButtonTextBlock.Text = "수집버튼";
                 BattleLevelButtonTextBlock.Text = "전투레벨버튼";
@@ -681,7 +761,7 @@ namespace ArtOfHassan
         {
             AppLocation1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[0]));
             AppLocation2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Text.Split(';')[1]));
-            ShopButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor.Text));
+            ShopHomeButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopHomeButtonColor.Text));
             GoldChestBox1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Text.Split(';')[0]));
             GoldChestBox2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Text.Split(';')[1]));
             CollectButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(CollectButtonColor.Text));
