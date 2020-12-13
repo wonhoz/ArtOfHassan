@@ -5,12 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d" Icon="icon.ico"
-        Title="Pixel Position and Color Customization" Height="850" Width="750" WindowStartupLocation="CenterScreen">
+        Title="Pixel Position and Color Customization" Height="780" Width="780" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -34,7 +31,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2.1*"/>
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition Width="2.5*"/>
@@ -46,7 +43,7 @@
 
         <TextBlock Name="ItemTextBlock" Text="Item" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="1" Name="AppLocationTextBlock" Text="App Location" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="2" Name="ShopHomeButtonTextBlock" Text="Shop &amp;	Home Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="2" Name="HomeShopButtonTextBlock" Text="Home | Shop Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="3" Name="GoldChestBoxTextBlock" Text="Gold Chest Box" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="4" Name="CollectButtonTextBlock" Text="Collect Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="5" Name="BattleLevelButtonTextBlock" Text="Battle &amp; Level Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -58,14 +55,11 @@
         <TextBlock Grid.Row="11" Name="X3GoldButtonImageTextBlock" Text="X3 Gold Button Image" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="12" Name="NextButtonTextBlock" Text="Next Button (Defeat)" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="13" Name="NoGoldTextBlock" Text="No Gold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="14" Name="GoldAdCloseButtonTextBlock" Text="Gold Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="15" Name="TroopAdCloseButtonTextBlock" Text="Troop Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="16" Name="MidasAdCloseButtonTextBlock" Text="Midas Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="17" Name="LeftAdCloseButtonTextBlock" Text="Left Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="18" Name="RightAdCloseButtonTextBlock" Text="Right Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="19" Name="LatestUsedAppButtonTextBlock" Text="Latest Used App Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="20" Name="RightTopAppCloseButtonTextBlock" Text="Right Top App Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="21" Name="NotRespondAppCloseButtonTextBlock" Text="Not Respond App Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="14" Name="GameAdCloseButtonTextBlock" Text="Gold | Troop | Midas&#10;   Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="15" Name="GoogleAdCloseButtonTextBlock" Text="Google Ad Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="16" Name="LatestUsedAppButtonTextBlock" Text="Latest Used App Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="17" Name="RightTopAppCloseButtonTextBlock" Text="Right Top App Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="18" Name="NotRespondAppCloseButtonTextBlock" Text="Not Respond App Close Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <TextBlock Grid.Column="1" Name="XPositionTextBlock" Text="X Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="2" Name="YPositionTextBlock" Text="Y Position" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -73,7 +67,7 @@
         <TextBlock Grid.Column="4" Grid.ColumnSpan="4" Name="ColorPickTextBlock" Text="Color Pick" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <TextBox Grid.Row="1" Grid.Column="1" Name="AppLocationX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Name="ShopHomeButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Name="HomeShopButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="3" Grid.Column="1" Name="GoldChestBoxX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="4" Grid.Column="1" Name="CollectButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="5" Grid.Column="1" Name="BattleLevelButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
@@ -85,17 +79,14 @@
         <TextBox Grid.Row="11" Grid.Column="1" Name="GoldButtonImageX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="12" Grid.Column="1" Name="NextButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="13" Grid.Column="1" Name="NoGoldX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="14" Grid.Column="1" Name="GoldAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="15" Grid.Column="1" Name="TroopAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="16" Grid.Column="1" Name="MidasAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="17" Grid.Column="1" Name="LeftAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="18" Grid.Column="1" Name="RightAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="19" Grid.Column="1" Name="LatestUsedAppButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="20" Grid.Column="1" Name="RightTopAppCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="21" Grid.Column="1" Name="NotRespondAppCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="14" Grid.Column="1" Name="GameAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="15" Grid.Column="1" Name="GoogleAdCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="16" Grid.Column="1" Name="LatestUsedAppButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="17" Grid.Column="1" Name="RightTopAppCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="18" Grid.Column="1" Name="NotRespondAppCloseButtonX" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
 
         <TextBox Grid.Row="1" Grid.Column="2" Name="AppLocationY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="2" Grid.Column="2" Name="ShopHomeButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Name="HomeShopButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="3" Grid.Column="2" Name="GoldChestBoxY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="4" Grid.Column="2" Name="CollectButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="5" Grid.Column="2" Name="BattleLevelButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
@@ -107,17 +98,14 @@
         <TextBox Grid.Row="11" Grid.Column="2" Name="GoldButtonImageY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="12" Grid.Column="2" Name="NextButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="13" Grid.Column="2" Name="NoGoldY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="14" Grid.Column="2" Name="GoldAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="15" Grid.Column="2" Name="TroopAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="16" Grid.Column="2" Name="MidasAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="17" Grid.Column="2" Name="LeftAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="18" Grid.Column="2" Name="RightAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="19" Grid.Column="2" Name="LatestUsedAppButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="20" Grid.Column="2" Name="RightTopAppCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="21" Grid.Column="2" Name="NotRespondAppCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="14" Grid.Column="2" Name="GameAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="15" Grid.Column="2" Name="GoogleAdCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="16" Grid.Column="2" Name="LatestUsedAppButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="17" Grid.Column="2" Name="RightTopAppCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="18" Grid.Column="2" Name="NotRespondAppCloseButtonY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
 
         <TextBox Grid.Row="1" Grid.Column="3" Name="AppLocationColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Name="ShopHomeButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Name="HomeShopButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="3" Grid.Column="3" Name="GoldChestBoxColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="4" Grid.Column="3" Name="CollectButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="5" Grid.Column="3" Name="BattleLevelButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
@@ -129,15 +117,12 @@
         <TextBox Grid.Row="11" Grid.Column="3" Name="GoldButtonImageColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="12" Grid.Column="3" Name="NextButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Row="13" Grid.Column="3" Name="NoGoldColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="14" Grid.Column="3" Name="GoldAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="15" Grid.Column="3" Name="TroopAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="16" Grid.Column="3" Name="MidasAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="17" Grid.Column="3" Name="LeftAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="18" Grid.Column="3" Name="RightAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
-        <TextBox Grid.Row="21" Grid.Column="3" Name="NotRespondAppCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="14" Grid.Column="3" Name="GameAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="15" Grid.Column="3" Name="GoogleAdCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
+        <TextBox Grid.Row="18" Grid.Column="3" Name="NotRespondAppCloseButtonColor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" TextChanged="TextBox_TextChanged"/>
 
         <Button Grid.Row="1" Grid.Column="4" Name="AppLocation1" Click="PositionColorButton_Click" Margin="5"/>
-        <Button Grid.Row="2" Grid.Column="4" Name="ShopHomeButton1" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="4" Name="HomeShopButton1" Click="PositionColorButton_Click" Margin="5"/>
         <Button Grid.Row="3" Grid.Column="4" Name="GoldChestBox1" Click="PositionColorButton_Click" Margin="5"/>
         <Button Grid.Row="4" Grid.Column="4" Name="CollectButton1" Click="PositionColorButton_Click" Margin="5"/>
         <Button Grid.Row="5" Grid.Column="4" Name="BattleLevelButton1" Click="PositionColorButton_Click" Margin="5"/>
@@ -149,26 +134,29 @@
         <Button Grid.Row="11" Grid.Column="4" Name="GoldButtonImage1" Click="PositionColorButton_Click" Margin="5"/>
         <Button Grid.Row="12" Grid.Column="4" Name="NextButton1" Click="PositionColorButton_Click" Margin="5"/>
         <Button Grid.Row="13" Grid.Column="4" Name="NoGold1" Click="PositionColorButton_Click" Margin="5"/>
-        <Button Grid.Row="14" Grid.Column="4" Name="GoldAdCloseButton1" Click="PositionColorButton_Click" Margin="5"/>
-        <Button Grid.Row="15" Grid.Column="4" Name="TroopAdCloseButton2" Click="PositionColorButton_Click" Margin="5"/>
-        <Button Grid.Row="16" Grid.Column="4" Name="MidasAdCloseButton3" Click="PositionColorButton_Click" Margin="5"/>
-        <Button Grid.Row="17" Grid.Column="4" Name="LeftAdCloseButton1" Click="PositionColorButton_Click" Margin="5"/>
-        <Button Grid.Row="18" Grid.Column="4" Name="RightAdCloseButton2" Click="PositionColorButton_Click" Margin="5"/>
-        <Button Grid.Row="19" Grid.Column="4" Name="LatestUsedAppButton1" Click="PositionColorButton_Click" Margin="5"/>
-        <Button Grid.Row="20" Grid.Column="4" Name="RightTopAppCloseButton1" Click="PositionColorButton_Click" Margin="5"/>
-        <Button Grid.Row="21" Grid.Column="4" Name="NotRespondAppCloseButton1" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="14" Grid.Column="4" Name="GameAdCloseButton1" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="15" Grid.Column="4" Name="GoogleAdCloseButton1" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="16" Grid.Column="4" Name="LatestUsedAppButton1" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="17" Grid.Column="4" Name="RightTopAppCloseButton1" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="18" Grid.Column="4" Name="NotRespondAppCloseButton1" Click="PositionColorButton_Click" Margin="5"/>
 
         <Button Grid.Row="1" Grid.Column="5" Name="AppLocation2" Click="PositionColorButton_Click" Margin="5"/>
-        <Button Grid.Row="2" Grid.Column="5" Name="ShopHomeButton2" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="2" Grid.Column="5" Name="HomeShopButton2" Click="PositionColorButton_Click" Margin="5"/>
         <Button Grid.Row="3" Grid.Column="5" Name="GoldChestBox2" Click="PositionColorButton_Click" Margin="5"/>
         <Button Grid.Row="5" Grid.Column="5" Name="BattleLevelButton2" Click="PositionColorButton_Click" Margin="5"/>
         <Button Grid.Row="9" Grid.Column="5" Name="VictoryDefeat2" Click="PositionColorButton_Click" Margin="5"/>
         <Button Grid.Row="10" Grid.Column="5" Name="GoldButtonBackground2" Click="PositionColorButton_Click" Margin="5"/>
-        
+        <Button Grid.Row="14" Grid.Column="5" Name="GameAdCloseButton2" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="15" Grid.Column="5" Name="GoogleAdCloseButton2" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="18" Grid.Column="5" Name="NotRespondAppCloseButton2" Click="PositionColorButton_Click" Margin="5"/>
+
         <Button Grid.Row="5" Grid.Column="6" Name="BattleLevelButton3" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="14" Grid.Column="6" Name="GameAdCloseButton3" Click="PositionColorButton_Click" Margin="5"/>
+        <Button Grid.Row="18" Grid.Column="6" Name="NotRespondAppCloseButton3" Click="PositionColorButton_Click" Margin="5"/>
+        
         <Button Grid.Row="5" Grid.Column="7" Name="BattleLevelButton4" Click="PositionColorButton_Click" Margin="5"/>
 
-        <Grid Grid.Row="22" Grid.ColumnSpan="8">
+        <Grid Grid.Row="19" Grid.ColumnSpan="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />

@@ -151,7 +151,9 @@ namespace ArtOfHassan
         public int RightTopAppCloseButtonY = 150;
 
         public int NotRespondAppCloseButtonX = 79;
-        public int NotRespondAppCloseButtonY = 510;
+        public int NotRespondAppCloseButtonY1 = 510;
+        public int NotRespondAppCloseButtonY2 = 525;
+        public int NotRespondAppCloseButtonY3 = 540;
         public string NotRespondAppCloseButtonColor = "#009688".ToUpper();
 
         #endregion
@@ -355,28 +357,28 @@ namespace ArtOfHassan
 
 
                 // NotRespondAppCloseButton
-                if (MousePointColorCheck(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY, NotRespondAppCloseButtonColor))
+                if (MousePointColorCheck(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY1, NotRespondAppCloseButtonColor))
                 {
                     MonitoringLog("NotRespondAppCloseButton");
-                    MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY);
+                    MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY1);
 
                     System.Threading.Thread.Sleep(MonitoringInterval);
                 }
 
                 // NotRespondAppCloseButton
-                if (MousePointColorCheck(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 15, NotRespondAppCloseButtonColor))
+                if (MousePointColorCheck(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY2, NotRespondAppCloseButtonColor))
                 {
                     MonitoringLog("NotRespondAppCloseButton15");
-                    MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 15);
+                    MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY2);
 
                     System.Threading.Thread.Sleep(MonitoringInterval);
                 }
 
                 // NotRespondAppCloseButton
-                if (MousePointColorCheck(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 30, NotRespondAppCloseButtonColor))
+                if (MousePointColorCheck(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY3, NotRespondAppCloseButtonColor))
                 {
                     MonitoringLog("NotRespondAppCloseButton30");
-                    MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY + 30);
+                    MousePointClick(NotRespondAppCloseButtonX, NotRespondAppCloseButtonY3);
 
                     System.Threading.Thread.Sleep(MonitoringInterval);
                 }
@@ -1263,10 +1265,10 @@ namespace ArtOfHassan
             pixelWindow.AppLocation1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[0]));
             pixelWindow.AppLocation2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[1]));
 
-            pixelWindow.ShopHomeButtonX.Text = HomeButtonX.ToString() + ";" + ShopButtonX.ToString();
-            pixelWindow.ShopHomeButtonY.Text = ShopButtonY.ToString();
-            pixelWindow.ShopHomeButtonColor.Text = ShopButtonColor;
-            pixelWindow.ShopHomeButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor));
+            pixelWindow.HomeShopButtonX.Text = HomeButtonX.ToString() + ";" + ShopButtonX.ToString();
+            pixelWindow.HomeShopButtonY.Text = ShopButtonY.ToString();
+            pixelWindow.HomeShopButtonColor.Text = ShopButtonColor;
+            pixelWindow.HomeShopButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor));
 
             pixelWindow.CollectButtonX.Text = CollectButtonX.ToString();
             pixelWindow.CollectButtonY.Text = CollectButtonY.ToString();
@@ -1324,30 +1326,18 @@ namespace ArtOfHassan
             pixelWindow.NextButtonColor.Text = NextButtonColor;
             pixelWindow.NextButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NextButtonColor));
 
-            pixelWindow.GoldAdCloseButtonX.Text = GameAdCloseButtonX.ToString();
-            pixelWindow.GoldAdCloseButtonY.Text = GoldAdCloseButtonY.ToString();
-            pixelWindow.GoldAdCloseButtonColor.Text = GameAdCloseButtonColor;
-            pixelWindow.GoldAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[0]));
+            pixelWindow.GameAdCloseButtonX.Text = GameAdCloseButtonX.ToString();
+            pixelWindow.GameAdCloseButtonY.Text = GoldAdCloseButtonY.ToString() + ";" + TroopAdCloseButtonY.ToString() + ";" + MidasAdCloseButtonY.ToString();
+            pixelWindow.GameAdCloseButtonColor.Text = GameAdCloseButtonColor;
+            pixelWindow.GameAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[0]));
+            pixelWindow.GameAdCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[1]));
+            pixelWindow.GameAdCloseButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[2]));
 
-            pixelWindow.TroopAdCloseButtonX.Text = GameAdCloseButtonX.ToString();
-            pixelWindow.TroopAdCloseButtonY.Text = TroopAdCloseButtonY.ToString();
-            pixelWindow.TroopAdCloseButtonColor.Text = GameAdCloseButtonColor;
-            pixelWindow.TroopAdCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[1]));
-
-            pixelWindow.MidasAdCloseButtonX.Text = GameAdCloseButtonX.ToString();
-            pixelWindow.MidasAdCloseButtonY.Text = MidasAdCloseButtonY.ToString();
-            pixelWindow.MidasAdCloseButtonColor.Text = GameAdCloseButtonColor;
-            pixelWindow.MidasAdCloseButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[2]));
-
-            pixelWindow.LeftAdCloseButtonX.Text = LeftAdCloseButtonX.ToString();
-            pixelWindow.LeftAdCloseButtonY.Text = GoogleAdCloseButtonY.ToString();
-            pixelWindow.LeftAdCloseButtonColor.Text = GoogleAdCloseButtonColor;
-            pixelWindow.LeftAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[0]));
-
-            pixelWindow.RightAdCloseButtonX.Text = RightAdCloseButtonX.ToString();
-            pixelWindow.RightAdCloseButtonY.Text = GoogleAdCloseButtonY.ToString();
-            pixelWindow.RightAdCloseButtonColor.Text = GoogleAdCloseButtonColor;
-            pixelWindow.RightAdCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[1]));
+            pixelWindow.GoogleAdCloseButtonX.Text = LeftAdCloseButtonX.ToString() + ";" + RightAdCloseButtonX.ToString();
+            pixelWindow.GoogleAdCloseButtonY.Text = GoogleAdCloseButtonY.ToString();
+            pixelWindow.GoogleAdCloseButtonColor.Text = GoogleAdCloseButtonColor;
+            pixelWindow.GoogleAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[0]));
+            pixelWindow.GoogleAdCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[1]));
 
             pixelWindow.LatestUsedAppButtonX.Text = LatestUsedAppButtonX.ToString();
             pixelWindow.LatestUsedAppButtonY.Text = LatestUsedAppButtonY.ToString();
@@ -1356,9 +1346,11 @@ namespace ArtOfHassan
             pixelWindow.RightTopAppCloseButtonY.Text = RightTopAppCloseButtonY.ToString();
 
             pixelWindow.NotRespondAppCloseButtonX.Text = NotRespondAppCloseButtonX.ToString();
-            pixelWindow.NotRespondAppCloseButtonY.Text = NotRespondAppCloseButtonY.ToString();
+            pixelWindow.NotRespondAppCloseButtonY.Text = NotRespondAppCloseButtonY1.ToString() + ";" + NotRespondAppCloseButtonY2.ToString() + ";" + NotRespondAppCloseButtonY3.ToString();
             pixelWindow.NotRespondAppCloseButtonColor.Text = NotRespondAppCloseButtonColor.ToString();
             pixelWindow.NotRespondAppCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondAppCloseButtonColor));
+            pixelWindow.NotRespondAppCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondAppCloseButtonColor));
+            pixelWindow.NotRespondAppCloseButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondAppCloseButtonColor));
 
             pixelWindow.NoGoldX.Text = NoGoldX.ToString();
             pixelWindow.NoGoldY.Text = NoGoldY.ToString();
@@ -1558,11 +1550,11 @@ namespace ArtOfHassan
                             AppLocationY = int.Parse(listitem[2]);
                             AppLocationColor = listitem[3];
                             break;
-                        case ("shophomebutton"):
-                            HomeButtonX = int.Parse(listitem[1]);
-                            ShopButtonX = int.Parse(listitem[2]);
-                            ShopButtonY = int.Parse(listitem[3]);
-                            ShopButtonColor = listitem[4];
+                        case ("homeshopbutton"):
+                            HomeButtonX = int.Parse(listitem[1].Split(';')[0]);
+                            ShopButtonX = int.Parse(listitem[1].Split(';')[1]);
+                            ShopButtonY = int.Parse(listitem[2]);
+                            ShopButtonColor = listitem[3];
                             break;
                         case ("collectbutton"):
                             CollectButtonX = int.Parse(listitem[1]);
@@ -1621,16 +1613,16 @@ namespace ArtOfHassan
                             break;
                         case ("gameadclosebutton"):
                             GameAdCloseButtonX = int.Parse(listitem[1]);
-                            GoldAdCloseButtonY = int.Parse(listitem[2]);
-                            TroopAdCloseButtonY = int.Parse(listitem[3]);
-                            MidasAdCloseButtonY = int.Parse(listitem[4]);
-                            GameAdCloseButtonColor = listitem[5];
+                            GoldAdCloseButtonY = int.Parse(listitem[2].Split(';')[0]);
+                            TroopAdCloseButtonY = int.Parse(listitem[2].Split(';')[1]);
+                            MidasAdCloseButtonY = int.Parse(listitem[2].Split(';')[2]);
+                            GameAdCloseButtonColor = listitem[3];
                             break;
                         case ("googleadclosebutton"):
-                            LeftAdCloseButtonX = int.Parse(listitem[1]);
-                            RightAdCloseButtonX = int.Parse(listitem[2]);
-                            GoogleAdCloseButtonY = int.Parse(listitem[3]);
-                            GoogleAdCloseButtonColor = listitem[4];
+                            LeftAdCloseButtonX = int.Parse(listitem[1].Split(';')[0]);
+                            RightAdCloseButtonX = int.Parse(listitem[1].Split(';')[1]);
+                            GoogleAdCloseButtonY = int.Parse(listitem[2]);
+                            GoogleAdCloseButtonColor = listitem[3];
                             break;
                         case ("latestusedsppbutton"):
                             LatestUsedAppButtonX = int.Parse(listitem[1]);
@@ -1642,7 +1634,9 @@ namespace ArtOfHassan
                             break;
                         case ("notrespondappclosebutton"):
                             NotRespondAppCloseButtonX = int.Parse(listitem[1]);
-                            NotRespondAppCloseButtonY = int.Parse(listitem[2]);
+                            NotRespondAppCloseButtonY1 = int.Parse(listitem[2].Split(';')[0]);
+                            NotRespondAppCloseButtonY2 = int.Parse(listitem[2].Split(';')[1]);
+                            NotRespondAppCloseButtonY3 = int.Parse(listitem[2].Split(';')[2]);
                             NotRespondAppCloseButtonColor = listitem[3];
                             break;
                     }
