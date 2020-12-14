@@ -699,12 +699,12 @@ namespace ArtOfHassan
                                 {
                                     StartButton.Content = "Start";
                                 }
-                                PixelCustomizeButton.IsEnabled = true;
+                                PixelCustomizeButton.IsEnabled      = true;
                                 MonitoringIntervalTextBox.IsEnabled = true;
 
                                 ArtOfWarMonitoringTimer.Enabled = false;
-                                ProblemMonitoringTimer.Enabled = false;
-                                NoxMonitoringTimer.Enabled = false;
+                                ProblemMonitoringTimer.Enabled  = false;
+                                NoxMonitoringTimer.Enabled      = false;
                             }));
 
                             System.Diagnostics.Process.Start("shutdown.exe", "-s -f -t 0");
@@ -1217,6 +1217,13 @@ namespace ArtOfHassan
                 AdsCloseTextBlock.Text = "광고 닫기";
                 AdsCloseColorCheckBox.Content = "색상 확인";
                 AdsCloseClickPatternButton.Content = "광고 닫기\n클릭 패턴";
+                ModeTextBlock.Text = "모드";
+                StageRadioButton.Content = "스테이지";
+                ModeStage.Width = new GridLength(1.4, GridUnitType.Star);
+                HeadhuntRadioButton.Content = "현상금";
+                ModeHeadhunt.Width = new GridLength(1.25, GridUnitType.Star);
+                HonorRadioButton.Content = "영광";
+                TroopRadioButton.Content = "용병";
                 OptionTextBlock.Text = "옵션";
                 GoldChestCheckBox.Content = "골드 상자";
                 PausabilityCheckBox.Content = "멈춤 가능";
@@ -1246,6 +1253,13 @@ namespace ArtOfHassan
                 AdsCloseTextBlock.Text = "Ads Close";
                 AdsCloseColorCheckBox.Content = "Check Color";
                 AdsCloseClickPatternButton.Content = "  Ads Close\nClick Pattern";
+                ModeTextBlock.Text = "Mode";
+                StageRadioButton.Content = "Stage";
+                ModeStage.Width = new GridLength(1, GridUnitType.Star);
+                HeadhuntRadioButton.Content = "Headhunt";
+                ModeHeadhunt.Width = new GridLength(1.35, GridUnitType.Star);
+                HonorRadioButton.Content = "Honor";
+                TroopRadioButton.Content = "Troop";
                 OptionTextBlock.Text = "Option";
                 GoldChestCheckBox.Content = "Gold Chest";
                 PausabilityCheckBox.Content = "Pausable";

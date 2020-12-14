@@ -12,6 +12,7 @@
             <RowDefinition Height="1.1*"/>
             <RowDefinition Height="1.1*"/>
             <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.7*"/>
             <RowDefinition />
             <RowDefinition Height="0.7*"/>
             <RowDefinition />
@@ -105,10 +106,38 @@
                       HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <TextBlock Grid.Row="4" Name="AdsCloseTextBlock" Text="Ads Close"
+        <TextBlock Grid.Row="4" Name="ModeTextBlock" Text="Mode"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-        <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+        <Grid Grid.Row="4" Grid.Column="1" Margin="0,0,5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Name="ModeStage"/>
+                <ColumnDefinition Name="ModeHeadhunt" Width="1.35*"/>
+                <ColumnDefinition Name="ModeHonor"/>
+                <ColumnDefinition Name="ModeTroop"/>
+            </Grid.ColumnDefinitions>
+
+            <RadioButton Name="StageRadioButton" Content="Stage" IsChecked="True"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <RadioButton Grid.Column="1" Name="HeadhuntRadioButton" Content="Headhunt"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <RadioButton Grid.Column="2" Name="HonorRadioButton" Content="Honor"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <RadioButton Grid.Column="3" Name="TroopRadioButton" Content="Troop"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </Grid>
+
+        <TextBlock Grid.Row="5" Name="AdsCloseTextBlock" Text="Ads Close"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+
+        <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -130,12 +159,12 @@
                     Click="AdsCloseClickPatternButton_Click" Margin="5"/>
         </Grid>
 
-        <TextBlock Grid.Row="5" Name="OptionTextBlock" Text="Option"
+        <TextBlock Grid.Row="6" Name="OptionTextBlock" Text="Option"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-        <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
+        <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.1*"/>
+                <ColumnDefinition Width="1.2*"/>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
@@ -153,10 +182,10 @@
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <TextBlock Grid.Row="6" Name="EmailAlarmTextBlock" Text="Email Alarm"
+        <TextBlock Grid.Row="7" Name="EmailAlarmTextBlock" Text="Email Alarm"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-        <Grid Grid.Row="6" Grid.Column="1">
+        <Grid Grid.Row="7" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="0.35*"/>
@@ -174,14 +203,14 @@
             <Button Grid.Column="2" Name="EmailTestButton" Content="Test" Click="EmailTestButton_Click" Margin="2.5,5,5,5"/>
         </Grid>
 
-        <TextBlock Grid.Row="7" Name="NoGoldTextBlock" Text="No Gold"
+        <TextBlock Grid.Row="8" Name="NoGoldTextBlock" Text="No Gold"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <Grid Grid.Row="7" Grid.Column="1">
+        <Grid Grid.Row="8" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
-                <ColumnDefinition Width="1.3*"/>
+                <ColumnDefinition Width="1.2*"/>
             </Grid.ColumnDefinitions>
 
             <CheckBox Name="SendEmailCheckBox" Content="Send&#10;Email"
@@ -197,7 +226,7 @@
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <Grid Grid.Row="8" Grid.ColumnSpan="2">
+        <Grid Grid.Row="9" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -212,11 +241,11 @@
                     Click="StartButton_Click" Margin="2.5,5,5,5" IsEnabled="False"/>
         </Grid>
 
-        <TextBlock Grid.Row="9" Grid.ColumnSpan="3" Name="MessageBar"
+        <TextBlock Grid.Row="10" Grid.ColumnSpan="3" Name="MessageBar"
                    Text="War: 0  |  Victory: 0  |  Defeat: 0  |  Ads: 0"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-        <CheckBox Grid.Row="10" Grid.ColumnSpan="2" Name="ShareProblemCheckBox" IsChecked="True"
+        <CheckBox Grid.Row="11" Grid.ColumnSpan="2" Name="ShareProblemCheckBox" IsChecked="True"
                   Content="Share screenshot of problem to improve our Hassan :)"
                   HorizontalAlignment="Center" VerticalAlignment="Center"
                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
