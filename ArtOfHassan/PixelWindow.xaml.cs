@@ -463,8 +463,8 @@ namespace ArtOfHassan
             VictoryDefeatY.Text = 355.ToString();
             VictoryDefeatColor.Text = "#d91c13;#12a7d8".ToUpper();
 
-            NoGoldX.Text = 320.ToString(); ;
-            NoGoldY.Text = 645.ToString(); ;
+            NoGoldX.Text = 321.ToString(); ;
+            NoGoldY.Text = 646.ToString(); ;
             NoGoldColor.Text = "#dfd6be".ToUpper();
 
             GoldButtonBackgroundX.Text = 115.ToString();
