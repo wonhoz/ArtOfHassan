@@ -11,7 +11,7 @@
             <RowDefinition />
             <RowDefinition Height="1.1*"/>
             <RowDefinition Height="1.1*"/>
-            <RowDefinition Height="0.7*"/>
+            <RowDefinition />
             <RowDefinition Height="0.7*"/>
             <RowDefinition />
             <RowDefinition Height="0.7*"/>
@@ -80,30 +80,37 @@
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <TextBlock Grid.Row="3" Name="VersionTextBlock" Text="Version"
+        <TextBlock Grid.Row="3" Name="VictoryRewardTextBlock" Text="Victory&#10;Reward"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
         <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
-                <ColumnDefinition Width="0.1*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <RadioButton Name="LatestRadioButton" Content="Latest" IsChecked="True" Click="LatestRadioButton_Click"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"
-                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-            <RadioButton Grid.Column="1" Name="OldRadioButton" Content="3.0.8" Click="OldRadioButton_Click"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"
-                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-            <TextBlock Grid.Column="2" Text="|" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-4,0,0"/>
-
-            <CheckBox Grid.Column="3" Name="KoreanCheckBox" Content="한국어" Click="KoreanCheckBox_Click"
+            <CheckBox Name="StarCheckBox" Content="Star-rated" IsChecked="True" Click="StarCheckBox_Click"
                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <TextBlock Grid.Column="1" Name="LanguageTextBlock" Text="UI Language"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <RadioButton Name="EnglighRadioButton" Content="English" IsChecked="True" Click="LanguageRadioButton_Click"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+
+                <RadioButton Grid.Row="1" Name="KoreanRadioButton" Content="한국어" Click="LanguageRadioButton_Click"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            </Grid>
         </Grid>
 
         <TextBlock Grid.Row="4" Name="ModeTextBlock" Text="Mode"
@@ -134,7 +141,7 @@
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <TextBlock Grid.Row="5" Name="AdsCloseTextBlock" Text="Ads Close"
+        <TextBlock Grid.Row="5" Name="AdsTextBlock" Text="Ads"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
         <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
@@ -151,9 +158,20 @@
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>-->
 
-            <CheckBox Grid.Column="0" Name="AdsCloseColorCheckBox" Content="Check Color" IsChecked="False"
-                      HorizontalAlignment="Center" VerticalAlignment="Center"
-                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <CheckBox Name="AdsWatchCheckBox" Content="Watch Ads" IsChecked="True"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                <CheckBox Grid.Row="1" Name="AdsCloseColorCheckBox" Content="Check Color" IsChecked="False"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
 
             <Button Grid.Column="1" Name="AdsCloseClickPatternButton" Content="  Ads Close&#10;Click Pattern"
                     Click="AdsCloseClickPatternButton_Click" Margin="5"/>

@@ -75,7 +75,7 @@ namespace ArtOfHassan
                 FourthClickCheckBox.IsChecked = false;
             }
 
-            if (((MainWindow)System.Windows.Application.Current.MainWindow).KoreanCheckBox.IsChecked.Value)
+            if (((MainWindow)System.Windows.Application.Current.MainWindow).KoreanRadioButton.IsChecked.Value)
             {
                 this.Title = "광고 닫기 클릭 패턴";
                 FirstClickTextBlock.Text = "첫번째 클릭";

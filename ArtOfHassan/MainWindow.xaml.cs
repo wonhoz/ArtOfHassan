@@ -195,12 +195,19 @@ namespace ArtOfHassan
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
 
+        string Version;
+
         #endregion
 
 
         public MainWindow()
         {
             InitializeComponent();
+
+            Version = "v" +
+                      System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major.ToString() + "." +
+                      System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString() + "." +
+                      System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Build.ToString();
 
             LoadSettingTxt();
             LoadPixelTxt();
@@ -233,7 +240,7 @@ namespace ArtOfHassan
                     ProblemMonitoringTimer.Enabled  = false;
                     ArtOfWarMonitoringTimer.Enabled = false;
                     StartButton.IsEnabled           = false;
-                    if (KoreanCheckBox.IsChecked.Value)
+                    if (KoreanRadioButton.IsChecked.Value)
                     {
                         StartButton.Content = "시작";
                     }
@@ -253,7 +260,7 @@ namespace ArtOfHassan
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
                     StartButton.IsEnabled = true;
-                    IsKorean = KoreanCheckBox.IsChecked.Value;
+                    IsKorean = KoreanRadioButton.IsChecked.Value;
                     if (int.TryParse(MonitoringIntervalTextBox.Text, out MonitoringInterval))
                     {
                         if (MonitoringInterval < 1000)
@@ -316,7 +323,7 @@ namespace ArtOfHassan
                         {
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                                       "artofwarhassan@gmail.com",
-                                                                      $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
+                                                                      $"Art of Hassan {Version}",
                                                                       "No Email.\nProblem reported.\nShare = " + isShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
@@ -325,7 +332,7 @@ namespace ArtOfHassan
                         {
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           "artofwarhassan@gmail.com",
-                                                          $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
+                                                          $"Art of Hassan {Version}",
                                                           $"From {emailaddress},\nProblem reported.\nShare = " + isShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
@@ -342,7 +349,7 @@ namespace ArtOfHassan
 
                             mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           emailaddress,
-                                                          $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
+                                                          $"Art of Hassan {Version}",
                                                           message);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
@@ -515,7 +522,7 @@ namespace ArtOfHassan
 
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
-                            if (KoreanCheckBox.IsChecked.Value)
+                            if (KoreanRadioButton.IsChecked.Value)
                             {
                                 MessageBar.Text = $"전투: {NumOfVictory + NumOfDefeat}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
                             }
@@ -662,10 +669,20 @@ namespace ArtOfHassan
                                 }));
                                 if (!string.IsNullOrWhiteSpace(emailaddress))
                                 {
+                                    string message;
+                                    if (IsKorean)
+                                    {
+                                        message = "골드 벌이가 끝났습니다.";
+                                    }
+                                    else
+                                    {
+                                        message = "No Gold.";
+                                    }
+
                                     MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                                               emailaddress,
-                                                                              $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
-                                                                              "No Gold.\nPlease check.");
+                                                                              $"Art of Hassan {Version}",
+                                                                              message);
                                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
                                     smtpClient.UseDefaultCredentials = false;
                                     smtpClient.EnableSsl = true;
@@ -691,7 +708,7 @@ namespace ArtOfHassan
 
                             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                             {
-                                if (KoreanCheckBox.IsChecked.Value)
+                                if (KoreanRadioButton.IsChecked.Value)
                                 {
                                     StartButton.Content = "시작";
                                 }
@@ -718,7 +735,7 @@ namespace ArtOfHassan
                         if (!IsNoGoldStatus && 
                             MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundColor.Split(';')[0])) // Green
                         {
-                            if (!IsLatest ||
+                            if (!IsStar ||
                                 MousePointColorCheck(GoldButtonImageX, GoldButtonImageY, GoldButtonImageColor)) // Yellow
                             {
                                 if (X3GoldButtonClickDelay < MonitoringInterval)
@@ -756,7 +773,7 @@ namespace ArtOfHassan
                                 return;
                             }
 
-                            if (IsLatest)
+                            if (IsStar)
                             {
                                 MousePointClick(NextButtonX, GoldButtonBackgroundY);
                             }
@@ -1045,24 +1062,27 @@ namespace ArtOfHassan
             NoxMonitoringTimer.Enabled      = false;
         }
 
-        bool IsLatest = true;
+        bool IsStar = true;
 
-        private void LatestRadioButton_Click(object sender, RoutedEventArgs e)
+        private void StarCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            MonitoringLog("Working for the latest version");
-            IsLatest              = true;
-            GoldChestBoxX         = 150;
-            GoldChestBoxY         = 410;
-            GoldButtonBackgroundY = 780;
-        }
-
-        private void OldRadioButton_Click(object sender, RoutedEventArgs e)
-        {
-            MonitoringLog("Working for the version 3.0.8");
-            IsLatest              = false;
-            GoldChestBoxX         = 165;
-            GoldChestBoxY         = 420;
-            GoldButtonBackgroundY = 710;
+            if (StarCheckBox.IsChecked.Value)
+            {
+                MonitoringLog("Working for star system");
+                IsStar = true;
+                GoldChestBoxX = 150;
+                GoldChestBoxY = 410;
+                GoldButtonBackgroundY = 780;
+            }
+            else
+            {
+                MonitoringLog("Working for nonstar system");
+                IsStar = false;
+                GoldChestBoxX = 165;
+                GoldChestBoxY = 420;
+                GoldButtonBackgroundY = 710;
+            }
+            
         }
 
         private void AdsCloseClickPatternButton_Click(object sender, RoutedEventArgs e)
@@ -1078,7 +1098,7 @@ namespace ArtOfHassan
             if ((StartButton.Content.ToString() == "Start") ||
                 (StartButton.Content.ToString() == "시작"))
             {
-                if (KoreanCheckBox.IsChecked.Value)
+                if (KoreanRadioButton.IsChecked.Value)
                 {
                     StartButton.Content = "중지";
                 }
@@ -1104,7 +1124,7 @@ namespace ArtOfHassan
             }
             else
             {
-                if (KoreanCheckBox.IsChecked.Value)
+                if (KoreanRadioButton.IsChecked.Value)
                 {
                     StartButton.Content = "시작";
                 }
@@ -1127,7 +1147,7 @@ namespace ArtOfHassan
         {
             if (string.IsNullOrWhiteSpace(EmailAddressTextBox.Text))
             {
-                if (KoreanCheckBox.IsChecked.Value)
+                if (KoreanRadioButton.IsChecked.Value)
                 {
                     MessageBox.Show("이메일을 입력해주세요.");
                 }
@@ -1144,7 +1164,7 @@ namespace ArtOfHassan
                 {
                     MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                               EmailAddressTextBox.Text,
-                                                              $"Art of Hassan v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}",
+                                                              $"Art of Hassan {Version}",
                                                               "Email Testing...");
 
                     if ((CurrentBitmap != null) && (CurrentBitmap.Width != 0) && (CurrentBitmap.Height != 0))
@@ -1169,7 +1189,7 @@ namespace ArtOfHassan
                 }
                 catch (Exception ex)
                 {
-                    if (KoreanCheckBox.IsChecked.Value)
+                    if (KoreanRadioButton.IsChecked.Value)
                     {
                         MessageBox.Show("이메일 송신 실패.");
                     }
@@ -1190,7 +1210,7 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("ScreenComparisonInterval," + ScreenComparisonIntervalTextBox.Text);
                 streamWriter.WriteLine("X3GoldButtonDelay," + X3GoldButtonClickDelayTextBox.Text);
                 streamWriter.WriteLine("PixelDifference," + PixelDifferenceTextBox.Text);
-                streamWriter.WriteLine("Korean," + KoreanCheckBox.IsChecked.Value);
+                streamWriter.WriteLine("Korean," + KoreanRadioButton.IsChecked.Value);
                 streamWriter.WriteLine("AdsCloseClickPattern," + ClickPattern);
                 streamWriter.WriteLine("GoldChestCheck," + GoldChestCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("Pausability," + PausabilityCheckBox.IsChecked.Value);
@@ -1202,19 +1222,21 @@ namespace ArtOfHassan
             }
         }
 
-        private void KoreanCheckBox_Click(object sender, RoutedEventArgs e)
+        private void LanguageRadioButton_Click(object sender, RoutedEventArgs e)
         {
-            if (KoreanCheckBox.IsChecked.Value)
+            if (KoreanRadioButton.IsChecked.Value)
             {
-                this.Title = "아트 오브 핫산";
+                this.Title = $"아트 오브 핫산 {Version}";
                 WindowTitleTextBlock.Text = "앱플레이어\n    이름";
                 MonitoringIntervalTextBlock.Text = "모니터링\n주기 (ms)";
                 ScreenComparisonIntervalTextBlock.Text = " 화면 비교\n주기 (횟수)";
                 X3GoldButtonClickDelayTextBlock.Text = " 골드 광고\n딜레이 (ms)";
                 PixelDifferenceTextBlock.Text = "픽셀 차이";
-                VersionTextBlock.Text = "버전";
-                LatestRadioButton.Content = "최신";
-                AdsCloseTextBlock.Text = "광고 닫기";
+                VictoryRewardTextBlock.Text = "승리 보상";
+                StarCheckBox.Content = "별 등급";
+                LanguageTextBlock.Text = "표시 언어";
+                AdsTextBlock.Text = "광고";
+                AdsWatchCheckBox.Content = "광고 보기";
                 AdsCloseColorCheckBox.Content = "색상 확인";
                 AdsCloseClickPatternButton.Content = "광고 닫기\n클릭 패턴";
                 ModeTextBlock.Text = "모드";
@@ -1242,15 +1264,17 @@ namespace ArtOfHassan
             }
             else
             {
-                this.Title = "Art of Hassan";
+                this.Title = $"Art of Hassan {Version}";
                 WindowTitleTextBlock.Text = "Window Title";
                 MonitoringIntervalTextBlock.Text = "Monitoring\nInterval (ms)";
                 ScreenComparisonIntervalTextBlock.Text = "   Screen\nComparison\n Interval (#)";
                 X3GoldButtonClickDelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
                 PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
-                VersionTextBlock.Text = "Version";
-                LatestRadioButton.Content = "Latest";
-                AdsCloseTextBlock.Text = "Ads Close";
+                VictoryRewardTextBlock.Text = "Victory\nReward";
+                StarCheckBox.Content = "Star-rated";
+                LanguageTextBlock.Text = "UI Language";
+                AdsTextBlock.Text = "Ads";
+                AdsWatchCheckBox.Content = "Watch Ads";
                 AdsCloseColorCheckBox.Content = "Check Color";
                 AdsCloseClickPatternButton.Content = "  Ads Close\nClick Pattern";
                 ModeTextBlock.Text = "Mode";
@@ -1519,7 +1543,8 @@ namespace ArtOfHassan
                             PixelDifferenceTextBox.Text = listitem[1];
                             break;
                         case ("korean"):
-                            KoreanCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            EnglighRadioButton.IsChecked = !bool.Parse(listitem[1]);
+                            KoreanRadioButton.IsChecked  =  bool.Parse(listitem[1]);
                             break;
                         case ("adscloseclickpattern"):
                             ClickPattern = listitem[1];
