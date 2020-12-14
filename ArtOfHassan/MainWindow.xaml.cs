@@ -173,6 +173,7 @@ namespace ArtOfHassan
         bool DefeatFlag   = false;
         bool AdsWatchFlag = false;
 
+        bool IsWatchAds        = true;
         bool IsProblemOccurred = false;
         bool IsNoGoldStatus    = false;
         bool IsNoGoldMailSent  = false;
@@ -260,7 +261,8 @@ namespace ArtOfHassan
                 System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                 {
                     StartButton.IsEnabled = true;
-                    IsKorean = KoreanRadioButton.IsChecked.Value;
+                    IsKorean   = KoreanRadioButton.IsChecked.Value;
+                    IsWatchAds = AdsWatchCheckBox.IsChecked.Value;
                     if (int.TryParse(MonitoringIntervalTextBox.Text, out MonitoringInterval))
                     {
                         if (MonitoringInterval < 1000)
@@ -732,7 +734,7 @@ namespace ArtOfHassan
                     // X3 Gold Button
                     if (VictoryFlag || DefeatFlag)
                     {
-                        if (!IsNoGoldStatus && 
+                        if (IsWatchAds && !IsNoGoldStatus && 
                             MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundColor.Split(';')[0])) // Green
                         {
                             if (!IsStar ||
@@ -760,7 +762,7 @@ namespace ArtOfHassan
                                 MousePointClick(NextButtonX, GoldButtonBackgroundY);
                             }
                         }
-                        else if (IsNoGoldStatus ||
+                        else if (!IsWatchAds || IsNoGoldStatus ||
                                  MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundColor.Split(';')[1])) // Gray
                         {
                             if (X3GoldButtonClickDelay < MonitoringInterval)
