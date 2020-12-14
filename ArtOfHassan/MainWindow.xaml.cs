@@ -74,7 +74,7 @@ namespace ArtOfHassan
         public int PixelPositionX;
         public int PixelPositionY;
 
-        public string ClickPattern = "L;R;L";
+        public string GoogleAdCloseClickPattern = "L;R;L";
 
         #endregion
 
@@ -173,28 +173,48 @@ namespace ArtOfHassan
         bool DefeatFlag   = false;
         bool AdsWatchFlag = false;
 
-        bool IsWatchAds        = true;
         bool IsProblemOccurred = false;
         bool IsNoGoldStatus    = false;
         bool IsNoGoldMailSent  = false;
         bool IsStopHassan      = false;
-
-        bool IsKorean = false;
 
         int NumOfWar     = 0;
         int NumOfVictory = 0;
         int NumOfDefeat  = 0;
         int NumOfAds     = 0;
 
-        int MonitoringInterval = 0;
-        int PixelDifference    = 1;
-
         int ProblemMailSent            = 0;
         int TimerCountForScreenCompare = 1;
-        int X3GoldButtonClickDelay     = 0;
+        int X3GoldButtonClickDelay     = 0; // UI 설정값이지만 가변적
 
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
+
+        #endregion
+
+        #region UI Variable
+
+        // UI 설정값
+        int MonitoringInterval       = 1000;
+        int ScreenComparisonInterval = 3;
+        int PixelDifference          = 1;
+
+        bool IsKorean = false;
+
+        bool     IsWatchAds                      = true;
+        int      GoogleAdCloseClickInterval      = 333;
+        bool     IsGoogleAdCloseButtonColorCheck = false;
+        string[] GoogleAdCloseClickPatterns;
+
+        bool IsOpenGoldChestBox = false;
+        bool IsPausable         = false;
+
+        string EmailAddress;
+
+        bool IsNoGoldSendEmail  = false;
+        bool IsNoGoldShutdownPC = false;
+
+        bool IsShareProblem = true; // 무늬만 사용
 
         string Version;
 
@@ -234,14 +254,52 @@ namespace ArtOfHassan
 
             GetWindowPos(GetWinAscHandle(), ref point, ref size);
 
-            if ((size.Width == 0) || (size.Height == 0))
+            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                if (int.TryParse(MonitoringIntervalTextBox.Text, out MonitoringInterval))
+                {
+                    if (MonitoringInterval < 1000)
+                    {
+                        MonitoringInterval = 1000;
+                    }
+                }
+                else
+                {
+                    MonitoringInterval = 1000;
+                }
+
+                if (!int.TryParse(ScreenComparisonIntervalTextBox.Text, out ScreenComparisonInterval))
+                {
+                    ScreenComparisonInterval = 3;
+                }
+
+                if (!int.TryParse(PixelDifferenceTextBox.Text, out PixelDifference))
+                {
+                    PixelDifference = 0;
+                }
+
+                IsKorean           = KoreanRadioButton.IsChecked.Value;
+                IsWatchAds         = AdsWatchCheckBox.IsChecked.Value;
+                IsOpenGoldChestBox = GoldChestCheckBox.IsChecked.Value;
+                IsPausable         = PausabilityCheckBox.IsChecked.Value;
+
+                EmailAddress = EmailAddressTextBox.Text;
+
+                IsNoGoldSendEmail  = SendEmailCheckBox.IsChecked.Value;
+                IsNoGoldShutdownPC = ShutdownComputerCheckBox.IsChecked.Value;
+                IsShareProblem     = ShareProblemCheckBox.IsChecked.Value;
+
+                GoogleAdCloseClickPatterns      = GoogleAdCloseClickPattern.Split(';');
+                GoogleAdCloseClickInterval      = (int)(MonitoringInterval / (GoogleAdCloseClickPatterns.Length - 0.5));
+                IsGoogleAdCloseButtonColorCheck = AdsCloseColorCheckBox.IsChecked.Value;
+
+
+                if ((size.Width == 0) || (size.Height == 0))
                 {
                     ProblemMonitoringTimer.Enabled  = false;
                     ArtOfWarMonitoringTimer.Enabled = false;
-                    StartButton.IsEnabled           = false;
-                    if (KoreanRadioButton.IsChecked.Value)
+                    StartButton.IsEnabled = false;
+                    if (IsKorean)
                     {
                         StartButton.Content = "시작";
                     }
@@ -249,37 +307,17 @@ namespace ArtOfHassan
                     {
                         StartButton.Content = "Start";
                     }
-                }));
-            }
-            else
-            {
-                NoxPointX = point.X;
-                NoxPointY = point.Y;
-                NoxWidth  = size.Width;
-                NoxHeight = size.Height;
-
-                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                }
+                else
                 {
+                    NoxPointX = point.X;
+                    NoxPointY = point.Y;
+                    NoxWidth  = size.Width;
+                    NoxHeight = size.Height;
+
                     StartButton.IsEnabled = true;
-                    IsKorean   = KoreanRadioButton.IsChecked.Value;
-                    IsWatchAds = AdsWatchCheckBox.IsChecked.Value;
-                    if (int.TryParse(MonitoringIntervalTextBox.Text, out MonitoringInterval))
-                    {
-                        if (MonitoringInterval < 1000)
-                        {
-                            MonitoringInterval = 1000;
-                        }
-                    }
-                    else
-                    {
-                        MonitoringInterval = 1000;
-                    }
-                    if (!int.TryParse(PixelDifferenceTextBox.Text, out PixelDifference))
-                    {
-                        PixelDifference = 0;
-                    }
-                }));
-            }
+                }
+            }));
         }
 
         private void ProblemMonitoringTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
@@ -290,16 +328,6 @@ namespace ArtOfHassan
                 MonitoringLog("Problem Occured...");
 
                 IsProblemOccurred = true;
-
-                bool isShareProblem = true; // 무늬만 사용
-                string minute       = "3";
-                string emailaddress = "";
-                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                {
-                    isShareProblem = ShareProblemCheckBox.IsChecked.Value;
-                    minute         = ScreenComparisonIntervalTextBox.Text;
-                    emailaddress   = EmailAddressTextBox.Text;
-                }));
 
                 // 이메일 전송 부분
                 try
@@ -321,12 +349,12 @@ namespace ArtOfHassan
 
                     if ((ProblemMailSent > 2) && (ProblemMailSent < 5))
                     {
-                        if (string.IsNullOrWhiteSpace(emailaddress))
+                        if (string.IsNullOrWhiteSpace(EmailAddress))
                         {
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                                       "artofwarhassan@gmail.com",
                                                                       $"Art of Hassan {Version}",
-                                                                      "No Email.\nProblem reported.\nShare = " + isShareProblem);
+                                                                      "No Email.\nProblem reported.\nShare = " + IsShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
                         }
@@ -335,7 +363,7 @@ namespace ArtOfHassan
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           "artofwarhassan@gmail.com",
                                                           $"Art of Hassan {Version}",
-                                                          $"From {emailaddress},\nProblem reported.\nShare = " + isShareProblem);
+                                                          $"From {EmailAddress},\nProblem reported.\nShare = " + IsShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
 
@@ -350,7 +378,7 @@ namespace ArtOfHassan
                             }
 
                             mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                          emailaddress,
+                                                          EmailAddress,
                                                           $"Art of Hassan {Version}",
                                                           message);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
@@ -461,11 +489,6 @@ namespace ArtOfHassan
 
 
                     // GoldChestBox
-                    bool IsOpenGoldChestBox = false;
-                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                    {
-                        IsOpenGoldChestBox = GoldChestCheckBox.IsChecked.Value;
-                    }));
                     if (IsOpenGoldChestBox)
                     {
                         if (MousePointColorCheck(GoldChestBoxX, GoldChestBoxY, GoldChestBoxColor.Split(';')[0]) ||
@@ -524,7 +547,7 @@ namespace ArtOfHassan
 
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
-                            if (KoreanRadioButton.IsChecked.Value)
+                            if (IsKorean)
                             {
                                 MessageBar.Text = $"전투: {NumOfVictory + NumOfDefeat}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
                             }
@@ -586,11 +609,6 @@ namespace ArtOfHassan
 
 
                     // ContinueButton
-                    bool IsPausable = false;
-                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                    {
-                        IsPausable = PausabilityCheckBox.IsChecked.Value;
-                    }));
                     if (!IsPausable)
                     {
                         if (MousePointColorCheck(ContinueButtonX, ContinueButtonY, ContinueButtonColor))
@@ -646,30 +664,22 @@ namespace ArtOfHassan
                     {
                         MonitoringLog("NoGold");
 
-                        IsNoGoldStatus    = true;
-                        IsStopHassan      = false;
-                        bool isSendEmail  = false;
-                        bool isShutdownPC = false;
+                        IsNoGoldStatus = true;
+                        IsStopHassan   = false;
+                        
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
                             IsStopHassan = StopHassanCheckBox.IsChecked.Value;
-                            isSendEmail  = SendEmailCheckBox.IsChecked.Value;
-                            isShutdownPC = ShutdownComputerCheckBox.IsChecked.Value;
                         }));
 
-                        if (isSendEmail && !IsNoGoldMailSent)
+                        if (IsNoGoldSendEmail && !IsNoGoldMailSent)
                         {
                             MonitoringLog("Sending Email...");
                             IsNoGoldMailSent = true;
 
                             try
                             {
-                                string emailaddress = "";
-                                System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                                {
-                                    emailaddress = EmailAddressTextBox.Text;
-                                }));
-                                if (!string.IsNullOrWhiteSpace(emailaddress))
+                                if (!string.IsNullOrWhiteSpace(EmailAddress))
                                 {
                                     string message;
                                     if (IsKorean)
@@ -682,7 +692,7 @@ namespace ArtOfHassan
                                     }
 
                                     MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                                              emailaddress,
+                                                                              EmailAddress,
                                                                               $"Art of Hassan {Version}",
                                                                               message);
                                     SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
@@ -704,13 +714,13 @@ namespace ArtOfHassan
                             MonitoringLog("Stop Hassan...");
                         }
 
-                        if (isShutdownPC)
+                        if (IsNoGoldShutdownPC)
                         {
                             MonitoringLog("Shutting Down PC...");
 
                             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                             {
-                                if (KoreanRadioButton.IsChecked.Value)
+                                if (IsKorean)
                                 {
                                     StartButton.Content = "시작";
                                 }
@@ -841,15 +851,7 @@ namespace ArtOfHassan
 
 
                     // Google Ad Close Button
-                    int screenCompareInterval = 3;
-                    System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                    {
-                        if (!int.TryParse(ScreenComparisonIntervalTextBox.Text, out screenCompareInterval))
-                        {
-                            screenCompareInterval = 3;
-                        }
-                    }));
-                    if ((TimerCountForScreenCompare % screenCompareInterval) == 0)
+                    if ((TimerCountForScreenCompare % ScreenComparisonInterval) == 0)
                     {
                         TimerCountForScreenCompare = 1;
 
@@ -881,19 +883,9 @@ namespace ArtOfHassan
                             AdsCloseStopwatch.Reset();
                             AdsCloseStopwatch.Stop();
 
-                            int AdsClickInterval = 333;
-                            bool isGoogleAdCloseButtonColorCheck = false;
-                            string[] ClickPatterns = ClickPattern.Split(';');
-
-                            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                            if (IsGoogleAdCloseButtonColorCheck)
                             {
-                                AdsClickInterval = (int)(MonitoringInterval / (ClickPatterns.Length - 0.5));
-                                isGoogleAdCloseButtonColorCheck = AdsCloseColorCheckBox.IsChecked.Value;
-                            }));
-
-                            if (isGoogleAdCloseButtonColorCheck)
-                            {
-                                if (ClickPatterns[0] == "L")
+                                if (GoogleAdCloseClickPatterns[0] == "L")
                                 {
                                     if (MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
                                         MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
@@ -912,9 +904,9 @@ namespace ArtOfHassan
                                     }
                                 }
 
-                                System.Threading.Thread.Sleep(AdsClickInterval);
+                                System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
 
-                                if (ClickPatterns[1] == "L")
+                                if (GoogleAdCloseClickPatterns[1] == "L")
                                 {
                                     if (MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
                                         MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
@@ -933,11 +925,11 @@ namespace ArtOfHassan
                                     }
                                 }
 
-                                if (ClickPatterns.Length == 3)
+                                if (GoogleAdCloseClickPatterns.Length == 3)
                                 {
-                                    System.Threading.Thread.Sleep(AdsClickInterval);
+                                    System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
 
-                                    if (ClickPatterns[2] == "L")
+                                    if (GoogleAdCloseClickPatterns[2] == "L")
                                     {
                                         if (MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
                                             MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
@@ -957,11 +949,11 @@ namespace ArtOfHassan
                                     }
                                 }
 
-                                if (ClickPatterns.Length == 4)
+                                if (GoogleAdCloseClickPatterns.Length == 4)
                                 {
-                                    System.Threading.Thread.Sleep(AdsClickInterval);
+                                    System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
 
-                                    if (ClickPatterns[3] == "L")
+                                    if (GoogleAdCloseClickPatterns[3] == "L")
                                     {
                                         if (MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
                                             MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
@@ -983,7 +975,7 @@ namespace ArtOfHassan
                             }
                             else
                             {
-                                if (ClickPatterns[0] == "L")
+                                if (GoogleAdCloseClickPatterns[0] == "L")
                                 {
                                     MonitoringLog("Left Ad Close Button");
                                     MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
@@ -994,9 +986,9 @@ namespace ArtOfHassan
                                     MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                 }
 
-                                System.Threading.Thread.Sleep(AdsClickInterval);
+                                System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
 
-                                if (ClickPatterns[1] == "L")
+                                if (GoogleAdCloseClickPatterns[1] == "L")
                                 {
                                     MonitoringLog("Left Ad Close Button");
                                     MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
@@ -1007,11 +999,11 @@ namespace ArtOfHassan
                                     MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                 }
 
-                                if (ClickPatterns.Length == 3)
+                                if (GoogleAdCloseClickPatterns.Length == 3)
                                 {
-                                    System.Threading.Thread.Sleep(AdsClickInterval);
+                                    System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
 
-                                    if (ClickPatterns[2] == "L")
+                                    if (GoogleAdCloseClickPatterns[2] == "L")
                                     {
                                         MonitoringLog("Left Ad Close Button");
                                         MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
@@ -1023,11 +1015,11 @@ namespace ArtOfHassan
                                     }
                                 }
 
-                                if (ClickPatterns.Length == 4)
+                                if (GoogleAdCloseClickPatterns.Length == 4)
                                 {
-                                    System.Threading.Thread.Sleep(AdsClickInterval);
+                                    System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
 
-                                    if (ClickPatterns[3] == "L")
+                                    if (GoogleAdCloseClickPatterns[3] == "L")
                                     {
                                         MonitoringLog("Left Ad Close Button");
                                         MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
@@ -1213,7 +1205,7 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("X3GoldButtonDelay," + X3GoldButtonClickDelayTextBox.Text);
                 streamWriter.WriteLine("PixelDifference," + PixelDifferenceTextBox.Text);
                 streamWriter.WriteLine("Korean," + KoreanRadioButton.IsChecked.Value);
-                streamWriter.WriteLine("AdsCloseClickPattern," + ClickPattern);
+                streamWriter.WriteLine("AdsCloseClickPattern," + GoogleAdCloseClickPattern);
                 streamWriter.WriteLine("GoldChestCheck," + GoldChestCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("Pausability," + PausabilityCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("Logging," + LogCheckBox.IsChecked.Value);
@@ -1549,7 +1541,7 @@ namespace ArtOfHassan
                             KoreanRadioButton.IsChecked  =  bool.Parse(listitem[1]);
                             break;
                         case ("adscloseclickpattern"):
-                            ClickPattern = listitem[1];
+                            GoogleAdCloseClickPattern = listitem[1];
                             break;
                         case ("goldchestcheck"):
                             GoldChestCheckBox.IsChecked = bool.Parse(listitem[1]);

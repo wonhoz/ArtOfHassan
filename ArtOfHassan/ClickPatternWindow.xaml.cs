@@ -13,7 +13,7 @@ namespace ArtOfHassan
         {
             InitializeComponent();
 
-            string[] ClickPatterns = ((MainWindow)System.Windows.Application.Current.MainWindow).ClickPattern.Split(';');
+            string[] ClickPatterns = ((MainWindow)System.Windows.Application.Current.MainWindow).GoogleAdCloseClickPattern.Split(';');
 
             if (ClickPatterns[0] == "L")
             {
@@ -175,7 +175,7 @@ namespace ArtOfHassan
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).ClickPattern = clickPattern;
+                ((MainWindow)System.Windows.Application.Current.MainWindow).GoogleAdCloseClickPattern = clickPattern;
             }));
 
             this.Close();
