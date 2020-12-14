@@ -89,13 +89,13 @@ namespace ArtOfHassan
         public int ShopButtonY = 980;
         public string ShopButtonColor = "#ea3d34".ToUpper();
 
-        public int CollectButtonX = 195;
-        public int CollectButtonY = 680;
-        public string CollectButtonColor = "#fdbb00".ToUpper();
-
         public int GoldChestBoxX = 150;
         public int GoldChestBoxY = 410;
         public string GoldChestBoxColor = "#fff102;#eabf2f".ToUpper();
+
+        public int CollectButtonX = 195;
+        public int CollectButtonY = 680;
+        public string CollectButtonColor = "#fdbb00".ToUpper();
 
         public int BattleLevelButtonX = 180;
         public int BattleLevelButtonY = 855;
@@ -117,8 +117,8 @@ namespace ArtOfHassan
         public int VictoryDefeatY = 355;
         public string VictoryDefeatColor = "#d91c13;#12a7d8".ToUpper();
 
-        public int NoGoldX = 320;
-        public int NoGoldY = 645;
+        public int NoGoldX = 321;
+        public int NoGoldY = 646;
         public string NoGoldColor = "#dfd6be".ToUpper();
 
         public int GoldButtonBackgroundX = 115;
