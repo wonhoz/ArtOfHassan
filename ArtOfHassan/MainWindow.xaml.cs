@@ -159,6 +159,7 @@ namespace ArtOfHassan
         #region Variable
 
         Stopwatch AdsCloseStopwatch          = new Stopwatch();
+        Stopwatch GoldChestBoxStopwatch      = new Stopwatch();
         Stopwatch BattleButtonInRedStopwatch = new Stopwatch();
 
         double NoxPointX = 0;
@@ -457,9 +458,11 @@ namespace ArtOfHassan
                     if (IsOpenGoldChestBox)
                     {
                         if (MousePointColorCheck(GoldChestBoxX, GoldChestBoxY, GoldChestBoxColor.Split(';')[0]) ||
-                            MousePointColorCheck(GoldChestBoxX, GoldChestBoxY, GoldChestBoxColor.Split(';')[1]))
+                            MousePointColorCheck(GoldChestBoxX, GoldChestBoxY, GoldChestBoxColor.Split(';')[1]) ||
+                            (GoldChestBoxStopwatch.ElapsedMilliseconds > 4 * 60 * 60 * 1000)) // 4시간
                         {
                             MonitoringLog("GoldChestBox");
+                            GoldChestBoxStopwatch.Restart();
                             MousePointClick(GoldChestBoxX, GoldChestBoxY);
 
                             System.Threading.Thread.Sleep((int)(MonitoringInterval * 4 / 5));
@@ -1085,6 +1088,8 @@ namespace ArtOfHassan
                 PixelCustomizeButton.IsEnabled      = false;
                 MonitoringIntervalTextBox.IsEnabled = false;
 
+                GoldChestBoxStopwatch.Restart();
+
                 ProblemMonitoringTimer.Interval  = int.Parse(ScreenComparisonIntervalTextBox.Text) * 60 * 1000;
                 ArtOfWarMonitoringTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
                 ArtOfWarMonitoringTimer.Enabled  = true;
@@ -1107,6 +1112,9 @@ namespace ArtOfHassan
                 }
                 PixelCustomizeButton.IsEnabled      = true;
                 MonitoringIntervalTextBox.IsEnabled = true;
+
+                GoldChestBoxStopwatch.Reset();
+                GoldChestBoxStopwatch.Stop();
 
                 ArtOfWarMonitoringTimer.Enabled = false;
                 ProblemMonitoringTimer.Enabled  = false;
