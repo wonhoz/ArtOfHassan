@@ -156,6 +156,10 @@ namespace ArtOfHassan
         public int NotRespondAppCloseButtonY3 = 540;
         public string NotRespondAppCloseButtonColor = "#009688".ToUpper();
 
+        public int HeadHuntButtonX = 515;
+        public int HeadHuntButtonY = 380;
+        public string HeadHuntButtonColor = "#fdbb00;#572f17".ToUpper();
+
         #endregion
 
         #region Variable
@@ -514,6 +518,36 @@ namespace ArtOfHassan
                     }
 
 
+                    // HeadHuntButton
+                    if (MousePointColorCheck(HeadHuntButtonX, HeadHuntButtonY, HeadHuntButtonColor.Split(';')[0]))
+                    {
+                        MonitoringLog("HeadHuntButton");
+                        MousePointClick(HeadHuntButtonX, HeadHuntButtonY);
+                    }
+                    else if (MousePointColorCheck(HeadHuntButtonX, HeadHuntButtonY, HeadHuntButtonColor.Split(';')[1]))
+                    {
+                        MonitoringLog("HeadHunt Finished");
+
+                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                        {
+                            IsHeadhunt            = false;
+                            IsStar                = PrevStar;
+                            GoldButtonBackgroundY = PrevGoldButtonBackgroundY;
+
+                            StageRadioButton.IsChecked    = true;
+                            HeadhuntRadioButton.IsChecked = false;
+                            StarCheckBox.IsChecked        = IsStar;
+                            AdsWatchCheckBox.IsChecked    = PrevAdsWatch;
+                        }));
+
+                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
+
+                        System.Threading.Thread.Sleep((int)(MonitoringInterval * 4 / 5));
+
+                        MousePointClick(HomeButtonX, ShopButtonY);
+                    }
+
+
                     // BattleLevelButton
                     if ((!IsStopHassan &&
                          MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonColor.Split(';')[0])) ||
@@ -785,7 +819,7 @@ namespace ArtOfHassan
                                 return;
                             }
 
-                            if (IsStar)
+                            if (IsStar || IsHeadhunt)
                             {
                                 MousePointClick(NextButtonX, GoldButtonBackgroundY);
                             }
@@ -794,8 +828,9 @@ namespace ArtOfHassan
                                 MousePointClick(NextButtonX, NextButtonY);
                             }
 
-                            if (IsNoGoldStatus)
+                            if (!IsWatchAds || IsNoGoldStatus)
                             {
+                                MonitoringLog("Next Button");
                                 return;
                             }
                             else
@@ -1076,7 +1111,52 @@ namespace ArtOfHassan
                 GoldChestBoxY = 420;
                 GoldButtonBackgroundY = 710;
             }
-            
+        }
+
+        private void StageRadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            MonitoringLog("Stage Mode");
+            IsStar     = true;
+            IsHeadhunt = false;
+            StarCheckBox.IsChecked     = true;
+            AdsWatchCheckBox.IsChecked = true;
+            GoldButtonBackgroundY = 780;
+            //GoldButtonImageY = 755;
+            //GoldButtonImageColor = "#ffea90".ToUpper();
+        }
+
+        bool IsHeadhunt;
+        bool PrevStar;
+        bool PrevAdsWatch;
+        int  PrevGoldButtonBackgroundY;
+
+        private void HeadhuntRadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            MonitoringLog("Headhunt Mode");
+
+            PrevStar                  = IsStar;
+            PrevAdsWatch              = AdsWatchCheckBox.IsChecked.Value;
+            PrevGoldButtonBackgroundY = GoldButtonBackgroundY;
+
+            IsStar     = false;
+            IsHeadhunt = true;
+            StarCheckBox.IsChecked     = false;
+            AdsWatchCheckBox.IsChecked = false;
+            GoldButtonBackgroundY = 685;
+            //GoldButtonImageY = 661;
+            //GoldButtonImageColor = "#ffe58b".ToUpper();
+        }
+
+        private void HonorRadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            MonitoringLog("Honor Hunting Mode");
+            IsHeadhunt = false;
+        }
+
+        private void TroopRadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            MonitoringLog("Troop Mode");
+            IsHeadhunt = false;
         }
 
         private void AdsCloseClickPatternButton_Click(object sender, RoutedEventArgs e)

@@ -124,19 +124,19 @@
                 <ColumnDefinition Name="ModeTroop"/>
             </Grid.ColumnDefinitions>
 
-            <RadioButton Name="StageRadioButton" Content="Stage" IsChecked="True"
+            <RadioButton Name="StageRadioButton" Content="Stage" IsChecked="True" Click="StageRadioButton_Click"
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <RadioButton Grid.Column="1" Name="HeadhuntRadioButton" Content="Headhunt"
+            <RadioButton Grid.Column="1" Name="HeadhuntRadioButton" Content="Headhunt" Click="HeadhuntRadioButton_Click"
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <RadioButton Grid.Column="2" Name="HonorRadioButton" Content="Honor"
+            <RadioButton Grid.Column="2" Name="HonorRadioButton" Content="Honor" Click="HonorRadioButton_Click"
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <RadioButton Grid.Column="3" Name="TroopRadioButton" Content="Troop"
+            <RadioButton Grid.Column="3" Name="TroopRadioButton" Content="Troop" Click="TroopRadioButton_Click"
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
