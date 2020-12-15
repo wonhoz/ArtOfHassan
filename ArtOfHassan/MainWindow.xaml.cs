@@ -1283,7 +1283,7 @@ namespace ArtOfHassan
             }
 
             IsHeadhuntMode = false;
-            IsTroopMode    = true;
+            IsTroopMode    = false;
         }
 
         private void TroopRadioButton_Click(object sender, RoutedEventArgs e)
@@ -1293,7 +1293,7 @@ namespace ArtOfHassan
             PrevMonitoringInterval = MonitoringIntervalTextBox.Text;
 
             IsHeadhuntMode = false;
-            IsTroopMode    = false;
+            IsTroopMode    = true;
 
             MonitoringIntervalTextBox.Text = "333";
         }
