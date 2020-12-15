@@ -698,7 +698,7 @@ namespace ArtOfHassan
 
         private void SetUiLanguage()
         {
-            if (((MainWindow)System.Windows.Application.Current.MainWindow).KoreanRadioButton.IsChecked.Value)
+            if (((MainWindow)System.Windows.Application.Current.MainWindow).KoreanCheckBox.IsChecked.Value)
             {
                 this.Title = "픽셀 위치 및 색상 사용자화";
                 ItemTextBlock.Text = "항목";

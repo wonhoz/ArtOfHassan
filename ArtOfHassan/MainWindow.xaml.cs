@@ -282,7 +282,7 @@ namespace ArtOfHassan
                     PixelDifference = 0;
                 }
 
-                IsKorean           = KoreanRadioButton.IsChecked.Value;
+                IsKorean           = KoreanCheckBox.IsChecked.Value;
                 IsWatchAds         = AdsWatchCheckBox.IsChecked.Value;
                 IsOpenGoldChestBox = GoldChestCheckBox.IsChecked.Value;
                 IsPausable         = PausabilityCheckBox.IsChecked.Value;
@@ -530,13 +530,13 @@ namespace ArtOfHassan
 
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
-                            IsHeadhunt            = false;
-                            IsStar                = PrevStar;
+                            IsHeadhuntMode        = false;
+                            IsStarRated           = PrevStarRated;
                             GoldButtonBackgroundY = PrevGoldButtonBackgroundY;
 
                             StageRadioButton.IsChecked    = true;
                             HeadhuntRadioButton.IsChecked = false;
-                            StarCheckBox.IsChecked        = IsStar;
+                            StarCheckBox.IsChecked        = IsStarRated;
                             AdsWatchCheckBox.IsChecked    = PrevAdsWatch;
                         }));
 
@@ -764,6 +764,7 @@ namespace ArtOfHassan
                                 }
                                 PixelCustomizeButton.IsEnabled      = true;
                                 MonitoringIntervalTextBox.IsEnabled = true;
+                                ModeGrid.IsEnabled                  = true;
 
                                 ArtOfWarMonitoringTimer.Enabled = false;
                                 ProblemMonitoringTimer.Enabled  = false;
@@ -781,7 +782,7 @@ namespace ArtOfHassan
                         if (IsWatchAds && !IsNoGoldStatus && 
                             MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundColor.Split(';')[0])) // Green
                         {
-                            if (!IsStar ||
+                            if (!IsStarRated ||
                                 MousePointColorCheck(GoldButtonImageX, GoldButtonImageY, GoldButtonImageColor)) // Yellow
                             {
                                 if (X3GoldButtonClickDelay < MonitoringInterval)
@@ -819,7 +820,7 @@ namespace ArtOfHassan
                                 return;
                             }
 
-                            if (IsStar || IsHeadhunt)
+                            if (IsStarRated || IsHeadhuntMode)
                             {
                                 MousePointClick(NextButtonX, GoldButtonBackgroundY);
                             }
@@ -1091,72 +1092,118 @@ namespace ArtOfHassan
             NoxMonitoringTimer.Enabled      = false;
         }
 
-        bool IsStar = true;
+        bool IsStarRated = true;
+
+        bool PrevStarRated;
+        bool PrevAdsWatch;
+        int  PrevGoldButtonBackgroundY;
 
         private void StarCheckBox_Click(object sender, RoutedEventArgs e)
         {
+            // 신버전
+            GoldChestBoxX = 150;
+            GoldChestBoxY = 410;
+            OldVersionCheckBox.IsChecked = false;
+
             if (StarCheckBox.IsChecked.Value)
             {
+                // 3별 시스템: 스테이지
                 MonitoringLog("Working for star system");
-                IsStar = true;
-                GoldChestBoxX = 150;
-                GoldChestBoxY = 410;
+                IsStarRated = true;
                 GoldButtonBackgroundY = 780;
             }
             else
             {
+                // 비 3별 시스템: 현상금
                 MonitoringLog("Working for nonstar system");
-                IsStar = false;
+                IsStarRated = false;
+                GoldButtonBackgroundY = 685;
+            }
+        }
+
+        private void OldVersionCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if (OldVersionCheckBox.IsChecked.Value)
+            {
+                MonitoringLog("Working for old version");
+
+                PrevStarRated             = IsStarRated;
+                PrevGoldButtonBackgroundY = GoldButtonBackgroundY;
+
+                IsStarRated            = false;
+                StarCheckBox.IsChecked = false;
+
+                // 구버전
                 GoldChestBoxX = 165;
                 GoldChestBoxY = 420;
                 GoldButtonBackgroundY = 710;
             }
+            else
+            {
+                MonitoringLog("Working for new version");
+
+                IsStarRated            = PrevStarRated;
+                StarCheckBox.IsChecked = IsStarRated;
+
+                // 신버전
+                GoldChestBoxX = 150;
+                GoldChestBoxY = 410;
+                GoldButtonBackgroundY = PrevGoldButtonBackgroundY;
+            }
         }
+
+        bool IsStageMode    = true;
+        bool IsHeadhuntMode = false;
+        bool IsHonorMode    = false;
+        bool IsTroopMode    = false;
 
         private void StageRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Stage Mode");
-            IsStar     = true;
-            IsHeadhunt = false;
+            // 신버전 3별 시스템이 기준
+            IsStarRated    = true;
+            IsHeadhuntMode = false;
             StarCheckBox.IsChecked     = true;
             AdsWatchCheckBox.IsChecked = true;
             GoldButtonBackgroundY = 780;
-            //GoldButtonImageY = 755;
-            //GoldButtonImageColor = "#ffea90".ToUpper();
         }
-
-        bool IsHeadhunt;
-        bool PrevStar;
-        bool PrevAdsWatch;
-        int  PrevGoldButtonBackgroundY;
 
         private void HeadhuntRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Headhunt Mode");
 
-            PrevStar                  = IsStar;
+            PrevStarRated             = IsStarRated;
             PrevAdsWatch              = AdsWatchCheckBox.IsChecked.Value;
             PrevGoldButtonBackgroundY = GoldButtonBackgroundY;
 
-            IsStar     = false;
-            IsHeadhunt = true;
+            // 현상금은 비 3별 시스템
+            IsStarRated    = false;
+            IsHeadhuntMode = true;
             StarCheckBox.IsChecked     = false;
             AdsWatchCheckBox.IsChecked = false;
-            GoldButtonBackgroundY = 685;
-            //GoldButtonImageY = 661;
-            //GoldButtonImageColor = "#ffe58b".ToUpper();
+
+            if (OldVersionCheckBox.IsChecked.Value)
+            {
+                // 구버전
+                GoldButtonBackgroundY = 710;
+            }
+            else
+            {
+                // 신버전
+                GoldButtonBackgroundY = 685;
+            }
         }
 
         private void HonorRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Honor Hunting Mode");
-            IsHeadhunt = false;
+            IsHeadhuntMode = false;
         }
 
         private void TroopRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Troop Mode");
-            IsHeadhunt = false;
+            IsHeadhuntMode = false;
         }
 
         private void AdsCloseClickPatternButton_Click(object sender, RoutedEventArgs e)
@@ -1172,7 +1219,7 @@ namespace ArtOfHassan
             if ((StartButton.Content.ToString() == "Start") ||
                 (StartButton.Content.ToString() == "시작"))
             {
-                if (KoreanRadioButton.IsChecked.Value)
+                if (KoreanCheckBox.IsChecked.Value)
                 {
                     StartButton.Content = "중지";
                 }
@@ -1183,6 +1230,7 @@ namespace ArtOfHassan
 
                 PixelCustomizeButton.IsEnabled      = false;
                 MonitoringIntervalTextBox.IsEnabled = false;
+                ModeGrid.IsEnabled                  = false;
 
                 GoldChestBoxStopwatch.Restart();
 
@@ -1198,7 +1246,7 @@ namespace ArtOfHassan
             }
             else
             {
-                if (KoreanRadioButton.IsChecked.Value)
+                if (KoreanCheckBox.IsChecked.Value)
                 {
                     StartButton.Content = "시작";
                 }
@@ -1208,6 +1256,7 @@ namespace ArtOfHassan
                 }
                 PixelCustomizeButton.IsEnabled      = true;
                 MonitoringIntervalTextBox.IsEnabled = true;
+                ModeGrid.IsEnabled                  = true;
 
                 GoldChestBoxStopwatch.Reset();
                 GoldChestBoxStopwatch.Stop();
@@ -1221,7 +1270,7 @@ namespace ArtOfHassan
         {
             if (string.IsNullOrWhiteSpace(EmailAddressTextBox.Text))
             {
-                if (KoreanRadioButton.IsChecked.Value)
+                if (KoreanCheckBox.IsChecked.Value)
                 {
                     MessageBox.Show("이메일을 입력해주세요.");
                 }
@@ -1263,7 +1312,7 @@ namespace ArtOfHassan
                 }
                 catch (Exception ex)
                 {
-                    if (KoreanRadioButton.IsChecked.Value)
+                    if (KoreanCheckBox.IsChecked.Value)
                     {
                         MessageBox.Show("이메일 송신 실패.");
                     }
@@ -1284,7 +1333,7 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("ScreenComparisonInterval," + ScreenComparisonIntervalTextBox.Text);
                 streamWriter.WriteLine("X3GoldButtonDelay," + X3GoldButtonClickDelayTextBox.Text);
                 streamWriter.WriteLine("PixelDifference," + PixelDifferenceTextBox.Text);
-                streamWriter.WriteLine("Korean," + KoreanRadioButton.IsChecked.Value);
+                streamWriter.WriteLine("Korean," + KoreanCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("AdsCloseClickPattern," + GoogleAdCloseClickPattern);
                 streamWriter.WriteLine("GoldChestCheck," + GoldChestCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("Pausability," + PausabilityCheckBox.IsChecked.Value);
@@ -1296,9 +1345,9 @@ namespace ArtOfHassan
             }
         }
 
-        private void LanguageRadioButton_Click(object sender, RoutedEventArgs e)
+        private void KoreanCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            if (KoreanRadioButton.IsChecked.Value)
+            if (KoreanCheckBox.IsChecked.Value)
             {
                 this.Title = $"아트 오브 핫산 {Version}";
                 WindowTitleTextBlock.Text = "앱플레이어\n    이름";
@@ -1308,16 +1357,15 @@ namespace ArtOfHassan
                 PixelDifferenceTextBlock.Text = "픽셀 차이";
                 VictoryRewardTextBlock.Text = "승리 보상";
                 StarCheckBox.Content = "별 등급";
-                LanguageTextBlock.Text = "표시 언어";
                 AdsTextBlock.Text = "광고";
                 AdsWatchCheckBox.Content = "광고 보기";
                 AdsCloseColorCheckBox.Content = "색상 확인";
                 AdsCloseClickPatternButton.Content = "광고 닫기\n클릭 패턴";
                 ModeTextBlock.Text = "모드";
                 StageRadioButton.Content = "스테이지";
-                ModeStage.Width = new GridLength(1.4, GridUnitType.Star);
+                StageColumn.Width = new GridLength(1.4, GridUnitType.Star);
                 HeadhuntRadioButton.Content = "현상금";
-                ModeHeadhunt.Width = new GridLength(1.25, GridUnitType.Star);
+                HeadhuntColumn.Width = new GridLength(1.25, GridUnitType.Star);
                 HonorRadioButton.Content = "영광";
                 TroopRadioButton.Content = "용병";
                 OptionTextBlock.Text = "옵션";
@@ -1346,16 +1394,15 @@ namespace ArtOfHassan
                 PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
                 VictoryRewardTextBlock.Text = "Victory\nReward";
                 StarCheckBox.Content = "Star-rated";
-                LanguageTextBlock.Text = "UI Language";
                 AdsTextBlock.Text = "Ads";
                 AdsWatchCheckBox.Content = "Watch Ads";
                 AdsCloseColorCheckBox.Content = "Check Color";
                 AdsCloseClickPatternButton.Content = "  Ads Close\nClick Pattern";
                 ModeTextBlock.Text = "Mode";
                 StageRadioButton.Content = "Stage";
-                ModeStage.Width = new GridLength(1, GridUnitType.Star);
+                StageColumn.Width = new GridLength(1, GridUnitType.Star);
                 HeadhuntRadioButton.Content = "Headhunt";
-                ModeHeadhunt.Width = new GridLength(1.35, GridUnitType.Star);
+                HeadhuntColumn.Width = new GridLength(1.35, GridUnitType.Star);
                 HonorRadioButton.Content = "Honor";
                 TroopRadioButton.Content = "Troop";
                 OptionTextBlock.Text = "Option";
@@ -1617,8 +1664,7 @@ namespace ArtOfHassan
                             PixelDifferenceTextBox.Text = listitem[1];
                             break;
                         case ("korean"):
-                            EnglighRadioButton.IsChecked = !bool.Parse(listitem[1]);
-                            KoreanRadioButton.IsChecked  =  bool.Parse(listitem[1]);
+                            KoreanCheckBox.IsChecked  =  bool.Parse(listitem[1]);
                             break;
                         case ("adscloseclickpattern"):
                             GoogleAdCloseClickPattern = listitem[1];

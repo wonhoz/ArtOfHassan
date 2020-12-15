@@ -85,8 +85,9 @@
 
         <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.1*"/>
                 <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="0.1*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
@@ -94,34 +95,26 @@
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <TextBlock Grid.Column="1" Name="LanguageTextBlock" Text="UI Language"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <CheckBox Grid.Column="1" Name="OldVersionCheckBox" Content="&lt; 3.3.6" Click="OldVersionCheckBox_Click"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+            <TextBlock Grid.Column="2" Text="|" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,-4,0,0"/>
 
-                <RadioButton Name="EnglighRadioButton" Content="English" IsChecked="True" Click="LanguageRadioButton_Click"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"
-                         HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-
-                <RadioButton Grid.Row="1" Name="KoreanRadioButton" Content="한국어" Click="LanguageRadioButton_Click"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"
-                         HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-            </Grid>
+            <CheckBox Grid.Column="3" Name="KoreanCheckBox" Content="한국어" Click="KoreanCheckBox_Click"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
         </Grid>
 
         <TextBlock Grid.Row="4" Name="ModeTextBlock" Text="Mode"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-        <Grid Grid.Row="4" Grid.Column="1" Margin="0,0,5,0">
+        <Grid Grid.Row="4" Grid.Column="1" Name="ModeGrid" Margin="0,0,5,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Name="ModeStage"/>
-                <ColumnDefinition Name="ModeHeadhunt" Width="1.35*"/>
-                <ColumnDefinition Name="ModeHonor"/>
-                <ColumnDefinition Name="ModeTroop"/>
+                <ColumnDefinition Name="StageColumn"/>
+                <ColumnDefinition Name="HeadhuntColumn" Width="1.35*"/>
+                <ColumnDefinition Name="HonorColumn"/>
+                <ColumnDefinition Name="TroopColumn"/>
             </Grid.ColumnDefinitions>
 
             <RadioButton Name="StageRadioButton" Content="Stage" IsChecked="True" Click="StageRadioButton_Click"
