@@ -487,6 +487,34 @@ namespace ArtOfHassan
                     //bitmap.Save(imageName + ".png", System.Drawing.Imaging.ImageFormat.Png);
 
 
+                    // Honor Mode
+                    if (IsHonorMode)
+                    {
+
+
+                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                        {
+                            if (IsKorean)
+                            {
+                                StartButton.Content = "시작";
+                            }
+                            else
+                            {
+                                StartButton.Content = "Start";
+                            }
+                            PixelCustomizeButton.IsEnabled      = true;
+                            MonitoringIntervalTextBox.IsEnabled = true;
+                            ModeGrid.IsEnabled                  = true;
+
+                            ArtOfWarMonitoringTimer.Enabled = false;
+                            ProblemMonitoringTimer.Enabled  = false;
+                            NoxMonitoringTimer.Enabled      = false;
+                        }));
+
+                        return;
+                    }
+
+
                     // Troop Mode
                     if (IsTroopMode)
                     {
@@ -837,6 +865,8 @@ namespace ArtOfHassan
                             }));
 
                             System.Diagnostics.Process.Start("shutdown.exe", "-s -f -t 0");
+
+                            return;
                         }
                     }
 
@@ -1227,7 +1257,7 @@ namespace ArtOfHassan
         {
             MonitoringLog("Stage Mode");
 
-            if (IsTroopMode)
+            if (IsHonorMode || IsTroopMode)
             {
                 MonitoringIntervalTextBox.Text = PrevMonitoringInterval;
             }
@@ -1235,6 +1265,7 @@ namespace ArtOfHassan
             // 신버전 3별 시스템이 기준
             IsStarRated    = true;
             IsHeadhuntMode = false;
+            IsHonorMode    = false;
             IsTroopMode    = false;
             StarCheckBox.IsChecked     = true;
             AdsWatchCheckBox.IsChecked = true;
@@ -1249,7 +1280,7 @@ namespace ArtOfHassan
             PrevAdsWatch              = AdsWatchCheckBox.IsChecked.Value;
             PrevGoldButtonBackgroundY = GoldButtonBackgroundY;
 
-            if (IsTroopMode)
+            if (IsHonorMode || IsTroopMode)
             {
                 MonitoringIntervalTextBox.Text = PrevMonitoringInterval;
             }
@@ -1257,6 +1288,7 @@ namespace ArtOfHassan
             // 현상금은 비 3별 시스템
             IsStarRated    = false;
             IsHeadhuntMode = true;
+            IsHonorMode    = false;
             IsTroopMode    = false;
             StarCheckBox.IsChecked     = false;
             AdsWatchCheckBox.IsChecked = false;
@@ -1277,22 +1309,29 @@ namespace ArtOfHassan
         {
             MonitoringLog("Honor Hunting Mode");
 
-            if (IsTroopMode)
+            if (!IsTroopMode)
             {
-                MonitoringIntervalTextBox.Text = PrevMonitoringInterval;
+                PrevMonitoringInterval = MonitoringIntervalTextBox.Text;
             }
 
             IsHeadhuntMode = false;
+            IsHonorMode    = true;
             IsTroopMode    = false;
+
+            MonitoringIntervalTextBox.Text = "100";
         }
 
         private void TroopRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Troop Mode");
 
-            PrevMonitoringInterval = MonitoringIntervalTextBox.Text;
+            if (!IsHonorMode)
+            {
+                PrevMonitoringInterval = MonitoringIntervalTextBox.Text;
+            }
 
             IsHeadhuntMode = false;
+            IsHonorMode    = false;
             IsTroopMode    = true;
 
             MonitoringIntervalTextBox.Text = "333";
