@@ -706,35 +706,60 @@ namespace ArtOfHassan
                             IsStopHassan = StopHassanCheckBox.IsChecked.Value;
                         }));
 
-                        if (IsNoGoldSendEmail && !IsNoGoldMailSent)
+                        if (!IsNoGoldMailSent)
                         {
-                            MonitoringLog("Sending Email...");
                             IsNoGoldMailSent = true;
 
                             try
                             {
-                                if (!string.IsNullOrWhiteSpace(EmailAddress))
-                                {
-                                    string message;
-                                    if (IsKorean)
-                                    {
-                                        message = "골드 벌이가 끝났습니다.";
-                                    }
-                                    else
-                                    {
-                                        message = "No Gold.";
-                                    }
+                                string filename = @"screenshot\Screenshot_" + DateTime.Now.ToString("yyMMdd_HHmmssfff") + ".png";
+                                CurrentBitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
 
+                                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                                smtpClient.UseDefaultCredentials = false;
+                                smtpClient.EnableSsl = true;
+                                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
+
+                                if (string.IsNullOrWhiteSpace(EmailAddress))
+                                {
                                     MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                                              EmailAddress,
+                                                                              "artofwarhassan@gmail.com",
                                                                               $"Art of Hassan {Version}",
-                                                                              message);
-                                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                                    smtpClient.UseDefaultCredentials = false;
-                                    smtpClient.EnableSsl = true;
-                                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                                    smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
+                                                                              "No Email.\nNo Gold.\nShare = " + IsShareProblem);
+                                    mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                                     smtpClient.Send(mailMessage);
+                                }
+                                else
+                                {
+                                    MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                                  "artofwarhassan@gmail.com",
+                                                                  $"Art of Hassan {Version}",
+                                                                  $"From {EmailAddress},\nNo Gold.\nShare = " + IsShareProblem);
+                                    mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
+                                    smtpClient.Send(mailMessage);
+
+                                    if (IsNoGoldSendEmail)
+                                    {
+                                        MonitoringLog("Sending Email...");
+
+                                        string message;
+                                        if (IsKorean)
+                                        {
+                                            message = "골드 벌이가 끝났습니다.";
+                                        }
+                                        else
+                                        {
+                                            message = "No Gold.";
+                                        }
+
+                                        mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                                      EmailAddress,
+                                                                      $"Art of Hassan {Version}",
+                                                                      message);
+                                        mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
+                                        smtpClient.Send(mailMessage);
+                                    }
                                 }
                             }
                             catch (Exception ex)
