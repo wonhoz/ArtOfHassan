@@ -160,6 +160,18 @@ namespace ArtOfHassan
         public int HeadHuntButtonY = 380;
         public string HeadHuntButtonColor = "#fdbb00;#572f17".ToUpper();
 
+        public int TroopButtonX = 470;
+        public int TroopButtonY = 860;
+        public string TroopButtonColor = "#fac91c".ToUpper();
+
+        public int TroopOpenButtonX = 330;
+        public int TroopOpenButtonY = 886;
+        public string TroopOpenButtonColor = "#fdbb00".ToUpper();
+
+        public int TroopCloseButtonX = 239;
+        public int TroopCloseButtonY = 868;
+        public string TroopCloseButtonColor = "#ffffff".ToUpper();
+
         #endregion
 
         #region Variable
@@ -548,10 +560,40 @@ namespace ArtOfHassan
                     }
 
 
+                    // TroopButton
+                    if (IsTroopMode &&
+                        MousePointColorCheck(TroopButtonX, TroopButtonY, TroopButtonColor))
+                    {
+                        MonitoringLog("TroopButton");
+                        MousePointClick(TroopButtonX, TroopButtonY);
+                        return;
+                    }
+
+
+                    // TroopOpenButton
+                    if (IsTroopMode &&
+                        MousePointColorCheck(TroopOpenButtonX, TroopOpenButtonY, TroopOpenButtonColor))
+                    {
+                        MonitoringLog("TroopOpenButton");
+                        MousePointClick(TroopOpenButtonX, TroopOpenButtonY);
+                        return;
+                    }
+
+
+                    // TroopCloseButton
+                    if (IsTroopMode &&
+                        MousePointColorCheck(TroopCloseButtonX, TroopCloseButtonY, TroopCloseButtonColor))
+                    {
+                        MonitoringLog("TroopCloseButton");
+                        MousePointClick(TroopCloseButtonX, TroopCloseButtonY);
+                        return;
+                    }
+
+
                     // BattleLevelButton
-                    if ((!IsStopHassan &&
-                         MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonColor.Split(';')[0])) ||
-                         MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonColor.Split(';')[1]))
+                    if (!IsTroopMode && ((!IsStopHassan &&
+                        MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonColor.Split(';')[0])) ||
+                        MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonColor.Split(';')[1])))
                     {
                         MonitoringLog("BattleLevelButton");
                         AdsCloseStopwatch.Reset();
