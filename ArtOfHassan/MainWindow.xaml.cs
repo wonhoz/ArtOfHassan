@@ -487,6 +487,34 @@ namespace ArtOfHassan
                     //bitmap.Save(imageName + ".png", System.Drawing.Imaging.ImageFormat.Png);
 
 
+                    // Troop Mode
+                    if (IsTroopMode)
+                    {
+                        // TroopButton
+                        if (MousePointColorCheck(TroopButtonX, TroopButtonY, TroopButtonColor))
+                        {
+                            MonitoringLog("TroopButton");
+                            MousePointClick(TroopButtonX, TroopButtonY);
+                        }
+
+                        // TroopOpenButton
+                        if (MousePointColorCheck(TroopOpenButtonX, TroopOpenButtonY, TroopOpenButtonColor))
+                        {
+                            MonitoringLog("TroopOpenButton");
+                            MousePointClick(TroopOpenButtonX, TroopOpenButtonY);
+                        }
+
+                        // TroopCloseButton
+                        if (MousePointColorCheck(TroopCloseButtonX, TroopCloseButtonY, TroopCloseButtonColor))
+                        {
+                            MonitoringLog("TroopCloseButton");
+                            MousePointClick(TroopCloseButtonX, TroopCloseButtonY);
+                        }
+
+                        return;
+                    }
+
+
                     // AppLocation
                     if (MousePointColorCheck(AppLocationX, AppLocationY, AppLocationColor.Split(';')[0]) ||
                         MousePointColorCheck(AppLocationX, AppLocationY, AppLocationColor.Split(';')[1]))
@@ -557,36 +585,6 @@ namespace ArtOfHassan
                         System.Threading.Thread.Sleep((int)(MonitoringInterval * 4 / 5));
 
                         MousePointClick(HomeButtonX, ShopButtonY);
-                    }
-
-
-                    // TroopButton
-                    if (IsTroopMode &&
-                        MousePointColorCheck(TroopButtonX, TroopButtonY, TroopButtonColor))
-                    {
-                        MonitoringLog("TroopButton");
-                        MousePointClick(TroopButtonX, TroopButtonY);
-                        return;
-                    }
-
-
-                    // TroopOpenButton
-                    if (IsTroopMode &&
-                        MousePointColorCheck(TroopOpenButtonX, TroopOpenButtonY, TroopOpenButtonColor))
-                    {
-                        MonitoringLog("TroopOpenButton");
-                        MousePointClick(TroopOpenButtonX, TroopOpenButtonY);
-                        return;
-                    }
-
-
-                    // TroopCloseButton
-                    if (IsTroopMode &&
-                        MousePointColorCheck(TroopCloseButtonX, TroopCloseButtonY, TroopCloseButtonColor))
-                    {
-                        MonitoringLog("TroopCloseButton");
-                        MousePointClick(TroopCloseButtonX, TroopCloseButtonY);
-                        return;
                     }
 
 
@@ -1219,7 +1217,6 @@ namespace ArtOfHassan
             }
         }
 
-        bool IsStageMode    = true;
         bool IsHeadhuntMode = false;
         bool IsHonorMode    = false;
         bool IsTroopMode    = false;
@@ -1230,6 +1227,7 @@ namespace ArtOfHassan
             // 신버전 3별 시스템이 기준
             IsStarRated    = true;
             IsHeadhuntMode = false;
+            IsTroopMode    = false;
             StarCheckBox.IsChecked     = true;
             AdsWatchCheckBox.IsChecked = true;
             GoldButtonBackgroundY = 780;
@@ -1246,6 +1244,7 @@ namespace ArtOfHassan
             // 현상금은 비 3별 시스템
             IsStarRated    = false;
             IsHeadhuntMode = true;
+            IsTroopMode    = false;
             StarCheckBox.IsChecked     = false;
             AdsWatchCheckBox.IsChecked = false;
 
@@ -1265,12 +1264,14 @@ namespace ArtOfHassan
         {
             MonitoringLog("Honor Hunting Mode");
             IsHeadhuntMode = false;
+            IsTroopMode    = true;
         }
 
         private void TroopRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Troop Mode");
             IsHeadhuntMode = false;
+            IsTroopMode    = false;
         }
 
         private void AdsCloseClickPatternButton_Click(object sender, RoutedEventArgs e)
