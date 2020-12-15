@@ -1161,7 +1161,9 @@ namespace ArtOfHassan
 
         bool PrevStarRated;
         bool PrevAdsWatch;
-        int  PrevGoldButtonBackgroundY;
+
+        int PrevGoldButtonBackgroundY;
+        string PrevMonitoringInterval;
 
         private void StarCheckBox_Click(object sender, RoutedEventArgs e)
         {
@@ -1224,6 +1226,12 @@ namespace ArtOfHassan
         private void StageRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Stage Mode");
+
+            if (IsTroopMode)
+            {
+                MonitoringIntervalTextBox.Text = PrevMonitoringInterval;
+            }
+
             // 신버전 3별 시스템이 기준
             IsStarRated    = true;
             IsHeadhuntMode = false;
@@ -1240,6 +1248,11 @@ namespace ArtOfHassan
             PrevStarRated             = IsStarRated;
             PrevAdsWatch              = AdsWatchCheckBox.IsChecked.Value;
             PrevGoldButtonBackgroundY = GoldButtonBackgroundY;
+
+            if (IsTroopMode)
+            {
+                MonitoringIntervalTextBox.Text = PrevMonitoringInterval;
+            }
 
             // 현상금은 비 3별 시스템
             IsStarRated    = false;
@@ -1263,6 +1276,12 @@ namespace ArtOfHassan
         private void HonorRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Honor Hunting Mode");
+
+            if (IsTroopMode)
+            {
+                MonitoringIntervalTextBox.Text = PrevMonitoringInterval;
+            }
+
             IsHeadhuntMode = false;
             IsTroopMode    = true;
         }
@@ -1270,8 +1289,13 @@ namespace ArtOfHassan
         private void TroopRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Troop Mode");
+
+            PrevMonitoringInterval = MonitoringIntervalTextBox.Text;
+
             IsHeadhuntMode = false;
             IsTroopMode    = false;
+
+            MonitoringIntervalTextBox.Text = "333";
         }
 
         private void AdsCloseClickPatternButton_Click(object sender, RoutedEventArgs e)
