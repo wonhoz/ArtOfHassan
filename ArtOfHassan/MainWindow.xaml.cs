@@ -363,7 +363,7 @@ namespace ArtOfHassan
                     smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
 
-                    if ((ProblemMailSent > 2) && (ProblemMailSent < 5))
+                    if (ProblemMailSent == 1)
                     {
                         if (string.IsNullOrWhiteSpace(EmailAddress))
                         {
