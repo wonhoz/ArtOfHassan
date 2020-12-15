@@ -172,6 +172,39 @@ namespace ArtOfHassan
         public int TroopCloseButtonY = 868;
         public string TroopCloseButtonColor = "#ffffff".ToUpper();
 
+        public int HonorChallengeButtonX = 460;
+        public int HonorChallengeButtonY = 890;
+        public string HonorChallengeButtonColor = "#fdbb00".ToUpper();
+
+        public int HonorFightButtonX = 175;
+        public int HonorFightButtonY = 820;
+        public string HonorFightButtonColor = "#fdcc00".ToUpper();
+
+        public int HonorSkillButtonX = 42;
+        public int HonorSkillButtonY = 874;
+        public string HonorSkillButtonColor;
+
+        public int HonorHeroPositionX = 490;
+        public int HonorHeroPositionY = 600;
+
+        public int HonorReplaceButtonX = 477;
+        public int HonorReplaceButtonY = 477;
+        public string HonorReplaceButtonColor = "#1ca813".ToUpper();
+
+        public int HonorHeroWindowX = 390;
+        public int HonorHeroWindowY = 295;
+        public string HonorHeroWindowColor = "#215b84".ToUpper();
+
+        public int HonorHeroScrollX = 280;
+        public int HonorHeroScrollY1 = 415;
+        public int HonorHeroScrollY2 = 665;
+
+        public int HonorHeroSelectX = 235;
+        public int HonorHeroSelectY = 665;
+
+        public int HonorHeroWindowCloseButtonX = 466;
+        public int HonorHeroWindowCloseButtonY = 293;
+
         #endregion
 
         #region Variable
