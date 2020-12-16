@@ -266,6 +266,7 @@ namespace ArtOfHassan
         int MonitoringInterval       = 1000;
         int ScreenComparisonInterval = 3;
         int PixelDifference          = 1;
+        int HonorHeroChangeTime      = 2000;
 
         bool IsKorean = false;
 
@@ -281,6 +282,8 @@ namespace ArtOfHassan
 
         bool IsNoGoldSendEmail  = false;
         bool IsNoGoldShutdownPC = false;
+
+        bool IsOpenHonorHeroWindow = true;
 
         bool IsShareProblem = true; // 무늬만 사용
 
@@ -346,6 +349,11 @@ namespace ArtOfHassan
                     PixelDifference = 0;
                 }
 
+                if (!int.TryParse(HonorHeroChangeTimeTextBox.Text, out HonorHeroChangeTime))
+                {
+                    HonorHeroChangeTime = 2000;
+                }
+
                 IsKorean           = KoreanCheckBox.IsChecked.Value;
                 IsWatchAds         = AdsWatchCheckBox.IsChecked.Value;
                 IsOpenGoldChestBox = GoldChestCheckBox.IsChecked.Value;
@@ -360,6 +368,8 @@ namespace ArtOfHassan
                 GoogleAdCloseClickPatterns      = GoogleAdCloseClickPattern.Split(';');
                 GoogleAdCloseClickInterval      = (int)(MonitoringInterval / (GoogleAdCloseClickPatterns.Length - 0.5));
                 IsGoogleAdCloseButtonColorCheck = AdsCloseColorCheckBox.IsChecked.Value;
+
+                IsOpenHonorHeroWindow = HonorHeroChangeCheckBox.IsChecked.Value;
 
 
                 if ((size.Width == 0) || (size.Height == 0))
@@ -604,48 +614,51 @@ namespace ArtOfHassan
                             MousePointClick(HonorQuitButtonX, HonorQuitButtonY);
                         }
 
-                        // HonorHeroPosition
-                        if (IsHonorPauseButtonClicked && (HonorHeroWindowCount < 20) &&
-                            MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
-                            !MousePointColorCheck(HonorReplaceButtonX, HonorReplaceButtonY, HonorReplaceButtonColor))
+                        if (IsOpenHonorHeroWindow)
                         {
-                            MonitoringLog("HonorHeroPosition");
-                            MousePointClick(HonorHeroPositionX, HonorHeroPositionY);
+                            // HonorHeroPosition
+                            if (IsHonorPauseButtonClicked && (HonorHeroWindowCount < (HonorHeroChangeTime / MonitoringInterval)) &&
+                                MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
+                                !MousePointColorCheck(HonorReplaceButtonX, HonorReplaceButtonY, HonorReplaceButtonColor))
+                            {
+                                MonitoringLog("HonorHeroPosition");
+                                MousePointClick(HonorHeroPositionX, HonorHeroPositionY);
 
-                            System.Threading.Thread.Sleep((int)(MonitoringInterval * 3 / 4));
-                            return;
-                        }
+                                System.Threading.Thread.Sleep((int)(MonitoringInterval * 3 / 4));
+                                return;
+                            }
 
-                        // HonorReplaceButton
-                        if (IsHonorPauseButtonClicked &&
-                            MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
-                            MousePointColorCheck(HonorReplaceButtonX, HonorReplaceButtonY, HonorReplaceButtonColor))
-                        {
-                            MonitoringLog("HonorReplaceButton");
-                            MousePointClick(HonorReplaceButtonX, HonorReplaceButtonY);
+                            // HonorReplaceButton
+                            if (IsHonorPauseButtonClicked &&
+                                MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
+                                MousePointColorCheck(HonorReplaceButtonX, HonorReplaceButtonY, HonorReplaceButtonColor))
+                            {
+                                MonitoringLog("HonorReplaceButton");
+                                MousePointClick(HonorReplaceButtonX, HonorReplaceButtonY);
 
-                            System.Threading.Thread.Sleep((int)(MonitoringInterval * 3 / 4));
-                            return;
-                        }
+                                System.Threading.Thread.Sleep((int)(MonitoringInterval * 3 / 4));
+                                return;
+                            }
 
-                        // HonorHeroWindow
-                        if (MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
-                        {
-                            MonitoringLog("HonorHeroWindow");
-                            HonorHeroWindowCount++;
-                        }
+                            // HonorHeroWindow
+                            if (MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
+                            {
+                                MonitoringLog("HonorHeroWindow");
+                                HonorHeroWindowCount++;
+                            }
 
-                        // HonorHeroWindow Close
-                        if ((HonorHeroWindowCount == 20) &&
-                            MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
-                        {
-                            MonitoringLog("HonorHeroWindowCloseButton");
-                            MousePointClick(HonorHeroWindowCloseButtonX, HonorHeroWindowCloseButtonY);
+                            // HonorHeroWindow Close
+                            if ((HonorHeroWindowCount == (HonorHeroChangeTime / MonitoringInterval)) &&
+                                MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
+                            {
+                                MonitoringLog("HonorHeroWindowCloseButton");
+                                MousePointClick(HonorHeroWindowCloseButtonX, HonorHeroWindowCloseButtonY);
 
-                            System.Threading.Thread.Sleep((int)(MonitoringInterval * 3 / 4));
+                                System.Threading.Thread.Sleep((int)(MonitoringInterval * 3 / 4));
 
-                            IsHonorFightButtonClicked = false;
-                            return;
+                                IsHonorFightButtonClicked = false;
+                                return;
+                            }
                         }
 
                         // Honor Mode Finish
@@ -1655,9 +1668,11 @@ namespace ArtOfHassan
                 MonitoringIntervalTextBlock.Text = "모니터링\n주기 (ms)";
                 ScreenComparisonIntervalTextBlock.Text = " 화면 비교\n주기 (횟수)";
                 X3GoldButtonClickDelayTextBlock.Text = " 골드 광고\n딜레이 (ms)";
+                HonorHeroChangeTimeTextBlock.Text = "영웅 선택\n시간 (ms)";
                 PixelDifferenceTextBlock.Text = "픽셀 차이";
                 VictoryRewardTextBlock.Text = "승리 보상";
                 StarCheckBox.Content = "별 등급";
+                HonorHeroChangeCheckBox.Content = "영웅 선택창 열기";
                 AdsTextBlock.Text = "광고";
                 AdsWatchCheckBox.Content = "광고 보기";
                 AdsCloseColorCheckBox.Content = "색상 확인";
@@ -1692,9 +1707,11 @@ namespace ArtOfHassan
                 MonitoringIntervalTextBlock.Text = "Monitoring\nInterval (ms)";
                 ScreenComparisonIntervalTextBlock.Text = "   Screen\nComparison\n Interval (#)";
                 X3GoldButtonClickDelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
+                HonorHeroChangeTimeTextBlock.Text = "   Hero\n Change\nTime (ms)";
                 PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
                 VictoryRewardTextBlock.Text = "Victory\nReward";
                 StarCheckBox.Content = "Star-rated";
+                HonorHeroChangeCheckBox.Content = "Open Heros Window";
                 AdsTextBlock.Text = "Ads";
                 AdsWatchCheckBox.Content = "Watch Ads ";
                 AdsCloseColorCheckBox.Content = "Check Color";
