@@ -339,7 +339,7 @@ namespace ArtOfHassan
         private void ProblemMonitoringTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
             // 전투 횟수가 올라가지 않거나 핫산 중지 상태가 아닐 때만 체크
-            if (((NumOfVictory + NumOfDefeat) == NumOfWar) && !IsStopHassan)
+            if (((NumOfVictory + NumOfDefeat) == NumOfWar) && !IsStopHassan && !IsTroopMode)
             {
                 MonitoringLog("Problem Occured...");
 
