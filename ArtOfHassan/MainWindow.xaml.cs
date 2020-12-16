@@ -45,6 +45,9 @@ namespace ArtOfHassan
         [DllImport("user32.dll")]
         static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
 
+        [DllImport("user32.dll")] // 커서 위치 제어
+        static extern int SetCursorPos(int x, int y);
+
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern IntPtr FindWindow(string strClassName, string strWindowName);
 
@@ -55,15 +58,15 @@ namespace ArtOfHassan
 
         #region Private Variable
 
-        private const uint MOUSEMOVE    = 0x0001;  // 마우스 이동
-        private const uint ABSOLUTEMOVE = 0x8000;  // 전역 위치
-        private const uint LBUTTONDOWN  = 0x0002;  // 왼쪽 마우스 버튼 눌림
-        private const uint LBUTTONUP    = 0x0004;  // 왼쪽 마우스 버튼 떼어짐
-        private const uint RBUTTONDOWN  = 0x0008;  // 오른쪽 마우스 버튼 눌림
-        private const uint RBUTTONUP    = 0x00010; // 오른쪽 마우스 버튼 떼어짐
-        private const uint WBUTTONDOWN  = 0x00020; // 오른쪽 마우스 버튼 떼어짐
-        private const uint WBUTTONUP    = 0x000040; // 오른쪽 마우스 버튼 떼어짐
-        private const uint WBUTTONWHEEL = 0x00800; // 오른쪽 마우스 버튼 떼어짐
+        private const uint MOUSEMOVE    = 0x0001;   // 마우스 이동
+        private const uint ABSOLUTEMOVE = 0x8000;   // 전역 위치
+        private const uint LBUTTONDOWN  = 0x0002;   // 왼쪽 마우스 버튼 눌림
+        private const uint LBUTTONUP    = 0x0004;   // 왼쪽 마우스 버튼 떼어짐
+        private const uint RBUTTONDOWN  = 0x0008;   // 오른쪽 마우스 버튼 눌림
+        private const uint RBUTTONUP    = 0x00010;  // 오른쪽 마우스 버튼 떼어짐
+        private const uint WBUTTONDOWN  = 0x00020;  // 휠 버튼 눌림
+        private const uint WBUTTONUP    = 0x000040; // 휠 버튼 떼어짐
+        private const uint WBUTTONWHEEL = 0x00800;  // 휠 스크롤
 
         private static System.Timers.Timer NoxMonitoringTimer      = new System.Timers.Timer();
         private static System.Timers.Timer ArtOfWarMonitoringTimer = new System.Timers.Timer();
@@ -204,13 +207,6 @@ namespace ArtOfHassan
         public int HonorHeroWindowX = 390;
         public int HonorHeroWindowY = 295;
         public string HonorHeroWindowColor = "#215b84".ToUpper();
-
-        public int HonorHeroScrollX = 280;
-        public int HonorHeroScrollY1 = 415;
-        public int HonorHeroScrollY2 = 665;
-
-        public int HonorHeroSelectX = 235;
-        public int HonorHeroSelectY = 665;
 
         public int HonorHeroWindowCloseButtonX = 466;
         public int HonorHeroWindowCloseButtonY = 293;
