@@ -648,6 +648,7 @@ namespace ArtOfHassan
                             return;
                         }
 
+                        // Honor Mode Finish
                         if (IsHonorPauseButtonClicked && (HonorSkillChangeCount > 10) &&
                             !MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor))
                         {
@@ -1525,17 +1526,24 @@ namespace ArtOfHassan
                 MonitoringIntervalTextBox.IsEnabled = false;
                 ModeGrid.IsEnabled                  = false;
 
+                IsStopHassan     = false;
+                IsNoGoldStatus   = false;
+                IsNoGoldMailSent = false;
+                ProblemMailSent  = 0;
+
+                IsHonorFightButtonClicked  = false;
+                IsGetHonorSkillButtonColor = false;
+                IsHonorPauseButtonClicked  = false;
+
+                HonorSkillChangeCount = 0;
+                HonorHeroWindowCount  = 0;
+
                 GoldChestBoxStopwatch.Restart();
 
                 ProblemMonitoringTimer.Interval  = int.Parse(ScreenComparisonIntervalTextBox.Text) * 60 * 1000;
                 ArtOfWarMonitoringTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
                 ArtOfWarMonitoringTimer.Enabled  = true;
                 ProblemMonitoringTimer.Enabled   = true;
-
-                IsStopHassan     = false;
-                IsNoGoldStatus   = false;
-                IsNoGoldMailSent = false;
-                ProblemMailSent  = 0;
             }
             else
             {
