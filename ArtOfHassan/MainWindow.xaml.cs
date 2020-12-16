@@ -176,13 +176,20 @@ namespace ArtOfHassan
         public int HonorChallengeButtonY = 890;
         public string HonorChallengeButtonColor = "#fdbb00".ToUpper();
 
-        public int HonorFightButtonX = 175;
+        public int HonorFightButtonX = 185;
         public int HonorFightButtonY = 820;
         public string HonorFightButtonColor = "#fdcc00".ToUpper();
 
         public int HonorSkillButtonX = 42;
         public int HonorSkillButtonY = 874;
         public string HonorSkillButtonColor;
+
+        public int HonorPauseButtonX = 43;
+        public int HonorPauseButtonY = 68;
+
+        public int HonorQuitButtonX = 177;
+        public int HonorQuitButtonY = 533;
+        public string HonorQuitButtonColor = "#93db20".ToUpper();
 
         public int HonorHeroPositionX = 490;
         public int HonorHeroPositionY = 600;
@@ -204,6 +211,9 @@ namespace ArtOfHassan
 
         public int HonorHeroWindowCloseButtonX = 466;
         public int HonorHeroWindowCloseButtonY = 293;
+
+        bool IsHonorFightButtonClicked  = false;
+        bool IsGetHonorSkillButtonColor = false;
 
         #endregion
 
@@ -238,6 +248,8 @@ namespace ArtOfHassan
 
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
+
+        System.Drawing.Color HonorSkillColor;
 
         #endregion
 
@@ -523,26 +535,54 @@ namespace ArtOfHassan
                     // Honor Mode
                     if (IsHonorMode)
                     {
-
-
-                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                        // HonorChallengeButton
+                        if (MousePointColorCheck(HonorChallengeButtonX, HonorChallengeButtonY, HonorChallengeButtonColor))
                         {
-                            if (IsKorean)
-                            {
-                                StartButton.Content = "시작";
-                            }
-                            else
-                            {
-                                StartButton.Content = "Start";
-                            }
-                            PixelCustomizeButton.IsEnabled      = true;
-                            MonitoringIntervalTextBox.IsEnabled = true;
-                            ModeGrid.IsEnabled                  = true;
+                            MonitoringLog("HonorChallengeButton");
+                            MousePointClick(HonorChallengeButtonX, HonorChallengeButtonY);
+                        }
 
-                            ArtOfWarMonitoringTimer.Enabled = false;
-                            ProblemMonitoringTimer.Enabled  = false;
-                            NoxMonitoringTimer.Enabled      = false;
-                        }));
+                        // HonorFightButton
+                        if (!IsHonorFightButtonClicked &&
+                            MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor))
+                        {
+                            MonitoringLog("HonorFightButton");
+                            MousePointClick(HonorFightButtonX, HonorFightButtonY);
+
+                            System.Threading.Thread.Sleep((int)(MonitoringInterval * 3 / 4));
+
+                            IsHonorFightButtonClicked = true;
+                            return;
+                        }
+
+                        // HonorSkillColor
+                        if (IsHonorFightButtonClicked && !IsGetHonorSkillButtonColor &&
+                            !MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor))
+                        {
+                            MonitoringLog("HonorSkillColor");
+                            HonorSkillColor = CurrentBitmap.GetPixel(HonorSkillButtonX, HonorSkillButtonY);
+                            IsGetHonorSkillButtonColor = true;
+                            return;
+                        }
+
+                        //System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                        //{
+                        //    if (IsKorean)
+                        //    {
+                        //        StartButton.Content = "시작";
+                        //    }
+                        //    else
+                        //    {
+                        //        StartButton.Content = "Start";
+                        //    }
+                        //    PixelCustomizeButton.IsEnabled      = true;
+                        //    MonitoringIntervalTextBox.IsEnabled = true;
+                        //    ModeGrid.IsEnabled                  = true;
+
+                        //    ArtOfWarMonitoringTimer.Enabled = false;
+                        //    ProblemMonitoringTimer.Enabled  = false;
+                        //    NoxMonitoringTimer.Enabled      = false;
+                        //}));
 
                         return;
                     }
