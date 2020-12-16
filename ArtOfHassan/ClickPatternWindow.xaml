@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d"
-        Title="Ads Close Click Pattern" Height="300" Width="250" WindowStartupLocation="CenterScreen">
+        Title="Ads Close Click Pattern" Height="300" Width="250" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
