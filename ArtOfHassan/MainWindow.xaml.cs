@@ -1436,6 +1436,17 @@ namespace ArtOfHassan
             if (IsHonorMode || IsTroopMode)
             {
                 MonitoringIntervalTextBox.Text = PrevMonitoringInterval;
+
+                X3GoldButtonClickDelayTextBlock.Visibility = Visibility.Visible;
+                X3GoldButtonClickDelayTextBox.Visibility   = Visibility.Visible;
+                HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Hidden;
+                HonorHeroChangeTimeTextBox.Visibility      = Visibility.Hidden;
+
+                VictoryRewardTextBlock.Visibility   = Visibility.Visible;
+                StarCheckBox.Visibility             = Visibility.Visible;
+                OldVersionCheckBox.Visibility       = Visibility.Visible;
+                HonorHeroChangeTextBlock.Visibility = Visibility.Hidden;
+                HonorHeroChangeCheckBox.Visibility  = Visibility.Hidden;
             }
 
             // 신버전 3별 시스템이 기준
@@ -1459,6 +1470,17 @@ namespace ArtOfHassan
             if (IsHonorMode || IsTroopMode)
             {
                 MonitoringIntervalTextBox.Text = PrevMonitoringInterval;
+
+                X3GoldButtonClickDelayTextBlock.Visibility = Visibility.Visible;
+                X3GoldButtonClickDelayTextBox.Visibility   = Visibility.Visible;
+                HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Hidden;
+                HonorHeroChangeTimeTextBox.Visibility      = Visibility.Hidden;
+
+                VictoryRewardTextBlock.Visibility   = Visibility.Visible;
+                StarCheckBox.Visibility             = Visibility.Visible;
+                OldVersionCheckBox.Visibility       = Visibility.Visible;
+                HonorHeroChangeTextBlock.Visibility = Visibility.Hidden;
+                HonorHeroChangeCheckBox.Visibility  = Visibility.Hidden;
             }
 
             // 현상금은 비 3별 시스템
@@ -1495,13 +1517,37 @@ namespace ArtOfHassan
             IsTroopMode    = false;
 
             MonitoringIntervalTextBox.Text = "100";
+
+            X3GoldButtonClickDelayTextBlock.Visibility = Visibility.Hidden;
+            X3GoldButtonClickDelayTextBox.Visibility   = Visibility.Hidden;
+            HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Visible;
+            HonorHeroChangeTimeTextBox.Visibility      = Visibility.Visible;
+
+            VictoryRewardTextBlock.Visibility   = Visibility.Hidden;
+            StarCheckBox.Visibility             = Visibility.Hidden;
+            OldVersionCheckBox.Visibility       = Visibility.Hidden;
+            HonorHeroChangeTextBlock.Visibility = Visibility.Visible;
+            HonorHeroChangeCheckBox.Visibility  = Visibility.Visible;
         }
 
         private void TroopRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Troop Mode");
 
-            if (!IsHonorMode)
+            if (IsHonorMode)
+            {
+                X3GoldButtonClickDelayTextBlock.Visibility = Visibility.Visible;
+                X3GoldButtonClickDelayTextBox.Visibility   = Visibility.Visible;
+                HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Hidden;
+                HonorHeroChangeTimeTextBox.Visibility      = Visibility.Hidden;
+
+                VictoryRewardTextBlock.Visibility   = Visibility.Visible;
+                StarCheckBox.Visibility             = Visibility.Visible;
+                OldVersionCheckBox.Visibility       = Visibility.Visible;
+                HonorHeroChangeTextBlock.Visibility = Visibility.Hidden;
+                HonorHeroChangeCheckBox.Visibility  = Visibility.Hidden;
+            }
+            else
             {
                 PrevMonitoringInterval = MonitoringIntervalTextBox.Text;
             }
@@ -1672,6 +1718,7 @@ namespace ArtOfHassan
                 PixelDifferenceTextBlock.Text = "픽셀 차이";
                 VictoryRewardTextBlock.Text = "승리 보상";
                 StarCheckBox.Content = "별 등급";
+                HonorHeroChangeTextBlock.Text = "영웅 변경";
                 HonorHeroChangeCheckBox.Content = "영웅 선택창 열기";
                 AdsTextBlock.Text = "광고";
                 AdsWatchCheckBox.Content = "광고 보기";
@@ -1711,6 +1758,7 @@ namespace ArtOfHassan
                 PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
                 VictoryRewardTextBlock.Text = "Victory\nReward";
                 StarCheckBox.Content = "Star-rated";
+                HonorHeroChangeTextBlock.Text = "  Hero\nChange";
                 HonorHeroChangeCheckBox.Content = "Open Heros Window";
                 AdsTextBlock.Text = "Ads";
                 AdsWatchCheckBox.Content = "Watch Ads ";
