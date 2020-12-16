@@ -172,9 +172,9 @@ namespace ArtOfHassan
         public int TroopButtonY = 860;
         public string TroopButtonColor = "#fac91c".ToUpper();
 
-        public int TroopOpenButtonX = 330;
-        public int TroopOpenButtonY = 886;
-        public string TroopOpenButtonColor = "#fdbb00".ToUpper();
+        public int TroopOpenButtonX = 384;
+        public int TroopOpenButtonY = 892;
+        public string TroopOpenButtonColor = "#e6a400;#f29e00".ToUpper();
 
         public int TroopCloseButtonX = 239;
         public int TroopCloseButtonY = 868;
@@ -702,7 +702,8 @@ namespace ArtOfHassan
                         }
 
                         // TroopOpenButton
-                        if (MousePointColorCheck(TroopOpenButtonX, TroopOpenButtonY, TroopOpenButtonColor))
+                        if (MousePointColorCheck(TroopOpenButtonX, TroopOpenButtonY, TroopOpenButtonColor.Split(';')[0]) ||
+                            MousePointColorCheck(TroopOpenButtonX, TroopOpenButtonY, TroopOpenButtonColor.Split(';')[1]))
                         {
                             MonitoringLog("TroopOpenButton");
                             MousePointClick(TroopOpenButtonX, TroopOpenButtonY);
