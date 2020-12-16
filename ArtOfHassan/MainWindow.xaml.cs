@@ -162,10 +162,12 @@ namespace ArtOfHassan
         public int NotRespondAppCloseButtonY3 = 540;
         public string NotRespondAppCloseButtonColor = "#009688".ToUpper();
 
-        public int HeadHuntButtonX = 515;
-        public int HeadHuntButtonY = 380;
-        public string HeadHuntButtonColor = "#fdbb00;#572f17".ToUpper();
+        // Headhunt
+        public int HeadhuntButtonX = 515;
+        public int HeadhuntButtonY = 380;
+        public string HeadhuntButtonColor = "#fdbb00;#572f17".ToUpper();
 
+        // Troop
         public int TroopButtonX = 470;
         public int TroopButtonY = 860;
         public string TroopButtonColor = "#fac91c".ToUpper();
@@ -178,6 +180,7 @@ namespace ArtOfHassan
         public int TroopCloseButtonY = 868;
         public string TroopCloseButtonColor = "#ffffff".ToUpper();
 
+        // Honor
         public int HonorChallengeButtonX = 460;
         public int HonorChallengeButtonY = 890;
         public string HonorChallengeButtonColor = "#fdbb00".ToUpper();
@@ -210,13 +213,6 @@ namespace ArtOfHassan
 
         public int HonorHeroWindowCloseButtonX = 466;
         public int HonorHeroWindowCloseButtonY = 293;
-
-        bool IsHonorFightButtonClicked  = false;
-        bool IsGetHonorSkillButtonColor = false;
-        bool IsHonorPauseButtonClicked  = false;
-
-        int HonorSkillChangeCount = 0;
-        int HonorHeroWindowCount  = 0;
 
         #endregion
 
@@ -251,6 +247,14 @@ namespace ArtOfHassan
 
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
+
+        // Honor
+        bool IsHonorFightButtonClicked  = false;
+        bool IsGetHonorSkillButtonColor = false;
+        bool IsHonorPauseButtonClicked  = false;
+
+        int HonorSkillChangeCount = 0;
+        int HonorHeroWindowCount  = 0;
 
         System.Drawing.Color HonorSkillColor;
 
@@ -744,15 +748,15 @@ namespace ArtOfHassan
                     }
 
 
-                    // HeadHuntButton
-                    if (MousePointColorCheck(HeadHuntButtonX, HeadHuntButtonY, HeadHuntButtonColor.Split(';')[0]))
+                    // HeadhuntButton
+                    if (MousePointColorCheck(HeadhuntButtonX, HeadhuntButtonY, HeadhuntButtonColor.Split(';')[0]))
                     {
-                        MonitoringLog("HeadHuntButton");
-                        MousePointClick(HeadHuntButtonX, HeadHuntButtonY);
+                        MonitoringLog("HeadhuntButton");
+                        MousePointClick(HeadhuntButtonX, HeadhuntButtonY);
                     }
-                    else if (MousePointColorCheck(HeadHuntButtonX, HeadHuntButtonY, HeadHuntButtonColor.Split(';')[1]))
+                    else if (MousePointColorCheck(HeadhuntButtonX, HeadhuntButtonY, HeadhuntButtonColor.Split(';')[1]))
                     {
-                        MonitoringLog("HeadHunt Finished");
+                        MonitoringLog("Headhunt Finished");
 
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
