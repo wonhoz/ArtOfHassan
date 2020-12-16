@@ -157,7 +157,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <CheckBox Name="AdsWatchCheckBox" Content="Watch Ads" IsChecked="True"
+                <CheckBox Name="AdsWatchCheckBox" Content="Watch Ads " IsChecked="True"
                           HorizontalAlignment="Center" VerticalAlignment="Center"
                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 

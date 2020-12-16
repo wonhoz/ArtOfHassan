@@ -1684,7 +1684,7 @@ namespace ArtOfHassan
                 VictoryRewardTextBlock.Text = "Victory\nReward";
                 StarCheckBox.Content = "Star-rated";
                 AdsTextBlock.Text = "Ads";
-                AdsWatchCheckBox.Content = "Watch Ads";
+                AdsWatchCheckBox.Content = "Watch Ads ";
                 AdsCloseColorCheckBox.Content = "Check Color";
                 AdsCloseClickPatternButton.Content = "  Ads Close\nClick Pattern";
                 ModeTextBlock.Text = "Mode";
