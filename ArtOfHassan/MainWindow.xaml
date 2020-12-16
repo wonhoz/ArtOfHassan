@@ -63,11 +63,17 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Name="X3GoldButtonClickDelayTextBlock" Text=" X3 Gold&#10;  Button&#10;Delay (ms)"
+            <TextBlock Name="X3GoldButtonClickDelayTextBlock" Text=" X3 Gold&#10;  Button&#10;Delay (ms)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Name="HonorHeroChangeTimeTextBlock" Text="   Hero&#10; Change&#10;Time (ms)"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Visibility="Hidden"/>
 
             <TextBox Grid.Row="1" Grid.Column="1" Name="X3GoldButtonClickDelayTextBox" Text="100" Margin="5"
                      TextChanged="TextBox_TextChanged"
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="HonorHeroChangeTimeTextBox" Text="2000" Margin="5"
+                     TextChanged="TextBox_TextChanged" Visibility="Hidden"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
@@ -81,6 +87,8 @@
         </Grid>
 
         <TextBlock Grid.Row="3" Name="VictoryRewardTextBlock" Text="Victory&#10;Reward"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        <TextBlock Grid.Row="3" Name="HonorHeroChangeTextBlock" Text="  Hero&#10;Change" Visibility="Hidden"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
         <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
@@ -97,6 +105,10 @@
 
             <CheckBox Grid.Column="1" Name="OldVersionCheckBox" Content="&lt; 3.3.6" Click="OldVersionCheckBox_Click"
                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Name="HonorHeroChangeCheckBox" Content="Open Heros Window" IsChecked="True"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
             <TextBlock Grid.Column="2" Text="|" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,-4,0,0"/>
