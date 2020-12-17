@@ -173,8 +173,8 @@ namespace ArtOfHassan
         public string TroopButtonColor = "#fac91c".ToUpper();
 
         public int TroopOpenButtonX = 384;
-        public int TroopOpenButtonY = 892;
-        public string TroopOpenButtonColor = "#e6a400;#f29e00".ToUpper();
+        public int TroopOpenButtonY = 894;
+        public string TroopOpenButtonColor = "#f6a408;#d08a0f".ToUpper();
 
         public int TroopCloseButtonX = 239;
         public int TroopCloseButtonY = 868;
@@ -713,7 +713,7 @@ namespace ArtOfHassan
                         if (MousePointColorCheck(TroopCloseButtonX, TroopCloseButtonY, TroopCloseButtonColor))
                         {
                             MonitoringLog("TroopCloseButton");
-                            MousePointClick(TroopCloseButtonX, TroopCloseButtonY);
+                            MousePointClick(TroopButtonX, TroopButtonY);
                         }
 
                         return;
@@ -1557,7 +1557,7 @@ namespace ArtOfHassan
             IsHonorMode    = false;
             IsTroopMode    = true;
 
-            MonitoringIntervalTextBox.Text = "333";
+            MonitoringIntervalTextBox.Text = "300";
         }
 
         private void AdsCloseClickPatternButton_Click(object sender, RoutedEventArgs e)
