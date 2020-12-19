@@ -300,8 +300,9 @@ namespace ArtOfHassan
                       System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString() + "." +
                       System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Build.ToString();
 
-            LoadSettingTxt();
-            LoadPixelTxt();
+            LoadSettingCsv();
+            LoadPixelCsv();
+            SavePixelCsv();
 
             ProblemMonitoringTimer.Interval = 3 * 60 * 1000; // 3분
             ProblemMonitoringTimer.Elapsed += ProblemMonitoringTimerFunction;
@@ -1682,7 +1683,7 @@ namespace ArtOfHassan
 
         private void SaveSettingButton_Click(object sender, RoutedEventArgs e)
         {
-            using (StreamWriter streamWriter = new StreamWriter($@"setting.txt", false))
+            using (StreamWriter streamWriter = new StreamWriter($@"setting.csv", false))
             {
                 streamWriter.WriteLine("WindowTitle," + WindowTitleTextBox.Text);
                 streamWriter.WriteLine("MonitoringInterval," + MonitoringIntervalTextBox.Text);
@@ -1698,6 +1699,31 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("SendEmail," + SendEmailCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("StopHassan," + StopHassanCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("ShutdownPC," + ShutdownComputerCheckBox.IsChecked.Value);
+            }
+        }
+
+        private void SavePixelCsv()
+        {
+            using (StreamWriter streamWriter = new StreamWriter($@"pixel.csv", false))
+            {
+                streamWriter.WriteLine("AppLocation," + AppLocationX + "," + AppLocationY + "," + AppLocationColor);
+                streamWriter.WriteLine("HomeShopButton," + HomeButtonX + "," + ShopButtonX + "," + ShopButtonY + "," + ShopButtonColor);
+                streamWriter.WriteLine("GoldChestBox," + GoldChestBoxX + "," + GoldChestBoxY + "," + GoldChestBoxColor);
+                streamWriter.WriteLine("CollectButton," + CollectButtonX + "," + CollectButtonY + "," + CollectButtonColor);
+                streamWriter.WriteLine("BattleLevelButton," + BattleLevelButtonX + "," + BattleLevelButtonY + "," + BattleLevelButtonColor);
+                streamWriter.WriteLine("SkillButton," + SkillButtonX + "," + SkillButtonY + "," + SkillButtonColor);
+                streamWriter.WriteLine("SpeedButton," + SpeedButtonX + "," + SpeedButtonY + "," + SpeedButtonColor);
+                streamWriter.WriteLine("ContinueButton," + ContinueButtonX + "," + ContinueButtonY + "," + ContinueButtonColor);
+                streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX + "," + VictoryDefeatY + "," + VictoryDefeatColor);
+                streamWriter.WriteLine("NoGold," + NoGoldX + "," + NoGoldY + "," + NoGoldColor);
+                streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX + "," + GoldButtonBackgroundY + "," + GoldButtonBackgroundColor);
+                streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY + "," + GoldButtonImageColor);
+                streamWriter.WriteLine("NextButton," + NextButtonX + "," + NextButtonY + "," + NextButtonColor);
+                streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY + "," + GameAdCloseButtonColor);
+                streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY + "," + GoogleAdCloseButtonColor);
+                streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX + "," + LatestUsedAppButtonY);
+                streamWriter.WriteLine("RightTopAppCloseButton," + RightTopAppCloseButtonX + "," + RightTopAppCloseButtonY);
+                streamWriter.WriteLine("NotRespondAppCloseButton," + NotRespondAppCloseButtonX + "," + NotRespondAppCloseButtonY1 + "," + NotRespondAppCloseButtonY2 + "," + NotRespondAppCloseButtonY3 + "," + NotRespondAppCloseButtonColor);
             }
         }
 
@@ -1889,14 +1915,14 @@ namespace ArtOfHassan
             (e.Source as TextBox).Select(caretIndex, 0);
         }
 
-        private void LoadSettingTxt()
+        private void LoadSettingCsv()
         {
-            FileInfo fileInfo = new FileInfo("setting.txt");
+            FileInfo fileInfo = new FileInfo("setting.csv");
             if (fileInfo.Exists)
             {
                 MonitoringLog("Load Setting...");
 
-                string[] lines = File.ReadAllLines("setting.txt");
+                string[] lines = File.ReadAllLines("setting.csv");
 
                 foreach (string line in lines)
                 {
@@ -1953,14 +1979,14 @@ namespace ArtOfHassan
             }
         }
 
-        private void LoadPixelTxt()
+        private void LoadPixelCsv()
         {
-            FileInfo fileInfo = new FileInfo("pixel.txt");
+            FileInfo fileInfo = new FileInfo("pixel.csv");
             if (fileInfo.Exists)
             {
                 MonitoringLog("Load Pixel...");
 
-                string[] lines = File.ReadAllLines("pixel.txt");
+                string[] lines = File.ReadAllLines("pixel.csv");
 
                 foreach (string line in lines)
                 {
