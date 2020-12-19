@@ -138,7 +138,9 @@ namespace ArtOfHassan
         string NoGoldColor = "#dfd6be".ToUpper();
 
         int GoldButtonBackgroundX = 115;
-        int GoldButtonBackgroundY = 780;
+        int GoldButtonBackground3StarY  = 780;
+        int GoldButtonBackgroundNoStarY = 685;
+        int GoldButtonBackgroundV308Y   = 710;
         string GoldButtonBackgroundGreenColor = "#7da70a".ToUpper();
         string GoldButtonBackgroundGrayColor  = "#8e8e8e".ToUpper();
 
@@ -787,12 +789,9 @@ namespace ArtOfHassan
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
                             IsHeadhuntMode        = false;
-                            IsStarRated           = PrevStarRated;
-                            GoldButtonBackgroundY = PrevGoldButtonBackgroundY;
 
                             StageRadioButton.IsChecked    = true;
                             HeadhuntRadioButton.IsChecked = false;
-                            StarCheckBox.IsChecked        = IsStarRated;
                             AdsWatchCheckBox.IsChecked    = PrevAdsWatch;
                         }));
 
@@ -1278,9 +1277,6 @@ namespace ArtOfHassan
             NoxMonitoringTimer.Enabled      = false;
         }
 
-        bool IsStarRated = true;
-
-        bool PrevStarRated;
         bool PrevAdsWatch;
 
         int PrevGoldButtonBackgroundY;
@@ -1289,8 +1285,6 @@ namespace ArtOfHassan
         private void StarCheckBox_Click(object sender, RoutedEventArgs e)
         {
             // 신버전
-            GoldChestBoxX = 150;
-            GoldChestBoxY = 410;
             OldVersionCheckBox.IsChecked = false;
 
             if (StarCheckBox.IsChecked.Value)
@@ -1322,8 +1316,6 @@ namespace ArtOfHassan
                 StarCheckBox.IsChecked = false;
 
                 // 구버전
-                GoldChestBoxX = 165;
-                GoldChestBoxY = 420;
                 GoldButtonBackgroundY = 710;
             }
             else
@@ -1334,8 +1326,6 @@ namespace ArtOfHassan
                 StarCheckBox.IsChecked = IsStarRated;
 
                 // 신버전
-                GoldChestBoxX = 150;
-                GoldChestBoxY = 410;
                 GoldButtonBackgroundY = PrevGoldButtonBackgroundY;
             }
         }
