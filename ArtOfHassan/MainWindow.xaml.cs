@@ -677,7 +677,6 @@ namespace ArtOfHassan
                                 {
                                     StartButton.Content = "Start";
                                 }
-                                PixelCustomizeButton.IsEnabled      = true;
                                 MonitoringIntervalTextBox.IsEnabled = true;
                                 ModeGrid.IsEnabled                  = true;
 
@@ -1032,7 +1031,6 @@ namespace ArtOfHassan
                                 {
                                     StartButton.Content = "Start";
                                 }
-                                PixelCustomizeButton.IsEnabled      = true;
                                 MonitoringIntervalTextBox.IsEnabled = true;
                                 ModeGrid.IsEnabled                  = true;
 
@@ -1582,7 +1580,6 @@ namespace ArtOfHassan
                     StartButton.Content = "Stop";
                 }
 
-                PixelCustomizeButton.IsEnabled      = false;
                 MonitoringIntervalTextBox.IsEnabled = false;
                 ModeGrid.IsEnabled                  = false;
 
@@ -1615,7 +1612,6 @@ namespace ArtOfHassan
                 {
                     StartButton.Content = "Start";
                 }
-                PixelCustomizeButton.IsEnabled      = true;
                 MonitoringIntervalTextBox.IsEnabled = true;
                 ModeGrid.IsEnabled                  = true;
 
@@ -1742,7 +1738,6 @@ namespace ArtOfHassan
                 SendEmailCheckBox.Content = "이메일";
                 StopHassanCheckBox.Content = "핫산 중지";
                 ShutdownComputerCheckBox.Content = "PC 종료";
-                PixelCustomizeButton.Content = "픽셀 커스텀";
                 SaveSettingButton.Content = "설정 저장";
                 StartButton.Content = "시작";
                 MessageBar.Text = $"전투: {NumOfWar}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
@@ -1782,7 +1777,6 @@ namespace ArtOfHassan
                 SendEmailCheckBox.Content = "Send\nEmail";
                 StopHassanCheckBox.Content = " Stop\nHassan";
                 ShutdownComputerCheckBox.Content = "Shutdown\nComputer";
-                PixelCustomizeButton.Content = "Customize Pixel";
                 SaveSettingButton.Content = "Save Setting";
                 StartButton.Content = "Start";
                 MessageBar.Text = $"War: {NumOfWar}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
@@ -1792,106 +1786,7 @@ namespace ArtOfHassan
 
         private void PixelCustomizeButton_Click(object sender, RoutedEventArgs e)
         {
-            PixelWindow pixelWindow = new PixelWindow();
-            pixelWindow.AppLocationX.Text = AppLocationX.ToString();
-            pixelWindow.AppLocationY.Text = AppLocationY.ToString();
-            pixelWindow.AppLocationColor.Text = AppLocationColor;
-            pixelWindow.AppLocation1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[0]));
-            pixelWindow.AppLocation2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(AppLocationColor.Split(';')[1]));
-
-            pixelWindow.HomeShopButtonX.Text = HomeButtonX.ToString() + ";" + ShopButtonX.ToString();
-            pixelWindow.HomeShopButtonY.Text = ShopButtonY.ToString();
-            pixelWindow.HomeShopButtonColor.Text = ShopButtonColor;
-            pixelWindow.HomeShopButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ShopButtonColor));
-
-            pixelWindow.CollectButtonX.Text = CollectButtonX.ToString();
-            pixelWindow.CollectButtonY.Text = CollectButtonY.ToString();
-            pixelWindow.CollectButtonColor.Text = CollectButtonColor;
-            pixelWindow.CollectButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(CollectButtonColor));
-
-            pixelWindow.GoldChestBoxX.Text = GoldChestBoxX.ToString();
-            pixelWindow.GoldChestBoxY.Text = GoldChestBoxY.ToString();
-            pixelWindow.GoldChestBoxColor.Text = GoldChestBoxColor;
-            pixelWindow.GoldChestBox1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Split(';')[0]));
-            pixelWindow.GoldChestBox2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldChestBoxColor.Split(';')[1]));
-
-            pixelWindow.BattleLevelButtonX.Text = BattleLevelButtonX.ToString();
-            pixelWindow.BattleLevelButtonY.Text = BattleLevelButtonY.ToString();
-            pixelWindow.BattleLevelButtonColor.Text = BattleLevelButtonColor;
-            pixelWindow.BattleLevelButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Split(';')[0]));
-            pixelWindow.BattleLevelButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Split(';')[1]));
-            pixelWindow.BattleLevelButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Split(';')[2]));
-            pixelWindow.BattleLevelButton4.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(BattleLevelButtonColor.Split(';')[3]));
-
-            pixelWindow.SkillButtonX.Text = SkillButtonX.ToString();
-            pixelWindow.SkillButtonY.Text = SkillButtonY.ToString();
-            pixelWindow.SkillButtonColor.Text = SkillButtonColor;
-            pixelWindow.SkillButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SkillButtonColor));
-
-            pixelWindow.SpeedButtonX.Text = SpeedButtonX.ToString();
-            pixelWindow.SpeedButtonY.Text = SpeedButtonY.ToString();
-            pixelWindow.SpeedButtonColor.Text = SpeedButtonColor;
-            pixelWindow.SpeedButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(SpeedButtonColor));
-
-            pixelWindow.ContinueButtonX.Text = ContinueButtonX.ToString();
-            pixelWindow.ContinueButtonY.Text = ContinueButtonY.ToString();
-            pixelWindow.ContinueButtonColor.Text = ContinueButtonColor;
-            pixelWindow.ContinueButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(ContinueButtonColor));
-
-            pixelWindow.VictoryDefeatX.Text = VictoryDefeatX.ToString();
-            pixelWindow.VictoryDefeatY.Text = VictoryDefeatY.ToString();
-            pixelWindow.VictoryDefeatColor.Text = VictoryDefeatColor;
-            pixelWindow.VictoryDefeat1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Split(';')[0]));
-            pixelWindow.VictoryDefeat2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(VictoryDefeatColor.Split(';')[1]));
-
-            pixelWindow.GoldButtonBackgroundX.Text = GoldButtonBackgroundX.ToString();
-            pixelWindow.GoldButtonBackgroundY.Text = GoldButtonBackgroundY.ToString();
-            pixelWindow.GoldButtonBackgroundColor.Text = GoldButtonBackgroundColor;
-            pixelWindow.GoldButtonBackground1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Split(';')[0]));
-            pixelWindow.GoldButtonBackground2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonBackgroundColor.Split(';')[1]));
-
-            pixelWindow.GoldButtonImageX.Text = GoldButtonImageX.ToString();
-            pixelWindow.GoldButtonImageY.Text = GoldButtonImageY.ToString();
-            pixelWindow.GoldButtonImageColor.Text = GoldButtonImageColor;
-            pixelWindow.GoldButtonImage1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoldButtonImageColor));
-
-            pixelWindow.NextButtonX.Text = NextButtonX.ToString();
-            pixelWindow.NextButtonY.Text = NextButtonY.ToString();
-            pixelWindow.NextButtonColor.Text = NextButtonColor;
-            pixelWindow.NextButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NextButtonColor));
-
-            pixelWindow.GameAdCloseButtonX.Text = GameAdCloseButtonX.ToString();
-            pixelWindow.GameAdCloseButtonY.Text = GoldAdCloseButtonY.ToString() + ";" + TroopAdCloseButtonY.ToString() + ";" + MidasAdCloseButtonY.ToString();
-            pixelWindow.GameAdCloseButtonColor.Text = GameAdCloseButtonColor;
-            pixelWindow.GameAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[0]));
-            pixelWindow.GameAdCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[1]));
-            pixelWindow.GameAdCloseButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GameAdCloseButtonColor.Split(';')[2]));
-
-            pixelWindow.GoogleAdCloseButtonX.Text = LeftAdCloseButtonX.ToString() + ";" + RightAdCloseButtonX.ToString();
-            pixelWindow.GoogleAdCloseButtonY.Text = GoogleAdCloseButtonY.ToString();
-            pixelWindow.GoogleAdCloseButtonColor.Text = GoogleAdCloseButtonColor;
-            pixelWindow.GoogleAdCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[0]));
-            pixelWindow.GoogleAdCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(GoogleAdCloseButtonColor.Split(';')[1]));
-
-            pixelWindow.LatestUsedAppButtonX.Text = LatestUsedAppButtonX.ToString();
-            pixelWindow.LatestUsedAppButtonY.Text = LatestUsedAppButtonY.ToString();
-
-            pixelWindow.RightTopAppCloseButtonX.Text = RightTopAppCloseButtonX.ToString();
-            pixelWindow.RightTopAppCloseButtonY.Text = RightTopAppCloseButtonY.ToString();
-
-            pixelWindow.NotRespondAppCloseButtonX.Text = NotRespondAppCloseButtonX.ToString();
-            pixelWindow.NotRespondAppCloseButtonY.Text = NotRespondAppCloseButtonY1.ToString() + ";" + NotRespondAppCloseButtonY2.ToString() + ";" + NotRespondAppCloseButtonY3.ToString();
-            pixelWindow.NotRespondAppCloseButtonColor.Text = NotRespondAppCloseButtonColor.ToString();
-            pixelWindow.NotRespondAppCloseButton1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondAppCloseButtonColor));
-            pixelWindow.NotRespondAppCloseButton2.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondAppCloseButtonColor));
-            pixelWindow.NotRespondAppCloseButton3.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NotRespondAppCloseButtonColor));
-
-            pixelWindow.NoGoldX.Text = NoGoldX.ToString();
-            pixelWindow.NoGoldY.Text = NoGoldY.ToString();
-            pixelWindow.NoGoldColor.Text = NoGoldColor.ToString();
-            pixelWindow.NoGold1.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(NoGoldColor));
-
-            pixelWindow.ShowDialog();
+            
         }
 
         #endregion

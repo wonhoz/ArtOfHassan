@@ -253,14 +253,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
-                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Name="PixelCustomizeButton" Content="Customize Pixel"
-                    Click="PixelCustomizeButton_Click" Margin="5,5,2.5,5"/>
-            <Button Grid.Column="1" Name="SaveSettingButton" Content="Save Setting"
+            <Button Name="SaveSettingButton" Content="Save Setting"
                     Click="SaveSettingButton_Click" Margin="2.5,5,2.5,5"/>
-            <Button Grid.Row="1" Grid.Column="2" Name="StartButton" Content="Start"
+            <Button Grid.Column="2" Name="StartButton" Content="Start"
                     Click="StartButton_Click" Margin="2.5,5,5,5" IsEnabled="False"/>
         </Grid>
 
