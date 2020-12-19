@@ -155,28 +155,9 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <!--<RadioButton Name="LeftAdsRadioButton" Content="Left First" IsChecked="True"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"
-                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-            <RadioButton Grid.Column="1" Name="RightAdsRadioButton" Content="Right First"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"
-                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>-->
-
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-                <CheckBox Name="AdsWatchCheckBox" Content="Watch Ads " IsChecked="True"
-                          HorizontalAlignment="Center" VerticalAlignment="Center"
-                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-                <CheckBox Grid.Row="1" Name="AdsCloseColorCheckBox" Content="Check Color" IsChecked="False"
-                          HorizontalAlignment="Center" VerticalAlignment="Center"
-                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            </Grid>
+            <CheckBox Name="AdsWatchCheckBox" Content="Watch Ads " IsChecked="True"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
             <Button Grid.Column="1" Name="AdsCloseClickPatternButton" Content="  Ads Close&#10;Click Pattern"
                     Click="AdsCloseClickPatternButton_Click" Margin="5"/>

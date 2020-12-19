@@ -88,16 +88,22 @@ namespace ArtOfHassan
 
         int AppLocationX = 60;
         int AppLocationY = 500;
-        string AppLocationColor = "#a9d8ff;#97c601".ToUpper();
+        string AppLocationOrangeBlueColor = "#a9d8ff".ToUpper();
+        string AppLocationGreenColor      = "#97c601".ToUpper();
 
         int HomeButtonX = 290;
         int ShopButtonX = 65;
         int ShopButtonY = 980;
         string ShopButtonColor = "#ea3d34".ToUpper();
 
-        int GoldChestBoxX = 150;
-        int GoldChestBoxY = 410;
-        string GoldChestBoxColor = "#fff102;#eabf2f".ToUpper();
+        int GoldChestBoxX = 190;
+        int GoldChestBoxY = 470;
+        int GoldChestBoxCoinLatestX = 150;
+        int GoldChestBoxCoinLatestY = 410;
+        int GoldChestBoxCoinV308X   = 165;
+        int GoldChestBoxCoinV308Y   = 420;
+        string GoldChestBoxCoinLatestColor = "#fff102".ToUpper();
+        string GoldChestBoxCoinV308Color   = "#eabf2f".ToUpper();
 
         int CollectButtonX = 195;
         int CollectButtonY = 680;
@@ -105,7 +111,10 @@ namespace ArtOfHassan
 
         int BattleLevelButtonX = 180;
         int BattleLevelButtonY = 855;
-        string BattleLevelButtonColor = "#fdbb00;#ca9600;#bd1808;#0d677a".ToUpper();
+        string BattleLevelButtonYellowColor = "#fdbb00".ToUpper();
+        string BattleLevelButtonShadedColor = "#ca9600".ToUpper();
+        string BattleLevelButtonRedColor    = "#bd1808".ToUpper();
+        string BattleLevelButtonBackColor   = "#0d677a".ToUpper();
 
         int SkillButtonX = 475;
         int SkillButtonY = 920;
@@ -121,7 +130,8 @@ namespace ArtOfHassan
 
         int VictoryDefeatX = 120;
         int VictoryDefeatY = 355;
-        string VictoryDefeatColor = "#d91c13;#12a7d8".ToUpper();
+        string VictoryDefeatVictoryColor = "#d91c13".ToUpper();
+        string VictoryDefeatDefeatColor  = "#12a7d8".ToUpper();
 
         int NoGoldX = 321;
         int NoGoldY = 646;
@@ -129,7 +139,8 @@ namespace ArtOfHassan
 
         int GoldButtonBackgroundX = 115;
         int GoldButtonBackgroundY = 780;
-        string GoldButtonBackgroundColor = "#7da70a;#8e8e8e".ToUpper();
+        string GoldButtonBackgroundGreenColor = "#7da70a".ToUpper();
+        string GoldButtonBackgroundGrayColor  = "#8e8e8e".ToUpper();
 
         int GoldButtonImageX = 133;
         int GoldButtonImageY = 755;
@@ -143,12 +154,12 @@ namespace ArtOfHassan
         int GoldAdCloseButtonY = 180;
         int TroopAdCloseButtonY = 190;
         int MidasAdCloseButtonY = 262;
-        string GameAdCloseButtonColor = "#efe7d6;#e9e9d8;#e9e9d8".ToUpper();
+        string GameAdCloseButtonLatestColor = "#e9e9d8".ToUpper();
+        string GameAdCloseButtonV308Color   = "#efe7d6".ToUpper();
 
         int LeftAdCloseButtonX = 45;
         int RightAdCloseButtonX = 513;
         int GoogleAdCloseButtonY = 63;
-        string GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
 
         int LatestUsedAppButtonX = 580;
         int LatestUsedAppButtonY = 1000;
@@ -165,7 +176,8 @@ namespace ArtOfHassan
         // Headhunt
         int HeadhuntButtonX = 515;
         int HeadhuntButtonY = 380;
-        string HeadhuntButtonColor = "#fdbb00;#572f17".ToUpper();
+        string HeadhuntButtonYellowColor = "#fdbb00".ToUpper();
+        string HeadhuntButtonGrayColor   = "#572f17".ToUpper();
 
         // Troop
         int TroopButtonX = 470;
@@ -174,7 +186,8 @@ namespace ArtOfHassan
 
         int TroopOpenButtonX = 384;
         int TroopOpenButtonY = 894;
-        string TroopOpenButtonColor = "#f6a408;#d08a0f".ToUpper();
+        string TroopOpenButtonCenterColor = "#f6a408".ToUpper();
+        string TroopOpenButtonRightColor  = "#d08a0f".ToUpper();
 
         int TroopCloseButtonX = 239;
         int TroopCloseButtonY = 868;
@@ -271,7 +284,6 @@ namespace ArtOfHassan
 
         bool     IsWatchAds                      = true;
         int      GoogleAdCloseClickInterval      = 333;
-        bool     IsGoogleAdCloseButtonColorCheck = false;
         string[] GoogleAdCloseClickPatterns;
 
         bool IsOpenGoldChestBox = false;
@@ -301,8 +313,9 @@ namespace ArtOfHassan
                       System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Build.ToString();
 
             LoadSettingCsv();
-            LoadPixelCsv();
-            SavePixelCsv();
+            LoadPositionCsv();
+            SavePositionCsv();
+            SaveColorCsv();
 
             ProblemMonitoringTimer.Interval = 3 * 60 * 1000; // 3분
             ProblemMonitoringTimer.Elapsed += ProblemMonitoringTimerFunction;
@@ -367,7 +380,6 @@ namespace ArtOfHassan
 
                 GoogleAdCloseClickPatterns      = GoogleAdCloseClickPattern.Split(';');
                 GoogleAdCloseClickInterval      = (int)(MonitoringInterval / (GoogleAdCloseClickPatterns.Length - 0.5));
-                IsGoogleAdCloseButtonColorCheck = AdsCloseColorCheckBox.IsChecked.Value;
 
                 IsOpenHonorHeroWindow = HonorHeroChangeCheckBox.IsChecked.Value;
 
@@ -499,8 +511,8 @@ namespace ArtOfHassan
                     System.Threading.Thread.Sleep(MonitoringInterval);
                 }
 
-                if (!(MousePointColorCheck(AppLocationX, AppLocationY, AppLocationColor.Split(';')[0]) ||
-                      MousePointColorCheck(AppLocationX, AppLocationY, AppLocationColor.Split(';')[1])))
+                if (!(MousePointColorCheck(AppLocationX, AppLocationY, AppLocationOrangeBlueColor) ||
+                      MousePointColorCheck(AppLocationX, AppLocationY, AppLocationGreenColor)))
                 {
                     // LatestUsedAppButton
                     MonitoringLog("LatestUsedAppButton");
@@ -701,8 +713,8 @@ namespace ArtOfHassan
                         }
 
                         // TroopOpenButton
-                        if (MousePointColorCheck(TroopOpenButtonX, TroopOpenButtonY, TroopOpenButtonColor.Split(';')[0]) ||
-                            MousePointColorCheck(TroopOpenButtonX, TroopOpenButtonY, TroopOpenButtonColor.Split(';')[1]))
+                        if (MousePointColorCheck(TroopOpenButtonX, TroopOpenButtonY, TroopOpenButtonCenterColor) ||
+                            MousePointColorCheck(TroopOpenButtonX, TroopOpenButtonY, TroopOpenButtonRightColor))
                         {
                             MonitoringLog("TroopOpenButton");
                             MousePointClick(TroopOpenButtonX, TroopOpenButtonY);
@@ -720,8 +732,8 @@ namespace ArtOfHassan
 
 
                     // AppLocation
-                    if (MousePointColorCheck(AppLocationX, AppLocationY, AppLocationColor.Split(';')[0]) ||
-                        MousePointColorCheck(AppLocationX, AppLocationY, AppLocationColor.Split(';')[1]))
+                    if (MousePointColorCheck(AppLocationX, AppLocationY, AppLocationOrangeBlueColor) ||
+                        MousePointColorCheck(AppLocationX, AppLocationY, AppLocationGreenColor))
                     {
                         MonitoringLog("AppLocation");
                         MousePointClick(AppLocationX, AppLocationY);
@@ -739,8 +751,8 @@ namespace ArtOfHassan
                     // GoldChestBox
                     if (IsOpenGoldChestBox)
                     {
-                        if (MousePointColorCheck(GoldChestBoxX, GoldChestBoxY, GoldChestBoxColor.Split(';')[0]) ||
-                            MousePointColorCheck(GoldChestBoxX, GoldChestBoxY, GoldChestBoxColor.Split(';')[1]) ||
+                        if (MousePointColorCheck(GoldChestBoxCoinLatestX, GoldChestBoxCoinLatestY, GoldChestBoxCoinLatestColor) ||
+                            MousePointColorCheck(GoldChestBoxCoinV308X,   GoldChestBoxCoinV308Y,   GoldChestBoxCoinV308Color) ||
                             (GoldChestBoxStopwatch.ElapsedMilliseconds > 4 * 60 * 60 * 1000)) // 4시간
                         {
                             MonitoringLog("GoldChestBox");
@@ -763,12 +775,12 @@ namespace ArtOfHassan
 
 
                     // HeadhuntButton
-                    if (MousePointColorCheck(HeadhuntButtonX, HeadhuntButtonY, HeadhuntButtonColor.Split(';')[0]))
+                    if (MousePointColorCheck(HeadhuntButtonX, HeadhuntButtonY, HeadhuntButtonYellowColor))
                     {
                         MonitoringLog("HeadhuntButton");
                         MousePointClick(HeadhuntButtonX, HeadhuntButtonY);
                     }
-                    else if (MousePointColorCheck(HeadhuntButtonX, HeadhuntButtonY, HeadhuntButtonColor.Split(';')[1]))
+                    else if (MousePointColorCheck(HeadhuntButtonX, HeadhuntButtonY, HeadhuntButtonGrayColor))
                     {
                         MonitoringLog("Headhunt Finished");
 
@@ -794,8 +806,8 @@ namespace ArtOfHassan
 
                     // BattleLevelButton
                     if ((!IsStopHassan &&
-                         MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonColor.Split(';')[0])) ||
-                         MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonColor.Split(';')[1]))
+                         MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonYellowColor)) ||
+                         MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonShadedColor))
                     {
                         MonitoringLog("BattleLevelButton");
                         AdsCloseStopwatch.Reset();
@@ -835,7 +847,7 @@ namespace ArtOfHassan
                             }
                         }));
                     }
-                    else if (MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonColor.Split(';')[2])) // 빨간색
+                    else if (MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonRedColor)) // 빨간색
                     {
                         MonitoringLog("BattleLevelButton is Red");
 
@@ -857,7 +869,7 @@ namespace ArtOfHassan
 
                         return;
                     }
-                    else if (MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonColor.Split(';')[3])) // 바탕색
+                    else if (MousePointColorCheck(BattleLevelButtonX, BattleLevelButtonY, BattleLevelButtonBackColor)) // 바탕색
                     {
                         MonitoringLog("BattleLevelButton is disappered");
                         return;
@@ -900,7 +912,7 @@ namespace ArtOfHassan
                     // VictoryDefeat
                     if (!VictoryFlag && !DefeatFlag)
                     {
-                        if (MousePointColorCheck(VictoryDefeatX, VictoryDefeatY, VictoryDefeatColor.Split(';')[0]))
+                        if (MousePointColorCheck(VictoryDefeatX, VictoryDefeatY, VictoryDefeatVictoryColor))
                         {
                             MonitoringLog("Victory Checked");
                             VictoryFlag = true;
@@ -917,7 +929,7 @@ namespace ArtOfHassan
                             }));
                             return;
                         }
-                        else if (MousePointColorCheck(VictoryDefeatX, VictoryDefeatY, VictoryDefeatColor.Split(';')[1]))
+                        else if (MousePointColorCheck(VictoryDefeatX, VictoryDefeatY, VictoryDefeatDefeatColor))
                         {
                             MonitoringLog("Defeat Checked");
                             DefeatFlag = true;
@@ -1050,7 +1062,7 @@ namespace ArtOfHassan
                     if (VictoryFlag || DefeatFlag)
                     {
                         if (IsWatchAds && !IsNoGoldStatus && 
-                            MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundColor.Split(';')[0])) // Green
+                            MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundGreenColor)) // Green
                         {
                             if (!IsStarRated ||
                                 MousePointColorCheck(GoldButtonImageX, GoldButtonImageY, GoldButtonImageColor)) // Yellow
@@ -1078,7 +1090,7 @@ namespace ArtOfHassan
                             }
                         }
                         else if (!IsWatchAds || IsNoGoldStatus ||
-                                 MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundColor.Split(';')[1])) // Gray
+                                 MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundGrayColor)) // Gray
                         {
                             if (X3GoldButtonClickDelay < MonitoringInterval)
                             {
@@ -1121,9 +1133,8 @@ namespace ArtOfHassan
 
 
                     // GoldAdCloseButton
-                    if (MousePointColorCheck(GameAdCloseButtonX, GoldAdCloseButtonY, GameAdCloseButtonColor.Split(';')[0]) ||
-                        MousePointColorCheck(GameAdCloseButtonX, GoldAdCloseButtonY, GameAdCloseButtonColor.Split(';')[1]) ||
-                        MousePointColorCheck(GameAdCloseButtonX, GoldAdCloseButtonY, GameAdCloseButtonColor.Split(';')[2]))
+                    if (MousePointColorCheck(GameAdCloseButtonX, GoldAdCloseButtonY, GameAdCloseButtonLatestColor) ||
+                        MousePointColorCheck(GameAdCloseButtonX, GoldAdCloseButtonY, GameAdCloseButtonV308Color))
                     {
                         MonitoringLog("GoldAdCloseButton");
                         MousePointClick(GameAdCloseButtonX, GoldAdCloseButtonY);
@@ -1133,9 +1144,8 @@ namespace ArtOfHassan
 
 
                     // TroopAdCloseButton
-                    if (MousePointColorCheck(GameAdCloseButtonX, TroopAdCloseButtonY, GameAdCloseButtonColor.Split(';')[0]) ||
-                        MousePointColorCheck(GameAdCloseButtonX, TroopAdCloseButtonY, GameAdCloseButtonColor.Split(';')[1]) ||
-                        MousePointColorCheck(GameAdCloseButtonX, TroopAdCloseButtonY, GameAdCloseButtonColor.Split(';')[2]))
+                    if (MousePointColorCheck(GameAdCloseButtonX, TroopAdCloseButtonY, GameAdCloseButtonLatestColor) ||
+                        MousePointColorCheck(GameAdCloseButtonX, TroopAdCloseButtonY, GameAdCloseButtonV308Color))
                     {
                         MonitoringLog("TroopAdCloseButton");
                         MousePointClick(GameAdCloseButtonX, TroopAdCloseButtonY);
@@ -1145,9 +1155,8 @@ namespace ArtOfHassan
 
 
                     // MidasAdCloseButton
-                    if (MousePointColorCheck(GameAdCloseButtonX, MidasAdCloseButtonY, GameAdCloseButtonColor.Split(';')[0]) ||
-                        MousePointColorCheck(GameAdCloseButtonX, MidasAdCloseButtonY, GameAdCloseButtonColor.Split(';')[1]) ||
-                        MousePointColorCheck(GameAdCloseButtonX, MidasAdCloseButtonY, GameAdCloseButtonColor.Split(';')[2]))
+                    if (MousePointColorCheck(GameAdCloseButtonX, MidasAdCloseButtonY, GameAdCloseButtonLatestColor) ||
+                        MousePointColorCheck(GameAdCloseButtonX, MidasAdCloseButtonY, GameAdCloseButtonV308Color))
                     {
                         MonitoringLog("MidasAdCloseButton");
                         MousePointClick(GameAdCloseButtonX, MidasAdCloseButtonY);
@@ -1189,112 +1198,35 @@ namespace ArtOfHassan
                             AdsCloseStopwatch.Reset();
                             AdsCloseStopwatch.Stop();
 
-                            if (IsGoogleAdCloseButtonColorCheck)
+                            if (GoogleAdCloseClickPatterns[0] == "L")
                             {
-                                if (GoogleAdCloseClickPatterns[0] == "L")
-                                {
-                                    if (MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
-                                        MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
-                                    {
-                                        MonitoringLog("Left Ad Close Button");
-                                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
-                                }
-                                else
-                                {
-                                    if (MousePointColorCheck(RightAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
-                                        MousePointColorCheck(RightAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
-                                    {
-                                        MonitoringLog("Right Ad Close Button");
-                                        MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
-                                }
-
-                                System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
-
-                                if (GoogleAdCloseClickPatterns[1] == "L")
-                                {
-                                    if (MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
-                                        MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
-                                    {
-                                        MonitoringLog("Left Ad Close Button");
-                                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
-                                }
-                                else
-                                {
-                                    if (MousePointColorCheck(RightAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
-                                        MousePointColorCheck(RightAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
-                                    {
-                                        MonitoringLog("Right Ad Close Button");
-                                        MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
-                                }
-
-                                if (GoogleAdCloseClickPatterns.Length == 3)
-                                {
-                                    System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
-
-                                    if (GoogleAdCloseClickPatterns[2] == "L")
-                                    {
-                                        if (MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
-                                            MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
-                                        {
-                                            MonitoringLog("Left Ad Close Button");
-                                            MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (MousePointColorCheck(RightAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
-                                            MousePointColorCheck(RightAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
-                                        {
-                                            MonitoringLog("Right Ad Close Button");
-                                            MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                        }
-                                    }
-                                }
-
-                                if (GoogleAdCloseClickPatterns.Length == 4)
-                                {
-                                    System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
-
-                                    if (GoogleAdCloseClickPatterns[3] == "L")
-                                    {
-                                        if (MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
-                                            MousePointColorCheck(LeftAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
-                                        {
-                                            MonitoringLog("Left Ad Close Button");
-                                            MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (MousePointColorCheck(RightAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[0]) ||
-                                            MousePointColorCheck(RightAdCloseButtonX, GoogleAdCloseButtonY, GoogleAdCloseButtonColor.Split(';')[1]))
-                                        {
-                                            MonitoringLog("Right Ad Close Button");
-                                            MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                        }
-                                    }
-                                }
+                                MonitoringLog("Left Ad Close Button");
+                                MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
                             }
                             else
                             {
-                                if (GoogleAdCloseClickPatterns[0] == "L")
-                                {
-                                    MonitoringLog("Left Ad Close Button");
-                                    MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                }
-                                else
-                                {
-                                    MonitoringLog("Right Ad Close Button");
-                                    MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                }
+                                MonitoringLog("Right Ad Close Button");
+                                MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
+                            }
 
+                            System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
+
+                            if (GoogleAdCloseClickPatterns[1] == "L")
+                            {
+                                MonitoringLog("Left Ad Close Button");
+                                MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
+                            }
+                            else
+                            {
+                                MonitoringLog("Right Ad Close Button");
+                                MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
+                            }
+
+                            if (GoogleAdCloseClickPatterns.Length == 3)
+                            {
                                 System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
 
-                                if (GoogleAdCloseClickPatterns[1] == "L")
+                                if (GoogleAdCloseClickPatterns[2] == "L")
                                 {
                                     MonitoringLog("Left Ad Close Button");
                                     MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
@@ -1304,37 +1236,21 @@ namespace ArtOfHassan
                                     MonitoringLog("Right Ad Close Button");
                                     MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                 }
+                            }
 
-                                if (GoogleAdCloseClickPatterns.Length == 3)
+                            if (GoogleAdCloseClickPatterns.Length == 4)
+                            {
+                                System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
+
+                                if (GoogleAdCloseClickPatterns[3] == "L")
                                 {
-                                    System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
-
-                                    if (GoogleAdCloseClickPatterns[2] == "L")
-                                    {
-                                        MonitoringLog("Left Ad Close Button");
-                                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
-                                    else
-                                    {
-                                        MonitoringLog("Right Ad Close Button");
-                                        MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
+                                    MonitoringLog("Left Ad Close Button");
+                                    MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
                                 }
-
-                                if (GoogleAdCloseClickPatterns.Length == 4)
+                                else
                                 {
-                                    System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
-
-                                    if (GoogleAdCloseClickPatterns[3] == "L")
-                                    {
-                                        MonitoringLog("Left Ad Close Button");
-                                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
-                                    else
-                                    {
-                                        MonitoringLog("Right Ad Close Button");
-                                        MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
+                                    MonitoringLog("Right Ad Close Button");
+                                    MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
                                 }
                             }
 
@@ -1702,28 +1618,85 @@ namespace ArtOfHassan
             }
         }
 
-        private void SavePixelCsv()
+        private void SavePositionCsv()
         {
-            using (StreamWriter streamWriter = new StreamWriter($@"pixel.csv", false))
+            using (StreamWriter streamWriter = new StreamWriter($@"position.csv", false))
             {
-                streamWriter.WriteLine("AppLocation," + AppLocationX + "," + AppLocationY + "," + AppLocationColor);
-                streamWriter.WriteLine("HomeShopButton," + HomeButtonX + "," + ShopButtonX + "," + ShopButtonY + "," + ShopButtonColor);
-                streamWriter.WriteLine("GoldChestBox," + GoldChestBoxX + "," + GoldChestBoxY + "," + GoldChestBoxColor);
-                streamWriter.WriteLine("CollectButton," + CollectButtonX + "," + CollectButtonY + "," + CollectButtonColor);
-                streamWriter.WriteLine("BattleLevelButton," + BattleLevelButtonX + "," + BattleLevelButtonY + "," + BattleLevelButtonColor);
-                streamWriter.WriteLine("SkillButton," + SkillButtonX + "," + SkillButtonY + "," + SkillButtonColor);
-                streamWriter.WriteLine("SpeedButton," + SpeedButtonX + "," + SpeedButtonY + "," + SpeedButtonColor);
-                streamWriter.WriteLine("ContinueButton," + ContinueButtonX + "," + ContinueButtonY + "," + ContinueButtonColor);
-                streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX + "," + VictoryDefeatY + "," + VictoryDefeatColor);
-                streamWriter.WriteLine("NoGold," + NoGoldX + "," + NoGoldY + "," + NoGoldColor);
-                streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX + "," + GoldButtonBackgroundY + "," + GoldButtonBackgroundColor);
-                streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY + "," + GoldButtonImageColor);
-                streamWriter.WriteLine("NextButton," + NextButtonX + "," + NextButtonY + "," + NextButtonColor);
-                streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY + "," + GameAdCloseButtonColor);
-                streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY + "," + GoogleAdCloseButtonColor);
+                streamWriter.WriteLine("AppLocation," + AppLocationX + "," + AppLocationY);
+                streamWriter.WriteLine("HomeButton," + HomeButtonX);
+                streamWriter.WriteLine("ShopButton," + ShopButtonX + "," + ShopButtonY);
+                streamWriter.WriteLine("GoldChestBox," + GoldChestBoxX + "," + GoldChestBoxY);
+                streamWriter.WriteLine("GoldChestBoxCoinLatest," + GoldChestBoxCoinLatestX + "," + GoldChestBoxCoinLatestY);
+                streamWriter.WriteLine("GoldChestBoxCoinV308," + GoldChestBoxCoinV308X + "," + GoldChestBoxCoinV308Y);
+                streamWriter.WriteLine("CollectButton," + CollectButtonX + "," + CollectButtonY);
+                streamWriter.WriteLine("BattleLevelButton," + BattleLevelButtonX + "," + BattleLevelButtonY);
+                streamWriter.WriteLine("SkillButton," + SkillButtonX + "," + SkillButtonY);
+                streamWriter.WriteLine("SpeedButton," + SpeedButtonX + "," + SpeedButtonY);
+                streamWriter.WriteLine("ContinueButton," + ContinueButtonX + "," + ContinueButtonY);
+                streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX + "," + VictoryDefeatY);
+                streamWriter.WriteLine("NoGold," + NoGoldX + "," + NoGoldY);
+                streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX + "," + GoldButtonBackgroundY);
+                streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY);
+                streamWriter.WriteLine("NextButton," + NextButtonX + "," + NextButtonY);
+                streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY);
+                streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY);
                 streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX + "," + LatestUsedAppButtonY);
                 streamWriter.WriteLine("RightTopAppCloseButton," + RightTopAppCloseButtonX + "," + RightTopAppCloseButtonY);
-                streamWriter.WriteLine("NotRespondAppCloseButton," + NotRespondAppCloseButtonX + "," + NotRespondAppCloseButtonY1 + "," + NotRespondAppCloseButtonY2 + "," + NotRespondAppCloseButtonY3 + "," + NotRespondAppCloseButtonColor);
+                streamWriter.WriteLine("NotRespondAppCloseButton," + NotRespondAppCloseButtonX + "," + NotRespondAppCloseButtonY1 + "," + NotRespondAppCloseButtonY2 + "," + NotRespondAppCloseButtonY3);
+                streamWriter.WriteLine("HeadhuntButton," + HeadhuntButtonX + "," + HeadhuntButtonY);
+                streamWriter.WriteLine("TroopButton," + TroopButtonX + "," + TroopButtonY);
+                streamWriter.WriteLine("TroopOpenButton," + TroopOpenButtonX + "," + TroopOpenButtonY);
+                streamWriter.WriteLine("TroopCloseButton," + TroopCloseButtonX + "," + TroopCloseButtonY);
+                streamWriter.WriteLine("HonorChallengeButton," + HonorChallengeButtonX + "," + HonorChallengeButtonY);
+                streamWriter.WriteLine("HonorFightButton," + HonorFightButtonX + "," + HonorFightButtonY);
+                streamWriter.WriteLine("HonorSkillButton," + HonorSkillButtonX + "," + HonorSkillButtonY);
+                streamWriter.WriteLine("HonorPauseButton," + HonorPauseButtonX + "," + HonorPauseButtonY);
+                streamWriter.WriteLine("HonorQuitButton," + HonorQuitButtonX + "," + HonorQuitButtonY);
+                streamWriter.WriteLine("HonorHeroPosition," + HonorHeroPositionX + "," + HonorHeroPositionY);
+                streamWriter.WriteLine("HonorReplaceButton," + HonorReplaceButtonX + "," + HonorReplaceButtonY);
+                streamWriter.WriteLine("HonorHeroWindow," + HonorHeroWindowX + "," + HonorHeroWindowY);
+                streamWriter.WriteLine("HonorHeroWindowCloseButton," + HonorHeroWindowCloseButtonX + "," + HonorHeroWindowCloseButtonY);
+            }
+        }
+
+        private void SaveColorCsv()
+        {
+            using (StreamWriter streamWriter = new StreamWriter($@"color.csv", false))
+            {
+                streamWriter.WriteLine("AppLocationOrangeBlueColor," + AppLocationOrangeBlueColor);
+                streamWriter.WriteLine("AppLocationGreenColor," + AppLocationGreenColor);
+                streamWriter.WriteLine("ShopButtonColor," + ShopButtonColor);
+                streamWriter.WriteLine("GoldChestBoxCoinLatestColor," + GoldChestBoxCoinLatestColor);
+                streamWriter.WriteLine("GoldChestBoxCoinV308Color," + GoldChestBoxCoinV308Color);
+                streamWriter.WriteLine("CollectButtonColor," + CollectButtonColor);
+                streamWriter.WriteLine("BattleLevelButtonYellowColor," + BattleLevelButtonYellowColor);
+                streamWriter.WriteLine("BattleLevelButtonShadedColor," + BattleLevelButtonShadedColor);
+                streamWriter.WriteLine("BattleLevelButtonRedColor," + BattleLevelButtonRedColor);
+                streamWriter.WriteLine("BattleLevelButtonBackColor," + BattleLevelButtonBackColor);
+                streamWriter.WriteLine("SkillButtonColor," + SkillButtonColor);
+                streamWriter.WriteLine("SpeedButtonColor," + SpeedButtonColor);
+                streamWriter.WriteLine("ContinueButtonColor," + ContinueButtonColor);
+                streamWriter.WriteLine("VictoryDefeatVictoryColor," + VictoryDefeatVictoryColor);
+                streamWriter.WriteLine("VictoryDefeatDefeatColor," + VictoryDefeatDefeatColor);
+                streamWriter.WriteLine("NoGoldColor," + NoGoldColor);
+                streamWriter.WriteLine("GoldButtonBackgroundGreenColor," + GoldButtonBackgroundGreenColor);
+                streamWriter.WriteLine("GoldButtonBackgroundGrayColor," + GoldButtonBackgroundGrayColor);
+                streamWriter.WriteLine("GoldButtonImageColor," + GoldButtonImageColor);
+                streamWriter.WriteLine("NextButtonColor," + NextButtonColor);
+                streamWriter.WriteLine("GameAdCloseButtonLatestColor," + GameAdCloseButtonLatestColor);
+                streamWriter.WriteLine("GameAdCloseButtonV308Color," + GameAdCloseButtonV308Color);
+                streamWriter.WriteLine("NotRespondAppCloseButtonColor," + NotRespondAppCloseButtonColor);
+                streamWriter.WriteLine("HeadhuntButtonYellowColor," + HeadhuntButtonYellowColor);
+                streamWriter.WriteLine("HeadhuntButtonGrayColor," + HeadhuntButtonGrayColor);
+                streamWriter.WriteLine("TroopButtonColor," + TroopButtonColor);
+                streamWriter.WriteLine("TroopOpenButtonCenterColor," + TroopOpenButtonCenterColor);
+                streamWriter.WriteLine("TroopOpenButtonRightColor," + TroopOpenButtonRightColor);
+                streamWriter.WriteLine("TroopCloseButtonColor," + TroopCloseButtonColor);
+                streamWriter.WriteLine("HonorChallengeButtonColor," + HonorChallengeButtonColor);
+                streamWriter.WriteLine("HonorFightButtonColor," + HonorFightButtonColor);
+                streamWriter.WriteLine("HonorQuitButtonColor," + HonorQuitButtonColor);
+                streamWriter.WriteLine("HonorReplaceButtonColor," + HonorReplaceButtonColor);
+                streamWriter.WriteLine("HonorHeroWindowColor," + HonorHeroWindowColor);
             }
         }
 
@@ -1744,7 +1717,6 @@ namespace ArtOfHassan
                 HonorHeroChangeCheckBox.Content = "영웅 선택창 열기";
                 AdsTextBlock.Text = "광고";
                 AdsWatchCheckBox.Content = "광고 보기";
-                AdsCloseColorCheckBox.Content = "색상 확인";
                 AdsCloseClickPatternButton.Content = "광고 닫기\n클릭 패턴";
                 ModeTextBlock.Text = "모드";
                 StageRadioButton.Content = "스테이지";
@@ -1783,7 +1755,6 @@ namespace ArtOfHassan
                 HonorHeroChangeCheckBox.Content = "Open Heros Window";
                 AdsTextBlock.Text = "Ads";
                 AdsWatchCheckBox.Content = "Watch Ads ";
-                AdsCloseColorCheckBox.Content = "Check Color";
                 AdsCloseClickPatternButton.Content = "  Ads Close\nClick Pattern";
                 ModeTextBlock.Text = "Mode";
                 StageRadioButton.Content = "Stage";
@@ -1979,119 +1950,336 @@ namespace ArtOfHassan
             }
         }
 
-        private void LoadPixelCsv()
+        private void LoadPositionCsv()
         {
-            FileInfo fileInfo = new FileInfo("pixel.csv");
+            FileInfo fileInfo = new FileInfo("position.csv");
             if (fileInfo.Exists)
             {
-                MonitoringLog("Load Pixel...");
+                MonitoringLog("Load Pixel Position...");
 
-                string[] lines = File.ReadAllLines("pixel.csv");
+                string[] lines = File.ReadAllLines("position.csv");
+
+                foreach (string line in lines)
+                {
+                    bool   isCanParse = true;
+                    string[] listitem = line.Split(',');
+
+                    int temp;
+                    switch (listitem.Length)
+                    {
+                        case 2:
+                            if (!int.TryParse(listitem[1], out temp)) isCanParse = false;
+                            if (isCanParse)
+                            {
+                                switch (listitem[0].ToLower())
+                                {
+                                    case ("homebutton"):
+                                        HomeButtonX = int.Parse(listitem[1]);
+                                        break;
+                                }
+                            }
+                            break;
+                        case 3:
+                            if (!int.TryParse(listitem[1], out temp)) isCanParse = false;
+                            if (!int.TryParse(listitem[2], out temp)) isCanParse = false;
+                            if (isCanParse)
+                            {
+                                switch (listitem[0].ToLower())
+                                {
+                                    case ("applocation"):
+                                        AppLocationX = int.Parse(listitem[1]);
+                                        AppLocationY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("shopbutton"):
+                                        ShopButtonX = int.Parse(listitem[1]);
+                                        ShopButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("goldchestbox"):
+                                        GoldChestBoxX = int.Parse(listitem[1]);
+                                        GoldChestBoxY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("goldchestboxcoinlatest"):
+                                        GoldChestBoxCoinLatestX = int.Parse(listitem[1]);
+                                        GoldChestBoxCoinLatestY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("goldchestboxcoinv308"):
+                                        GoldChestBoxCoinV308X = int.Parse(listitem[1]);
+                                        GoldChestBoxCoinV308Y = int.Parse(listitem[2]);
+                                        break;
+                                    case ("collectbutton"):
+                                        CollectButtonX = int.Parse(listitem[1]);
+                                        CollectButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("battlelevelbutton"):
+                                        BattleLevelButtonX = int.Parse(listitem[1]);
+                                        BattleLevelButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("skillbutton"):
+                                        SkillButtonX = int.Parse(listitem[1]);
+                                        SkillButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("speedbutton"):
+                                        SpeedButtonX = int.Parse(listitem[1]);
+                                        SpeedButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("continuebutton"):
+                                        ContinueButtonX = int.Parse(listitem[1]);
+                                        ContinueButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("victorydefeat"):
+                                        VictoryDefeatX = int.Parse(listitem[1]);
+                                        VictoryDefeatY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("nogold"):
+                                        NoGoldX = int.Parse(listitem[1]);
+                                        NoGoldY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("goldbuttonbackground"):
+                                        GoldButtonBackgroundX = int.Parse(listitem[1]);
+                                        GoldButtonBackgroundY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("goldbuttonimage"):
+                                        GoldButtonImageX = int.Parse(listitem[1]);
+                                        GoldButtonImageY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("nextbutton"):
+                                        NextButtonX = int.Parse(listitem[1]);
+                                        NextButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("latestusedsppbutton"):
+                                        LatestUsedAppButtonX = int.Parse(listitem[1]);
+                                        LatestUsedAppButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("righttopappclosebutton"):
+                                        RightTopAppCloseButtonX = int.Parse(listitem[1]);
+                                        RightTopAppCloseButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("headhuntbutton"):
+                                        HeadhuntButtonX = int.Parse(listitem[1]);
+                                        HeadhuntButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("troopbutton"):
+                                        TroopButtonX = int.Parse(listitem[1]);
+                                        TroopButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("troopopenbutton"):
+                                        TroopOpenButtonX = int.Parse(listitem[1]);
+                                        TroopOpenButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("troopclosebutton"):
+                                        TroopCloseButtonX = int.Parse(listitem[1]);
+                                        TroopCloseButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("honorchallengebutton"):
+                                        HonorChallengeButtonX = int.Parse(listitem[1]);
+                                        HonorChallengeButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("honorfightbutton"):
+                                        HonorFightButtonX = int.Parse(listitem[1]);
+                                        HonorFightButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("honorskillbutton"):
+                                        HonorSkillButtonX = int.Parse(listitem[1]);
+                                        HonorSkillButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("honorpausebutton"):
+                                        HonorPauseButtonX = int.Parse(listitem[1]);
+                                        HonorPauseButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("honorquitbutton"):
+                                        HonorQuitButtonX = int.Parse(listitem[1]);
+                                        HonorQuitButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("honorheroposition"):
+                                        HonorHeroPositionX = int.Parse(listitem[1]);
+                                        HonorHeroPositionY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("honorreplacebutton"):
+                                        HonorReplaceButtonX = int.Parse(listitem[1]);
+                                        HonorReplaceButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("honorherowindow"):
+                                        HonorHeroWindowX = int.Parse(listitem[1]);
+                                        HonorHeroWindowY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("honorherowindowclosebutton"):
+                                        HonorHeroWindowCloseButtonX = int.Parse(listitem[1]);
+                                        HonorHeroWindowCloseButtonY = int.Parse(listitem[2]);
+                                        break;
+                                }
+                            }
+                            break;
+                        case 4:
+                            if (!int.TryParse(listitem[1], out temp)) isCanParse = false;
+                            if (!int.TryParse(listitem[2], out temp)) isCanParse = false;
+                            if (!int.TryParse(listitem[3], out temp)) isCanParse = false;
+                            if (isCanParse)
+                            {
+                                switch (listitem[0].ToLower())
+                                {
+                                    case ("googleadclosebutton"):
+                                        LeftAdCloseButtonX = int.Parse(listitem[1]);
+                                        RightAdCloseButtonX = int.Parse(listitem[2]);
+                                        GoogleAdCloseButtonY = int.Parse(listitem[3]);
+                                        break;
+                                }
+                            }
+                            break;
+                        case 5:
+                            if (!int.TryParse(listitem[1], out temp)) isCanParse = false;
+                            if (!int.TryParse(listitem[2], out temp)) isCanParse = false;
+                            if (!int.TryParse(listitem[3], out temp)) isCanParse = false;
+                            if (!int.TryParse(listitem[4], out temp)) isCanParse = false;
+                            if (isCanParse)
+                            {
+                                switch (listitem[0].ToLower())
+                                {
+                                    case ("gameadclosebutton"):
+                                        GameAdCloseButtonX = int.Parse(listitem[1]);
+                                        GoldAdCloseButtonY = int.Parse(listitem[2]);
+                                        TroopAdCloseButtonY = int.Parse(listitem[3]);
+                                        MidasAdCloseButtonY = int.Parse(listitem[4]);
+                                        break;
+                                    case ("notrespondappclosebutton"):
+                                        NotRespondAppCloseButtonX = int.Parse(listitem[1]);
+                                        NotRespondAppCloseButtonY1 = int.Parse(listitem[2]);
+                                        NotRespondAppCloseButtonY2 = int.Parse(listitem[3]);
+                                        NotRespondAppCloseButtonY3 = int.Parse(listitem[4]);
+                                        break;
+                                }
+                            }
+                            break;
+                    }
+                }
+
+                MonitoringLog("Load Pixel Position Done");
+            }
+        }
+
+        private void LoadColorCsv()
+        {
+            FileInfo fileInfo = new FileInfo("color.csv");
+            if (fileInfo.Exists)
+            {
+                MonitoringLog("Load Pixel Color...");
+
+                string[] lines = File.ReadAllLines("position.csv");
 
                 foreach (string line in lines)
                 {
                     string[] listitem = line.Split(',');
 
-                    switch (listitem[0].ToLower())
+                    if ((listitem.Length == 2) && listitem[1].Contains("#") && (listitem[1].Length == 7))
                     {
-                        case ("applocation"):
-                            AppLocationX = int.Parse(listitem[1]);
-                            AppLocationY = int.Parse(listitem[2]);
-                            AppLocationColor = listitem[3];
-                            break;
-                        case ("homeshopbutton"):
-                            HomeButtonX = int.Parse(listitem[1].Split(';')[0]);
-                            ShopButtonX = int.Parse(listitem[1].Split(';')[1]);
-                            ShopButtonY = int.Parse(listitem[2]);
-                            ShopButtonColor = listitem[3];
-                            break;
-                        case ("collectbutton"):
-                            CollectButtonX = int.Parse(listitem[1]);
-                            CollectButtonY = int.Parse(listitem[2]);
-                            CollectButtonColor = listitem[3];
-                            break;
-                        case ("goldchestbox"):
-                            GoldChestBoxX = int.Parse(listitem[1]);
-                            GoldChestBoxY = int.Parse(listitem[2]);
-                            GoldChestBoxColor = listitem[3];
-                            break;
-                        case ("battlelevelbutton"):
-                            BattleLevelButtonX = int.Parse(listitem[1]);
-                            BattleLevelButtonY = int.Parse(listitem[2]);
-                            BattleLevelButtonColor = listitem[3];
-                            break;
-                        case ("skillbutton"):
-                            SkillButtonX = int.Parse(listitem[1]);
-                            SkillButtonY = int.Parse(listitem[2]);
-                            SkillButtonColor = listitem[3];
-                            break;
-                        case ("speedbutton"):
-                            SpeedButtonX = int.Parse(listitem[1]);
-                            SpeedButtonY = int.Parse(listitem[2]);
-                            SpeedButtonColor = listitem[3];
-                            break;
-                        case ("continuebutton"):
-                            ContinueButtonX = int.Parse(listitem[1]);
-                            ContinueButtonY = int.Parse(listitem[2]);
-                            ContinueButtonColor = listitem[3];
-                            break;
-                        case ("victorydefeat"):
-                            VictoryDefeatX = int.Parse(listitem[1]);
-                            VictoryDefeatY = int.Parse(listitem[2]);
-                            VictoryDefeatColor = listitem[3];
-                            break;
-                        case ("goldbuttonbackground"):
-                            GoldButtonBackgroundX = int.Parse(listitem[1]);
-                            GoldButtonBackgroundY = int.Parse(listitem[2]);
-                            GoldButtonBackgroundColor = listitem[3];
-                            break;
-                        case ("goldbuttonimage"):
-                            GoldButtonImageX = int.Parse(listitem[1]);
-                            GoldButtonImageY = int.Parse(listitem[2]);
-                            GoldButtonImageColor = listitem[3];
-                            break;
-                        case ("nextbutton"):
-                            NextButtonX = int.Parse(listitem[1]);
-                            NextButtonY = int.Parse(listitem[2]);
-                            NextButtonColor = listitem[3];
-                            break;
-                        case ("nogold"):
-                            NoGoldX = int.Parse(listitem[1]);
-                            NoGoldY = int.Parse(listitem[2]);
-                            NoGoldColor = listitem[3];
-                            break;
-                        case ("gameadclosebutton"):
-                            GameAdCloseButtonX = int.Parse(listitem[1]);
-                            GoldAdCloseButtonY = int.Parse(listitem[2].Split(';')[0]);
-                            TroopAdCloseButtonY = int.Parse(listitem[2].Split(';')[1]);
-                            MidasAdCloseButtonY = int.Parse(listitem[2].Split(';')[2]);
-                            GameAdCloseButtonColor = listitem[3];
-                            break;
-                        case ("googleadclosebutton"):
-                            LeftAdCloseButtonX = int.Parse(listitem[1].Split(';')[0]);
-                            RightAdCloseButtonX = int.Parse(listitem[1].Split(';')[1]);
-                            GoogleAdCloseButtonY = int.Parse(listitem[2]);
-                            GoogleAdCloseButtonColor = listitem[3];
-                            break;
-                        case ("latestusedsppbutton"):
-                            LatestUsedAppButtonX = int.Parse(listitem[1]);
-                            LatestUsedAppButtonY = int.Parse(listitem[2]);
-                            break;
-                        case ("righttopappclosebutton"):
-                            RightTopAppCloseButtonX = int.Parse(listitem[1]);
-                            RightTopAppCloseButtonY = int.Parse(listitem[2]);
-                            break;
-                        case ("notrespondappclosebutton"):
-                            NotRespondAppCloseButtonX = int.Parse(listitem[1]);
-                            NotRespondAppCloseButtonY1 = int.Parse(listitem[2].Split(';')[0]);
-                            NotRespondAppCloseButtonY2 = int.Parse(listitem[2].Split(';')[1]);
-                            NotRespondAppCloseButtonY3 = int.Parse(listitem[2].Split(';')[2]);
-                            NotRespondAppCloseButtonColor = listitem[3];
-                            break;
+                        switch (listitem[0].ToLower())
+                        {
+                            case ("applocationorangebluecolor"):
+                                AppLocationOrangeBlueColor = listitem[1];
+                                break;
+                            case ("applocationgreencolor"):
+                                AppLocationGreenColor = listitem[1];
+                                break;
+                            case ("shopbuttoncolor"):
+                                ShopButtonColor = listitem[1];
+                                break;
+                            case ("goldchestboxcoinlatestcolor"):
+                                GoldChestBoxCoinLatestColor = listitem[1];
+                                break;
+                            case ("goldchestboxcoinv308color"):
+                                GoldChestBoxCoinV308Color = listitem[1];
+                                break;
+                            case ("collectbuttoncolor"):
+                                CollectButtonColor = listitem[1];
+                                break;
+                            case ("battlelevelbuttonyellowcolor"):
+                                BattleLevelButtonYellowColor = listitem[1];
+                                break;
+                            case ("battlelevelbuttonshadedcolor"):
+                                BattleLevelButtonShadedColor = listitem[1];
+                                break;
+                            case ("battlelevelbuttonredcolor"):
+                                BattleLevelButtonRedColor = listitem[1];
+                                break;
+                            case ("battlelevelbuttonbackcolor"):
+                                BattleLevelButtonBackColor = listitem[1];
+                                break;
+                            case ("skillbuttoncolor"):
+                                SkillButtonColor = listitem[1];
+                                break;
+                            case ("speedbuttoncolor"):
+                                SpeedButtonColor = listitem[1];
+                                break;
+                            case ("continuebuttoncolor"):
+                                ContinueButtonColor = listitem[1];
+                                break;
+                            case ("victorydefeatvictorycolor"):
+                                VictoryDefeatVictoryColor = listitem[1];
+                                break;
+                            case ("victorydefeatdefeatcolor"):
+                                VictoryDefeatDefeatColor = listitem[1];
+                                break;
+                            case ("nogoldcolor"):
+                                NoGoldColor = listitem[1];
+                                break;
+                            case ("goldbuttonbackgroundgreencolor"):
+                                GoldButtonBackgroundGreenColor = listitem[1];
+                                break;
+                            case ("goldbuttonbackgroundgraycolor"):
+                                GoldButtonBackgroundGrayColor = listitem[1];
+                                break;
+                            case ("goldbuttonimagecolor"):
+                                GoldButtonImageColor = listitem[1];
+                                break;
+                            case ("nextbuttoncolor"):
+                                NextButtonColor = listitem[1];
+                                break;
+                            case ("gameadclosebuttonlatestcolor"):
+                                GameAdCloseButtonLatestColor = listitem[1];
+                                break;
+                            case ("gameadclosebuttonv308color"):
+                                GameAdCloseButtonV308Color = listitem[1];
+                                break;
+                            case ("notrespondappclosebuttoncolor"):
+                                NotRespondAppCloseButtonColor = listitem[1];
+                                break;
+                            case ("headhuntbuttonyellowcolor"):
+                                HeadhuntButtonYellowColor = listitem[1];
+                                break;
+                            case ("headhuntbuttongraycolor"):
+                                HeadhuntButtonGrayColor = listitem[1];
+                                break;
+                            case ("troopbuttoncolor"):
+                                TroopButtonColor = listitem[1];
+                                break;
+                            case ("troopopenbuttoncentercolor"):
+                                TroopOpenButtonCenterColor = listitem[1];
+                                break;
+                            case ("troopopenbuttonrightcolor"):
+                                TroopOpenButtonRightColor = listitem[1];
+                                break;
+                            case ("troopclosebuttoncolor"):
+                                TroopCloseButtonColor = listitem[1];
+                                break;
+                            case ("honorchallengebuttoncolor"):
+                                HonorChallengeButtonColor = listitem[1];
+                                break;
+                            case ("honorfightbuttoncolor"):
+                                HonorFightButtonColor = listitem[1];
+                                break;
+                            case ("honorquitbuttoncolor"):
+                                HonorQuitButtonColor = listitem[1];
+                                break;
+                            case ("honorreplacebuttoncolor"):
+                                HonorReplaceButtonColor = listitem[1];
+                                break;
+                            case ("honorherowindowcolor"):
+                                HonorHeroWindowColor = listitem[1];
+                                break;
+                        }
                     }
                 }
 
-                MonitoringLog("Load Pixel Done");
+                MonitoringLog("Load Pixel Color Done");
             }
         }
 
