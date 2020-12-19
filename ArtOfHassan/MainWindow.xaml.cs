@@ -1783,11 +1783,6 @@ namespace ArtOfHassan
             }
         }
 
-        private void PixelCustomizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         #endregion
 
 
