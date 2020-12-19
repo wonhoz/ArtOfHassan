@@ -84,135 +84,134 @@ namespace ArtOfHassan
 
         #endregion
 
-        #region Public Point Variable
+        #region Point Variable
 
-        public int AppLocationX = 60;
-        public int AppLocationY = 500;
-        public string AppLocationColor = "#a9d8ff;#97c601".ToUpper();
+        int AppLocationX = 60;
+        int AppLocationY = 500;
+        string AppLocationColor = "#a9d8ff;#97c601".ToUpper();
 
-        public int HomeButtonX = 290;
-        public int ShopButtonX = 65;
-        public int ShopButtonY = 980;
-        public string ShopButtonColor = "#ea3d34".ToUpper();
+        int HomeButtonX = 290;
+        int ShopButtonX = 65;
+        int ShopButtonY = 980;
+        string ShopButtonColor = "#ea3d34".ToUpper();
 
-        public int GoldChestBoxX = 150;
-        public int GoldChestBoxY = 410;
-        public string GoldChestBoxColor = "#fff102;#eabf2f".ToUpper();
+        int GoldChestBoxX = 150;
+        int GoldChestBoxY = 410;
+        string GoldChestBoxColor = "#fff102;#eabf2f".ToUpper();
 
-        public int CollectButtonX = 195;
-        public int CollectButtonY = 680;
-        public string CollectButtonColor = "#fdbb00".ToUpper();
+        int CollectButtonX = 195;
+        int CollectButtonY = 680;
+        string CollectButtonColor = "#fdbb00".ToUpper();
 
-        public int BattleLevelButtonX = 180;
-        public int BattleLevelButtonY = 855;
-        public string BattleLevelButtonColor = "#fdbb00;#ca9600;#bd1808;#0d677a".ToUpper();
+        int BattleLevelButtonX = 180;
+        int BattleLevelButtonY = 855;
+        string BattleLevelButtonColor = "#fdbb00;#ca9600;#bd1808;#0d677a".ToUpper();
 
-        public int SkillButtonX = 475;
-        public int SkillButtonY = 920;
-        public string SkillButtonColor = "#fdbb00".ToUpper();
+        int SkillButtonX = 475;
+        int SkillButtonY = 920;
+        string SkillButtonColor = "#fdbb00".ToUpper();
 
-        public int SpeedButtonX = 514;
-        public int SpeedButtonY = 989;
-        public string SpeedButtonColor = "#eda500".ToUpper();
+        int SpeedButtonX = 514;
+        int SpeedButtonY = 989;
+        string SpeedButtonColor = "#eda500".ToUpper();
 
-        public int ContinueButtonX = 215;
-        public int ContinueButtonY = 455;
-        public string ContinueButtonColor = "#fdbb00".ToUpper();
+        int ContinueButtonX = 215;
+        int ContinueButtonY = 455;
+        string ContinueButtonColor = "#fdbb00".ToUpper();
 
-        public int VictoryDefeatX = 120;
-        public int VictoryDefeatY = 355;
-        public string VictoryDefeatColor = "#d91c13;#12a7d8".ToUpper();
+        int VictoryDefeatX = 120;
+        int VictoryDefeatY = 355;
+        string VictoryDefeatColor = "#d91c13;#12a7d8".ToUpper();
 
-        public int NoGoldX = 321;
-        public int NoGoldY = 646;
-        public string NoGoldColor = "#dfd6be".ToUpper();
+        int NoGoldX = 321;
+        int NoGoldY = 646;
+        string NoGoldColor = "#dfd6be".ToUpper();
 
-        public int GoldButtonBackgroundX = 115;
-        public int GoldButtonBackgroundY = 780;
-        public string GoldButtonBackgroundColor = "#7da70a;#8e8e8e".ToUpper();
+        int GoldButtonBackgroundX = 115;
+        int GoldButtonBackgroundY = 780;
+        string GoldButtonBackgroundColor = "#7da70a;#8e8e8e".ToUpper();
 
-        public int GoldButtonImageX = 133;
-        public int GoldButtonImageY = 755;
-        public string GoldButtonImageColor = "#ffea90".ToUpper();
+        int GoldButtonImageX = 133;
+        int GoldButtonImageY = 755;
+        string GoldButtonImageColor = "#ffea90".ToUpper();
 
-        public int NextButtonX = 450;
-        public int NextButtonY = 710;
-        public string NextButtonColor = "#fdbb00".ToUpper();
+        int NextButtonX = 450;
+        int NextButtonY = 710;
+        string NextButtonColor = "#fdbb00".ToUpper();
 
-        public int GameAdCloseButtonX = 496;
-        public int GoldAdCloseButtonY = 180;
-        public int TroopAdCloseButtonY = 190;
-        public int MidasAdCloseButtonY = 262;
-        public string GameAdCloseButtonColor = "#efe7d6;#e9e9d8;#e9e9d8".ToUpper();
+        int GameAdCloseButtonX = 496;
+        int GoldAdCloseButtonY = 180;
+        int TroopAdCloseButtonY = 190;
+        int MidasAdCloseButtonY = 262;
+        string GameAdCloseButtonColor = "#efe7d6;#e9e9d8;#e9e9d8".ToUpper();
 
-        public int LeftAdCloseButtonX = 45;
-        public int RightAdCloseButtonX = 513;
-        public int GoogleAdCloseButtonY = 63;
-        public string GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
+        int LeftAdCloseButtonX = 45;
+        int RightAdCloseButtonX = 513;
+        int GoogleAdCloseButtonY = 63;
+        string GoogleAdCloseButtonColor = "#4c4c4f;#3c4043".ToUpper();
 
-        public int LatestUsedAppButtonX = 580;
-        public int LatestUsedAppButtonY = 1000;
+        int LatestUsedAppButtonX = 580;
+        int LatestUsedAppButtonY = 1000;
 
-        public int RightTopAppCloseButtonX = 501;
-        public int RightTopAppCloseButtonY = 150;
+        int RightTopAppCloseButtonX = 501;
+        int RightTopAppCloseButtonY = 150;
 
-        public int NotRespondAppCloseButtonX = 79;
-        public int NotRespondAppCloseButtonY1 = 510;
-        public int NotRespondAppCloseButtonY2 = 525;
-        public int NotRespondAppCloseButtonY3 = 540;
-        public string NotRespondAppCloseButtonColor = "#009688".ToUpper();
+        int NotRespondAppCloseButtonX = 79;
+        int NotRespondAppCloseButtonY1 = 510;
+        int NotRespondAppCloseButtonY2 = 525;
+        int NotRespondAppCloseButtonY3 = 540;
+        string NotRespondAppCloseButtonColor = "#009688".ToUpper();
 
         // Headhunt
-        public int HeadhuntButtonX = 515;
-        public int HeadhuntButtonY = 380;
-        public string HeadhuntButtonColor = "#fdbb00;#572f17".ToUpper();
+        int HeadhuntButtonX = 515;
+        int HeadhuntButtonY = 380;
+        string HeadhuntButtonColor = "#fdbb00;#572f17".ToUpper();
 
         // Troop
-        public int TroopButtonX = 470;
-        public int TroopButtonY = 860;
-        public string TroopButtonColor = "#fac91c".ToUpper();
+        int TroopButtonX = 470;
+        int TroopButtonY = 860;
+        string TroopButtonColor = "#fac91c".ToUpper();
 
-        public int TroopOpenButtonX = 384;
-        public int TroopOpenButtonY = 894;
-        public string TroopOpenButtonColor = "#f6a408;#d08a0f".ToUpper();
+        int TroopOpenButtonX = 384;
+        int TroopOpenButtonY = 894;
+        string TroopOpenButtonColor = "#f6a408;#d08a0f".ToUpper();
 
-        public int TroopCloseButtonX = 239;
-        public int TroopCloseButtonY = 868;
-        public string TroopCloseButtonColor = "#ffffff".ToUpper();
+        int TroopCloseButtonX = 239;
+        int TroopCloseButtonY = 868;
+        string TroopCloseButtonColor = "#ffffff".ToUpper();
 
         // Honor
-        public int HonorChallengeButtonX = 460;
-        public int HonorChallengeButtonY = 890;
-        public string HonorChallengeButtonColor = "#fdbb00".ToUpper();
+        int HonorChallengeButtonX = 460;
+        int HonorChallengeButtonY = 890;
+        string HonorChallengeButtonColor = "#fdbb00".ToUpper();
 
-        public int HonorFightButtonX = 185;
-        public int HonorFightButtonY = 820;
-        public string HonorFightButtonColor = "#fdcc00".ToUpper();
+        int HonorFightButtonX = 185;
+        int HonorFightButtonY = 820;
+        string HonorFightButtonColor = "#fdcc00".ToUpper();
 
-        public int HonorSkillButtonX = 44;
-        public int HonorSkillButtonY = 906;
-        public string HonorSkillButtonColor;
+        int HonorSkillButtonX = 44;
+        int HonorSkillButtonY = 906;
 
-        public int HonorPauseButtonX = 43;
-        public int HonorPauseButtonY = 68;
+        int HonorPauseButtonX = 43;
+        int HonorPauseButtonY = 68;
 
-        public int HonorQuitButtonX = 177;
-        public int HonorQuitButtonY = 533;
-        public string HonorQuitButtonColor = "#93bd20".ToUpper();
+        int HonorQuitButtonX = 177;
+        int HonorQuitButtonY = 533;
+        string HonorQuitButtonColor = "#93bd20".ToUpper();
 
-        public int HonorHeroPositionX = 490;
-        public int HonorHeroPositionY = 600;
+        int HonorHeroPositionX = 490;
+        int HonorHeroPositionY = 600;
 
-        public int HonorReplaceButtonX = 477;
-        public int HonorReplaceButtonY = 477;
-        public string HonorReplaceButtonColor = "#1ca813".ToUpper();
+        int HonorReplaceButtonX = 477;
+        int HonorReplaceButtonY = 477;
+        string HonorReplaceButtonColor = "#1ca813".ToUpper();
 
-        public int HonorHeroWindowX = 390;
-        public int HonorHeroWindowY = 295;
-        public string HonorHeroWindowColor = "#215b84".ToUpper();
+        int HonorHeroWindowX = 390;
+        int HonorHeroWindowY = 295;
+        string HonorHeroWindowColor = "#215b84".ToUpper();
 
-        public int HonorHeroWindowCloseButtonX = 466;
-        public int HonorHeroWindowCloseButtonY = 293;
+        int HonorHeroWindowCloseButtonX = 466;
+        int HonorHeroWindowCloseButtonY = 293;
 
         #endregion
 
