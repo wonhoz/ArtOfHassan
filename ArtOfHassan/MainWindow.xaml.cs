@@ -604,9 +604,9 @@ namespace ArtOfHassan
                             if (!(((currentHonorSkillColor.R >= HonorSkillColor.R - PixelDifference) && (currentHonorSkillColor.G >= HonorSkillColor.G - PixelDifference) && (currentHonorSkillColor.B >= HonorSkillColor.B - PixelDifference)) &&
                                   ((currentHonorSkillColor.R <= HonorSkillColor.R + PixelDifference) && (currentHonorSkillColor.G <= HonorSkillColor.G + PixelDifference) && (currentHonorSkillColor.B <= HonorSkillColor.B + PixelDifference))))
                             {
-                                MonitoringLog("HonorSkillColor Changed!");
                                 HonorSkillColor = currentHonorSkillColor;
                                 HonorSkillChangeCount++;
+                                MonitoringLog("HonorSkillColor Changed: " + HonorSkillChangeCount);
                             }
                         }
 
@@ -658,8 +658,8 @@ namespace ArtOfHassan
                             // HonorHeroWindow
                             if (MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
                             {
-                                MonitoringLog("HonorHeroWindow");
                                 HonorHeroWindowCount++;
+                                MonitoringLog("HonorHeroWindow: " + HonorHeroWindowCount);
                             }
 
                             // HonorHeroWindow Close
@@ -2042,7 +2042,7 @@ namespace ArtOfHassan
                                         NextButtonX = int.Parse(listitem[1]);
                                         NextButtonY = int.Parse(listitem[2]);
                                         break;
-                                    case ("latestusedsppbutton"):
+                                    case ("latestusedappbutton"):
                                         LatestUsedAppButtonX = int.Parse(listitem[1]);
                                         LatestUsedAppButtonY = int.Parse(listitem[2]);
                                         break;
