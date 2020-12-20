@@ -140,7 +140,6 @@ namespace ArtOfHassan
         int GoldButtonBackgroundX = 115;
         int GoldButtonBackground3StarY  = 780;
         int GoldButtonBackgroundNoStarY = 685;
-        int GoldButtonBackgroundV308Y   = 710;
         string GoldButtonBackgroundGreenColor = "#7da70a".ToUpper();
         string GoldButtonBackgroundGrayColor  = "#8e8e8e".ToUpper();
 
@@ -1060,11 +1059,52 @@ namespace ArtOfHassan
                     // X3 Gold Button
                     if (VictoryFlag || DefeatFlag)
                     {
-                        if (IsWatchAds && !IsNoGoldStatus && 
-                            MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundGreenColor)) // Green
+                        if (IsWatchAds && !IsNoGoldStatus) // 광고 보기
                         {
-                            if (!IsStarRated ||
-                                MousePointColorCheck(GoldButtonImageX, GoldButtonImageY, GoldButtonImageColor)) // Yellow
+                            // 3별 시스템 - 재시도가 있는 것
+                            if (MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackground3StarY, GoldButtonBackgroundGreenColor)) // Green
+                            {
+                                if (MousePointColorCheck(GoldButtonImageX, GoldButtonImageY, GoldButtonImageColor)) // Yellow Coin
+                                {
+                                    if (X3GoldButtonClickDelay < MonitoringInterval)
+                                    {
+                                        System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                    }
+                                    else
+                                    {
+                                        X3GoldButtonClickDelay -= MonitoringInterval;
+                                        return;
+                                    }
+
+                                    MonitoringLog("Gold Button");
+                                    AdsWatchFlag = true;
+                                    AdsCloseStopwatch.Restart();
+
+                                    MousePointClick(GoldButtonBackgroundX, GoldButtonBackground3StarY);
+                                }
+                                else // Green but no coin such as Retry
+                                {
+                                    MonitoringLog("Next Button - Retry");
+                                    MousePointClick(NextButtonX, GoldButtonBackground3StarY);
+                                }
+                            }
+                            else if (MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackground3StarY, GoldButtonBackgroundGrayColor)) // Gray
+                            {
+                                if (X3GoldButtonClickDelay < MonitoringInterval)
+                                {
+                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                }
+                                else
+                                {
+                                    X3GoldButtonClickDelay -= MonitoringInterval;
+                                    return;
+                                }
+
+                                MonitoringLog("Next Button - Gold Button is Gray");
+                                MousePointClick(NextButtonX, GoldButtonBackground3StarY);
+                            }
+                            // 비 3별 시스템 - 현상금
+                            else if (MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundNoStarY, GoldButtonBackgroundGreenColor)) // Green
                             {
                                 if (X3GoldButtonClickDelay < MonitoringInterval)
                                 {
@@ -1080,54 +1120,79 @@ namespace ArtOfHassan
                                 AdsWatchFlag = true;
                                 AdsCloseStopwatch.Restart();
 
-                                MousePointClick(GoldButtonBackgroundX, GoldButtonBackgroundY);
+                                MousePointClick(GoldButtonBackgroundX, GoldButtonBackgroundNoStarY);
                             }
-                            else // Green such as Retry
+                            else if (MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundNoStarY, GoldButtonBackgroundGrayColor)) // Gray
                             {
-                                MonitoringLog("Next Button");
-                                MousePointClick(NextButtonX, GoldButtonBackgroundY);
-                            }
-                        }
-                        else if (!IsWatchAds || IsNoGoldStatus ||
-                                 MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundY, GoldButtonBackgroundGrayColor)) // Gray
-                        {
-                            if (X3GoldButtonClickDelay < MonitoringInterval)
-                            {
-                                System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
-                            }
-                            else
-                            {
-                                X3GoldButtonClickDelay -= MonitoringInterval;
-                                return;
-                            }
+                                if (X3GoldButtonClickDelay < MonitoringInterval)
+                                {
+                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                }
+                                else
+                                {
+                                    X3GoldButtonClickDelay -= MonitoringInterval;
+                                    return;
+                                }
 
-                            if (IsStarRated || IsHeadhuntMode)
-                            {
-                                MousePointClick(NextButtonX, GoldButtonBackgroundY);
+                                MonitoringLog("Next Button - Gold Button is Gray");
+                                MousePointClick(NextButtonX, GoldButtonBackgroundNoStarY);
                             }
-                            else
+                            // 구버전
+                            else if (MousePointColorCheck(GoldButtonBackgroundX, NextButtonY, GoldButtonBackgroundGreenColor)) // Green
                             {
+                                if (X3GoldButtonClickDelay < MonitoringInterval)
+                                {
+                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                }
+                                else
+                                {
+                                    X3GoldButtonClickDelay -= MonitoringInterval;
+                                    return;
+                                }
+
+                                MonitoringLog("Gold Button");
+                                AdsWatchFlag = true;
+                                AdsCloseStopwatch.Restart();
+
+                                MousePointClick(GoldButtonBackgroundX, NextButtonY);
+                            }
+                            else if (MousePointColorCheck(GoldButtonBackgroundX, NextButtonY, GoldButtonBackgroundGrayColor)) // Gray
+                            {
+                                if (X3GoldButtonClickDelay < MonitoringInterval)
+                                {
+                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                }
+                                else
+                                {
+                                    X3GoldButtonClickDelay -= MonitoringInterval;
+                                    return;
+                                }
+
+                                MonitoringLog("Next Button - Gold Button is Gray");
                                 MousePointClick(NextButtonX, NextButtonY);
                             }
-
-                            if (!IsWatchAds || IsNoGoldStatus)
+                        }
+                        else if (!IsWatchAds || IsNoGoldStatus) // 광고 안보기
+                        {
+                            // 3별 시스템
+                            if (MousePointColorCheck(NextButtonX, GoldButtonBackground3StarY, NextButtonColor))
                             {
                                 MonitoringLog("Next Button");
-                                return;
+                                MousePointClick(NextButtonX, GoldButtonBackground3StarY);
                             }
-                            else
+                            // 비 3별 시스템
+                            else if (MousePointColorCheck(NextButtonX, GoldButtonBackgroundNoStarY, NextButtonColor))
                             {
-                                MonitoringLog("Gold Button is Gray");
+                                MonitoringLog("Next Button");
+                                MousePointClick(NextButtonX, GoldButtonBackgroundNoStarY);
+                            }
+                            // 구버전
+                            else if (MousePointColorCheck(NextButtonX, NextButtonY, NextButtonColor))
+                            {
+                                MonitoringLog("Next Button");
+                                MousePointClick(NextButtonX, NextButtonY);
                             }
                         }
-                    }
-
-
-                    // Next Button (Defeat or Old)
-                    if (MousePointColorCheck(NextButtonX, NextButtonY, NextButtonColor))
-                    {
-                        MonitoringLog("NextButton");
-                        MousePointClick(NextButtonX, NextButtonY);
                     }
 
 
