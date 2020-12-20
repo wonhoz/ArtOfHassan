@@ -787,8 +787,6 @@ namespace ArtOfHassan
 
                         System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                         {
-                            IsHeadhuntMode        = false;
-
                             StageRadioButton.IsChecked    = true;
                             HeadhuntRadioButton.IsChecked = false;
                             AdsWatchCheckBox.IsChecked    = PrevAdsWatch;
@@ -1346,7 +1344,6 @@ namespace ArtOfHassan
 
         bool PrevAdsWatch;
 
-        bool IsHeadhuntMode = false;
         bool IsHonorMode    = false;
         bool IsTroopMode    = false;
 
@@ -1370,7 +1367,6 @@ namespace ArtOfHassan
             }
 
             // 신버전 3별 시스템이 기준
-            IsHeadhuntMode = false;
             IsHonorMode    = false;
             IsTroopMode    = false;
             AdsWatchCheckBox.IsChecked = true;
@@ -1398,7 +1394,6 @@ namespace ArtOfHassan
             }
 
             // 현상금은 비 3별 시스템
-            IsHeadhuntMode = true;
             IsHonorMode    = false;
             IsTroopMode    = false;
             AdsWatchCheckBox.IsChecked = false;
@@ -1413,7 +1408,6 @@ namespace ArtOfHassan
                 PrevMonitoringInterval = MonitoringIntervalTextBox.Text;
             }
 
-            IsHeadhuntMode = false;
             IsHonorMode    = true;
             IsTroopMode    = false;
 
@@ -1451,7 +1445,6 @@ namespace ArtOfHassan
                 PrevMonitoringInterval = MonitoringIntervalTextBox.Text;
             }
 
-            IsHeadhuntMode = false;
             IsHonorMode    = false;
             IsTroopMode    = true;
 
