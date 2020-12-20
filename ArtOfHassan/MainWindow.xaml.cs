@@ -1054,7 +1054,7 @@ namespace ArtOfHassan
                     }
 
 
-                    // X3 Gold Button
+                    // X3 Gold Button and Next Button
                     if (VictoryFlag)
                     {
                         if (IsWatchAds && !IsNoGoldStatus) // 광고 보기
@@ -1170,7 +1170,7 @@ namespace ArtOfHassan
                                 MousePointClick(NextButtonX, NextButtonY);
                             }
                         }
-                        else if (!IsWatchAds || IsNoGoldStatus) // 광고 안보기
+                        else if (!IsWatchAds || IsNoGoldStatus) // 광고 안보기 - Next Button
                         {
                             // 3별 시스템
                             if (MousePointColorCheck(NextButtonX, GoldButtonBackground3StarY, NextButtonColor))
