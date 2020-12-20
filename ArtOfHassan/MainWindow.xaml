@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtOfHassan"
         mc:Ignorable="d" Icon="icon.ico"
-        Title="Art of Hassan v1.3.3" Height="600" Width="350" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        Title="Art of Hassan v1.3.3" Height="550" Width="350" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="1.1*"/>
             <RowDefinition Height="1.1*"/>
-            <RowDefinition />
             <RowDefinition Height="0.7*"/>
             <RowDefinition />
             <RowDefinition Height="0.7*"/>
@@ -28,9 +27,22 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Name="WindowTitleTextBlock" Text="Window Title" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-        <TextBox Grid.Column="1" Name="WindowTitleTextBox" Text="NoxPlayer" Margin="5" TextChanged="TextBox_TextChanged"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="0.9*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.ColumnSpan="2" Name="WindowTitleTextBox" Text="NoxPlayer" Margin="5,5,0,5" TextChanged="TextBox_TextChanged"
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <CheckBox Grid.Column="2" Name="KoreanCheckBox" Content="한국어" Click="KoreanCheckBox_Click"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        </Grid>
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -86,42 +98,10 @@
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <TextBlock Grid.Row="3" Name="VictoryRewardTextBlock" Text="Victory&#10;Reward"
-                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-        <TextBlock Grid.Row="3" Name="HonorHeroChangeTextBlock" Text="  Hero&#10;Change" Visibility="Hidden"
+        <TextBlock Grid.Row="3" Name="ModeTextBlock" Text="Mode"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.1*"/>
-                <ColumnDefinition />
-                <ColumnDefinition Width="0.1*"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
-            <CheckBox Name="StarCheckBox" Content="Star-rated" IsChecked="True" Click="StarCheckBox_Click"
-                      HorizontalAlignment="Center" VerticalAlignment="Center"
-                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-            <CheckBox Grid.Column="1" Name="OldVersionCheckBox" Content="&lt; 3.3.6" Click="OldVersionCheckBox_Click"
-                      HorizontalAlignment="Center" VerticalAlignment="Center"
-                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-            <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Name="HonorHeroChangeCheckBox" Content="Open Heros Window" IsChecked="True"
-                      HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"
-                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-            <TextBlock Grid.Column="2" Text="|" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,-4,0,0"/>
-
-            <CheckBox Grid.Column="3" Name="KoreanCheckBox" Content="한국어" Click="KoreanCheckBox_Click"
-                      HorizontalAlignment="Center" VerticalAlignment="Center"
-                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-        </Grid>
-
-        <TextBlock Grid.Row="4" Name="ModeTextBlock" Text="Mode"
-                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-
-        <Grid Grid.Row="4" Grid.Column="1" Name="ModeGrid" Margin="0,0,5,0">
+        <Grid Grid.Row="3" Grid.Column="1" Name="ModeGrid" Margin="0,0,5,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Name="StageColumn"/>
                 <ColumnDefinition Name="HeadhuntColumn" Width="1.35*"/>
@@ -146,10 +126,10 @@
                          HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <TextBlock Grid.Row="5" Name="AdsTextBlock" Text="Ads"
+        <TextBlock Grid.Row="4" Name="AdsTextBlock" Text="Ads"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-        <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
+        <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Name="AdsGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -163,10 +143,17 @@
                     Click="AdsCloseClickPatternButton_Click" Margin="5"/>
         </Grid>
 
-        <TextBlock Grid.Row="6" Name="OptionTextBlock" Text="Option"
+        <TextBlock Grid.Row="4" Name="HonorHeroChangeTextBlock" Text="  Hero&#10;Change" Visibility="Hidden"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-        <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
+        <CheckBox Grid.Row="4" Grid.Column="1" Name="HonorHeroChangeCheckBox" Content="Open Heros Window" IsChecked="True"
+                  HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"
+                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <TextBlock Grid.Row="5" Name="OptionTextBlock" Text="Option"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+
+        <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.2*"/>
                 <ColumnDefinition />
@@ -186,10 +173,10 @@
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <TextBlock Grid.Row="7" Name="EmailAlarmTextBlock" Text="Email Alarm"
+        <TextBlock Grid.Row="6" Name="EmailAlarmTextBlock" Text="Email Alarm"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-        <Grid Grid.Row="7" Grid.Column="1">
+        <Grid Grid.Row="6" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="0.35*"/>
@@ -207,10 +194,10 @@
             <Button Grid.Column="2" Name="EmailTestButton" Content="Test" Click="EmailTestButton_Click" Margin="2.5,5,5,5"/>
         </Grid>
 
-        <TextBlock Grid.Row="8" Name="NoGoldTextBlock" Text="No Gold"
+        <TextBlock Grid.Row="7" Name="NoGoldTextBlock" Text="No Gold"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <Grid Grid.Row="8" Grid.Column="1">
+        <Grid Grid.Row="7" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -230,7 +217,7 @@
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <Grid Grid.Row="9" Grid.ColumnSpan="2">
+        <Grid Grid.Row="8" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -242,11 +229,11 @@
                     Click="StartButton_Click" Margin="2.5,5,5,5" IsEnabled="False"/>
         </Grid>
 
-        <TextBlock Grid.Row="10" Grid.ColumnSpan="3" Name="MessageBar"
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="3" Name="MessageBar"
                    Text="War: 0  |  Victory: 0  |  Defeat: 0  |  Ads: 0"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
-        <CheckBox Grid.Row="11" Grid.ColumnSpan="2" Name="ShareProblemCheckBox" IsChecked="True"
+        <CheckBox Grid.Row="10" Grid.ColumnSpan="2" Name="ShareProblemCheckBox" IsChecked="True"
                   Content="Share screenshot of problem to improve our Hassan :)"
                   HorizontalAlignment="Center" VerticalAlignment="Center"
                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>

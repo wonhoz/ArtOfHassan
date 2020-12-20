@@ -1342,58 +1342,9 @@ namespace ArtOfHassan
             NoxMonitoringTimer.Enabled      = false;
         }
 
-        bool PrevAdsWatch;
-
-        int PrevGoldButtonBackgroundY;
         string PrevMonitoringInterval;
 
-        private void StarCheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            // 신버전
-            OldVersionCheckBox.IsChecked = false;
-
-            if (StarCheckBox.IsChecked.Value)
-            {
-                // 3별 시스템: 스테이지
-                MonitoringLog("Working for star system");
-                IsStarRated = true;
-                GoldButtonBackgroundY = 780;
-            }
-            else
-            {
-                // 비 3별 시스템: 현상금
-                MonitoringLog("Working for nonstar system");
-                IsStarRated = false;
-                GoldButtonBackgroundY = 685;
-            }
-        }
-
-        private void OldVersionCheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            if (OldVersionCheckBox.IsChecked.Value)
-            {
-                MonitoringLog("Working for old version");
-
-                PrevStarRated             = IsStarRated;
-                PrevGoldButtonBackgroundY = GoldButtonBackgroundY;
-
-                IsStarRated            = false;
-                StarCheckBox.IsChecked = false;
-
-                // 구버전
-                GoldButtonBackgroundY = 710;
-            }
-            else
-            {
-                MonitoringLog("Working for new version");
-
-                IsStarRated            = PrevStarRated;
-                StarCheckBox.IsChecked = IsStarRated;
-
-                // 신버전
-                GoldButtonBackgroundY = PrevGoldButtonBackgroundY;
-            }
-        }
+        bool PrevAdsWatch;
 
         bool IsHeadhuntMode = false;
         bool IsHonorMode    = false;
@@ -1412,30 +1363,24 @@ namespace ArtOfHassan
                 HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Hidden;
                 HonorHeroChangeTimeTextBox.Visibility      = Visibility.Hidden;
 
-                VictoryRewardTextBlock.Visibility   = Visibility.Visible;
-                StarCheckBox.Visibility             = Visibility.Visible;
-                OldVersionCheckBox.Visibility       = Visibility.Visible;
+                AdsTextBlock.Visibility = Visibility.Visible;
+                AdsGrid.Visibility      = Visibility.Visible;
                 HonorHeroChangeTextBlock.Visibility = Visibility.Hidden;
                 HonorHeroChangeCheckBox.Visibility  = Visibility.Hidden;
             }
 
             // 신버전 3별 시스템이 기준
-            IsStarRated    = true;
             IsHeadhuntMode = false;
             IsHonorMode    = false;
             IsTroopMode    = false;
-            StarCheckBox.IsChecked     = true;
             AdsWatchCheckBox.IsChecked = true;
-            GoldButtonBackgroundY = 780;
         }
 
         private void HeadhuntRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Headhunt Mode");
 
-            PrevStarRated             = IsStarRated;
-            PrevAdsWatch              = AdsWatchCheckBox.IsChecked.Value;
-            PrevGoldButtonBackgroundY = GoldButtonBackgroundY;
+            PrevAdsWatch = AdsWatchCheckBox.IsChecked.Value;
 
             if (IsHonorMode || IsTroopMode)
             {
@@ -1446,31 +1391,17 @@ namespace ArtOfHassan
                 HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Hidden;
                 HonorHeroChangeTimeTextBox.Visibility      = Visibility.Hidden;
 
-                VictoryRewardTextBlock.Visibility   = Visibility.Visible;
-                StarCheckBox.Visibility             = Visibility.Visible;
-                OldVersionCheckBox.Visibility       = Visibility.Visible;
+                AdsTextBlock.Visibility = Visibility.Visible;
+                AdsGrid.Visibility      = Visibility.Visible;
                 HonorHeroChangeTextBlock.Visibility = Visibility.Hidden;
                 HonorHeroChangeCheckBox.Visibility  = Visibility.Hidden;
             }
 
             // 현상금은 비 3별 시스템
-            IsStarRated    = false;
             IsHeadhuntMode = true;
             IsHonorMode    = false;
             IsTroopMode    = false;
-            StarCheckBox.IsChecked     = false;
             AdsWatchCheckBox.IsChecked = false;
-
-            if (OldVersionCheckBox.IsChecked.Value)
-            {
-                // 구버전
-                GoldButtonBackgroundY = 710;
-            }
-            else
-            {
-                // 신버전
-                GoldButtonBackgroundY = 685;
-            }
         }
 
         private void HonorRadioButton_Click(object sender, RoutedEventArgs e)
@@ -1493,9 +1424,8 @@ namespace ArtOfHassan
             HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Visible;
             HonorHeroChangeTimeTextBox.Visibility      = Visibility.Visible;
 
-            VictoryRewardTextBlock.Visibility   = Visibility.Hidden;
-            StarCheckBox.Visibility             = Visibility.Hidden;
-            OldVersionCheckBox.Visibility       = Visibility.Hidden;
+            AdsTextBlock.Visibility = Visibility.Hidden;
+            AdsGrid.Visibility      = Visibility.Hidden;
             HonorHeroChangeTextBlock.Visibility = Visibility.Visible;
             HonorHeroChangeCheckBox.Visibility  = Visibility.Visible;
         }
@@ -1511,9 +1441,8 @@ namespace ArtOfHassan
                 HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Hidden;
                 HonorHeroChangeTimeTextBox.Visibility      = Visibility.Hidden;
 
-                VictoryRewardTextBlock.Visibility   = Visibility.Visible;
-                StarCheckBox.Visibility             = Visibility.Visible;
-                OldVersionCheckBox.Visibility       = Visibility.Visible;
+                AdsTextBlock.Visibility = Visibility.Visible;
+                AdsGrid.Visibility      = Visibility.Visible;
                 HonorHeroChangeTextBlock.Visibility = Visibility.Hidden;
                 HonorHeroChangeCheckBox.Visibility  = Visibility.Hidden;
             }
@@ -1690,7 +1619,7 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("ContinueButton," + ContinueButtonX + "," + ContinueButtonY);
                 streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX + "," + VictoryDefeatY);
                 streamWriter.WriteLine("NoGold," + NoGoldX + "," + NoGoldY);
-                streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX + "," + GoldButtonBackgroundY);
+                streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX + "," + GoldButtonBackground3StarY + "," + GoldButtonBackgroundNoStarY);
                 streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY);
                 streamWriter.WriteLine("NextButton," + NextButtonX + "," + NextButtonY);
                 streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY);
@@ -1766,8 +1695,6 @@ namespace ArtOfHassan
                 X3GoldButtonClickDelayTextBlock.Text = " 골드 광고\n딜레이 (ms)";
                 HonorHeroChangeTimeTextBlock.Text = "영웅 선택\n시간 (ms)";
                 PixelDifferenceTextBlock.Text = "픽셀 차이";
-                VictoryRewardTextBlock.Text = "승리 보상";
-                StarCheckBox.Content = "별 등급";
                 HonorHeroChangeTextBlock.Text = "영웅 변경";
                 HonorHeroChangeCheckBox.Content = "영웅 선택창 열기";
                 AdsTextBlock.Text = "광고";
@@ -1804,8 +1731,6 @@ namespace ArtOfHassan
                 X3GoldButtonClickDelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
                 HonorHeroChangeTimeTextBlock.Text = "   Hero\n Change\nTime (ms)";
                 PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
-                VictoryRewardTextBlock.Text = "Victory\nReward";
-                StarCheckBox.Content = "Star-rated";
                 HonorHeroChangeTextBlock.Text = "  Hero\nChange";
                 HonorHeroChangeCheckBox.Content = "Open Heros Window";
                 AdsTextBlock.Text = "Ads";
@@ -2089,10 +2014,6 @@ namespace ArtOfHassan
                                         NoGoldX = int.Parse(listitem[1]);
                                         NoGoldY = int.Parse(listitem[2]);
                                         break;
-                                    case ("goldbuttonbackground"):
-                                        GoldButtonBackgroundX = int.Parse(listitem[1]);
-                                        GoldButtonBackgroundY = int.Parse(listitem[2]);
-                                        break;
                                     case ("goldbuttonimage"):
                                         GoldButtonImageX = int.Parse(listitem[1]);
                                         GoldButtonImageY = int.Parse(listitem[2]);
@@ -2172,6 +2093,11 @@ namespace ArtOfHassan
                             {
                                 switch (listitem[0].ToLower())
                                 {
+                                    case ("goldbuttonbackground"):
+                                        GoldButtonBackgroundX = int.Parse(listitem[1]);
+                                        GoldButtonBackground3StarY = int.Parse(listitem[2]);
+                                        GoldButtonBackgroundNoStarY = int.Parse(listitem[3]);
+                                        break;
                                     case ("googleadclosebutton"):
                                         LeftAdCloseButtonX = int.Parse(listitem[1]);
                                         RightAdCloseButtonX = int.Parse(listitem[2]);
