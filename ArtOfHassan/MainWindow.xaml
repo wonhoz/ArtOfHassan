@@ -221,9 +221,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button Name="SaveSettingButton" Content="Save Setting"
+            <Button Name="LoadPixelPositionColorButton" Content="    Load Pixel&#10;Position or Color"
+                    Click="LoadPixelPositionColorButton_Click" Margin="5,5,2.5,5"/>
+            <Button Grid.Column="1" Name="SaveSettingButton" Content="Save Setting"
                     Click="SaveSettingButton_Click" Margin="2.5,5,2.5,5"/>
             <Button Grid.Column="2" Name="StartButton" Content="Start"
                     Click="StartButton_Click" Margin="2.5,5,5,5" IsEnabled="False"/>

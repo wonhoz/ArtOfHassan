@@ -2266,6 +2266,11 @@ namespace ArtOfHassan
             }
         }
 
+        private void LoadPixelPositionColorButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         #endregion
     }
 }
