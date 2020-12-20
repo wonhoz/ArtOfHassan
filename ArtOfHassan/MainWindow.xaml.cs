@@ -1957,7 +1957,7 @@ namespace ArtOfHassan
             {
                 MonitoringLog("Load Pixel Position...");
 
-                string[] lines = File.ReadAllLines("position.csv");
+                string[] lines = File.ReadAllLines(filename);
 
                 foreach (string line in lines)
                 {
@@ -2164,7 +2164,7 @@ namespace ArtOfHassan
             {
                 MonitoringLog("Load Pixel Color...");
 
-                string[] lines = File.ReadAllLines("position.csv");
+                string[] lines = File.ReadAllLines(filename);
 
                 foreach (string line in lines)
                 {
