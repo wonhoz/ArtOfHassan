@@ -1055,7 +1055,7 @@ namespace ArtOfHassan
 
 
                     // X3 Gold Button
-                    if (VictoryFlag || DefeatFlag)
+                    if (VictoryFlag)
                     {
                         if (IsWatchAds && !IsNoGoldStatus) // 광고 보기
                         {
@@ -1074,7 +1074,7 @@ namespace ArtOfHassan
                                         return;
                                     }
 
-                                    MonitoringLog("Gold Button");
+                                    MonitoringLog("Gold Button - Star");
                                     AdsWatchFlag = true;
                                     AdsCloseStopwatch.Restart();
 
@@ -1082,7 +1082,7 @@ namespace ArtOfHassan
                                 }
                                 else // Green but no coin such as Retry
                                 {
-                                    MonitoringLog("Next Button - Retry");
+                                    MonitoringLog("Next Button - Retry of Star");
                                     MousePointClick(NextButtonX, GoldButtonBackground3StarY);
                                 }
                             }
@@ -1098,7 +1098,7 @@ namespace ArtOfHassan
                                     return;
                                 }
 
-                                MonitoringLog("Next Button - Gold Button is Gray");
+                                MonitoringLog("Next Button - Gold Button is Gray in Star");
                                 MousePointClick(NextButtonX, GoldButtonBackground3StarY);
                             }
                             // 비 3별 시스템 - 현상금
@@ -1114,7 +1114,7 @@ namespace ArtOfHassan
                                     return;
                                 }
 
-                                MonitoringLog("Gold Button");
+                                MonitoringLog("Gold Button - Headhunt");
                                 AdsWatchFlag = true;
                                 AdsCloseStopwatch.Restart();
 
@@ -1132,7 +1132,7 @@ namespace ArtOfHassan
                                     return;
                                 }
 
-                                MonitoringLog("Next Button - Gold Button is Gray");
+                                MonitoringLog("Next Button - Gold Button is Gray in Headhunt");
                                 MousePointClick(NextButtonX, GoldButtonBackgroundNoStarY);
                             }
                             // 구버전
@@ -1148,7 +1148,7 @@ namespace ArtOfHassan
                                     return;
                                 }
 
-                                MonitoringLog("Gold Button");
+                                MonitoringLog("Gold Button - v3.0.8");
                                 AdsWatchFlag = true;
                                 AdsCloseStopwatch.Restart();
 
@@ -1166,7 +1166,7 @@ namespace ArtOfHassan
                                     return;
                                 }
 
-                                MonitoringLog("Next Button - Gold Button is Gray");
+                                MonitoringLog("Next Button - Gold Button is Gray in v3.0.8");
                                 MousePointClick(NextButtonX, NextButtonY);
                             }
                         }
@@ -1175,21 +1175,30 @@ namespace ArtOfHassan
                             // 3별 시스템
                             if (MousePointColorCheck(NextButtonX, GoldButtonBackground3StarY, NextButtonColor))
                             {
-                                MonitoringLog("Next Button");
+                                MonitoringLog("Next Button - No Ads in Star");
                                 MousePointClick(NextButtonX, GoldButtonBackground3StarY);
                             }
                             // 비 3별 시스템
                             else if (MousePointColorCheck(NextButtonX, GoldButtonBackgroundNoStarY, NextButtonColor))
                             {
-                                MonitoringLog("Next Button");
+                                MonitoringLog("Next Button - No Ads in Headhunt");
                                 MousePointClick(NextButtonX, GoldButtonBackgroundNoStarY);
                             }
                             // 구버전
                             else if (MousePointColorCheck(NextButtonX, NextButtonY, NextButtonColor))
                             {
-                                MonitoringLog("Next Button");
+                                MonitoringLog("Next Button - No Ads in v3.0.8");
                                 MousePointClick(NextButtonX, NextButtonY);
                             }
+                        }
+                    }
+                    else if (DefeatFlag)
+                    {
+                        // Next Button - Defeat
+                        if (MousePointColorCheck(NextButtonX, NextButtonY, NextButtonColor))
+                        {
+                            MonitoringLog("Next Button - Defeat");
+                            MousePointClick(NextButtonX, NextButtonY);
                         }
                     }
 
