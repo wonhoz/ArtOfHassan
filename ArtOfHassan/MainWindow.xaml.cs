@@ -1595,6 +1595,9 @@ namespace ArtOfHassan
             {
                 LoadPositionCsv(openFileDialog.FileName);
                 LoadColorCsv(openFileDialog.FileName);
+
+                SavePositionCsv();
+                SaveColorCsv();
             }
         }
 
