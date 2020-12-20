@@ -314,7 +314,9 @@ namespace ArtOfHassan
                       System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Build.ToString();
 
             LoadSettingCsv();
-            LoadPositionCsv();
+            LoadPositionCsv("position.csv");
+            LoadColorCsv("color.csv");
+
             SavePositionCsv();
             SaveColorCsv();
 
@@ -1583,6 +1585,19 @@ namespace ArtOfHassan
             }
         }
 
+        private void LoadPixelPositionColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog.DefaultExt = "csv";
+            openFileDialog.Filter = "CSV Files (*.csv)|*.csv";
+            openFileDialog.ShowDialog();
+            if (openFileDialog.FileName.Length > 0)
+            {
+                LoadPositionCsv(openFileDialog.FileName);
+                LoadColorCsv(openFileDialog.FileName);
+            }
+        }
+
         private void SaveSettingButton_Click(object sender, RoutedEventArgs e)
         {
             using (StreamWriter streamWriter = new StreamWriter($@"setting.csv", false))
@@ -1601,88 +1616,6 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("SendEmail," + SendEmailCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("StopHassan," + StopHassanCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("ShutdownPC," + ShutdownComputerCheckBox.IsChecked.Value);
-            }
-        }
-
-        private void SavePositionCsv()
-        {
-            using (StreamWriter streamWriter = new StreamWriter($@"position.csv", false))
-            {
-                streamWriter.WriteLine("AppLocation," + AppLocationX + "," + AppLocationY);
-                streamWriter.WriteLine("HomeButton," + HomeButtonX);
-                streamWriter.WriteLine("ShopButton," + ShopButtonX + "," + ShopButtonY);
-                streamWriter.WriteLine("GoldChestBox," + GoldChestBoxX + "," + GoldChestBoxY);
-                streamWriter.WriteLine("GoldChestBoxCoinLatest," + GoldChestBoxCoinLatestX + "," + GoldChestBoxCoinLatestY);
-                streamWriter.WriteLine("GoldChestBoxCoinV308," + GoldChestBoxCoinV308X + "," + GoldChestBoxCoinV308Y);
-                streamWriter.WriteLine("CollectButton," + CollectButtonX + "," + CollectButtonY);
-                streamWriter.WriteLine("BattleLevelButton," + BattleLevelButtonX + "," + BattleLevelButtonY);
-                streamWriter.WriteLine("SkillButton," + SkillButtonX + "," + SkillButtonY);
-                streamWriter.WriteLine("SpeedButton," + SpeedButtonX + "," + SpeedButtonY);
-                streamWriter.WriteLine("ContinueButton," + ContinueButtonX + "," + ContinueButtonY);
-                streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX + "," + VictoryDefeatY);
-                streamWriter.WriteLine("NoGold," + NoGoldX + "," + NoGoldY);
-                streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX + "," + GoldButtonBackground3StarY + "," + GoldButtonBackgroundNoStarY);
-                streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY);
-                streamWriter.WriteLine("NextButton," + NextButtonX + "," + NextButtonY);
-                streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY);
-                streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY);
-                streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX + "," + LatestUsedAppButtonY);
-                streamWriter.WriteLine("RightTopAppCloseButton," + RightTopAppCloseButtonX + "," + RightTopAppCloseButtonY);
-                streamWriter.WriteLine("NotRespondAppCloseButton," + NotRespondAppCloseButtonX + "," + NotRespondAppCloseButtonY1 + "," + NotRespondAppCloseButtonY2 + "," + NotRespondAppCloseButtonY3);
-                streamWriter.WriteLine("HeadhuntButton," + HeadhuntButtonX + "," + HeadhuntButtonY);
-                streamWriter.WriteLine("TroopButton," + TroopButtonX + "," + TroopButtonY);
-                streamWriter.WriteLine("TroopOpenButton," + TroopOpenButtonX + "," + TroopOpenButtonY);
-                streamWriter.WriteLine("TroopCloseButton," + TroopCloseButtonX + "," + TroopCloseButtonY);
-                streamWriter.WriteLine("HonorChallengeButton," + HonorChallengeButtonX + "," + HonorChallengeButtonY);
-                streamWriter.WriteLine("HonorFightButton," + HonorFightButtonX + "," + HonorFightButtonY);
-                streamWriter.WriteLine("HonorSkillButton," + HonorSkillButtonX + "," + HonorSkillButtonY);
-                streamWriter.WriteLine("HonorPauseButton," + HonorPauseButtonX + "," + HonorPauseButtonY);
-                streamWriter.WriteLine("HonorQuitButton," + HonorQuitButtonX + "," + HonorQuitButtonY);
-                streamWriter.WriteLine("HonorHeroPosition," + HonorHeroPositionX + "," + HonorHeroPositionY);
-                streamWriter.WriteLine("HonorReplaceButton," + HonorReplaceButtonX + "," + HonorReplaceButtonY);
-                streamWriter.WriteLine("HonorHeroWindow," + HonorHeroWindowX + "," + HonorHeroWindowY);
-                streamWriter.WriteLine("HonorHeroWindowCloseButton," + HonorHeroWindowCloseButtonX + "," + HonorHeroWindowCloseButtonY);
-            }
-        }
-
-        private void SaveColorCsv()
-        {
-            using (StreamWriter streamWriter = new StreamWriter($@"color.csv", false))
-            {
-                streamWriter.WriteLine("AppLocationOrangeBlueColor," + AppLocationOrangeBlueColor);
-                streamWriter.WriteLine("AppLocationGreenColor," + AppLocationGreenColor);
-                streamWriter.WriteLine("ShopButtonColor," + ShopButtonColor);
-                streamWriter.WriteLine("GoldChestBoxCoinLatestColor," + GoldChestBoxCoinLatestColor);
-                streamWriter.WriteLine("GoldChestBoxCoinV308Color," + GoldChestBoxCoinV308Color);
-                streamWriter.WriteLine("CollectButtonColor," + CollectButtonColor);
-                streamWriter.WriteLine("BattleLevelButtonYellowColor," + BattleLevelButtonYellowColor);
-                streamWriter.WriteLine("BattleLevelButtonShadedColor," + BattleLevelButtonShadedColor);
-                streamWriter.WriteLine("BattleLevelButtonRedColor," + BattleLevelButtonRedColor);
-                streamWriter.WriteLine("BattleLevelButtonBackColor," + BattleLevelButtonBackColor);
-                streamWriter.WriteLine("SkillButtonColor," + SkillButtonColor);
-                streamWriter.WriteLine("SpeedButtonColor," + SpeedButtonColor);
-                streamWriter.WriteLine("ContinueButtonColor," + ContinueButtonColor);
-                streamWriter.WriteLine("VictoryDefeatVictoryColor," + VictoryDefeatVictoryColor);
-                streamWriter.WriteLine("VictoryDefeatDefeatColor," + VictoryDefeatDefeatColor);
-                streamWriter.WriteLine("NoGoldColor," + NoGoldColor);
-                streamWriter.WriteLine("GoldButtonBackgroundGreenColor," + GoldButtonBackgroundGreenColor);
-                streamWriter.WriteLine("GoldButtonBackgroundGrayColor," + GoldButtonBackgroundGrayColor);
-                streamWriter.WriteLine("GoldButtonImageColor," + GoldButtonImageColor);
-                streamWriter.WriteLine("NextButtonColor," + NextButtonColor);
-                streamWriter.WriteLine("GameAdCloseButtonLatestColor," + GameAdCloseButtonLatestColor);
-                streamWriter.WriteLine("GameAdCloseButtonV308Color," + GameAdCloseButtonV308Color);
-                streamWriter.WriteLine("NotRespondAppCloseButtonColor," + NotRespondAppCloseButtonColor);
-                streamWriter.WriteLine("HeadhuntButtonYellowColor," + HeadhuntButtonYellowColor);
-                streamWriter.WriteLine("HeadhuntButtonGrayColor," + HeadhuntButtonGrayColor);
-                streamWriter.WriteLine("TroopButtonColor," + TroopButtonColor);
-                streamWriter.WriteLine("TroopOpenButtonCenterColor," + TroopOpenButtonCenterColor);
-                streamWriter.WriteLine("TroopOpenButtonRightColor," + TroopOpenButtonRightColor);
-                streamWriter.WriteLine("TroopCloseButtonColor," + TroopCloseButtonColor);
-                streamWriter.WriteLine("HonorChallengeButtonColor," + HonorChallengeButtonColor);
-                streamWriter.WriteLine("HonorFightButtonColor," + HonorFightButtonColor);
-                streamWriter.WriteLine("HonorQuitButtonColor," + HonorQuitButtonColor);
-                streamWriter.WriteLine("HonorReplaceButtonColor," + HonorReplaceButtonColor);
-                streamWriter.WriteLine("HonorHeroWindowColor," + HonorHeroWindowColor);
             }
         }
 
@@ -1868,6 +1801,88 @@ namespace ArtOfHassan
             (e.Source as TextBox).Select(caretIndex, 0);
         }
 
+        private void SavePositionCsv()
+        {
+            using (StreamWriter streamWriter = new StreamWriter($@"position.csv", false))
+            {
+                streamWriter.WriteLine("AppLocation," + AppLocationX + "," + AppLocationY);
+                streamWriter.WriteLine("HomeButton," + HomeButtonX);
+                streamWriter.WriteLine("ShopButton," + ShopButtonX + "," + ShopButtonY);
+                streamWriter.WriteLine("GoldChestBox," + GoldChestBoxX + "," + GoldChestBoxY);
+                streamWriter.WriteLine("GoldChestBoxCoinLatest," + GoldChestBoxCoinLatestX + "," + GoldChestBoxCoinLatestY);
+                streamWriter.WriteLine("GoldChestBoxCoinV308," + GoldChestBoxCoinV308X + "," + GoldChestBoxCoinV308Y);
+                streamWriter.WriteLine("CollectButton," + CollectButtonX + "," + CollectButtonY);
+                streamWriter.WriteLine("BattleLevelButton," + BattleLevelButtonX + "," + BattleLevelButtonY);
+                streamWriter.WriteLine("SkillButton," + SkillButtonX + "," + SkillButtonY);
+                streamWriter.WriteLine("SpeedButton," + SpeedButtonX + "," + SpeedButtonY);
+                streamWriter.WriteLine("ContinueButton," + ContinueButtonX + "," + ContinueButtonY);
+                streamWriter.WriteLine("VictoryDefeat," + VictoryDefeatX + "," + VictoryDefeatY);
+                streamWriter.WriteLine("NoGold," + NoGoldX + "," + NoGoldY);
+                streamWriter.WriteLine("GoldButtonBackground," + GoldButtonBackgroundX + "," + GoldButtonBackground3StarY + "," + GoldButtonBackgroundNoStarY);
+                streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY);
+                streamWriter.WriteLine("NextButton," + NextButtonX + "," + NextButtonY);
+                streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY);
+                streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY);
+                streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX + "," + LatestUsedAppButtonY);
+                streamWriter.WriteLine("RightTopAppCloseButton," + RightTopAppCloseButtonX + "," + RightTopAppCloseButtonY);
+                streamWriter.WriteLine("NotRespondAppCloseButton," + NotRespondAppCloseButtonX + "," + NotRespondAppCloseButtonY1 + "," + NotRespondAppCloseButtonY2 + "," + NotRespondAppCloseButtonY3);
+                streamWriter.WriteLine("HeadhuntButton," + HeadhuntButtonX + "," + HeadhuntButtonY);
+                streamWriter.WriteLine("TroopButton," + TroopButtonX + "," + TroopButtonY);
+                streamWriter.WriteLine("TroopOpenButton," + TroopOpenButtonX + "," + TroopOpenButtonY);
+                streamWriter.WriteLine("TroopCloseButton," + TroopCloseButtonX + "," + TroopCloseButtonY);
+                streamWriter.WriteLine("HonorChallengeButton," + HonorChallengeButtonX + "," + HonorChallengeButtonY);
+                streamWriter.WriteLine("HonorFightButton," + HonorFightButtonX + "," + HonorFightButtonY);
+                streamWriter.WriteLine("HonorSkillButton," + HonorSkillButtonX + "," + HonorSkillButtonY);
+                streamWriter.WriteLine("HonorPauseButton," + HonorPauseButtonX + "," + HonorPauseButtonY);
+                streamWriter.WriteLine("HonorQuitButton," + HonorQuitButtonX + "," + HonorQuitButtonY);
+                streamWriter.WriteLine("HonorHeroPosition," + HonorHeroPositionX + "," + HonorHeroPositionY);
+                streamWriter.WriteLine("HonorReplaceButton," + HonorReplaceButtonX + "," + HonorReplaceButtonY);
+                streamWriter.WriteLine("HonorHeroWindow," + HonorHeroWindowX + "," + HonorHeroWindowY);
+                streamWriter.WriteLine("HonorHeroWindowCloseButton," + HonorHeroWindowCloseButtonX + "," + HonorHeroWindowCloseButtonY);
+            }
+        }
+
+        private void SaveColorCsv()
+        {
+            using (StreamWriter streamWriter = new StreamWriter($@"color.csv", false))
+            {
+                streamWriter.WriteLine("AppLocationOrangeBlueColor," + AppLocationOrangeBlueColor);
+                streamWriter.WriteLine("AppLocationGreenColor," + AppLocationGreenColor);
+                streamWriter.WriteLine("ShopButtonColor," + ShopButtonColor);
+                streamWriter.WriteLine("GoldChestBoxCoinLatestColor," + GoldChestBoxCoinLatestColor);
+                streamWriter.WriteLine("GoldChestBoxCoinV308Color," + GoldChestBoxCoinV308Color);
+                streamWriter.WriteLine("CollectButtonColor," + CollectButtonColor);
+                streamWriter.WriteLine("BattleLevelButtonYellowColor," + BattleLevelButtonYellowColor);
+                streamWriter.WriteLine("BattleLevelButtonShadedColor," + BattleLevelButtonShadedColor);
+                streamWriter.WriteLine("BattleLevelButtonRedColor," + BattleLevelButtonRedColor);
+                streamWriter.WriteLine("BattleLevelButtonBackColor," + BattleLevelButtonBackColor);
+                streamWriter.WriteLine("SkillButtonColor," + SkillButtonColor);
+                streamWriter.WriteLine("SpeedButtonColor," + SpeedButtonColor);
+                streamWriter.WriteLine("ContinueButtonColor," + ContinueButtonColor);
+                streamWriter.WriteLine("VictoryDefeatVictoryColor," + VictoryDefeatVictoryColor);
+                streamWriter.WriteLine("VictoryDefeatDefeatColor," + VictoryDefeatDefeatColor);
+                streamWriter.WriteLine("NoGoldColor," + NoGoldColor);
+                streamWriter.WriteLine("GoldButtonBackgroundGreenColor," + GoldButtonBackgroundGreenColor);
+                streamWriter.WriteLine("GoldButtonBackgroundGrayColor," + GoldButtonBackgroundGrayColor);
+                streamWriter.WriteLine("GoldButtonImageColor," + GoldButtonImageColor);
+                streamWriter.WriteLine("NextButtonColor," + NextButtonColor);
+                streamWriter.WriteLine("GameAdCloseButtonLatestColor," + GameAdCloseButtonLatestColor);
+                streamWriter.WriteLine("GameAdCloseButtonV308Color," + GameAdCloseButtonV308Color);
+                streamWriter.WriteLine("NotRespondAppCloseButtonColor," + NotRespondAppCloseButtonColor);
+                streamWriter.WriteLine("HeadhuntButtonYellowColor," + HeadhuntButtonYellowColor);
+                streamWriter.WriteLine("HeadhuntButtonGrayColor," + HeadhuntButtonGrayColor);
+                streamWriter.WriteLine("TroopButtonColor," + TroopButtonColor);
+                streamWriter.WriteLine("TroopOpenButtonCenterColor," + TroopOpenButtonCenterColor);
+                streamWriter.WriteLine("TroopOpenButtonRightColor," + TroopOpenButtonRightColor);
+                streamWriter.WriteLine("TroopCloseButtonColor," + TroopCloseButtonColor);
+                streamWriter.WriteLine("HonorChallengeButtonColor," + HonorChallengeButtonColor);
+                streamWriter.WriteLine("HonorFightButtonColor," + HonorFightButtonColor);
+                streamWriter.WriteLine("HonorQuitButtonColor," + HonorQuitButtonColor);
+                streamWriter.WriteLine("HonorReplaceButtonColor," + HonorReplaceButtonColor);
+                streamWriter.WriteLine("HonorHeroWindowColor," + HonorHeroWindowColor);
+            }
+        }
+
         private void LoadSettingCsv()
         {
             FileInfo fileInfo = new FileInfo("setting.csv");
@@ -1932,9 +1947,9 @@ namespace ArtOfHassan
             }
         }
 
-        private void LoadPositionCsv()
+        private void LoadPositionCsv(string filename)
         {
-            FileInfo fileInfo = new FileInfo("position.csv");
+            FileInfo fileInfo = new FileInfo(filename);
             if (fileInfo.Exists)
             {
                 MonitoringLog("Load Pixel Position...");
@@ -2139,9 +2154,9 @@ namespace ArtOfHassan
             }
         }
 
-        private void LoadColorCsv()
+        private void LoadColorCsv(string filename)
         {
-            FileInfo fileInfo = new FileInfo("color.csv");
+            FileInfo fileInfo = new FileInfo(filename);
             if (fileInfo.Exists)
             {
                 MonitoringLog("Load Pixel Color...");
@@ -2264,11 +2279,6 @@ namespace ArtOfHassan
 
                 MonitoringLog("Load Pixel Color Done");
             }
-        }
-
-        private void LoadPixelPositionColorButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         #endregion
