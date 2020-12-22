@@ -343,14 +343,7 @@ namespace ArtOfHassan
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                if (int.TryParse(MonitoringIntervalTextBox.Text, out MonitoringInterval))
-                {
-                    if (MonitoringInterval < 1000)
-                    {
-                        MonitoringInterval = 1000;
-                    }
-                }
-                else
+                if (!int.TryParse(MonitoringIntervalTextBox.Text, out MonitoringInterval))
                 {
                     MonitoringInterval = 1000;
                 }
@@ -1501,8 +1494,13 @@ namespace ArtOfHassan
 
                 GoldChestBoxStopwatch.Restart();
 
-                ProblemMonitoringTimer.Interval  = int.Parse(ScreenComparisonIntervalTextBox.Text) * 60 * 1000;
+                if (!IsHonorMode && !IsTroopMode && (int.Parse(MonitoringIntervalTextBox.Text) < 1000))
+                {
+                    MonitoringIntervalTextBox.Text = "1000";
+                    MonitoringInterval             = 1000;
+                }
                 ArtOfWarMonitoringTimer.Interval = int.Parse(MonitoringIntervalTextBox.Text);
+                ProblemMonitoringTimer.Interval  = int.Parse(ScreenComparisonIntervalTextBox.Text) * 60 * 1000;
                 ArtOfWarMonitoringTimer.Enabled  = true;
                 ProblemMonitoringTimer.Enabled   = true;
             }
