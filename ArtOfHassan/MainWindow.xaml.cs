@@ -109,7 +109,7 @@ namespace ArtOfHassan
         int CollectButtonY = 690;
         string CollectButtonColor = "#fdbb00".ToUpper();
 
-        int BattleLevelButtonX = 180;
+        int BattleLevelButtonX = 175;
         int BattleLevelButtonY = 855;
         string BattleLevelButtonYellowColor = "#fdbb00".ToUpper();
         string BattleLevelButtonShadedColor = "#ca9600".ToUpper();
