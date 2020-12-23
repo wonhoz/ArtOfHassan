@@ -91,13 +91,13 @@ namespace ArtOfHassan
         string AppLocationOrangeBlueColor = "#a9d8ff".ToUpper();
         string AppLocationGreenColor      = "#97c601".ToUpper();
 
-        int HomeButtonX = 290;
+        int HomeButtonX = 278;
         int ShopButtonX = 65;
         int ShopButtonY = 980;
         string ShopButtonColor = "#ea3d34".ToUpper();
 
         int GoldChestBoxX = 190;
-        int GoldChestBoxY = 470;
+        int GoldChestBoxY = 370;
         int GoldChestBoxCoinLatestX = 150;
         int GoldChestBoxCoinLatestY = 410;
         int GoldChestBoxCoinV308X   = 165;
@@ -105,8 +105,8 @@ namespace ArtOfHassan
         string GoldChestBoxCoinLatestColor = "#fff102".ToUpper();
         string GoldChestBoxCoinV308Color   = "#eabf2f".ToUpper();
 
-        int CollectButtonX = 195;
-        int CollectButtonY = 680;
+        int CollectButtonX = 190;
+        int CollectButtonY = 690;
         string CollectButtonColor = "#fdbb00".ToUpper();
 
         int BattleLevelButtonX = 180;
