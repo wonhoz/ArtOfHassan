@@ -195,16 +195,16 @@ namespace ArtOfHassan
         string TroopCloseButtonColor = "#ffffff".ToUpper();
 
         // Honor
-        int HonorChallengeButtonX = 460;
-        int HonorChallengeButtonY = 890;
+        int HonorChallengeButtonX = 425;
+        int HonorChallengeButtonY = 895;
         string HonorChallengeButtonColor = "#fdbb00".ToUpper();
 
-        int HonorFightButtonX = 185;
+        int HonorFightButtonX = 175;
         int HonorFightButtonY = 820;
         string HonorFightButtonColor = "#fdcc00".ToUpper();
 
-        int HonorSkillButtonX = 44;
-        int HonorSkillButtonY = 906;
+        int HonorSkillButtonX = 35;
+        int HonorSkillButtonY = 905;
 
         int HonorPauseButtonX = 43;
         int HonorPauseButtonY = 68;
@@ -224,8 +224,8 @@ namespace ArtOfHassan
         int HonorHeroWindowY = 295;
         string HonorHeroWindowColor = "#215b84".ToUpper();
 
-        int HonorHeroWindowCloseButtonX = 466;
-        int HonorHeroWindowCloseButtonY = 293;
+        int HonorHeroWindowCloseButtonX = 467;
+        int HonorHeroWindowCloseButtonY = 295;
 
         #endregion
 
@@ -433,7 +433,7 @@ namespace ArtOfHassan
                     smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
 
-                    if (ProblemMailSent == 1)
+                    if (ProblemMailSent == 2)
                     {
                         if (string.IsNullOrWhiteSpace(EmailAddress))
                         {
@@ -565,6 +565,10 @@ namespace ArtOfHassan
                         {
                             MonitoringLog("HonorChallengeButton");
                             MousePointClick(HonorChallengeButtonX, HonorChallengeButtonY);
+
+                            System.Threading.Thread.Sleep((int)(MonitoringInterval * 3 / 4));
+
+                            return;
                         }
 
                         // HonorFightButton
@@ -581,25 +585,73 @@ namespace ArtOfHassan
                         }
 
                         // HonorSkillColor
-                        if (IsHonorFightButtonClicked && !IsGetHonorSkillButtonColor &&
-                            !MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor))
+                        if (IsHonorFightButtonClicked &&
+                            !IsGetHonorSkillButtonColor &&
+                            !MousePointColorCheck(HonorChallengeButtonX, HonorChallengeButtonY, HonorChallengeButtonColor) &&
+                            !MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
+                            !MousePointColorCheck(HonorQuitButtonX, HonorQuitButtonY, HonorQuitButtonColor) &&
+                            !MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
                         {
                             MonitoringLog("HonorSkillColor");
                             HonorSkillColor = CurrentBitmap.GetPixel(HonorSkillButtonX, HonorSkillButtonY);
+                            //CurrentBitmap.Save("HonorSkillColor.png", System.Drawing.Imaging.ImageFormat.Png);
                             IsGetHonorSkillButtonColor = true;
                             return;
                         }
 
                         // HonorSkillColor Change
-                        if (IsGetHonorSkillButtonColor)
+                        if (IsGetHonorSkillButtonColor &&
+                            !MousePointColorCheck(HonorChallengeButtonX, HonorChallengeButtonY, HonorChallengeButtonColor) &&
+                            !MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
+                            !MousePointColorCheck(HonorQuitButtonX, HonorQuitButtonY, HonorQuitButtonColor) &&
+                            !MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
                         {
                             System.Drawing.Color currentHonorSkillColor = CurrentBitmap.GetPixel(HonorSkillButtonX, HonorSkillButtonY);
                             if (!(((currentHonorSkillColor.R >= HonorSkillColor.R - PixelDifference) && (currentHonorSkillColor.G >= HonorSkillColor.G - PixelDifference) && (currentHonorSkillColor.B >= HonorSkillColor.B - PixelDifference)) &&
                                   ((currentHonorSkillColor.R <= HonorSkillColor.R + PixelDifference) && (currentHonorSkillColor.G <= HonorSkillColor.G + PixelDifference) && (currentHonorSkillColor.B <= HonorSkillColor.B + PixelDifference))))
                             {
+                                if (HonorSkillChangeCount == 0)
+                                {
+                                    MonitoringLog($"HonorSkillColor Change Phase {HonorSkillChangeCount}: Initial");
+                                    //CurrentBitmap.Save($"HonorSkillColorChanged_{HonorSkillChangeCount}.png", System.Drawing.Imaging.ImageFormat.Png);
+                                    HonorSkillChangeCount++;
+                                }
+
+                                if (HonorSkillChangeCount == 1)
+                                {
+                                    if ((HonorSkillColor.R + HonorSkillColor.G + HonorSkillColor.B) <
+                                        (currentHonorSkillColor.R + currentHonorSkillColor.G + currentHonorSkillColor.B))
+                                    {
+                                        HonorSkillChangeCount++;
+                                        MonitoringLog($"HonorSkillColor Change Phase {HonorSkillChangeCount}: First Bright");
+                                        //CurrentBitmap.Save($"HonorSkillColorChanged_{HonorSkillChangeCount}.png", System.Drawing.Imaging.ImageFormat.Png);
+                                    }
+                                    else
+                                    {
+                                        MonitoringLog($"HonorSkillColor Change Phase {HonorSkillChangeCount}: First Dark");
+                                        //CurrentBitmap.Save($"HonorSkillColorChanged_{HonorSkillChangeCount}.png", System.Drawing.Imaging.ImageFormat.Png);
+                                    }
+                                }
+
+                                if ((HonorSkillChangeCount == 2) &&
+                                   ((HonorSkillColor.R + HonorSkillColor.G + HonorSkillColor.B) >
+                                    (currentHonorSkillColor.R + currentHonorSkillColor.G + currentHonorSkillColor.B)))
+                                {
+                                    HonorSkillChangeCount++;
+                                    MonitoringLog($"HonorSkillColor Change Phase {HonorSkillChangeCount}: Second Dark");
+                                    //CurrentBitmap.Save($"HonorSkillColorChanged_{HonorSkillChangeCount}.png", System.Drawing.Imaging.ImageFormat.Png);
+                                }
+
+                                if ((HonorSkillChangeCount == 3) &&
+                                    ((HonorSkillColor.R + HonorSkillColor.G + HonorSkillColor.B) <
+                                     (currentHonorSkillColor.R + currentHonorSkillColor.G + currentHonorSkillColor.B)))
+                                {
+                                    HonorSkillChangeCount++;
+                                    MonitoringLog($"HonorSkillColor Change Phase {HonorSkillChangeCount}: Second Bright");
+                                    //CurrentBitmap.Save($"HonorSkillColorChanged_{HonorSkillChangeCount}.png", System.Drawing.Imaging.ImageFormat.Png);
+                                }
+
                                 HonorSkillColor = currentHonorSkillColor;
-                                HonorSkillChangeCount++;
-                                MonitoringLog("HonorSkillColor Changed: " + HonorSkillChangeCount);
                             }
                         }
 
@@ -620,6 +672,10 @@ namespace ArtOfHassan
                         {
                             MonitoringLog("HonorQuitButton");
                             MousePointClick(HonorQuitButtonX, HonorQuitButtonY);
+
+                            System.Threading.Thread.Sleep((int)(MonitoringInterval * 3 / 4));
+
+                            return;
                         }
 
                         if (IsOpenHonorHeroWindow)
@@ -1415,7 +1471,7 @@ namespace ArtOfHassan
             IsHonorMode    = true;
             IsTroopMode    = false;
 
-            MonitoringIntervalTextBox.Text = "100";
+            MonitoringIntervalTextBox.Text = "200";
 
             X3GoldButtonClickDelayTextBlock.Visibility = Visibility.Hidden;
             X3GoldButtonClickDelayTextBox.Visibility   = Visibility.Hidden;
