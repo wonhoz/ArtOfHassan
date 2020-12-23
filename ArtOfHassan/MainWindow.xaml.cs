@@ -204,7 +204,7 @@ namespace ArtOfHassan
         string HonorFightButtonColor = "#fdcc00".ToUpper();
 
         int HonorSkillButtonX = 35;
-        int HonorSkillButtonY = 905;
+        int HonorSkillButtonY = 902;
 
         int HonorPauseButtonX = 43;
         int HonorPauseButtonY = 68;
@@ -658,6 +658,8 @@ namespace ArtOfHassan
                         // HonorSkillColor Changes 4 - Time to Quit
                         if (!IsHonorPauseButtonClicked && (HonorSkillChangeCount == 4))
                         {
+                            HonorSkillChangeCount++;
+
                             MonitoringLog("HonorPauseButton");
                             MousePointClick(HonorPauseButtonX, HonorPauseButtonY);
 
@@ -681,7 +683,8 @@ namespace ArtOfHassan
                         if (IsOpenHonorHeroWindow)
                         {
                             // HonorHeroPosition
-                            if (IsHonorPauseButtonClicked && (HonorHeroWindowCount < (HonorHeroChangeTime / MonitoringInterval)) &&
+                            if (IsHonorPauseButtonClicked &&
+                               (HonorHeroWindowCount < (HonorHeroChangeTime / MonitoringInterval)) &&
                                 MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
                                 !MousePointColorCheck(HonorReplaceButtonX, HonorReplaceButtonY, HonorReplaceButtonColor))
                             {
@@ -724,10 +727,21 @@ namespace ArtOfHassan
                                 return;
                             }
                         }
+                        else
+                        {
+                            IsHonorFightButtonClicked = false;
+                            return;
+                        }
 
                         // Honor Mode Finish
-                        if (IsHonorPauseButtonClicked && (HonorSkillChangeCount > 10) &&
-                            !MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor))
+                        if (IsHonorFightButtonClicked &&
+                            IsHonorPauseButtonClicked &&
+                            (HonorSkillChangeCount > 4) &&
+                            (HonorHeroWindowCount >= (HonorHeroChangeTime / MonitoringInterval)) &&
+                            !MousePointColorCheck(HonorChallengeButtonX, HonorChallengeButtonY, HonorChallengeButtonColor) &&
+                            !MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
+                            !MousePointColorCheck(HonorQuitButtonX, HonorQuitButtonY, HonorQuitButtonColor) &&
+                            !MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
                         {
                             MonitoringLog("Honor Mode Finish...");
 
