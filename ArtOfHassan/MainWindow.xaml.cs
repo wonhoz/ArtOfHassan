@@ -313,12 +313,12 @@ namespace ArtOfHassan
                       System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString() + "." +
                       System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Build.ToString();
 
-            LoadSettingCsv();
-            LoadPositionCsv("position.csv");
-            LoadColorCsv("color.csv");
+            LoadSettingTxt();
+            LoadPositionTxt("position.txt");
+            LoadColorTxt("color.txt");
 
-            SavePositionCsv();
-            SaveColorCsv();
+            SavePositionTxt();
+            SaveColorTxt();
 
             ProblemMonitoringTimer.Interval = 3 * 60 * 1000; // 3분
             ProblemMonitoringTimer.Elapsed += ProblemMonitoringTimerFunction;
@@ -1656,22 +1656,22 @@ namespace ArtOfHassan
         private void LoadPixelPositionColorButton_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            openFileDialog.DefaultExt = "csv";
-            openFileDialog.Filter = "CSV Files (*.csv)|*.csv";
+            openFileDialog.DefaultExt = "txt";
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt";
             openFileDialog.ShowDialog();
             if (openFileDialog.FileName.Length > 0)
             {
-                LoadPositionCsv(openFileDialog.FileName);
-                LoadColorCsv(openFileDialog.FileName);
+                LoadPositionTxt(openFileDialog.FileName);
+                LoadColorTxt(openFileDialog.FileName);
 
-                SavePositionCsv();
-                SaveColorCsv();
+                SavePositionTxt();
+                SaveColorTxt();
             }
         }
 
         private void SaveSettingButton_Click(object sender, RoutedEventArgs e)
         {
-            using (StreamWriter streamWriter = new StreamWriter($@"setting.csv", false))
+            using (StreamWriter streamWriter = new StreamWriter($@"setting.txt", false))
             {
                 streamWriter.WriteLine("AppPlayerTitle," + AppPlayerTitleTextBox.Text);
                 streamWriter.WriteLine("MonitoringInterval," + MonitoringIntervalTextBox.Text);
@@ -1874,9 +1874,9 @@ namespace ArtOfHassan
             (e.Source as TextBox).Select(caretIndex, 0);
         }
 
-        private void SavePositionCsv()
+        private void SavePositionTxt()
         {
-            using (StreamWriter streamWriter = new StreamWriter($@"position.csv", false))
+            using (StreamWriter streamWriter = new StreamWriter($@"position.txt", false))
             {
                 streamWriter.WriteLine("AppLocation," + AppLocationX + "," + AppLocationY);
                 streamWriter.WriteLine("HomeButton," + HomeButtonX);
@@ -1915,9 +1915,9 @@ namespace ArtOfHassan
             }
         }
 
-        private void SaveColorCsv()
+        private void SaveColorTxt()
         {
-            using (StreamWriter streamWriter = new StreamWriter($@"color.csv", false))
+            using (StreamWriter streamWriter = new StreamWriter($@"color.txt", false))
             {
                 streamWriter.WriteLine("AppLocationOrangeBlueColor," + AppLocationOrangeBlueColor);
                 streamWriter.WriteLine("AppLocationGreenColor," + AppLocationGreenColor);
@@ -1956,14 +1956,14 @@ namespace ArtOfHassan
             }
         }
 
-        private void LoadSettingCsv()
+        private void LoadSettingTxt()
         {
-            FileInfo fileInfo = new FileInfo("setting.csv");
+            FileInfo fileInfo = new FileInfo("setting.txt");
             if (fileInfo.Exists)
             {
                 MonitoringLog("Load Setting...");
 
-                string[] lines = File.ReadAllLines("setting.csv");
+                string[] lines = File.ReadAllLines("setting.txt");
 
                 foreach (string line in lines)
                 {
@@ -2020,7 +2020,7 @@ namespace ArtOfHassan
             }
         }
 
-        private void LoadPositionCsv(string filename)
+        private void LoadPositionTxt(string filename)
         {
             FileInfo fileInfo = new FileInfo(filename);
             if (fileInfo.Exists)
@@ -2227,7 +2227,7 @@ namespace ArtOfHassan
             }
         }
 
-        private void LoadColorCsv(string filename)
+        private void LoadColorTxt(string filename)
         {
             FileInfo fileInfo = new FileInfo(filename);
             if (fileInfo.Exists)
