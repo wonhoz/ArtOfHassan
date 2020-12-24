@@ -1692,80 +1692,7 @@ namespace ArtOfHassan
 
         private void KoreanCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            if (KoreanCheckBox.IsChecked.Value)
-            {
-                this.Title = $"아트 오브 핫산 {Version}";
-                AppPlayerTitleTextBlock.Text = "앱플레이어\n    이름";
-                MonitoringIntervalTextBlock.Text = "모니터링\n주기 (ms)";
-                ScreenComparisonIntervalTextBlock.Text = " 화면 비교\n주기 (횟수)";
-                X3GoldButtonClickDelayTextBlock.Text = " 골드 광고\n딜레이 (ms)";
-                HonorHeroChangeTimeTextBlock.Text = "영웅 선택\n시간 (ms)";
-                PixelDifferenceTextBlock.Text = "픽셀 차이";
-                HonorHeroChangeTextBlock.Text = "영웅 변경";
-                HonorHeroChangeCheckBox.Content = "영웅 선택창 열기";
-                AdsTextBlock.Text = "광고";
-                AdsWatchCheckBox.Content = "광고 보기";
-                AdsCloseClickPatternButton.Content = "광고 닫기\n클릭 패턴";
-                ModeTextBlock.Text = "모드";
-                StageRadioButton.Content = "스테이지";
-                StageColumn.Width = new GridLength(1.4, GridUnitType.Star);
-                HeadhuntRadioButton.Content = "현상금";
-                HeadhuntColumn.Width = new GridLength(1.25, GridUnitType.Star);
-                HonorRadioButton.Content = "영광";
-                TroopRadioButton.Content = "용병";
-                OptionTextBlock.Text = "옵션";
-                GoldChestCheckBox.Content = "골드 상자";
-                PausabilityCheckBox.Content = "멈춤 가능";
-                LogCheckBox.Content = "로그";
-                EmailAlarmTextBlock.Text = "이메일 알림";
-                EmailTestButton.Content = "테스트";
-                NoGoldTextBlock.Text = "골드 벌이\n  없을때";
-                SendEmailCheckBox.Content = "이메일";
-                StopHassanCheckBox.Content = "핫산 중지";
-                ShutdownComputerCheckBox.Content = "PC 종료";
-                LoadPixelPositionColorButton.Content = " 픽셀 위치 및\n색상 불러오기";
-                SaveSettingButton.Content = "설정 저장";
-                StartButton.Content = "시작";
-                MessageBar.Text = $"전투: {NumOfWar}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
-                ShareProblemCheckBox.Content = "우리 핫산 개선을 위해 문제 발생 스샷 공유 :)";
-            }
-            else
-            {
-                this.Title = $"Art of Hassan {Version}";
-                AppPlayerTitleTextBlock.Text = "AppPlayer Title";
-                MonitoringIntervalTextBlock.Text = "Monitoring\nInterval (ms)";
-                ScreenComparisonIntervalTextBlock.Text = "   Screen\nComparison\n Interval (#)";
-                X3GoldButtonClickDelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
-                HonorHeroChangeTimeTextBlock.Text = "   Hero\n Change\nTime (ms)";
-                PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
-                HonorHeroChangeTextBlock.Text = "  Hero\nChange";
-                HonorHeroChangeCheckBox.Content = "Open Heros Window";
-                AdsTextBlock.Text = "Ads";
-                AdsWatchCheckBox.Content = "Watch Ads ";
-                AdsCloseClickPatternButton.Content = "  Ads Close\nClick Pattern";
-                ModeTextBlock.Text = "Mode";
-                StageRadioButton.Content = "Stage";
-                StageColumn.Width = new GridLength(1, GridUnitType.Star);
-                HeadhuntRadioButton.Content = "Headhunt";
-                HeadhuntColumn.Width = new GridLength(1.35, GridUnitType.Star);
-                HonorRadioButton.Content = "Honor";
-                TroopRadioButton.Content = "Troop";
-                OptionTextBlock.Text = "Option";
-                GoldChestCheckBox.Content = "Gold Chest";
-                PausabilityCheckBox.Content = "Pausable";
-                LogCheckBox.Content = "Logging";
-                EmailAlarmTextBlock.Text = "Email Alarm";
-                EmailTestButton.Content = "Test";
-                NoGoldTextBlock.Text = "No Gold";
-                SendEmailCheckBox.Content = "Send\nEmail";
-                StopHassanCheckBox.Content = " Stop\nHassan";
-                ShutdownComputerCheckBox.Content = "Shutdown\nComputer";
-                LoadPixelPositionColorButton.Content = "    Load Pixel\nPosition or Color";
-                SaveSettingButton.Content = "Save Setting";
-                StartButton.Content = "Start";
-                MessageBar.Text = $"War: {NumOfWar}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
-                ShareProblemCheckBox.Content = "Share screenshot of problem to improve our Hassan :)";
-            }
+            UpdateLanguage();
         }
 
         #endregion
@@ -1956,6 +1883,84 @@ namespace ArtOfHassan
             }
         }
 
+        private void UpdateLanguage()
+        {
+            if (KoreanCheckBox.IsChecked.Value)
+            {
+                this.Title = $"아트 오브 핫산 {Version}";
+                AppPlayerTitleTextBlock.Text = "앱플레이어\n    이름";
+                MonitoringIntervalTextBlock.Text = "모니터링\n주기 (ms)";
+                ScreenComparisonIntervalTextBlock.Text = " 화면 비교\n주기 (횟수)";
+                X3GoldButtonClickDelayTextBlock.Text = " 골드 광고\n딜레이 (ms)";
+                HonorHeroChangeTimeTextBlock.Text = "영웅 선택\n시간 (ms)";
+                PixelDifferenceTextBlock.Text = "픽셀 차이";
+                HonorHeroChangeTextBlock.Text = "영웅 변경";
+                HonorHeroChangeCheckBox.Content = "영웅 선택창 열기";
+                AdsTextBlock.Text = "광고";
+                AdsWatchCheckBox.Content = "광고 보기";
+                AdsCloseClickPatternButton.Content = "광고 닫기\n클릭 패턴";
+                ModeTextBlock.Text = "모드";
+                StageRadioButton.Content = "스테이지";
+                StageColumn.Width = new GridLength(1.4, GridUnitType.Star);
+                HeadhuntRadioButton.Content = "현상금";
+                HeadhuntColumn.Width = new GridLength(1.25, GridUnitType.Star);
+                HonorRadioButton.Content = "영광";
+                TroopRadioButton.Content = "용병";
+                OptionTextBlock.Text = "옵션";
+                GoldChestCheckBox.Content = "골드 상자";
+                PausabilityCheckBox.Content = "멈춤 가능";
+                LogCheckBox.Content = "로그";
+                EmailAlarmTextBlock.Text = "이메일 알림";
+                EmailTestButton.Content = "테스트";
+                NoGoldTextBlock.Text = "골드 벌이\n 없을 때";
+                SendEmailCheckBox.Content = "이메일";
+                StopHassanCheckBox.Content = "핫산 중지";
+                ShutdownComputerCheckBox.Content = "PC 종료";
+                LoadPixelPositionColorButton.Content = " 픽셀 위치 및\n색상 불러오기";
+                SaveSettingButton.Content = "설정 저장";
+                StartButton.Content = "시작";
+                MessageBar.Text = $"전투: {NumOfWar}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
+                ShareProblemCheckBox.Content = "우리 핫산 개선을 위해 문제 발생 스샷 공유 :)";
+            }
+            else
+            {
+                this.Title = $"Art of Hassan {Version}";
+                AppPlayerTitleTextBlock.Text = "AppPlayer\n    Title";
+                MonitoringIntervalTextBlock.Text = "Monitoring\nInterval (ms)";
+                ScreenComparisonIntervalTextBlock.Text = "   Screen\nComparison\n Interval (#)";
+                X3GoldButtonClickDelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
+                HonorHeroChangeTimeTextBlock.Text = "   Hero\n Change\nTime (ms)";
+                PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
+                HonorHeroChangeTextBlock.Text = "  Hero\nChange";
+                HonorHeroChangeCheckBox.Content = "Open Heros Window";
+                AdsTextBlock.Text = "Ads";
+                AdsWatchCheckBox.Content = "Watch Ads ";
+                AdsCloseClickPatternButton.Content = "  Ads Close\nClick Pattern";
+                ModeTextBlock.Text = "Mode";
+                StageRadioButton.Content = "Stage";
+                StageColumn.Width = new GridLength(1, GridUnitType.Star);
+                HeadhuntRadioButton.Content = "Headhunt";
+                HeadhuntColumn.Width = new GridLength(1.35, GridUnitType.Star);
+                HonorRadioButton.Content = "Honor";
+                TroopRadioButton.Content = "Troop";
+                OptionTextBlock.Text = "Option";
+                GoldChestCheckBox.Content = "Gold Chest";
+                PausabilityCheckBox.Content = "Pausable";
+                LogCheckBox.Content = "Logging";
+                EmailAlarmTextBlock.Text = "Email Alarm";
+                EmailTestButton.Content = "Test";
+                NoGoldTextBlock.Text = "No Gold";
+                SendEmailCheckBox.Content = "Send\nEmail";
+                StopHassanCheckBox.Content = " Stop\nHassan";
+                ShutdownComputerCheckBox.Content = "Shutdown\nComputer";
+                LoadPixelPositionColorButton.Content = "    Load Pixel\nPosition or Color";
+                SaveSettingButton.Content = "Save Setting";
+                StartButton.Content = "Start";
+                MessageBar.Text = $"War: {NumOfWar}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
+                ShareProblemCheckBox.Content = "Share screenshot of problem to improve our Hassan :)";
+            }
+        }
+
         private void LoadSettingTxt()
         {
             FileInfo fileInfo = new FileInfo("setting.txt");
@@ -1988,6 +1993,7 @@ namespace ArtOfHassan
                             break;
                         case ("korean"):
                             KoreanCheckBox.IsChecked  =  bool.Parse(listitem[1]);
+                            UpdateLanguage();
                             break;
                         case ("adscloseclickpattern"):
                             GoogleAdCloseClickPattern = listitem[1];
