@@ -1723,6 +1723,7 @@ namespace ArtOfHassan
                 SendEmailCheckBox.Content = "이메일";
                 StopHassanCheckBox.Content = "핫산 중지";
                 ShutdownComputerCheckBox.Content = "PC 종료";
+                LoadPixelPositionColorButton.Content = " 픽셀 위치 및\n색상 불러오기";
                 SaveSettingButton.Content = "설정 저장";
                 StartButton.Content = "시작";
                 MessageBar.Text = $"전투: {NumOfWar}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
@@ -1759,6 +1760,7 @@ namespace ArtOfHassan
                 SendEmailCheckBox.Content = "Send\nEmail";
                 StopHassanCheckBox.Content = " Stop\nHassan";
                 ShutdownComputerCheckBox.Content = "Shutdown\nComputer";
+                LoadPixelPositionColorButton.Content = "    Load Pixel\nPosition or Color";
                 SaveSettingButton.Content = "Save Setting";
                 StartButton.Content = "Start";
                 MessageBar.Text = $"War: {NumOfWar}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
