@@ -1673,7 +1673,7 @@ namespace ArtOfHassan
         {
             using (StreamWriter streamWriter = new StreamWriter($@"setting.csv", false))
             {
-                streamWriter.WriteLine("WindowTitle," + WindowTitleTextBox.Text);
+                streamWriter.WriteLine("AppPlayerTitle," + AppPlayerTitleTextBox.Text);
                 streamWriter.WriteLine("MonitoringInterval," + MonitoringIntervalTextBox.Text);
                 streamWriter.WriteLine("ScreenComparisonInterval," + ScreenComparisonIntervalTextBox.Text);
                 streamWriter.WriteLine("X3GoldButtonDelay," + X3GoldButtonClickDelayTextBox.Text);
@@ -1695,7 +1695,7 @@ namespace ArtOfHassan
             if (KoreanCheckBox.IsChecked.Value)
             {
                 this.Title = $"아트 오브 핫산 {Version}";
-                WindowTitleTextBlock.Text = "앱플레이어\n    이름";
+                AppPlayerTitleTextBlock.Text = "앱플레이어\n    이름";
                 MonitoringIntervalTextBlock.Text = "모니터링\n주기 (ms)";
                 ScreenComparisonIntervalTextBlock.Text = " 화면 비교\n주기 (횟수)";
                 X3GoldButtonClickDelayTextBlock.Text = " 골드 광고\n딜레이 (ms)";
@@ -1732,7 +1732,7 @@ namespace ArtOfHassan
             else
             {
                 this.Title = $"Art of Hassan {Version}";
-                WindowTitleTextBlock.Text = "Window Title";
+                AppPlayerTitleTextBlock.Text = "AppPlayer Title";
                 MonitoringIntervalTextBlock.Text = "Monitoring\nInterval (ms)";
                 ScreenComparisonIntervalTextBlock.Text = "   Screen\nComparison\n Interval (#)";
                 X3GoldButtonClickDelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
@@ -1819,12 +1819,12 @@ namespace ArtOfHassan
 
         private IntPtr GetWinAscHandle()
         {
-            string windowTitle = "NoxPlayer";
+            string appPlayerTitle = "NoxPlayer";
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                windowTitle = WindowTitleTextBox.Text;
+                appPlayerTitle = AppPlayerTitleTextBox.Text;
             }));
-            return FindWindow(null, windowTitle);
+            return FindWindow(null, appPlayerTitle);
         }
 
         private void GetWindowPos(IntPtr hwnd, ref System.Windows.Point point, ref System.Windows.Size size)
@@ -1859,7 +1859,7 @@ namespace ArtOfHassan
         {
             int caretIndex = (e.Source as TextBox).CaretIndex;
             string name    = (e.Source as TextBox).Name;
-            if (name.Contains("WindowTitle"))
+            if (name.Contains("AppPlayerTitle"))
             {
                 (e.Source as TextBox).Text = Regex.Replace((e.Source as TextBox).Text, RegExClass.Location, "");
             }
@@ -1971,8 +1971,8 @@ namespace ArtOfHassan
 
                     switch (listitem[0].ToLower())
                     {
-                        case ("windowtitle"):
-                            WindowTitleTextBox.Text = listitem[1];
+                        case ("appplayertitle"):
+                            AppPlayerTitleTextBox.Text = listitem[1];
                             break;
                         case ("monitoringinterval"):
                             MonitoringIntervalTextBox.Text = listitem[1];

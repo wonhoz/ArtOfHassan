@@ -26,7 +26,7 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Name="WindowTitleTextBlock" Text="Window Title" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        <TextBlock Name="AppPlayerTitleTextBlock" Text="AppPlayer&#10;    Title" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
 
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="0.9*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.ColumnSpan="2" Name="WindowTitleTextBox" Text="NoxPlayer" Margin="5,5,0,5" TextChanged="TextBox_TextChanged"
+            <TextBox Grid.ColumnSpan="2" Name="AppPlayerTitleTextBox" Text="NoxPlayer" Margin="5,5,0,5" TextChanged="TextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
