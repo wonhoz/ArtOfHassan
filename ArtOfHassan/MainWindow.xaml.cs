@@ -476,6 +476,11 @@ namespace ArtOfHassan
                             }
                         }
                     }
+
+                    if (!IsLogging)
+                    {
+                        System.IO.File.Delete(filename);
+                    }
                 }
                 catch (Exception ex)
                 {
