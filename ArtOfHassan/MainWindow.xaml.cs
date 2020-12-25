@@ -155,6 +155,8 @@ namespace ArtOfHassan
         int GoldAdCloseButtonY = 180;
         int TroopAdCloseButtonY = 190;
         int MidasAdCloseButtonY = 262;
+        int GameEventCloseButtonX = 506;
+        int GameEventCloseButtonY = 160;
         string GameAdCloseButtonLatestColor = "#e9e9d8".ToUpper();
         string GameAdCloseButtonV308Color   = "#efe7d6".ToUpper();
 
@@ -1311,6 +1313,17 @@ namespace ArtOfHassan
                     }
 
 
+                    // GameEventCloseButton
+                    if (MousePointColorCheck(GameEventCloseButtonX, GameEventCloseButtonY, GameAdCloseButtonLatestColor) ||
+                        MousePointColorCheck(GameEventCloseButtonX, GameEventCloseButtonY, GameAdCloseButtonV308Color))
+                    {
+                        MonitoringLog("GameEventCloseButton");
+                        MousePointClick(GameEventCloseButtonX, GameEventCloseButtonY);
+
+                        return;
+                    }
+
+
                     // Google Ad Close Button
                     if ((TimerCountForScreenCompare % ScreenComparisonInterval) == 0)
                     {
@@ -1826,6 +1839,7 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("GoldButtonImage," + GoldButtonImageX + "," + GoldButtonImageY);
                 streamWriter.WriteLine("NextButton," + NextButtonX + "," + NextButtonY);
                 streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY);
+                streamWriter.WriteLine("GameEventCloseButton," + GameEventCloseButtonX + "," + GameEventCloseButtonY);
                 streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY);
                 streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX + "," + LatestUsedAppButtonY);
                 streamWriter.WriteLine("RightTopAppCloseButton," + RightTopAppCloseButtonX + "," + RightTopAppCloseButtonY);
@@ -2121,6 +2135,10 @@ namespace ArtOfHassan
                                     case ("nextbutton"):
                                         NextButtonX = int.Parse(listitem[1]);
                                         NextButtonY = int.Parse(listitem[2]);
+                                        break;
+                                    case ("gameeventclosebutton"):
+                                        GameEventCloseButtonX = int.Parse(listitem[1]);
+                                        GameEventCloseButtonY = int.Parse(listitem[2]);
                                         break;
                                     case ("latestusedappbutton"):
                                         LatestUsedAppButtonX = int.Parse(listitem[1]);
