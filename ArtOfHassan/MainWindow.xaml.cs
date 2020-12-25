@@ -433,14 +433,14 @@ namespace ArtOfHassan
                     smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
 
-                    if (ProblemMailSent == 2)
+                    if (ProblemMailSent < 3) // 3번째 강종까지
                     {
                         if (string.IsNullOrWhiteSpace(EmailAddress))
                         {
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                                       "artofwarhassan@gmail.com",
                                                                       $"Art of Hassan {Version}",
-                                                                      "No Email.\nProblem reported.\nShare = " + IsShareProblem);
+                                                                      $"No Email.\nProblem reported {ProblemMailSent + 1}.\nShare = " + IsShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
                         }
@@ -449,26 +449,29 @@ namespace ArtOfHassan
                             MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                           "artofwarhassan@gmail.com",
                                                           $"Art of Hassan {Version}",
-                                                          $"From {EmailAddress},\nProblem reported.\nShare = " + IsShareProblem);
+                                                          $"From {EmailAddress},\nProblem reported {ProblemMailSent + 1}.\nShare = " + IsShareProblem);
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
 
-                            string message;
-                            if (IsKorean)
+                            if (ProblemMailSent > 1) // 3번째 강종부터
                             {
-                                message = "Art of War 재시작이 되지 않고 있으니 확인바랍니다.";
-                            }
-                            else
-                            {
-                                message = "Restarting Art of War seems not working...";
-                            }
+                                string message;
+                                if (IsKorean)
+                                {
+                                    message = "Art of War 재시작이 되지 않고 있으니 확인바랍니다.";
+                                }
+                                else
+                                {
+                                    message = "Restarting Art of War seems not working...";
+                                }
 
-                            mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                          EmailAddress,
-                                                          $"Art of Hassan {Version}",
-                                                          message);
-                            mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
-                            smtpClient.Send(mailMessage);
+                                mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                              EmailAddress,
+                                                              $"Art of Hassan {Version}",
+                                                              message);
+                                mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
+                                smtpClient.Send(mailMessage);
+                            }
                         }
                     }
                 }
