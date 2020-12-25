@@ -289,6 +289,7 @@ namespace ArtOfHassan
 
         bool IsOpenGoldChestBox = false;
         bool IsPausable         = false;
+        bool IsLogging          = false;
 
         string EmailAddress;
 
@@ -367,6 +368,7 @@ namespace ArtOfHassan
                 IsWatchAds         = AdsWatchCheckBox.IsChecked.Value;
                 IsOpenGoldChestBox = GoldChestCheckBox.IsChecked.Value;
                 IsPausable         = PausabilityCheckBox.IsChecked.Value;
+                IsLogging          = LogCheckBox.IsChecked.Value;
 
                 EmailAddress = EmailAddressTextBox.Text;
 
@@ -1726,13 +1728,7 @@ namespace ArtOfHassan
 
         private void MonitoringLog(string log)
         {
-            bool isLogging = false;
-            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                isLogging = LogCheckBox.IsChecked.Value;
-            }));
-
-            if (isLogging)
+            if (IsLogging)
             {
                 DirectoryInfo directoryInfo = new DirectoryInfo("log");
                 if (!directoryInfo.Exists)
