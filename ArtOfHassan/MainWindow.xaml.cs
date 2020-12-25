@@ -106,7 +106,7 @@ namespace ArtOfHassan
         string GoldChestBoxCoinV308Color   = "#eabf2f".ToUpper();
 
         int CollectButtonX = 190;
-        int CollectButtonY = 690;
+        int CollectButtonY = 680;
         string CollectButtonColor = "#fdbb00".ToUpper();
 
         int BattleLevelButtonX = 175;
