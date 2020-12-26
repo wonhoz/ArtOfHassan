@@ -1023,7 +1023,9 @@ namespace ArtOfHassan
 
 
                     // NoGold
-                    if (MousePointColorCheck(NoGoldX, NoGoldY, NoGoldColor))
+                    if (MousePointColorCheck(NoGoldX, NoGoldY, NoGoldColor) &&
+                       (MousePointColorCheck(VictoryDefeatX, VictoryDefeatY, VictoryDefeatVictoryColor) ||
+                        MousePointColorCheck(VictoryDefeatX, VictoryDefeatY, VictoryDefeatDefeatColor)))
                     {
                         MonitoringLog("NoGold");
 
