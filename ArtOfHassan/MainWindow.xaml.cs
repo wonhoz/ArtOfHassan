@@ -437,7 +437,7 @@ namespace ArtOfHassan
                     smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
 
-                    if (ProblemMailSent < 3) // 3번째 강종까지
+                    if (ProblemMailSent < 5) // 5번째 강종까지
                     {
                         if (string.IsNullOrWhiteSpace(EmailAddress))
                         {
@@ -457,7 +457,7 @@ namespace ArtOfHassan
                             mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                             smtpClient.Send(mailMessage);
 
-                            if (ProblemMailSent > 1) // 3번째 강종부터
+                            if (ProblemMailSent > 2) // 4번째 강종부터
                             {
                                 string message;
                                 if (IsKorean)
@@ -1089,6 +1089,11 @@ namespace ArtOfHassan
                                         mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                                         smtpClient.Send(mailMessage);
                                     }
+                                }
+
+                                if (!IsLogging)
+                                {
+                                    System.IO.File.Delete(filename);
                                 }
                             }
                             catch (Exception ex)
