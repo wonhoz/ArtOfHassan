@@ -1340,108 +1340,102 @@ namespace ArtOfHassan
 
 
                     // Google Ad Close Button
-                    if (AdsWatchFlag)
+                    if ((TimerCountForScreenCompare % ScreenComparisonInterval) == 0)
                     {
-                        if ((TimerCountForScreenCompare % ScreenComparisonInterval) == 0)
+                        TimerCountForScreenCompare = 1;
+
+                        bool isDifferent = false;
+
+                        for (int row = 0; row < NoxHeight; row++)
                         {
-                            TimerCountForScreenCompare = 1;
-
-                            bool isDifferent = false;
-
-                            for (int row = 0; row < NoxHeight; row++)
+                            if (isDifferent)
                             {
-                                if (isDifferent)
+                                break;
+                            }
+
+                            for (int col = 0; col < NoxWidth; col++)
+                            {
+                                System.Drawing.Color lastColor    = LastBitmap.GetPixel(col, row);
+                                System.Drawing.Color currentColor = CurrentBitmap.GetPixel(col, row);
+
+                                if ((lastColor.R != currentColor.R) && (lastColor.G != currentColor.G) && (lastColor.B != currentColor.B))
                                 {
+                                    isDifferent = true;
                                     break;
                                 }
-
-                                for (int col = 0; col < NoxWidth; col++)
-                                {
-                                    System.Drawing.Color lastColor = LastBitmap.GetPixel(col, row);
-                                    System.Drawing.Color currentColor = CurrentBitmap.GetPixel(col, row);
-
-                                    if ((lastColor.R != currentColor.R) && (lastColor.G != currentColor.G) && (lastColor.B != currentColor.B))
-                                    {
-                                        isDifferent = true;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (!isDifferent || (AdsCloseStopwatch.ElapsedMilliseconds > (MaximumAdsWatchingTime * 1000)))
-                            {
-                                MonitoringLog("GoogleAdCloseButton");
-                                AdsCloseStopwatch.Reset();
-                                AdsCloseStopwatch.Stop();
-
-                                if (GoogleAdCloseClickPatterns[0] == "L")
-                                {
-                                    MonitoringLog("Left Ad Close Button");
-                                    MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                }
-                                else
-                                {
-                                    MonitoringLog("Right Ad Close Button");
-                                    MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                }
-
-                                System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
-
-                                if (GoogleAdCloseClickPatterns[1] == "L")
-                                {
-                                    MonitoringLog("Left Ad Close Button");
-                                    MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                }
-                                else
-                                {
-                                    MonitoringLog("Right Ad Close Button");
-                                    MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                }
-
-                                if (GoogleAdCloseClickPatterns.Length == 3)
-                                {
-                                    System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
-
-                                    if (GoogleAdCloseClickPatterns[2] == "L")
-                                    {
-                                        MonitoringLog("Left Ad Close Button");
-                                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
-                                    else
-                                    {
-                                        MonitoringLog("Right Ad Close Button");
-                                        MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
-                                }
-
-                                if (GoogleAdCloseClickPatterns.Length == 4)
-                                {
-                                    System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
-
-                                    if (GoogleAdCloseClickPatterns[3] == "L")
-                                    {
-                                        MonitoringLog("Left Ad Close Button");
-                                        MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
-                                    else
-                                    {
-                                        MonitoringLog("Right Ad Close Button");
-                                        MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
-                                    }
-                                }
-
-                                return;
                             }
                         }
-                        else
+
+                        if (!isDifferent || (AdsCloseStopwatch.ElapsedMilliseconds > (MaximumAdsWatchingTime * 1000)))
                         {
-                            TimerCountForScreenCompare++;
+                            MonitoringLog("GoogleAdCloseButton");
+                            AdsCloseStopwatch.Reset();
+                            AdsCloseStopwatch.Stop();
+
+                            if (GoogleAdCloseClickPatterns[0] == "L")
+                            {
+                                MonitoringLog("Left Ad Close Button");
+                                MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
+                            }
+                            else
+                            {
+                                MonitoringLog("Right Ad Close Button");
+                                MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
+                            }
+
+                            System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
+
+                            if (GoogleAdCloseClickPatterns[1] == "L")
+                            {
+                                MonitoringLog("Left Ad Close Button");
+                                MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
+                            }
+                            else
+                            {
+                                MonitoringLog("Right Ad Close Button");
+                                MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
+                            }
+
+                            if (GoogleAdCloseClickPatterns.Length == 3)
+                            {
+                                System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
+
+                                if (GoogleAdCloseClickPatterns[2] == "L")
+                                {
+                                    MonitoringLog("Left Ad Close Button");
+                                    MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
+                                }
+                                else
+                                {
+                                    MonitoringLog("Right Ad Close Button");
+                                    MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
+                                }
+                            }
+
+                            if (GoogleAdCloseClickPatterns.Length == 4)
+                            {
+                                System.Threading.Thread.Sleep(GoogleAdCloseClickInterval);
+
+                                if (GoogleAdCloseClickPatterns[3] == "L")
+                                {
+                                    MonitoringLog("Left Ad Close Button");
+                                    MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
+                                }
+                                else
+                                {
+                                    MonitoringLog("Right Ad Close Button");
+                                    MousePointClick(RightAdCloseButtonX, GoogleAdCloseButtonY);
+                                }
+                            }
+
+                            return;
                         }
                     }
 
 
                     //CurrentBitmap.Save(Stage + ".png", System.Drawing.Imaging.ImageFormat.Png);
                     LastBitmap = CurrentBitmap;
+                    TimerCountForScreenCompare++;
                 }
             }
         }
