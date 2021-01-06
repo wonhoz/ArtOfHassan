@@ -326,6 +326,17 @@ namespace ArtOfHassan
             SavePositionTxt();
             SaveColorTxt();
 
+            string myIP         = new WebClient().DownloadString("http://ipinfo.io/ip").Trim();
+            string[] blacklists = new WebClient().DownloadString("http://wonhoz.synology.me/blacklist.txt").Split('\n');
+            foreach (string blacklist in blacklists)
+            {
+                if (myIP == blacklist.Trim())
+                {
+                    MessageBox.Show("You are not allowed to use this program!");
+                    this.Close();
+                }
+            }
+
             ProblemMonitoringTimer.Interval = 3 * 60 * 1000; // 3분
             ProblemMonitoringTimer.Elapsed += ProblemMonitoringTimerFunction;
 
