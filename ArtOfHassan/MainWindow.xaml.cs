@@ -982,7 +982,7 @@ namespace ArtOfHassan
                                 MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
                                                                           "artofwarhassan@gmail.com",
                                                                           $"Art of Hassan {Version}",
-                                                                          "User Info.");
+                                                                          $"User Info.\nIP: {new WebClient().DownloadString("http://ipinfo.io/ip").Trim()}");
                                 mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                                 smtpClient.Send(mailMessage);
                             });
