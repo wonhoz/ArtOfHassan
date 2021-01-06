@@ -165,6 +165,8 @@ namespace ArtOfHassan
         int RightAdCloseButtonX = 513;
         int GoogleAdCloseButtonY = 63;
 
+        int AppPlayerHomeButtonY = 960;
+
         int LatestUsedAppButtonX = 580;
         int LatestUsedAppButtonY = 1000;
 
@@ -179,7 +181,7 @@ namespace ArtOfHassan
 
         // Headhunt
         int HeadhuntButtonX = 515;
-        int HeadhuntButtonY = 380;
+        int HeadhuntButtonY = 400;
         string HeadhuntButtonYellowColor = "#fdbb00".ToUpper();
         string HeadhuntButtonGrayColor   = "#572f17".ToUpper();
 
@@ -555,6 +557,12 @@ namespace ArtOfHassan
 
                         System.Threading.Thread.Sleep(500);
                     }
+
+                    // AppPlayerHomeButton
+                    MonitoringLog("AppPlayerHomeButton");
+                    MousePointClick(LatestUsedAppButtonX, AppPlayerHomeButtonY);
+
+                    System.Threading.Thread.Sleep(ScreenMonitoringInterval);
                 }
 
                 IsProblemOccurred = false;
@@ -1898,6 +1906,7 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("GameAdCloseButton," + GameAdCloseButtonX + "," + GoldAdCloseButtonY + "," + TroopAdCloseButtonY + "," + MidasAdCloseButtonY);
                 streamWriter.WriteLine("GameEventCloseButton," + GameEventCloseButtonX + "," + GameEventCloseButtonY);
                 streamWriter.WriteLine("GoogleAdCloseButton," + LeftAdCloseButtonX + "," + RightAdCloseButtonX + "," + GoogleAdCloseButtonY);
+                streamWriter.WriteLine("AppPlayerHomeButton," + AppPlayerHomeButtonY);
                 streamWriter.WriteLine("LatestUsedAppButton," + LatestUsedAppButtonX + "," + LatestUsedAppButtonY);
                 streamWriter.WriteLine("RightTopAppCloseButton," + RightTopAppCloseButtonX + "," + RightTopAppCloseButtonY);
                 streamWriter.WriteLine("NotRespondAppCloseButton," + NotRespondAppCloseButtonX + "," + NotRespondAppCloseButtonY1 + "," + NotRespondAppCloseButtonY2 + "," + NotRespondAppCloseButtonY3);
@@ -2136,6 +2145,9 @@ namespace ArtOfHassan
                                 {
                                     case ("homebutton"):
                                         HomeButtonX = int.Parse(listitem[1]);
+                                        break;
+                                    case ("appplayerhomebutton"):
+                                        AppPlayerHomeButtonY = int.Parse(listitem[1]);
                                         break;
                                 }
                             }
