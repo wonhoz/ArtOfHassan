@@ -1638,6 +1638,7 @@ namespace ArtOfHassan
                 IsStopHassan     = false;
                 IsNoGoldStatus   = false;
                 IsNoGoldMailSent = false;
+                IsGetUserInfo    = false;
                 ProblemMailSent  = 0;
 
                 IsHonorFightButtonClicked  = false;
