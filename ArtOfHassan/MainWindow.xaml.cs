@@ -72,6 +72,7 @@ namespace ArtOfHassan
         private static System.Timers.Timer NoxMonitoringTimer     = new System.Timers.Timer();
         private static System.Timers.Timer ScreenMonitoringTimer  = new System.Timers.Timer();
         private static System.Timers.Timer ProblemMonitoringTimer = new System.Timers.Timer();
+        private static System.Timers.Timer BlacklistCheckTimer    = new System.Timers.Timer();
 
         #endregion
 
@@ -328,16 +329,7 @@ namespace ArtOfHassan
             SavePositionTxt();
             SaveColorTxt();
 
-            string myIP         = new WebClient().DownloadString("http://ipinfo.io/ip").Trim();
-            string[] blacklists = new WebClient().DownloadString("http://wonhoz.synology.me/blacklist.txt").Split('\n');
-            foreach (string blacklist in blacklists)
-            {
-                if (myIP == blacklist.Trim())
-                {
-                    MessageBox.Show("You are not allowed to use this program!");
-                    this.Close();
-                }
-            }
+            BlacklistCheck();
 
             ProblemMonitoringTimer.Interval = 3 * 60 * 1000; // 3분
             ProblemMonitoringTimer.Elapsed += ProblemMonitoringTimerFunction;
@@ -348,10 +340,19 @@ namespace ArtOfHassan
             NoxMonitoringTimer.Interval = 200;
             NoxMonitoringTimer.Elapsed += NoxMonitoringTimerFunction;
             NoxMonitoringTimer.Enabled = true;
+
+            BlacklistCheckTimer.Interval = 10 * 60 * 1000; // 10분
+            BlacklistCheckTimer.Elapsed += BlacklistCheckTimerFunction;
+            BlacklistCheckTimer.Enabled = true;
         }
 
 
         #region Private Timer Function
+
+        private void BlacklistCheckTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            BlacklistCheck();
+        }
 
         private void NoxMonitoringTimerFunction(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -1004,6 +1005,11 @@ namespace ArtOfHassan
                                                                           $"User Info.\nIP: {new WebClient().DownloadString("http://ipinfo.io/ip").Trim()}");
                                 mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
                                 smtpClient.Send(mailMessage);
+
+                                if (!IsLogging)
+                                {
+                                    System.IO.File.Delete(filename);
+                                }
                             });
                             task.Start();
                         }
@@ -1493,6 +1499,7 @@ namespace ArtOfHassan
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            BlacklistCheckTimer.Enabled    = false;
             ProblemMonitoringTimer.Enabled = false;
             ScreenMonitoringTimer.Enabled  = false;
             NoxMonitoringTimer.Enabled     = false;
@@ -1788,6 +1795,30 @@ namespace ArtOfHassan
 
 
         #region Private Method
+
+        private void BlacklistCheck()
+        {
+            try
+            {
+                string   myIP       = new WebClient().DownloadString("http://ipinfo.io/ip").Trim();
+                string[] blacklists = new WebClient().DownloadString("http://wonhoz.synology.me/blacklist.txt").Split('\n');
+                foreach (string blacklist in blacklists)
+                {
+                    if (myIP == blacklist.Trim())
+                    {
+                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                        {
+                            MessageBox.Show("You are not allowed to use this program!");
+                            this.Close();
+                        }));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
         private string InsertSpaceBeforeUpper(string input)
         {
