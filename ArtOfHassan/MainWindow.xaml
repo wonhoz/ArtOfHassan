@@ -179,20 +179,15 @@
 
         <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition />
+                <ColumnDefinition Width="1.4*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <CheckBox Name="GoldChestCheckBox" Content="Gold Chest" IsChecked="True"
+            <CheckBox Name="GoldChestCheckBox" Content="Open Gold Chest" IsChecked="True"
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <CheckBox Grid.Column="1" Name="PausabilityCheckBox" Content="Pausable" IsChecked="False"
-                      HorizontalAlignment="Center" VerticalAlignment="Center"
-                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-            <CheckBox Grid.Column="2" Name="LogCheckBox" Content="Logging" IsChecked="False"
+            <CheckBox Grid.Column="1" Name="LogCheckBox" Content="Logging" IsChecked="False"
                       HorizontalAlignment="Center" VerticalAlignment="Center"
                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>

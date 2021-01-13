@@ -296,7 +296,6 @@ namespace ArtOfHassan
         string[] GoogleAdCloseClickPatterns;
 
         bool IsOpenGoldChestBox = false;
-        bool IsPausable         = false;
         bool IsLogging          = false;
 
         string EmailAddress;
@@ -391,7 +390,6 @@ namespace ArtOfHassan
                 IsKorean           = KoreanCheckBox.IsChecked.Value;
                 IsWatchAds         = AdsWatchCheckBox.IsChecked.Value;
                 IsOpenGoldChestBox = GoldChestCheckBox.IsChecked.Value;
-                IsPausable         = PausabilityCheckBox.IsChecked.Value;
                 IsLogging          = LogCheckBox.IsChecked.Value;
 
                 EmailAddress = EmailAddressTextBox.Text;
@@ -1031,13 +1029,10 @@ namespace ArtOfHassan
 
 
                     // ContinueButton
-                    if (!IsPausable)
+                    if (MousePointColorCheck(ContinueButtonX, ContinueButtonY, ContinueButtonColor))
                     {
-                        if (MousePointColorCheck(ContinueButtonX, ContinueButtonY, ContinueButtonColor))
-                        {
-                            MonitoringLog("ContinueButton");
-                            MousePointClick(ContinueButtonX, ContinueButtonY);
-                        }
+                        MonitoringLog("ContinueButton");
+                        MousePointClick(ContinueButtonX, ContinueButtonY);
                     }
 
 
@@ -1777,7 +1772,6 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("Korean," + KoreanCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("AdsCloseClickPattern," + GoogleAdCloseClickPattern);
                 streamWriter.WriteLine("GoldChestCheck," + GoldChestCheckBox.IsChecked.Value);
-                streamWriter.WriteLine("Pausability," + PausabilityCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("Logging," + LogCheckBox.IsChecked.Value);
                 streamWriter.WriteLine("Email," + EmailAddressTextBox.Text);
                 streamWriter.WriteLine("SendEmail," + SendEmailCheckBox.IsChecked.Value);
@@ -2025,9 +2019,8 @@ namespace ArtOfHassan
                 HonorRadioButton.Content = "영광";
                 TroopRadioButton.Content = "용병";
                 OptionTextBlock.Text = "옵션";
-                GoldChestCheckBox.Content = "골드 상자";
-                PausabilityCheckBox.Content = "멈춤 가능";
-                LogCheckBox.Content = "로그";
+                GoldChestCheckBox.Content = "골드 상자 열기";
+                LogCheckBox.Content = "로그 남기기";
                 EmailAlarmTextBlock.Text = "이메일 알림";
                 EmailTestButton.Content = "테스트";
                 NoGoldTextBlock.Text = "골드 벌이\n 없을 때";
@@ -2064,8 +2057,7 @@ namespace ArtOfHassan
                 HonorRadioButton.Content = "Honor";
                 TroopRadioButton.Content = "Troop";
                 OptionTextBlock.Text = "Option";
-                GoldChestCheckBox.Content = "Gold Chest";
-                PausabilityCheckBox.Content = "Pausable";
+                GoldChestCheckBox.Content = "Open Gold Chest";
                 LogCheckBox.Content = "Logging";
                 EmailAlarmTextBlock.Text = "Email Alarm";
                 EmailTestButton.Content = "Test";
@@ -2126,9 +2118,6 @@ namespace ArtOfHassan
                             break;
                         case ("goldchestcheck"):
                             GoldChestCheckBox.IsChecked = bool.Parse(listitem[1]);
-                            break;
-                        case ("pausability"):
-                            PausabilityCheckBox.IsChecked = bool.Parse(listitem[1]);
                             break;
                         case ("logging"):
                             LogCheckBox.IsChecked = bool.Parse(listitem[1]);
