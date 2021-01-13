@@ -284,8 +284,8 @@ namespace ArtOfHassan
 
         // UI 설정값
         int ScreenMonitoringInterval = 1000;
-        int ScreenComparisonInterval = 3;
-        int MaximumAdsWatchingTime   = 34;
+        int ScreenComparisonInterval = 5;
+        int MaximumAdsWatchingTime   = 35;
         int PixelDifference          = 1;
         int HonorHeroChangeTime      = 2000;
 
@@ -370,12 +370,12 @@ namespace ArtOfHassan
 
                 if (!int.TryParse(ScreenComparisonIntervalTextBox.Text, out ScreenComparisonInterval))
                 {
-                    ScreenComparisonInterval = 3;
+                    ScreenComparisonInterval = 5;
                 }
 
                 if (!int.TryParse(MaximumAdsWatchingTimeTextBox.Text, out MaximumAdsWatchingTime))
                 {
-                    MaximumAdsWatchingTime = 34;
+                    MaximumAdsWatchingTime = 35;
                 }
 
                 if (!int.TryParse(PixelDifferenceTextBox.Text, out PixelDifference))

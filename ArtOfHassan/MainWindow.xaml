@@ -62,7 +62,7 @@
 
             <TextBlock Grid.Column="2" Name="ScreenComparisonIntervalTextBlock" Text="   Screen&#10;Comparison&#10; Interval (#)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Grid.Row="1" Grid.Column="3" Name="ScreenComparisonIntervalTextBox" Text="3" Margin="5"
+            <TextBox Grid.Row="1" Grid.Column="3" Name="ScreenComparisonIntervalTextBox" Text="5" Margin="5"
                      TextChanged="TextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -78,14 +78,14 @@
 
             <TextBlock Grid.Column="0" Name="ProblemMonitoringIntervalTextBlock" Text="  Problem&#10;Monitoring&#10; Interval (m)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Name="ProblemMonitoringIntervalTextBox" Text="3" Margin="5"
+            <TextBox Grid.Row="1" Grid.Column="1" Name="ProblemMonitoringIntervalTextBox" Text="4" Margin="5"
                      TextChanged="TextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
             <TextBlock Grid.Column="2" Name="MaximumAdsWatchingTimeTextBlock" Text="   Maximum&#10;Ads Watching&#10;    Time (s)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Grid.Row="1" Grid.Column="3" Name="MaximumAdsWatchingTimeTextBox" Text="34" Margin="5"
+            <TextBox Grid.Row="1" Grid.Column="3" Name="MaximumAdsWatchingTimeTextBox" Text="35" Margin="5"
                      TextChanged="TextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -104,7 +104,7 @@
             <TextBlock Name="HonorHeroChangeTimeTextBlock" Text="   Hero&#10; Change&#10;Time (ms)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Visibility="Hidden"/>
 
-            <TextBox Grid.Row="1" Grid.Column="1" Name="X3GoldButtonClickDelayTextBox" Text="100" Margin="5"
+            <TextBox Grid.Row="1" Grid.Column="1" Name="X3GoldButtonClickDelayTextBox" Text="200" Margin="5"
                      TextChanged="TextBox_TextChanged"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
