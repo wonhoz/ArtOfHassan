@@ -79,15 +79,9 @@
 
             <TextBlock Name="X3GoldButtonClickDelayTextBlock" Text=" X3 Gold&#10;  Button&#10;Delay (ms)"
                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-            <TextBlock Name="HonorHeroChangeTimeTextBlock" Text="   Hero&#10; Change&#10;Time (ms)"
-                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Visibility="Hidden"/>
 
             <TextBox Grid.Row="1" Grid.Column="1" Name="X3GoldButtonClickDelayTextBox" Text="200" Margin="5"
                      TextChanged="TextBox_TextChanged"
-                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Name="HonorHeroChangeTimeTextBox" Text="2000" Margin="5"
-                     TextChanged="TextBox_TextChanged" Visibility="Hidden"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 

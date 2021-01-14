@@ -82,6 +82,22 @@ namespace ArtOfHassan
         public int PixelPositionX;
         public int PixelPositionY;
 
+        public int ScreenMonitoringInterval  = 1000;
+        public int ScreenComparisonInterval  = 5;
+        public int ProblemMonitoringInterval = 4;
+        public int MaximumAdsWatchingTime    = 35;
+        public int X3GoldButtonClickDelay    = 200;
+        public int PixelDifference           = 1;
+
+        public bool IsWatchAds         = true;
+        public bool IsOpenGoldChestBox = false;
+        public bool IsLogging          = false;
+
+        public bool IsNoGoldSendEmail  = false;
+        public bool IsNoGoldStopHassan = false;
+        public bool IsNoGoldShutdownPC = false;
+
+        public string EmailAddress;
         public string GoogleAdCloseClickPattern = "L;R;L";
 
         #endregion
@@ -200,39 +216,6 @@ namespace ArtOfHassan
         int TroopCloseButtonY = 868;
         string TroopCloseButtonColor = "#ffffff".ToUpper();
 
-        // Honor
-        int HonorChallengeButtonX = 425;
-        int HonorChallengeButtonY = 895;
-        string HonorChallengeButtonColor = "#fdbb00".ToUpper();
-
-        int HonorFightButtonX = 175;
-        int HonorFightButtonY = 820;
-        string HonorFightButtonColor = "#fdcc00".ToUpper();
-
-        int HonorSkillButtonX = 35;
-        int HonorSkillButtonY = 902;
-
-        int HonorPauseButtonX = 43;
-        int HonorPauseButtonY = 68;
-
-        int HonorQuitButtonX = 177;
-        int HonorQuitButtonY = 533;
-        string HonorQuitButtonColor = "#93bd20".ToUpper();
-
-        int HonorHeroPositionX = 490;
-        int HonorHeroPositionY = 600;
-
-        int HonorReplaceButtonX = 477;
-        int HonorReplaceButtonY = 477;
-        string HonorReplaceButtonColor = "#1ca813".ToUpper();
-
-        int HonorHeroWindowX = 390;
-        int HonorHeroWindowY = 295;
-        string HonorHeroWindowColor = "#215b84".ToUpper();
-
-        int HonorHeroWindowCloseButtonX = 467;
-        int HonorHeroWindowCloseButtonY = 295;
-
         #endregion
 
         #region Variable
@@ -263,47 +246,20 @@ namespace ArtOfHassan
 
         int ProblemMailSent            = 0;
         int TimerCountForScreenCompare = 1;
-        int X3GoldButtonClickDelay     = 0; // UI 설정값이지만 가변적
+        int X3GoldButtonClickDelayTime = 0; // UI 설정값이지만 가변적
 
         System.Drawing.Bitmap LastBitmap;
         System.Drawing.Bitmap CurrentBitmap;
-
-        // Honor
-        bool IsHonorFightButtonClicked  = false;
-        bool IsGetHonorSkillButtonColor = false;
-        bool IsHonorPauseButtonClicked  = false;
-
-        int HonorSkillChangeCount = 0;
-        int HonorHeroWindowCount  = 0;
-
-        System.Drawing.Color HonorSkillColor;
 
         #endregion
 
         #region UI Variable
 
         // UI 설정값
-        int ScreenMonitoringInterval = 1000;
-        int ScreenComparisonInterval = 5;
-        int MaximumAdsWatchingTime   = 35;
-        int PixelDifference          = 1;
-        int HonorHeroChangeTime      = 2000;
-
         bool IsKorean = false;
 
-        bool     IsWatchAds                 = true;
         int      GoogleAdCloseClickInterval = 333;
         string[] GoogleAdCloseClickPatterns;
-
-        bool IsOpenGoldChestBox = false;
-        bool IsLogging          = false;
-
-        string EmailAddress;
-
-        bool IsNoGoldSendEmail  = false;
-        bool IsNoGoldShutdownPC = false;
-
-        bool IsOpenHonorHeroWindow = true;
 
         bool IsShareProblem = true; // 무늬만 사용
 
@@ -362,46 +318,11 @@ namespace ArtOfHassan
 
             System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                if (!int.TryParse(ScreenMonitoringIntervalTextBox.Text, out ScreenMonitoringInterval))
-                {
-                    ScreenMonitoringInterval = 1000;
-                }
+                IsKorean       = KoreanCheckBox.IsChecked.Value;
+                IsShareProblem = ShareProblemCheckBox.IsChecked.Value;
 
-                if (!int.TryParse(ScreenComparisonIntervalTextBox.Text, out ScreenComparisonInterval))
-                {
-                    ScreenComparisonInterval = 5;
-                }
-
-                if (!int.TryParse(MaximumAdsWatchingTimeTextBox.Text, out MaximumAdsWatchingTime))
-                {
-                    MaximumAdsWatchingTime = 35;
-                }
-
-                if (!int.TryParse(PixelDifferenceTextBox.Text, out PixelDifference))
-                {
-                    PixelDifference = 0;
-                }
-
-                if (!int.TryParse(HonorHeroChangeTimeTextBox.Text, out HonorHeroChangeTime))
-                {
-                    HonorHeroChangeTime = 2000;
-                }
-
-                IsKorean           = KoreanCheckBox.IsChecked.Value;
-                IsWatchAds         = AdsWatchCheckBox.IsChecked.Value;
-                IsOpenGoldChestBox = GoldChestCheckBox.IsChecked.Value;
-                IsLogging          = LogCheckBox.IsChecked.Value;
-
-                EmailAddress = EmailAddressTextBox.Text;
-
-                IsNoGoldSendEmail  = SendEmailCheckBox.IsChecked.Value;
-                IsNoGoldShutdownPC = ShutdownComputerCheckBox.IsChecked.Value;
-                IsShareProblem     = ShareProblemCheckBox.IsChecked.Value;
-
-                GoogleAdCloseClickPatterns      = GoogleAdCloseClickPattern.Split(';');
-                GoogleAdCloseClickInterval      = (int)(ScreenMonitoringInterval / (GoogleAdCloseClickPatterns.Length - 0.5));
-
-                IsOpenHonorHeroWindow = HonorHeroChangeCheckBox.IsChecked.Value;
+                GoogleAdCloseClickPatterns = GoogleAdCloseClickPattern.Split(';');
+                GoogleAdCloseClickInterval = (int)(ScreenMonitoringInterval / (GoogleAdCloseClickPatterns.Length - 0.5));
 
 
                 if ((size.Width == 0) || (size.Height == 0))
@@ -595,218 +516,6 @@ namespace ArtOfHassan
                     //bitmap.Save(imageName + ".png", System.Drawing.Imaging.ImageFormat.Png);
 
 
-                    // Honor Mode
-                    if (IsHonorMode)
-                    {
-                        // HonorChallengeButton
-                        if (MousePointColorCheck(HonorChallengeButtonX, HonorChallengeButtonY, HonorChallengeButtonColor))
-                        {
-                            MonitoringLog("HonorChallengeButton");
-                            MousePointClick(HonorChallengeButtonX, HonorChallengeButtonY);
-
-                            System.Threading.Thread.Sleep((int)(ScreenMonitoringInterval * 3 / 4));
-
-                            return;
-                        }
-
-                        // HonorFightButton
-                        if (!IsHonorFightButtonClicked &&
-                            MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor))
-                        {
-                            MonitoringLog("HonorFightButton");
-                            MousePointClick(HonorFightButtonX, HonorFightButtonY);
-
-                            System.Threading.Thread.Sleep((int)(ScreenMonitoringInterval * 3 / 4));
-
-                            IsHonorFightButtonClicked = true;
-                            return;
-                        }
-
-                        // HonorSkillColor
-                        if (IsHonorFightButtonClicked &&
-                            !IsGetHonorSkillButtonColor &&
-                            !MousePointColorCheck(HonorChallengeButtonX, HonorChallengeButtonY, HonorChallengeButtonColor) &&
-                            !MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
-                            !MousePointColorCheck(HonorQuitButtonX, HonorQuitButtonY, HonorQuitButtonColor) &&
-                            !MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
-                        {
-                            MonitoringLog("HonorSkillColor");
-                            HonorSkillColor = CurrentBitmap.GetPixel(HonorSkillButtonX, HonorSkillButtonY);
-                            //CurrentBitmap.Save("HonorSkillColor.png", System.Drawing.Imaging.ImageFormat.Png);
-                            IsGetHonorSkillButtonColor = true;
-                            return;
-                        }
-
-                        // HonorSkillColor Change
-                        if (IsGetHonorSkillButtonColor &&
-                            !MousePointColorCheck(HonorChallengeButtonX, HonorChallengeButtonY, HonorChallengeButtonColor) &&
-                            !MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
-                            !MousePointColorCheck(HonorQuitButtonX, HonorQuitButtonY, HonorQuitButtonColor) &&
-                            !MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
-                        {
-                            System.Drawing.Color currentHonorSkillColor = CurrentBitmap.GetPixel(HonorSkillButtonX, HonorSkillButtonY);
-                            if (!(((currentHonorSkillColor.R >= HonorSkillColor.R - PixelDifference) && (currentHonorSkillColor.G >= HonorSkillColor.G - PixelDifference) && (currentHonorSkillColor.B >= HonorSkillColor.B - PixelDifference)) &&
-                                  ((currentHonorSkillColor.R <= HonorSkillColor.R + PixelDifference) && (currentHonorSkillColor.G <= HonorSkillColor.G + PixelDifference) && (currentHonorSkillColor.B <= HonorSkillColor.B + PixelDifference))))
-                            {
-                                if (HonorSkillChangeCount == 0)
-                                {
-                                    MonitoringLog($"HonorSkillColor Change Phase {HonorSkillChangeCount}: Initial");
-                                    //CurrentBitmap.Save($"HonorSkillColorChanged_{HonorSkillChangeCount}.png", System.Drawing.Imaging.ImageFormat.Png);
-                                    HonorSkillChangeCount++;
-                                }
-
-                                if (HonorSkillChangeCount == 1)
-                                {
-                                    if ((HonorSkillColor.R + HonorSkillColor.G + HonorSkillColor.B) <
-                                        (currentHonorSkillColor.R + currentHonorSkillColor.G + currentHonorSkillColor.B))
-                                    {
-                                        HonorSkillChangeCount++;
-                                        MonitoringLog($"HonorSkillColor Change Phase {HonorSkillChangeCount}: First Bright");
-                                        //CurrentBitmap.Save($"HonorSkillColorChanged_{HonorSkillChangeCount}.png", System.Drawing.Imaging.ImageFormat.Png);
-                                    }
-                                    else
-                                    {
-                                        MonitoringLog($"HonorSkillColor Change Phase {HonorSkillChangeCount}: First Dark");
-                                        //CurrentBitmap.Save($"HonorSkillColorChanged_{HonorSkillChangeCount}.png", System.Drawing.Imaging.ImageFormat.Png);
-                                    }
-                                }
-
-                                if ((HonorSkillChangeCount == 2) &&
-                                   ((HonorSkillColor.R + HonorSkillColor.G + HonorSkillColor.B) >
-                                    (currentHonorSkillColor.R + currentHonorSkillColor.G + currentHonorSkillColor.B)))
-                                {
-                                    HonorSkillChangeCount++;
-                                    MonitoringLog($"HonorSkillColor Change Phase {HonorSkillChangeCount}: Second Dark");
-                                    //CurrentBitmap.Save($"HonorSkillColorChanged_{HonorSkillChangeCount}.png", System.Drawing.Imaging.ImageFormat.Png);
-                                }
-
-                                if ((HonorSkillChangeCount == 3) &&
-                                    ((HonorSkillColor.R + HonorSkillColor.G + HonorSkillColor.B) <
-                                     (currentHonorSkillColor.R + currentHonorSkillColor.G + currentHonorSkillColor.B)))
-                                {
-                                    HonorSkillChangeCount++;
-                                    MonitoringLog($"HonorSkillColor Change Phase {HonorSkillChangeCount}: Second Bright");
-                                    //CurrentBitmap.Save($"HonorSkillColorChanged_{HonorSkillChangeCount}.png", System.Drawing.Imaging.ImageFormat.Png);
-                                }
-
-                                HonorSkillColor = currentHonorSkillColor;
-                            }
-                        }
-
-                        // HonorSkillColor Changes 4 - Time to Quit
-                        if (!IsHonorPauseButtonClicked && (HonorSkillChangeCount == 4))
-                        {
-                            HonorSkillChangeCount++;
-
-                            MonitoringLog("HonorPauseButton");
-                            MousePointClick(HonorPauseButtonX, HonorPauseButtonY);
-
-                            System.Threading.Thread.Sleep((int)(ScreenMonitoringInterval * 3 / 4));
-
-                            IsHonorPauseButtonClicked = true;
-                            return;
-                        }
-
-                        // HonorQuitButton
-                        if (MousePointColorCheck(HonorQuitButtonX, HonorQuitButtonY, HonorQuitButtonColor))
-                        {
-                            MonitoringLog("HonorQuitButton");
-                            MousePointClick(HonorQuitButtonX, HonorQuitButtonY);
-
-                            System.Threading.Thread.Sleep((int)(ScreenMonitoringInterval * 3 / 4));
-
-                            return;
-                        }
-
-                        if (IsOpenHonorHeroWindow)
-                        {
-                            // HonorHeroPosition
-                            if (IsHonorPauseButtonClicked &&
-                               (HonorHeroWindowCount < (HonorHeroChangeTime / ScreenMonitoringInterval)) &&
-                                MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
-                                !MousePointColorCheck(HonorReplaceButtonX, HonorReplaceButtonY, HonorReplaceButtonColor))
-                            {
-                                MonitoringLog("HonorHeroPosition");
-                                MousePointClick(HonorHeroPositionX, HonorHeroPositionY);
-
-                                System.Threading.Thread.Sleep((int)(ScreenMonitoringInterval * 3 / 4));
-                                return;
-                            }
-
-                            // HonorReplaceButton
-                            if (IsHonorPauseButtonClicked &&
-                                MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
-                                MousePointColorCheck(HonorReplaceButtonX, HonorReplaceButtonY, HonorReplaceButtonColor))
-                            {
-                                MonitoringLog("HonorReplaceButton");
-                                MousePointClick(HonorReplaceButtonX, HonorReplaceButtonY);
-
-                                System.Threading.Thread.Sleep((int)(ScreenMonitoringInterval * 3 / 4));
-                                return;
-                            }
-
-                            // HonorHeroWindow
-                            if (MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
-                            {
-                                HonorHeroWindowCount++;
-                                MonitoringLog("HonorHeroWindow: " + HonorHeroWindowCount);
-                            }
-
-                            // HonorHeroWindow Close
-                            if ((HonorHeroWindowCount == (HonorHeroChangeTime / ScreenMonitoringInterval)) &&
-                                MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
-                            {
-                                MonitoringLog("HonorHeroWindowCloseButton");
-                                MousePointClick(HonorHeroWindowCloseButtonX, HonorHeroWindowCloseButtonY);
-
-                                System.Threading.Thread.Sleep((int)(ScreenMonitoringInterval * 3 / 4));
-
-                                IsHonorFightButtonClicked = false;
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            IsHonorFightButtonClicked = false;
-                            return;
-                        }
-
-                        // Honor Mode Finish
-                        if (IsHonorFightButtonClicked &&
-                            IsHonorPauseButtonClicked &&
-                            (HonorSkillChangeCount > 4) &&
-                            (HonorHeroWindowCount >= (HonorHeroChangeTime / ScreenMonitoringInterval)) &&
-                            !MousePointColorCheck(HonorChallengeButtonX, HonorChallengeButtonY, HonorChallengeButtonColor) &&
-                            !MousePointColorCheck(HonorFightButtonX, HonorFightButtonY, HonorFightButtonColor) &&
-                            !MousePointColorCheck(HonorQuitButtonX, HonorQuitButtonY, HonorQuitButtonColor) &&
-                            !MousePointColorCheck(HonorHeroWindowX, HonorHeroWindowY, HonorHeroWindowColor))
-                        {
-                            MonitoringLog("Honor Mode Finish...");
-
-                            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                            {
-                                if (IsKorean)
-                                {
-                                    StartButton.Content = "시작";
-                                }
-                                else
-                                {
-                                    StartButton.Content = "Start";
-                                }
-                                ScreenMonitoringIntervalTextBox.IsEnabled  = true;
-                                ProblemMonitoringIntervalTextBox.IsEnabled = true;
-                                ModeGrid.IsEnabled                         = true;
-
-                                ScreenMonitoringTimer.Enabled  = false;
-                                ProblemMonitoringTimer.Enabled = false;
-                                NoxMonitoringTimer.Enabled     = false;
-                            }));
-                        }
-
-                        return;
-                    }
-
-
                     // Troop Mode
                     if (IsTroopMode)
                     {
@@ -893,7 +602,7 @@ namespace ArtOfHassan
                         {
                             StageRadioButton.IsChecked    = true;
                             HeadhuntRadioButton.IsChecked = false;
-                            AdsWatchCheckBox.IsChecked    = PrevAdsWatch;
+                            IsWatchAds                    = PrevAdsWatch;
                         }));
 
                         MousePointClick(LeftAdCloseButtonX, GoogleAdCloseButtonY);
@@ -1046,14 +755,7 @@ namespace ArtOfHassan
                             System.Threading.Thread.Sleep((int)(ScreenMonitoringInterval * 4 / 5));
 
                             // X3 Gold Button Click Delay
-                            X3GoldButtonClickDelay = 0;
-                            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                            {
-                                if (!int.TryParse(X3GoldButtonClickDelayTextBox.Text, out X3GoldButtonClickDelay))
-                                {
-                                    X3GoldButtonClickDelay = 0;
-                                }
-                            }));
+                            X3GoldButtonClickDelayTime = X3GoldButtonClickDelay;
                             return;
                         }
                         else if (MousePointColorCheck(VictoryDefeatX, VictoryDefeatY, VictoryDefeatDefeatColor))
@@ -1063,14 +765,7 @@ namespace ArtOfHassan
                             System.Threading.Thread.Sleep((int)(ScreenMonitoringInterval * 4 / 5));
 
                             // X3 Gold Button Click Delay
-                            X3GoldButtonClickDelay = 0;
-                            System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                            {
-                                if (!int.TryParse(X3GoldButtonClickDelayTextBox.Text, out X3GoldButtonClickDelay))
-                                {
-                                    X3GoldButtonClickDelay = 0;
-                                }
-                            }));
+                            X3GoldButtonClickDelayTime = X3GoldButtonClickDelay;
                             return;
                         }
                     }
@@ -1084,12 +779,7 @@ namespace ArtOfHassan
                         MonitoringLog("NoGold");
 
                         IsNoGoldStatus = true;
-                        IsStopHassan   = false;
-                        
-                        System.Windows.Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                        {
-                            IsStopHassan = StopHassanCheckBox.IsChecked.Value;
-                        }));
+                        IsStopHassan   = IsNoGoldStopHassan;
 
                         if (!IsNoGoldMailSent)
                         {
@@ -1177,9 +867,9 @@ namespace ArtOfHassan
                                 {
                                     StartButton.Content = "Start";
                                 }
-                                ScreenMonitoringIntervalTextBox.IsEnabled  = true;
-                                ProblemMonitoringIntervalTextBox.IsEnabled = true;
-                                ModeGrid.IsEnabled                         = true;
+                                ModeGrid.IsEnabled                     = true;
+                                LoadPixelPositionColorButton.IsEnabled = true;
+                                SettingButton.IsEnabled                = true;
 
                                 ScreenMonitoringTimer.Enabled  = false;
                                 ProblemMonitoringTimer.Enabled = false;
@@ -1203,13 +893,13 @@ namespace ArtOfHassan
                             {
                                 if (MousePointColorCheck(GoldButtonImageX, GoldButtonImageY, GoldButtonImageColor)) // Yellow Coin
                                 {
-                                    if (X3GoldButtonClickDelay < ScreenMonitoringInterval)
+                                    if (X3GoldButtonClickDelayTime < ScreenMonitoringInterval)
                                     {
-                                        System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                        System.Threading.Thread.Sleep(X3GoldButtonClickDelayTime);
                                     }
                                     else
                                     {
-                                        X3GoldButtonClickDelay -= ScreenMonitoringInterval;
+                                        X3GoldButtonClickDelayTime -= ScreenMonitoringInterval;
                                         return;
                                     }
 
@@ -1227,13 +917,13 @@ namespace ArtOfHassan
                             }
                             else if (MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackground3StarY, GoldButtonBackgroundGrayColor)) // Gray
                             {
-                                if (X3GoldButtonClickDelay < ScreenMonitoringInterval)
+                                if (X3GoldButtonClickDelayTime < ScreenMonitoringInterval)
                                 {
-                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelayTime);
                                 }
                                 else
                                 {
-                                    X3GoldButtonClickDelay -= ScreenMonitoringInterval;
+                                    X3GoldButtonClickDelayTime -= ScreenMonitoringInterval;
                                     return;
                                 }
 
@@ -1243,13 +933,13 @@ namespace ArtOfHassan
                             // 비 3별 시스템 - 현상금
                             else if (MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundNoStarY, GoldButtonBackgroundGreenColor)) // Green
                             {
-                                if (X3GoldButtonClickDelay < ScreenMonitoringInterval)
+                                if (X3GoldButtonClickDelayTime < ScreenMonitoringInterval)
                                 {
-                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelayTime);
                                 }
                                 else
                                 {
-                                    X3GoldButtonClickDelay -= ScreenMonitoringInterval;
+                                    X3GoldButtonClickDelayTime -= ScreenMonitoringInterval;
                                     return;
                                 }
 
@@ -1261,13 +951,13 @@ namespace ArtOfHassan
                             }
                             else if (MousePointColorCheck(GoldButtonBackgroundX, GoldButtonBackgroundNoStarY, GoldButtonBackgroundGrayColor)) // Gray
                             {
-                                if (X3GoldButtonClickDelay < ScreenMonitoringInterval)
+                                if (X3GoldButtonClickDelayTime < ScreenMonitoringInterval)
                                 {
-                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelayTime);
                                 }
                                 else
                                 {
-                                    X3GoldButtonClickDelay -= ScreenMonitoringInterval;
+                                    X3GoldButtonClickDelayTime -= ScreenMonitoringInterval;
                                     return;
                                 }
 
@@ -1277,13 +967,13 @@ namespace ArtOfHassan
                             // 구버전
                             else if (MousePointColorCheck(GoldButtonBackgroundX, NextButtonY, GoldButtonBackgroundGreenColor)) // Green
                             {
-                                if (X3GoldButtonClickDelay < ScreenMonitoringInterval)
+                                if (X3GoldButtonClickDelayTime < ScreenMonitoringInterval)
                                 {
-                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelayTime);
                                 }
                                 else
                                 {
-                                    X3GoldButtonClickDelay -= ScreenMonitoringInterval;
+                                    X3GoldButtonClickDelayTime -= ScreenMonitoringInterval;
                                     return;
                                 }
 
@@ -1295,13 +985,13 @@ namespace ArtOfHassan
                             }
                             else if (MousePointColorCheck(GoldButtonBackgroundX, NextButtonY, GoldButtonBackgroundGrayColor)) // Gray
                             {
-                                if (X3GoldButtonClickDelay < ScreenMonitoringInterval)
+                                if (X3GoldButtonClickDelayTime < ScreenMonitoringInterval)
                                 {
-                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelay);
+                                    System.Threading.Thread.Sleep(X3GoldButtonClickDelayTime);
                                 }
                                 else
                                 {
-                                    X3GoldButtonClickDelay -= ScreenMonitoringInterval;
+                                    X3GoldButtonClickDelayTime -= ScreenMonitoringInterval;
                                     return;
                                 }
 
@@ -1500,121 +1190,50 @@ namespace ArtOfHassan
             NoxMonitoringTimer.Enabled     = false;
         }
 
-        string PrevScreenMonitoringInterval;
+        int PrevScreenMonitoringInterval;
 
         bool PrevAdsWatch;
-
-        bool IsHonorMode = false;
         bool IsTroopMode = false;
 
         private void StageRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Stage Mode");
 
-            if (IsHonorMode || IsTroopMode)
+            if (IsTroopMode)
             {
-                ScreenMonitoringIntervalTextBox.Text = PrevScreenMonitoringInterval;
-
-                X3GoldButtonClickDelayTextBlock.Visibility = Visibility.Visible;
-                X3GoldButtonClickDelayTextBox.Visibility   = Visibility.Visible;
-                HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Hidden;
-                HonorHeroChangeTimeTextBox.Visibility      = Visibility.Hidden;
-
-                AdsTextBlock.Visibility = Visibility.Visible;
-                AdsGrid.Visibility      = Visibility.Visible;
-                HonorHeroChangeTextBlock.Visibility = Visibility.Hidden;
-                HonorHeroChangeCheckBox.Visibility  = Visibility.Hidden;
+                ScreenMonitoringInterval = PrevScreenMonitoringInterval;
             }
 
             // 신버전 3별 시스템이 기준
-            IsHonorMode = false;
             IsTroopMode = false;
-            AdsWatchCheckBox.IsChecked = true;
+            IsWatchAds  = true;
         }
 
         private void HeadhuntRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Headhunt Mode");
 
-            PrevAdsWatch = AdsWatchCheckBox.IsChecked.Value;
+            PrevAdsWatch = IsWatchAds;
 
-            if (IsHonorMode || IsTroopMode)
+            if (IsTroopMode)
             {
-                ScreenMonitoringIntervalTextBox.Text = PrevScreenMonitoringInterval;
-
-                X3GoldButtonClickDelayTextBlock.Visibility = Visibility.Visible;
-                X3GoldButtonClickDelayTextBox.Visibility   = Visibility.Visible;
-                HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Hidden;
-                HonorHeroChangeTimeTextBox.Visibility      = Visibility.Hidden;
-
-                AdsTextBlock.Visibility = Visibility.Visible;
-                AdsGrid.Visibility      = Visibility.Visible;
-                HonorHeroChangeTextBlock.Visibility = Visibility.Hidden;
-                HonorHeroChangeCheckBox.Visibility  = Visibility.Hidden;
+                ScreenMonitoringInterval = PrevScreenMonitoringInterval;
             }
 
             // 현상금은 비 3별 시스템
-            IsHonorMode = false;
             IsTroopMode = false;
-            AdsWatchCheckBox.IsChecked = false;
-        }
-
-        private void HonorRadioButton_Click(object sender, RoutedEventArgs e)
-        {
-            MonitoringLog("Honor Hunting Mode");
-
-            if (!IsTroopMode)
-            {
-                PrevScreenMonitoringInterval = ScreenMonitoringIntervalTextBox.Text;
-            }
-
-            IsHonorMode = true;
-            IsTroopMode = false;
-
-            ScreenMonitoringIntervalTextBox.Text = "200";
-
-            X3GoldButtonClickDelayTextBlock.Visibility = Visibility.Hidden;
-            X3GoldButtonClickDelayTextBox.Visibility   = Visibility.Hidden;
-            HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Visible;
-            HonorHeroChangeTimeTextBox.Visibility      = Visibility.Visible;
-
-            AdsTextBlock.Visibility = Visibility.Hidden;
-            AdsGrid.Visibility      = Visibility.Hidden;
-            HonorHeroChangeTextBlock.Visibility = Visibility.Visible;
-            HonorHeroChangeCheckBox.Visibility  = Visibility.Visible;
+            IsWatchAds  = false;
         }
 
         private void TroopRadioButton_Click(object sender, RoutedEventArgs e)
         {
             MonitoringLog("Troop Mode");
 
-            if (IsHonorMode)
-            {
-                X3GoldButtonClickDelayTextBlock.Visibility = Visibility.Visible;
-                X3GoldButtonClickDelayTextBox.Visibility   = Visibility.Visible;
-                HonorHeroChangeTimeTextBlock.Visibility    = Visibility.Hidden;
-                HonorHeroChangeTimeTextBox.Visibility      = Visibility.Hidden;
-
-                AdsTextBlock.Visibility = Visibility.Visible;
-                AdsGrid.Visibility      = Visibility.Visible;
-                HonorHeroChangeTextBlock.Visibility = Visibility.Hidden;
-                HonorHeroChangeCheckBox.Visibility  = Visibility.Hidden;
-            }
-            else
-            {
-                PrevScreenMonitoringInterval = ScreenMonitoringIntervalTextBox.Text;
-            }
-
-            IsHonorMode = false;
             IsTroopMode = true;
 
-            ScreenMonitoringIntervalTextBox.Text = "300";
-        }
+            PrevScreenMonitoringInterval = ScreenMonitoringInterval;
 
-        private void AdsCloseClickPatternButton_Click(object sender, RoutedEventArgs e)
-        {
-            ClickPatternWindow clickPatternWindow = new ClickPatternWindow();
-            clickPatternWindow.ShowDialog();
+            ScreenMonitoringInterval = 300;
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -1633,9 +1252,9 @@ namespace ArtOfHassan
                     StartButton.Content = "Stop";
                 }
 
-                ScreenMonitoringIntervalTextBox.IsEnabled  = false;
-                ProblemMonitoringIntervalTextBox.IsEnabled = false;
-                ModeGrid.IsEnabled                         = false;
+                ModeGrid.IsEnabled                     = false;
+                LoadPixelPositionColorButton.IsEnabled = false;
+                SettingButton.IsEnabled                = false;
 
                 IsStopHassan     = false;
                 IsNoGoldStatus   = false;
@@ -1643,22 +1262,14 @@ namespace ArtOfHassan
                 IsGetUserInfo    = false;
                 ProblemMailSent  = 0;
 
-                IsHonorFightButtonClicked  = false;
-                IsGetHonorSkillButtonColor = false;
-                IsHonorPauseButtonClicked  = false;
-
-                HonorSkillChangeCount = 0;
-                HonorHeroWindowCount  = 0;
-
                 GoldChestBoxStopwatch.Restart();
 
-                if (!IsHonorMode && !IsTroopMode && (int.Parse(ScreenMonitoringIntervalTextBox.Text) < 1000))
+                if (!IsTroopMode && (ScreenMonitoringInterval < 1000))
                 {
-                    ScreenMonitoringIntervalTextBox.Text = "1000";
-                    ScreenMonitoringInterval             = 1000;
+                    ScreenMonitoringInterval = 1000;
                 }
-                ScreenMonitoringTimer.Interval  = int.Parse(ScreenMonitoringIntervalTextBox.Text);
-                ProblemMonitoringTimer.Interval = int.Parse(ProblemMonitoringIntervalTextBox.Text) * 60 * 1000;
+                ScreenMonitoringTimer.Interval  = ScreenMonitoringInterval;
+                ProblemMonitoringTimer.Interval = ProblemMonitoringInterval * 60 * 1000;
                 ScreenMonitoringTimer.Enabled   = true;
                 ProblemMonitoringTimer.Enabled  = true;
             }
@@ -1672,73 +1283,15 @@ namespace ArtOfHassan
                 {
                     StartButton.Content = "Start";
                 }
-                ScreenMonitoringIntervalTextBox.IsEnabled  = true;
-                ProblemMonitoringIntervalTextBox.IsEnabled = true;
-                ModeGrid.IsEnabled                         = true;
+                ModeGrid.IsEnabled                     = true;
+                LoadPixelPositionColorButton.IsEnabled = true;
+                SettingButton.IsEnabled                = true;
 
                 GoldChestBoxStopwatch.Reset();
                 GoldChestBoxStopwatch.Stop();
 
                 ScreenMonitoringTimer.Enabled  = false;
                 ProblemMonitoringTimer.Enabled = false;
-            }
-        }
-
-        private void EmailTestButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(EmailAddressTextBox.Text))
-            {
-                if (KoreanCheckBox.IsChecked.Value)
-                {
-                    MessageBox.Show("이메일을 입력해주세요.");
-                }
-                else
-                {
-                    MessageBox.Show("Please input email.");
-                }
-            }
-            else
-            {
-                MonitoringLog("Email Testing...");
-
-                try
-                {
-                    MailMessage mailMessage = new MailMessage("artofwarhassan@gmail.com",
-                                                              EmailAddressTextBox.Text,
-                                                              $"Art of Hassan {Version}",
-                                                              "Email Testing...");
-
-                    if ((CurrentBitmap != null) && (CurrentBitmap.Width != 0) && (CurrentBitmap.Height != 0))
-                    {
-                        DirectoryInfo directoryInfo = new DirectoryInfo("screenshot");
-                        if (!directoryInfo.Exists)
-                        {
-                            directoryInfo.Create();
-                        }
-
-                        string filename = @"screenshot\Screenshot_" + DateTime.Now.ToString("yyMMdd_HHmmss_fff") + ".png";
-                        CurrentBitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
-                        mailMessage.Attachments.Add(new System.Net.Mail.Attachment(filename));
-                    }
-
-                    SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-                    smtpClient.UseDefaultCredentials = false;
-                    smtpClient.EnableSsl = true;
-                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtpClient.Credentials = new NetworkCredential("artofwarhassan@gmail.com", "Rnrmf0575!");
-                    smtpClient.Send(mailMessage);
-                }
-                catch (Exception ex)
-                {
-                    if (KoreanCheckBox.IsChecked.Value)
-                    {
-                        MessageBox.Show("이메일 송신 실패.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Email Delivery Failed.");
-                    }
-                }
             }
         }
 
@@ -1758,26 +1311,77 @@ namespace ArtOfHassan
             }
         }
 
-        private void SaveSettingButton_Click(object sender, RoutedEventArgs e)
+        private void SettingButton_Click(object sender, RoutedEventArgs e)
         {
-            using (StreamWriter streamWriter = new StreamWriter($@"setting.txt", false))
+            SettingWindow settingWindow = new SettingWindow();
+
+            if (KoreanCheckBox.IsChecked.Value)
             {
-                streamWriter.WriteLine("AppPlayerTitle," + AppPlayerTitleTextBox.Text);
-                streamWriter.WriteLine("ScreenMonitoringInterval," + ScreenMonitoringIntervalTextBox.Text);
-                streamWriter.WriteLine("ScreenComparisonInterval," + ScreenComparisonIntervalTextBox.Text);
-                streamWriter.WriteLine("ProblemMonitoringInterval," + ProblemMonitoringIntervalTextBox.Text);
-                streamWriter.WriteLine("MaximumAdsWatchingTime," + MaximumAdsWatchingTimeTextBox.Text);
-                streamWriter.WriteLine("X3GoldButtonDelay," + X3GoldButtonClickDelayTextBox.Text);
-                streamWriter.WriteLine("PixelDifference," + PixelDifferenceTextBox.Text);
-                streamWriter.WriteLine("Korean," + KoreanCheckBox.IsChecked.Value);
-                streamWriter.WriteLine("AdsCloseClickPattern," + GoogleAdCloseClickPattern);
-                streamWriter.WriteLine("GoldChestCheck," + GoldChestCheckBox.IsChecked.Value);
-                streamWriter.WriteLine("Logging," + LogCheckBox.IsChecked.Value);
-                streamWriter.WriteLine("Email," + EmailAddressTextBox.Text);
-                streamWriter.WriteLine("SendEmail," + SendEmailCheckBox.IsChecked.Value);
-                streamWriter.WriteLine("StopHassan," + StopHassanCheckBox.IsChecked.Value);
-                streamWriter.WriteLine("ShutdownPC," + ShutdownComputerCheckBox.IsChecked.Value);
+                settingWindow.ScreenMonitoringIntervalTextBlock.Text = "화면 모니\n터링 주기\n (밀리초)";
+                settingWindow.ScreenComparisonIntervalTextBlock.Text = " 화면 비교\n주기 (횟수)";
+                settingWindow.ProblemMonitoringIntervalTextBlock.Text = "   문제\n모니터링\n주기 (분)";
+                settingWindow.MaximumAdsWatchingTimeTextBlock.Text = "   최대 광고\n시청 시간 (초)";
+                settingWindow.X3GoldButtonClickDelayTextBlock.Text = "골드 광고\n  딜레이\n (밀리초)";
+                settingWindow.PixelDifferenceTextBlock.Text = "픽셀 차이";
+                settingWindow.AdsTextBlock.Text = "광고";
+                settingWindow.AdsWatchCheckBox.Content = "광고 보기";
+                settingWindow.AdsCloseClickPatternButton.Content = "광고 닫기\n클릭 패턴";
+                settingWindow.OptionTextBlock.Text = "옵션";
+                settingWindow.GoldChestCheckBox.Content = "골드 상자 열기";
+                settingWindow.LogCheckBox.Content = "로그 남기기";
+                settingWindow.EmailAlarmTextBlock.Text = "이메일 알림";
+                settingWindow.EmailTestButton.Content = "테스트";
+                settingWindow.NoGoldTextBlock.Text = "골드 벌이\n 없을 때";
+                settingWindow.SendEmailCheckBox.Content = "이메일";
+                settingWindow.StopHassanCheckBox.Content = "핫산 중지";
+                settingWindow.ShutdownComputerCheckBox.Content = "PC 종료";
+                settingWindow.DefaultButton.Content = "초기화";
+                settingWindow.ApplyButton.Content = "적용";
+                settingWindow.CancelButton.Content = "취소";
             }
+            else
+            {
+                settingWindow.ScreenMonitoringIntervalTextBlock.Text = "   Screen\nMonitoring\nInterval (ms)";
+                settingWindow.ScreenComparisonIntervalTextBlock.Text = "   Screen\nComparison\n Interval (#)";
+                settingWindow.ProblemMonitoringIntervalTextBlock.Text = "  Problem\nMonitoring\n Interval (m)";
+                settingWindow.MaximumAdsWatchingTimeTextBlock.Text = "   Maximum\nAds Watching\n    Time (s)";
+                settingWindow.X3GoldButtonClickDelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
+                settingWindow.PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
+                settingWindow.AdsTextBlock.Text = "Ads";
+                settingWindow.AdsWatchCheckBox.Content = "Watch Ads ";
+                settingWindow.AdsCloseClickPatternButton.Content = "  Ads Close\nClick Pattern";
+                settingWindow.OptionTextBlock.Text = "Option";
+                settingWindow.GoldChestCheckBox.Content = "Open Gold Chest";
+                settingWindow.LogCheckBox.Content = "Logging";
+                settingWindow.EmailAlarmTextBlock.Text = "Email Alarm";
+                settingWindow.EmailTestButton.Content = "Test";
+                settingWindow.NoGoldTextBlock.Text = "No Gold";
+                settingWindow.SendEmailCheckBox.Content = "Send\nEmail";
+                settingWindow.StopHassanCheckBox.Content = " Stop\nHassan";
+                settingWindow.ShutdownComputerCheckBox.Content = "Shutdown\nComputer";
+                settingWindow.DefaultButton.Content = "Default";
+                settingWindow.ApplyButton.Content = "Apply";
+                settingWindow.CancelButton.Content = "Cancel";
+            }
+
+            settingWindow.ScreenMonitoringIntervalTextBox.Text  = ScreenMonitoringInterval.ToString();
+            settingWindow.ScreenComparisonIntervalTextBox.Text  = ScreenComparisonInterval.ToString();
+            settingWindow.ProblemMonitoringIntervalTextBox.Text = ProblemMonitoringInterval.ToString();
+            settingWindow.ProblemMonitoringIntervalTextBox.Text = ProblemMonitoringInterval.ToString();
+            settingWindow.X3GoldButtonClickDelayTextBox.Text    = X3GoldButtonClickDelay.ToString();
+            settingWindow.PixelDifferenceTextBox.Text           = PixelDifference.ToString();
+
+            settingWindow.AdsWatchCheckBox.IsChecked  = IsWatchAds;
+            settingWindow.GoldChestCheckBox.IsChecked = IsOpenGoldChestBox;
+            settingWindow.LogCheckBox.IsChecked       = IsLogging;
+
+            settingWindow.EmailAddressTextBox.Text = EmailAddress;
+
+            settingWindow.SendEmailCheckBox.IsChecked        = IsNoGoldSendEmail;
+            settingWindow.StopHassanCheckBox.IsChecked       = IsNoGoldStopHassan;
+            settingWindow.ShutdownComputerCheckBox.IsChecked = IsNoGoldShutdownPC;
+
+            settingWindow.ShowDialog();
         }
 
         private void KoreanCheckBox_Click(object sender, RoutedEventArgs e)
@@ -1940,15 +1544,6 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("TroopButton," + TroopButtonX + "," + TroopButtonY);
                 streamWriter.WriteLine("TroopOpenButton," + TroopOpenButtonX + "," + TroopOpenButtonY);
                 streamWriter.WriteLine("TroopCloseButton," + TroopCloseButtonX + "," + TroopCloseButtonY);
-                streamWriter.WriteLine("HonorChallengeButton," + HonorChallengeButtonX + "," + HonorChallengeButtonY);
-                streamWriter.WriteLine("HonorFightButton," + HonorFightButtonX + "," + HonorFightButtonY);
-                streamWriter.WriteLine("HonorSkillButton," + HonorSkillButtonX + "," + HonorSkillButtonY);
-                streamWriter.WriteLine("HonorPauseButton," + HonorPauseButtonX + "," + HonorPauseButtonY);
-                streamWriter.WriteLine("HonorQuitButton," + HonorQuitButtonX + "," + HonorQuitButtonY);
-                streamWriter.WriteLine("HonorHeroPosition," + HonorHeroPositionX + "," + HonorHeroPositionY);
-                streamWriter.WriteLine("HonorReplaceButton," + HonorReplaceButtonX + "," + HonorReplaceButtonY);
-                streamWriter.WriteLine("HonorHeroWindow," + HonorHeroWindowX + "," + HonorHeroWindowY);
-                streamWriter.WriteLine("HonorHeroWindowCloseButton," + HonorHeroWindowCloseButtonX + "," + HonorHeroWindowCloseButtonY);
             }
         }
 
@@ -1985,11 +1580,6 @@ namespace ArtOfHassan
                 streamWriter.WriteLine("TroopOpenButtonCenterColor," + TroopOpenButtonCenterColor);
                 streamWriter.WriteLine("TroopOpenButtonRightColor," + TroopOpenButtonRightColor);
                 streamWriter.WriteLine("TroopCloseButtonColor," + TroopCloseButtonColor);
-                streamWriter.WriteLine("HonorChallengeButtonColor," + HonorChallengeButtonColor);
-                streamWriter.WriteLine("HonorFightButtonColor," + HonorFightButtonColor);
-                streamWriter.WriteLine("HonorQuitButtonColor," + HonorQuitButtonColor);
-                streamWriter.WriteLine("HonorReplaceButtonColor," + HonorReplaceButtonColor);
-                streamWriter.WriteLine("HonorHeroWindowColor," + HonorHeroWindowColor);
             }
         }
 
@@ -1999,36 +1589,14 @@ namespace ArtOfHassan
             {
                 this.Title = $"아트 오브 핫산 {Version}";
                 AppPlayerTitleTextBlock.Text = "앱플레이어\n    이름";
-                ScreenMonitoringIntervalTextBlock.Text = "화면 모니\n터링 주기\n (밀리초)";
-                ScreenComparisonIntervalTextBlock.Text = " 화면 비교\n주기 (횟수)";
-                ProblemMonitoringIntervalTextBlock.Text = "   문제\n모니터링\n주기 (분)";
-                MaximumAdsWatchingTimeTextBlock.Text = "   최대 광고\n시청 시간 (초)";
-                X3GoldButtonClickDelayTextBlock.Text = "골드 광고\n  딜레이\n (밀리초)";
-                HonorHeroChangeTimeTextBlock.Text = "   영웅\n선택 시간\n (밀리초)";
-                PixelDifferenceTextBlock.Text = "픽셀 차이";
-                HonorHeroChangeTextBlock.Text = "영웅 변경";
-                HonorHeroChangeCheckBox.Content = "영웅 선택창 열기";
-                AdsTextBlock.Text = "광고";
-                AdsWatchCheckBox.Content = "광고 보기";
-                AdsCloseClickPatternButton.Content = "광고 닫기\n클릭 패턴";
                 ModeTextBlock.Text = "모드";
                 StageRadioButton.Content = "스테이지";
                 StageColumn.Width = new GridLength(1.4, GridUnitType.Star);
                 HeadhuntRadioButton.Content = "현상금";
-                HeadhuntColumn.Width = new GridLength(1.25, GridUnitType.Star);
-                HonorRadioButton.Content = "영광";
+                HeadhuntColumn.Width = new GridLength(1.2, GridUnitType.Star);
                 TroopRadioButton.Content = "용병";
-                OptionTextBlock.Text = "옵션";
-                GoldChestCheckBox.Content = "골드 상자 열기";
-                LogCheckBox.Content = "로그 남기기";
-                EmailAlarmTextBlock.Text = "이메일 알림";
-                EmailTestButton.Content = "테스트";
-                NoGoldTextBlock.Text = "골드 벌이\n 없을 때";
-                SendEmailCheckBox.Content = "이메일";
-                StopHassanCheckBox.Content = "핫산 중지";
-                ShutdownComputerCheckBox.Content = "PC 종료";
                 LoadPixelPositionColorButton.Content = " 픽셀 위치 및\n색상 불러오기";
-                SaveSettingButton.Content = "설정 저장";
+                SettingButton.Content = "설정";
                 StartButton.Content = "시작";
                 MessageBar.Text = $"전투: {NumOfWar}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
                 ShareProblemCheckBox.Content = "우리 핫산 개선을 위해 문제 발생 스샷 공유 :)";
@@ -2037,36 +1605,14 @@ namespace ArtOfHassan
             {
                 this.Title = $"Art of Hassan {Version}";
                 AppPlayerTitleTextBlock.Text = "AppPlayer\n    Title";
-                ScreenMonitoringIntervalTextBlock.Text = "   Screen\nMonitoring\nInterval (ms)";
-                ScreenComparisonIntervalTextBlock.Text = "   Screen\nComparison\n Interval (#)";
-                ProblemMonitoringIntervalTextBlock.Text = "  Problem\nMonitoring\n Interval (m)";
-                MaximumAdsWatchingTimeTextBlock.Text = "   Maximum\nAds Watching\n    Time (s)";
-                X3GoldButtonClickDelayTextBlock.Text = " X3 Gold\n  Button\nDelay (ms)";
-                HonorHeroChangeTimeTextBlock.Text = "   Hero\n Change\nTime (ms)";
-                PixelDifferenceTextBlock.Text = "   Pixel\nDifference";
-                HonorHeroChangeTextBlock.Text = "  Hero\nChange";
-                HonorHeroChangeCheckBox.Content = "Open Heros Window";
-                AdsTextBlock.Text = "Ads";
-                AdsWatchCheckBox.Content = "Watch Ads ";
-                AdsCloseClickPatternButton.Content = "  Ads Close\nClick Pattern";
                 ModeTextBlock.Text = "Mode";
                 StageRadioButton.Content = "Stage";
                 StageColumn.Width = new GridLength(1, GridUnitType.Star);
                 HeadhuntRadioButton.Content = "Headhunt";
-                HeadhuntColumn.Width = new GridLength(1.35, GridUnitType.Star);
-                HonorRadioButton.Content = "Honor";
+                HeadhuntColumn.Width = new GridLength(1.3, GridUnitType.Star);
                 TroopRadioButton.Content = "Troop";
-                OptionTextBlock.Text = "Option";
-                GoldChestCheckBox.Content = "Open Gold Chest";
-                LogCheckBox.Content = "Logging";
-                EmailAlarmTextBlock.Text = "Email Alarm";
-                EmailTestButton.Content = "Test";
-                NoGoldTextBlock.Text = "No Gold";
-                SendEmailCheckBox.Content = "Send\nEmail";
-                StopHassanCheckBox.Content = " Stop\nHassan";
-                ShutdownComputerCheckBox.Content = "Shutdown\nComputer";
                 LoadPixelPositionColorButton.Content = "    Load Pixel\nPosition or Color";
-                SaveSettingButton.Content = "Save Setting";
+                SettingButton.Content = "Setting";
                 StartButton.Content = "Start";
                 MessageBar.Text = $"War: {NumOfWar}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
                 ShareProblemCheckBox.Content = "Share screenshot of problem to improve our Hassan :)";
@@ -2092,47 +1638,47 @@ namespace ArtOfHassan
                             AppPlayerTitleTextBox.Text = listitem[1];
                             break;
                         case ("screenmonitoringinterval"):
-                            ScreenMonitoringIntervalTextBox.Text = listitem[1];
+                            ScreenMonitoringInterval = int.Parse(listitem[1]);
                             break;
                         case ("screencomparisoninterval"):
-                            ScreenComparisonIntervalTextBox.Text = listitem[1];
+                            ScreenComparisonInterval = int.Parse(listitem[1]);
                             break;
                         case ("problemmonitoringinterval"):
-                            ProblemMonitoringIntervalTextBox.Text = listitem[1];
+                            ProblemMonitoringInterval = int.Parse(listitem[1]);
                             break;
                         case ("maximumadswatchingtime"):
-                            MaximumAdsWatchingTimeTextBox.Text = listitem[1];
+                            MaximumAdsWatchingTime = int.Parse(listitem[1]);
                             break;
                         case ("x3goldbuttondelay"):
-                            X3GoldButtonClickDelayTextBox.Text = listitem[1];
+                            X3GoldButtonClickDelay = int.Parse(listitem[1]);
                             break;
                         case ("pixeldifference"):
-                            PixelDifferenceTextBox.Text = listitem[1];
+                            PixelDifference = int.Parse(listitem[1]);
                             break;
                         case ("korean"):
-                            KoreanCheckBox.IsChecked  =  bool.Parse(listitem[1]);
+                            KoreanCheckBox.IsChecked = bool.Parse(listitem[1]);
                             UpdateLanguage();
                             break;
                         case ("adscloseclickpattern"):
                             GoogleAdCloseClickPattern = listitem[1];
                             break;
                         case ("goldchestcheck"):
-                            GoldChestCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            IsOpenGoldChestBox = bool.Parse(listitem[1]);
                             break;
                         case ("logging"):
-                            LogCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            IsLogging = bool.Parse(listitem[1]);
                             break;
                         case ("email"):
-                            EmailAddressTextBox.Text = listitem[1];
+                            EmailAddress = listitem[1];
                             break;
                         case ("sendemail"):
-                            SendEmailCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            IsNoGoldSendEmail = bool.Parse(listitem[1]);
                             break;
                         case ("stophassan"):
-                            StopHassanCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            IsNoGoldStopHassan = bool.Parse(listitem[1]);
                             break;
                         case ("shutdownpc"):
-                            ShutdownComputerCheckBox.IsChecked = bool.Parse(listitem[1]);
+                            IsNoGoldShutdownPC = bool.Parse(listitem[1]);
                             break;
                     }
                 }
@@ -2263,42 +1809,6 @@ namespace ArtOfHassan
                                     case ("troopclosebutton"):
                                         TroopCloseButtonX = int.Parse(listitem[1]);
                                         TroopCloseButtonY = int.Parse(listitem[2]);
-                                        break;
-                                    case ("honorchallengebutton"):
-                                        HonorChallengeButtonX = int.Parse(listitem[1]);
-                                        HonorChallengeButtonY = int.Parse(listitem[2]);
-                                        break;
-                                    case ("honorfightbutton"):
-                                        HonorFightButtonX = int.Parse(listitem[1]);
-                                        HonorFightButtonY = int.Parse(listitem[2]);
-                                        break;
-                                    case ("honorskillbutton"):
-                                        HonorSkillButtonX = int.Parse(listitem[1]);
-                                        HonorSkillButtonY = int.Parse(listitem[2]);
-                                        break;
-                                    case ("honorpausebutton"):
-                                        HonorPauseButtonX = int.Parse(listitem[1]);
-                                        HonorPauseButtonY = int.Parse(listitem[2]);
-                                        break;
-                                    case ("honorquitbutton"):
-                                        HonorQuitButtonX = int.Parse(listitem[1]);
-                                        HonorQuitButtonY = int.Parse(listitem[2]);
-                                        break;
-                                    case ("honorheroposition"):
-                                        HonorHeroPositionX = int.Parse(listitem[1]);
-                                        HonorHeroPositionY = int.Parse(listitem[2]);
-                                        break;
-                                    case ("honorreplacebutton"):
-                                        HonorReplaceButtonX = int.Parse(listitem[1]);
-                                        HonorReplaceButtonY = int.Parse(listitem[2]);
-                                        break;
-                                    case ("honorherowindow"):
-                                        HonorHeroWindowX = int.Parse(listitem[1]);
-                                        HonorHeroWindowY = int.Parse(listitem[2]);
-                                        break;
-                                    case ("honorherowindowclosebutton"):
-                                        HonorHeroWindowCloseButtonX = int.Parse(listitem[1]);
-                                        HonorHeroWindowCloseButtonY = int.Parse(listitem[2]);
                                         break;
                                 }
                             }
@@ -2458,21 +1968,6 @@ namespace ArtOfHassan
                                 break;
                             case ("troopclosebuttoncolor"):
                                 TroopCloseButtonColor = listitem[1];
-                                break;
-                            case ("honorchallengebuttoncolor"):
-                                HonorChallengeButtonColor = listitem[1];
-                                break;
-                            case ("honorfightbuttoncolor"):
-                                HonorFightButtonColor = listitem[1];
-                                break;
-                            case ("honorquitbuttoncolor"):
-                                HonorQuitButtonColor = listitem[1];
-                                break;
-                            case ("honorreplacebuttoncolor"):
-                                HonorReplaceButtonColor = listitem[1];
-                                break;
-                            case ("honorherowindowcolor"):
-                                HonorHeroWindowColor = listitem[1];
                                 break;
                         }
                     }
