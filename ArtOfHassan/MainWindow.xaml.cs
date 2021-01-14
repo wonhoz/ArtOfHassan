@@ -1367,7 +1367,7 @@ namespace ArtOfHassan
             settingWindow.ScreenMonitoringIntervalTextBox.Text  = ScreenMonitoringInterval.ToString();
             settingWindow.ScreenComparisonIntervalTextBox.Text  = ScreenComparisonInterval.ToString();
             settingWindow.ProblemMonitoringIntervalTextBox.Text = ProblemMonitoringInterval.ToString();
-            settingWindow.ProblemMonitoringIntervalTextBox.Text = ProblemMonitoringInterval.ToString();
+            settingWindow.MaximumAdsWatchingTimeTextBox.Text    = MaximumAdsWatchingTime.ToString();
             settingWindow.X3GoldButtonClickDelayTextBox.Text    = X3GoldButtonClickDelay.ToString();
             settingWindow.PixelDifferenceTextBox.Text           = PixelDifference.ToString();
 
