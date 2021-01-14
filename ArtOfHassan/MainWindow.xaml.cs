@@ -1317,6 +1317,7 @@ namespace ArtOfHassan
 
             if (KoreanCheckBox.IsChecked.Value)
             {
+                settingWindow.Title = "설정";
                 settingWindow.ScreenMonitoringIntervalTextBlock.Text = "화면 모니\n터링 주기\n (밀리초)";
                 settingWindow.ScreenComparisonIntervalTextBlock.Text = " 화면 비교\n주기 (횟수)";
                 settingWindow.ProblemMonitoringIntervalTextBlock.Text = "   문제\n모니터링\n주기 (분)";
@@ -1341,6 +1342,7 @@ namespace ArtOfHassan
             }
             else
             {
+                settingWindow.Title = "Setting";
                 settingWindow.ScreenMonitoringIntervalTextBlock.Text = "   Screen\nMonitoring\nInterval (ms)";
                 settingWindow.ScreenComparisonIntervalTextBlock.Text = "   Screen\nComparison\n Interval (#)";
                 settingWindow.ProblemMonitoringIntervalTextBlock.Text = "  Problem\nMonitoring\n Interval (m)";
