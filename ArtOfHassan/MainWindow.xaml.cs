@@ -1597,7 +1597,8 @@ namespace ArtOfHassan
                 TroopRadioButton.Content = "용병";
                 LoadPixelPositionColorButton.Content = " 픽셀 위치 및\n색상 불러오기";
                 SettingButton.Content = "설정";
-                StartButton.Content = "시작";
+                if (ModeGrid.IsEnabled) StartButton.Content = "시작";
+                else                    StartButton.Content = "중지";
                 MessageBar.Text = $"전투: {NumOfWar}  |  승리: {NumOfVictory}  |  패배: {NumOfDefeat}  |  광고: {NumOfAds}";
                 ShareProblemCheckBox.Content = "우리 핫산 개선을 위해 문제 발생 스샷 공유 :)";
             }
@@ -1613,7 +1614,8 @@ namespace ArtOfHassan
                 TroopRadioButton.Content = "Troop";
                 LoadPixelPositionColorButton.Content = "    Load Pixel\nPosition or Color";
                 SettingButton.Content = "Setting";
-                StartButton.Content = "Start";
+                if (ModeGrid.IsEnabled) StartButton.Content = "Start";
+                else                    StartButton.Content = "Stop";
                 MessageBar.Text = $"War: {NumOfWar}  |  Victory: {NumOfVictory}  |  Defeat: {NumOfDefeat}  |  Ads: {NumOfAds}";
                 ShareProblemCheckBox.Content = "Share screenshot of problem to improve our Hassan :)";
             }
